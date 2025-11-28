@@ -6,7 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-echo -e "${YELLOW}=== Docker Launch Script ===${NC}\n"
+echo -e "${YELLOW}=== Docker Launch Script ===${NC}"
 
 # Detect OS
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -28,43 +28,38 @@ else
     exit 1
 fi
 
-echo -e "${GREEN}Detected OS: $OS${NC}\n"
-
 # Check if docker is installed
 if command -v docker &> /dev/null; then
-  echo -e "${GREEN}Docker already installed${NC}\n"
+  echo -e "${GREEN}Docker already installed${NC}"
 else
-  echo -e "${YELLOW}Docker is not installed${NC}\n"
+  echo -e "${YELLOW}Docker is not installed${NC}"
   if [ "$OS" = "debian" ]; then
-    echo -e "${YELLOW}Installing Docker on Debian...${NC}\n"
+    echo -e "${YELLOW}Installing Docker on Debian...${NC}"
     sudo apt update
     sudo apt install -y docker.io docker-compose
   elif [ "$OS" = "arch" ]; then
-    echo -e "${YELLOW}Installing Docker on Arch...${NC}\n"
+    echo -e "${YELLOW}Installing Docker on Arch...${NC}"
     sudo pacman -Sy --noconfirm docker docker-compose
   fi
 fi
 
-echo ""
-
 # Check docker version
 if command -v docker &> /dev/null; then
-    echo -e "${GREEN}Docker is installed${NC}"
     docker --version
 else
     echo -e "${RED}Docker is not installed${NC}"
     exit 1
 fi
 
-echo ""
-echo -e "${GREEN}Starting docker-compose...${NC}\n"
+echo -e "${GREEN}Starting docker-compose...${NC}"
 docker-compose up -d
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}Success! Containers are running${NC}"
-    echo -e "${GREEN}Launch this command to stop docker :${NC}"
-    echo -e "${YELLOW}docker-compose down${NC}"
+    echo -e "${GREEN}Launch ${YELLOW}docker-compose down${GREEN} to stop docker${NC}"
+    docker ps
 else
     echo -e "${RED}Error starting docker-compose${NC}"
+    docker-compose down
     exit 1
 fi

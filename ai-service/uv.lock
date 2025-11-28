@@ -18,6 +18,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "mypy" },
     { name = "pycodestyle" },
+    { name = "requests" },
     { name = "tensorflow" },
 ]
 
@@ -25,6 +26,7 @@ dependencies = [
 requires-dist = [
     { name = "mypy", specifier = ">=1.18.2" },
     { name = "pycodestyle", specifier = ">=2.14.0" },
+    { name = "requests", specifier = ">=2.32.5" },
     { name = "tensorflow", specifier = ">=2.20.0" },
 ]
 

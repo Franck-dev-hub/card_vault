@@ -21,11 +21,12 @@ The platform offers advanced filtering, cross-game organization, and an integrat
 - [License](#license)
 
 ## Landing page & Web app
-  Landing page coming soon
-  Web app coming coon
+Landing page coming soon
+
+Web app coming coon
 
 ## App features
-  No feature for the moment
+No feature for the moment
 
 ## Technologies used
 ### Backend
@@ -52,11 +53,10 @@ To be defined
 - **Jeremy Laurens** [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](#https://github.com/JeremyLrs) [![LinkedIn](https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff)](#https://www.linkedin.com/in/jeremylrs/)
 
 ## Version history
-  None for the moment
+None for the moment
 
 ## Upcoming features
-  None for the moment
+None for the moment
 
 ## License
 This project is licensed under GNU AGPL v3.0 - see the LICENSE.txt file for details.
-

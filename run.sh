@@ -20,12 +20,17 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     OS="linux"
     echo -e "${YELLOW}OS: Other Linux${NC}"
     echo -e "${RED}OS not supported${NC}"
-    echo -e "${YELLOW}Supported distros: debian, arch${NC}"
+    echo -e "${YELLOW}Supported distros: debian, arch, macOS${NC}"
     exit 1
   fi
+
+elif [[ "$(uname)" == "Darwin" ]]; then
+  OS="macos"
+  echo -e "${GREEN}OS: macOS${NC}"
+
 else
-    echo -e "${RED}OS not supported. Please use Linux.${NC}"
-    exit 1
+  echo -e "${RED}OS not supported. Please use Linux or macOS.${NC}"
+  exit 1
 fi
 
 echo -e "${GREEN}Detected OS: $OS${NC}\n"
@@ -35,13 +40,19 @@ if command -v docker &> /dev/null; then
   echo -e "${GREEN}Docker already installed${NC}\n"
 else
   echo -e "${YELLOW}Docker is not installed${NC}\n"
+
   if [ "$OS" = "debian" ]; then
     echo -e "${YELLOW}Installing Docker on Debian...${NC}\n"
     sudo apt update
     sudo apt install -y docker.io docker-compose
+
   elif [ "$OS" = "arch" ]; then
     echo -e "${YELLOW}Installing Docker on Arch...${NC}\n"
     sudo pacman -Sy --noconfirm docker docker-compose
+
+  elif [ "$OS" = "macos" ]; then
+    echo -e "${YELLOW}Installing Docker on macOS...${NC}\n"
+    brew install --cask docker
   fi
 fi
 
@@ -56,15 +67,23 @@ else
     exit 1
 fi
 
-echo ""
 echo -e "${GREEN}Starting docker-compose...${NC}\n"
-docker-compose up -d
+
+if [ "$OS" = "macos" ]; then
+  docker compose up -d
+else
+  docker-compose up -d
+fi
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}Success! Containers are running${NC}"
     echo -e "${GREEN}Launch this command to stop docker :${NC}"
-    echo -e "${YELLOW}docker-compose down${NC}"
+    if [ "$OS" = "macos" ]; then
+      echo -e "${YELLOW}docker compose down${NC}"
+    else
+      echo -e "${YELLOW}docker-compose down${NC}"
+    fi
 else
-    echo -e "${RED}Error starting docker-compose${NC}"
+    echo -e "${RED}Error starting docker compose${NC}"
     exit 1
 fi

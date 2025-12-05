@@ -131,14 +131,14 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# PyCharm
-#.idea/
+# JetBrains
+.idea/
 
 # Abstra
 .abstra/
 
 # Visual Studio Code
-# .vscode/
+.vscode/
 
 # Ruff stuff:
 .ruff_cache/

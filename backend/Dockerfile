@@ -1,7 +1,9 @@
-FROM node:18-alpine
+FROM python:3.13-slim
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential gcc
+RUN rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir fastapi uvicorn
 COPY . .
-EXPOSE 5000
-CMD ["npm", "run", "dev"]
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -5,30 +5,30 @@
 
 ## Table of Contents
 - 1 [Team Formation & Roles Definition](#1-team-formation--roles-definition)
-  - 1.1 [Team structure](#1.1-Team-structure)
-  - 1.2 [Team members & roles](#1.2-Team_members_&_roles)
-  - 1.3 [Collaboration Norms](#1.3-Collaboration_Norms)
+  - 1.1 [Team structure](#11-Team-structure)
+  - 1.2 [Team members & roles](#12-team-members--roles)
+  - 1.3 [Collaboration Norms](#13-collaboration-norms)
 - 2 [Brainstorming and Idea Evaluation](#2-brainstorming-and-idea-evaluation)
-  - 2.1 [Research and Idea Generation](#2.1-research_and_idea_generation)
-    - 2.1.1 [Individual Research](#2.1.1-individual_research)
-    - 2.1.2 [Group Brainstorming](#2.1.2-group_brainstorming)
-  - 2.2 [Idea Evaluation](#2.2-idea_evaluation)
+  - 2.1 [Research and Idea Generation](#21-research-and-idea-generation)
+    - 2.1.1 [Individual Research](#211-individual-research)
+    - 2.1.2 [Group Brainstorming](#212-group-brainstorming)
+  - 2.2 [Idea Evaluation](#22-idea-evaluation)
 - 3 [Summary of the selected MVP](#3-summary-of-the-selected-mvp)
-  - 3.1 [Potential impact](#3.1-potential_impact)
-  - 3.2 [Problem it solves](#3.2-problem_it_solves)
-  - 3.3 [Proposed solution](#3.3-proposed_solution)
+  - 3.1 [Potential impact](#31-potential-impact)
+  - 3.2 [Problem it solves](#32-problem-it-solves)
+  - 3.3 [Proposed solution](#33-proposed-solution)
 - 4 [Detailed MVP documentation](#4-detailed-mvp-documentation)
-  - 4.1 [MVP Selection](#4.1-mvp_selection)
-  - 4.2 [MVP Breakdown](#4.2-mvp_breakdown)
-    - 4.2.1 [Core Problem](#4.1.1-core_problem)
-    - 4.2.2 [MVP Solution](#4.1.2-mvp_solution)
-    - 4.2.3 [Target Users](#4.1.3-target_users)
+  - 4.1 [MVP Selection](#41-mvp-selection)
+  - 4.2 [MVP Breakdown](#42-mvp-breakdown)
+    - 4.2.1 [Core Problem](#421-core-problem)
+    - 4.2.2 [MVP Solution](#422-mvp-solution)
+    - 4.2.3 [Target Users](#423-target-users)
 - 5 [Key Features & SMART Goals](#5-key-features--smart-goals)
-  - 5.1 [Type of Application](#5.1-type_of_application)
-  - 5.2 [Key Features and SMART Objectives](#5.2-key_features_and_smart_objectives)
+  - 5.1 [Type of Application](#51-type-of-application)
+  - 5.2 [Key Features and SMART Objectives](#52-key-features-and-smart-objectives)
 - 6 [Scope definition](#6-scope-definition)
-  - 6.1 [In scope](#3.1-in_scope)
-  - 6.2 [Out of scope](#3.2-out_of_scope)
+  - 6.1 [In scope](#61-in-scope)
+  - 6.2 [Out of scope](#62-out-of-scope)
 - 7 [Risks and Challenges](#7-risks-and-challenges)
 
 ### 1. Team Formation & Roles Definition
@@ -64,15 +64,15 @@ Everyone has their own area of expertise, but as a team, anyone can spontaneousl
 #### 2.1 Research and Idea Generation
 ##### 2.1.1 Individual Research
 Each team member analysed:
-- Existing TCG collection apps (Magic, Pokemon, etc ...)
+- Existing TCG collection apps (Magic, Pokémon, etc ...)
 - Strengths and weaknesses of current platforms
 - Missing features across apps
 - Available public APIs for cards datasets.
-- ML/AI features usid in card recognition apps.
+- ML/AI features in card recognition apps.
 
 ##### 2.1.2 Group Brainstorming
 **Mind Mapping**
-We visualy explored:
+We visually explored:
 - User needs (tracking, scanning, sharing, etc ...)
 - Multi-TCG data sources
 - UX patterns from existing apps
@@ -89,7 +89,7 @@ We visualy explored:
  
 **“How Might We” Questions** 
   - How might we unify all TCG collections in a single interface?
-  - How might we combine the best features of existing apps while keeping it simple and user friendly ?
+  - How might we combine the best features of existing apps while keeping it simple and user-friendly ?
   - How might we provide seamless access to multiple franchises through public APIs?
  
 --- 
@@ -112,7 +112,7 @@ We visualy explored:
 
 ### 3. Summary of the selected MVP
 #### 3.1 Potential impact
-The current TCG ecosystem forces collectors to use multiple apps, one per franchise (Magic, Pokemon, Yu-Gi-Oh! etc...).
+The current TCG ecosystem forces collectors to use multiple apps, one per franchise (Magic, Pokémon, Yu-Gi-Oh! etc...).
 - **Reason for Selection:**
   - High relevance to the needs of collectors managing multiple TCG franchises.
   - Combines the best features of existing apps in a single platform.
@@ -226,9 +226,9 @@ Collectors manage multiple TCGs but must rely on separate apps and manual input.
 ---
 
 ### 7. Risks and Challenges
-| Risk | Mitigation |
-|------|------------|
-| Inexperience with some APIs | Training sessions, shared documentation, pair programming |
-| API data inconsistency | Data normalization layer on backend |
-| ML/AI accuracy issues | Retraining, dataset expansion, fallback manual input |
-| Performance drops on large collections | DB optimization, caching, lazy loading |
+| Risk                                     | Mitigation                                                |
+|------------------------------------------|-----------------------------------------------------------|
+| Inexperience with some APIs              | Training sessions, shared documentation, pair programming |
+| API data inconsistency                   | Data normalization layer on backend                       |
+| ML/AI accuracy issues                    | Retraining, dataset expansion, fallback manual input      |
+| Performance drops on large collections   |  DB optimization, caching, lazy loading                   |

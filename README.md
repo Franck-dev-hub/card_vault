@@ -36,7 +36,6 @@ No feature for the moment
 ### Frontend
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000)
 ![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)
->>>>>>> feat/docs
 ### AI / ML
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=fff)

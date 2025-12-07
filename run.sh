@@ -63,7 +63,7 @@ else
     echo -e "${YELLOW}Installing Docker on Windows WSL ...${NC}"
     sudo apt update
     sudo apt install -y docker.io docker-compose
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker "$USER"
 # --- Windows ---
   elif [ "$OS" = "windows" ]; then
     echo -e "${RED}Docker Desktop for Windows is required${NC}"
@@ -102,14 +102,14 @@ else
 fi
 
 # Check launch success
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}Success! Containers are running${NC}"
-    echo -e "${GREEN}Launch this command to stop docker :${NC}"
-    if [ "$OS" = "macos" ]; then
-      echo -e "${YELLOW}docker compose down${NC}"
-    else
-      echo -e "${YELLOW}docker-compose down${NC}"
-    fi
+if docker compose up -d &> /dev/null || docker-compose up -d &> /dev/null; then
+  echo -e "${GREEN}Success! Containers are running${NC}"
+  echo -e "${GREEN}Launch this command to stop docker :${NC}"
+  if [ "$OS" = "macos" ]; then
+    echo -e "${YELLOW}docker compose down${NC}"
+  else
+    echo -e "${YELLOW}docker-compose down${NC}"
+  fi
 else
     echo -e "${RED}Error starting docker compose${NC}"
     exit 1

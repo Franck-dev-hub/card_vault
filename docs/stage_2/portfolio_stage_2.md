@@ -1,5 +1,7 @@
 # Portfolio Project (Card Vault)
-## Project Planning
+> Project Planning
+
+## Main project planning
 ```mermaid
 gantt
     dateFormat DD-MM-YYYY

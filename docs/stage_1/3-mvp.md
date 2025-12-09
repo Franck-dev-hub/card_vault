@@ -5,6 +5,8 @@
 - 1 [Potential impact](#1-potential-impact)
 - 2 [Problem it solves](#2-problem-it-solves)
 - 3 [Proposed solution](#3-proposed-solution)
+- 4 [Why This MVP?](#4-why-this-mvp)
+- 5 [User Stories](#5-user-stories)
 
 ---
 
@@ -36,7 +38,7 @@ The current TCG ecosystem forces collectors to use multiple apps, one per franch
 
 ---
 
-## 4 Why This MVP?
+## 4 Why This MVP ?
 - Aligns perfectly with team expertise (frontend, backend, ML/AI).
 - Presents a realistic but meaningful challenge.
 - High value for real TCG communities.

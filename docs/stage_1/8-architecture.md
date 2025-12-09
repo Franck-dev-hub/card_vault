@@ -153,7 +153,7 @@ flowchart TD
 - model_predictions (JSON: top 3 with scores)
 - user_confirmation (which card was correct)
 - created_at
-- feedback ("correct" / "wrong" / "unclear" / "skip")
+- feedback ("correct" / "wrong")
 ```
 
 ##### 3.5 Relations

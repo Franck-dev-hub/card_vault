@@ -29,7 +29,7 @@ Everyone has their own area of expertise, but as a team, anyone can spontaneousl
 ---
 
 ## 3 Collaboration Norms
-- **Communication:** ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)
+- **Communication:** ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)[Notion](https://img.shields.io/badge/Notion-000?logo=notion&logoColor=fff)
 - **Code Version Control:** ![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)
 - **Project Management:** ![GitHub Projects](https://img.shields.io/badge/GitHub-Projects-gray?logo=github&logoColor=white&labelColor=%23121011)
 - **Team Norms:**

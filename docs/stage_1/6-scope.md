@@ -71,6 +71,5 @@
 **Completely Out of Scope:**
 - Real money transactions
 - Real-time chat
-- Additional franchises beyond MVP (Yu-Gi-Oh!, etc.)
 
 ---

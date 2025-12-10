@@ -32,7 +32,7 @@ services:
       PORT: 8000
       JWT_SECRET: ${JWT_SECRET:-change_me}
     ports:
-      - "8000:8000"
+      - "5050:5000"
     depends_on:
       postgres:
         condition: service_healthy

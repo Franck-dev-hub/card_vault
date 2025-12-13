@@ -48,8 +48,8 @@ Everyone has their own area of expertise, but as a team, anyone can spontaneousl
     - **Role:** Designs and implements the user interface and user experience.
     - **Impact:** Creates a user-friendly and visually appealing interface, bridging the gap between users and backend functionality.
 
-- **[Jeremy Laurens](https://github.com/JeremyLrs)** as Backend Developer
-    - **Role:** Implements server-side logic, database management, and API integration.
+- **[Jeremy Laurens](https://github.com/JeremyLrs)** as Backend Developer & UI/UX Lead
+    - **Role:** Implements server-side logic, database management, API integration and guide the team to ensure UI/UX design.
     - **Impact:** Ensures the backend is robust, efficient, and scalable, enabling smooth data flow and connecting seamlessly with the ML/AI components.
 
 ---
@@ -439,3 +439,4 @@ Collectors manage multiple TCGs but must rely on separate apps and manual input.
 | Database performance                     | Low         | Medium | Essential indexes on key queries, query optimization, monitoring         |
 
 ---
+

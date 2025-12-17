@@ -19,7 +19,7 @@ gantt
     section Stage 6
         Landing Page :16-03-2026, 20-03-2026
 ```
-## Detailled project planning
+## Detailled MVP planning
 
 | Steps  | Commentary                                                                                                       |
 | ------ | ---------------------------------------------------------------------------------------------------------------- |

@@ -13,7 +13,7 @@
   - 3.2 [Database design](#32-database-design)
 - 4 [Sequence diagram](#4-sequence-diagram)
   - 4.1 [Login](#41-login)
-  - 4.2 [Add to collection](#42-add-to-collection)
+  - 4.2 [Add a card to collection](#42-add-a-card-to-collection)
   - 4.3 [Scan a card](#43-scan-a-card)
 - 5 [API](#5-api)
   - 5.1 [External APIs](#51-external-apis)
@@ -45,7 +45,7 @@ sequenceDiagram
   Backend-->>Frontend: Return JWT token
   Frontend-->>User: User logged in
 ```
-### 4.2 Add to collection
+### 4.2 Add a card to collection
 ```mermaid
 ---
 config:
@@ -58,12 +58,13 @@ sequenceDiagram
   participant Backend
   participant Database
         
-  User-->Frontend: Open search page
-  Frontend-->Backend: Request a card
-  Backend-->Database: Fetch a card
+  User->>Frontend: Open search page
+  Frontend->>Backend: Request a card
+  Backend->>Database: Fetch a card
   Database-->>Backend: Return a card
   Backend-->>Frontend: Send card information
-  Frontend-->>User: Click on "+1"
+  Frontend-->>User: Display card informations
+  User->>Frontend: Click on "+1"
   Frontend->>Backend: Send add-to-collection request
   Backend->>Database: Update collection
   Database-->>Backend: Collection updated

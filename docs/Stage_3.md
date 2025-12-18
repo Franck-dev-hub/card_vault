@@ -1,24 +1,23 @@
 # Portfolio Project - Card Vault
-> Technical Architecture Overview
+> Technical Documentation
 
 ## Table of Contents
-- 1 [Technology Stack](#1-technology-stack)
-- 2 [System Architecture](#2-system-architecture)
-    - 2.1 [System](#21-system)
-- 3 [Data models](#3-data-models)
-    - 3.1 [User](#31-user)
-    - 3.2 [Card](#32-card)
-    - 3.3 [UserCollection](#33-usercollection)
-    - 3.4 [RecognitionLog](#34-recognitionlog)
-    - 3.5 [Relations](#35-relations)
-- 4 [API Backend](#4-api-backend)
-    - 4.1 [Auth](#41-auth)
-    - 4.2 [Cards](#42-cards)
-    - 4.3 [Collection](#43-collection)
-    - 4.4 [ML recognition](#44-ml-recognition)
-- 5 [Frontend](#5-frontend)
-    - 5.1 [Routing](#51-routing)
-    - 5.2 [Main pages](#52-main-pages)
+- 1 [User stories and Mockups](#1-user-stories-and-mockup)
+  - 1.1 [User stories](#11-user-stories)
+    - 1.1.1 [User story](#111-user-story)
+    - 1.1.2 [MoSCoW](#112-moscow)
+  - 1.2 [Mockup](#2-mockup)
+- 2 [Design System Architecture](#2-design-system-architecture)
+- 3 [Components Classes and Database Design](#3-components-classes-and-database-design)
+  - 3.1 [Component and class descriptions](#31-component-and-class-descriptions)
+  - 3.2 [Database design](#32-database-design)
+- 4 [Sequence diagram](#4-sequence-diagram)
+- 5 [API](#5-api)
+  - 5.1 [External APIs](#51-external-apis)
+  - 5.2 [Internal APIs](#52-internal-apis)
+- 6 [SCM and QA](#6-scm-and-qa)
+  - 6.1 [SCM](#61-scm)
+  - 6.2 [QA](#62-qa)
 
 ---
 

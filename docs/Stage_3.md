@@ -77,8 +77,8 @@
 /// add here ///
 
 #### 3.1.3 Relational Database
-```erDiagram
-    direction TB
+```mermaid
+    erDiagram
     User {
         UUID id PK
         String email UK
@@ -125,9 +125,6 @@
     UserCollection ||--o{ RecognitionLog : "creates"
     Card ||--o{ UserCollection : "in"
 
-    User:::Rose
-
-    classDef Rose stroke-width:1px,stroke-dasharray:none,stroke:#FF5978,fill:#FFDFE5,color:#8E2236
 ```
 
 ### 3.2 Database design

@@ -74,9 +74,11 @@
 
 #### 3.1.2 Back-end Classes (Python + FastAPI)
 
-/// add here ///
+<p align="center">
+  <img src="/docs/backend_class.jpg" width="1200" />
+</p>
 
-#### 3.1.3 Relational Database
+### 3.2 Relational Database
 ```mermaid
     erDiagram
     User {
@@ -126,10 +128,6 @@
     Card ||--o{ UserCollection : "in"
 
 ```
-
-### 3.2 Database design
-
-/// add here ///
 
 ## 4 Sequence diagram
 ### 4.1 Login

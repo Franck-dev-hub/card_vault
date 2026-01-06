@@ -2,25 +2,33 @@
 > Technical Documentation
 
 ## Table of Contents
-- 1 [User stories and Mockups](#1-user-stories-and-mockup)
+- 1 [User stories and Mockups](#1-user-stories-and-mockups)
   - 1.1 [User stories](#11-user-stories)
-  - 1.2 [Mockup](#2-mockup)
+  - 1.2 [Mockup](#12-mockup)
 - 2 [Design System Architecture](#2-design-system-architecture)
 - 3 [Components Classes and Database Design](#3-components-classes-and-database-design)
   - 3.1 [Component and class descriptions](#31-component-and-class-descriptions)
-  - 3.2 [Database design](#32-database-design)
+    - 3.1.1 [Front-end Components in React](#311-front-end-components-in-react)
+    - 3.1.2 [Back-end Classes in Python and FastAPI](#312-back-end-classes-in-python-and-fastapi)
+  - 3.2 [Relational Database](#32-relational-database)
 - 4 [Sequence diagram](#4-sequence-diagram)
   - 4.1 [Login](#41-login)
   - 4.2 [Add a card to collection](#42-add-a-card-to-collection)
   - 4.3 [Scan a card](#43-scan-a-card)
 - 5 [API](#5-api)
-  - 5.1 [External APIs](#51-external-apis)
-  - 5.2 [Internal APIs](#52-internal-apis)
-- 6 [SCM and QA](#6-scm-and-qa)
-  - 6.1 [SCM](#61-scm)
-  - 6.2 [QA](#62-qa)
+  - 5.1 [External APIs Used](#51-external-apis-used)
+  - 5.2 [Internal APIs Endpoints (MVP)](#52-internal-apis-endpoints-mvp)
+    - 5.2.1 [Authentication](#521-authentication)
+    - 5.2.2 [Card Database & Browse](#522-card-database--browse)
+    - 5.2.3 [User Collection Management](#523-user-collection-management)
+    - 5.2.4 [ML/AI Card Recognition (Image Scanning)](#524-mlai-card-recognition-image-scanning)
+- 6 [SCM and QA Strategy](#6-scm-and-qa-strategy)
+  - 6.1 [Source Control Management (SCM)](#61-source-control-management-scm)
+  - 6.2 [QA (Quality Assurance)](#62-qa-quality-assurance)
+  - 6.3 [Deployment Pipeline](#63-deployment-pipeline)
 
 ---
+
 ## 1 User stories and Mockups
 ### 1.1 User stories
 **Must Have (essential for MVP)**
@@ -43,8 +51,7 @@
 - As a user, I want to add friends so that I can exchange and discuss the same topics.
 ### 1.2 Mockup
 
-[View interactive mockups on Figma](https://www.figma.com/proto/ulYEd6G3xLZFBsNET3VfTA/Sans-titre?node-id=0-1&t=U27dBn7oGFSitgQT-1)
-
+👉 [View interactive mockups on Figma](https://www.figma.com/proto/ulYEd6G3xLZFBsNET3VfTA/Sans-titre?node-id=0-1&t=U27dBn7oGFSitgQT-1) 👈
 
 ## 2 Design System Architecture
 
@@ -54,7 +61,7 @@
 
 ## 3 Components Classes and Database Design
 ### 3.1 Component and class descriptions
-#### 3.1.1 Front-end Components (React)
+#### 3.1.1 Front-end Components in React
 | Component / Page | Type.        | Purpose                                                                                                                                     | 
 | ---------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | /                | Page         | Home page with display of general statistics visualization, including license display, extensions, and access to the profile, search.       |
@@ -73,7 +80,7 @@
 | `header`         | UI Component | Access to the profile and search pages.                                                                                                     |
 | `menu`           | UI Component | Smartphone menu                                                                                                                             |
 
-#### 3.1.2 Back-end Classes (Python + FastAPI)
+#### 3.1.2 Back-end Classes in Python and FastAPI
 
 <p align="center">
   <img src="/docs/backend_class.jpg" width="1200" />
@@ -440,13 +447,3 @@ We want to make sure the code works and is easy to maintain.
 - Merge into main → deploy to production.
 
 ---
-
-## 👉 In short:
-
-- Use Git branches (dev → main).
-- Write small commits + do code reviews.
-- Run automated tests with Jest (JavaScript) and pytest (Python).
-- Test Python code with doctest for inline examples.
-- Test APIs with Postman.
-- Keep code clean with ESLint + Prettier (JavaScript) and pycodestyle + mypy (Python).
-- Deploy first to staging, then to production.

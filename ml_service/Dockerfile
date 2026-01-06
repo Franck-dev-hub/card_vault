@@ -7,7 +7,9 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update
 RUN apt-get install -y gcc
+RUN apt-get install -y g++
 RUN apt-get install -y postgresql-client
+RUN apt-get install -y libpq-dev
 RUN rm -rf /var/lib/apt/lists/*
 
 # Copy python requirements

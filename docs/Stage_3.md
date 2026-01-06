@@ -43,7 +43,7 @@
 - As a user, I want to add friends so that I can exchange and discuss the same topics.
 ### 1.2 Mockup
 
-/// add here ///
+[View interactive mockups on Figma] (https://www.figma.com/proto/ulYEd6G3xLZFBsNET3VfTA/Sans-titre?node-id=0-1&t=U27dBn7oGFSitgQT-1)
 
 ## 2 Design System Architecture
 

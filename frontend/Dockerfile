@@ -25,11 +25,11 @@ WORKDIR /app
 # Install serve to serve the build files
 RUN npm install -g serve
 
-# Copy build files from the build stage
-COPY --from=build /app/build ./build
-
 # Expose port
 EXPOSE 3000
 
 # Run the application
-CMD ["serve", "-s", "build", "-l", "3000"]
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+CMD ["npm", "start"]

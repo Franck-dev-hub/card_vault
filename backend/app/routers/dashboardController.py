@@ -1,12 +1,9 @@
-from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-router = APIRouter(prefix="/dashboard", tags=["dashboard"])
-template = Jinja2Templates(directory="templates")
+from fastapi import APIRouter
 
-@router.get("/", response_class=HTMLResponse)
-async def get_dashboard(request: Request):
-    return template.TemplateResponse(
-        request=request,
-        name="dashboard.html",
-    )
+router = APIRouter(prefix="/dashboard", tags=["dashboard"])
+
+@router.get("/")
+async def get_dashboard():
+    return {
+        "title": "Dashboard",
+    }

@@ -63,8 +63,8 @@ https://github.com/Franck-dev-hub/card_vault
 ## 5 Bug tracking
 ### Week 1
 | Area     | Bug found | Bug resolved | Ratio |
-| -------- | ------    |              |       |
-| Backend  |           |              |       |
+| -------- | --------- | ------------ | ----- |
+| Backend  |     1     |       1      |       |
 | Frontend |           |              |       |
 | ML       |           |              |       |
 | DevOps   |           |              |       |

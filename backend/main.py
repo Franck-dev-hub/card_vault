@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from app.routers import dashboardController
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(redirect_slashes=True)
 
 app.add_middleware(
     CORSMiddleware,
@@ -12,8 +12,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(dashboardController.router)
+app.include_router(dashboardController.router, prefix="/api")
 
-@app.get("/health")
+@app.get("/api/health")
 def health():
     return {"status": "ok"}

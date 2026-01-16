@@ -65,14 +65,14 @@ services:
       - ./ml-service/models:/app/models
     networks:
       - app_network
-    command: python main.py
+    command: uvicorn main:app --host 0.0.0.0 --port 5000 --reload
 
   frontend:
     build: ./frontend
     container_name: react_frontend
     environment:
-      REACT_APP_API_URL: http://frontend/api
-      REACT_APP_ML_API_URL: http://frontend/ml
+      REACT_APP_API_URL: http://localhost/api
+      REACT_APP_ML_API_URL: http://localhost/ml
     depends_on:
       - backend
       - ml-service

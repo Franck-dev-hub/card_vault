@@ -29,7 +29,6 @@ RUN npm install -g serve
 EXPOSE 3000
 
 # Run the application
-COPY --from=build /app/.next ./.next
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 CMD ["npm", "start"]

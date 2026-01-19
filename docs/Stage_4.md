@@ -12,12 +12,11 @@
 
 ## 1 Sprint Reviews
 ### Week 1
-| Area     | Result |
-| -------- | ------ |
-| Backend  |        |
-| Frontend |        |
-| ML       |        |
-| DevOps   |        |
+| Area     | Result                                    |
+| -------- |-------------------------------------------|
+| Backend  | Proxy setup                               |
+| Frontend | Taillwind, Daisyui and Lucide React setup |
+| ML       | First model setup                         |
 
 ## 2 Retrospectives
 > What worked well during the sprint?
@@ -25,24 +24,31 @@
 > What changes can we make to improve the next sprint?
 
 ### Week 1
-| Area     | What worked | Challenges | Changes |
-| -------- | ----------- | ---------- | ------- |
-| Backend  |             |            |         |
-| Frontend |             |            |         |
-| ML       |             |            |         |
-| DevOps   |             |            |         |
-
+| Area     | What worked      | Challenges                         | Changes |
+| -------- |------------------|------------------------------------|---------|
+| Backend  | Proxy setup      | Connect front and back together    |         |
+| Frontend | Create interface | Complete install and configuration |         |
+| ML       | Model working    | Manage heavy data                  |         |
 
 ## 3 Sprint planning
 > Sprint plan with prioritized tasks, deadlines, and responsibilities for all team members.
 
 ### Week 1
-| Area     | Feature | SCM Review |
-| -------- | ------  |            |
-| Backend  |         |            |
-| Frontend |         |            |
-| ML       |         |            |
-| DevOps   |         |            |
+| Area     | Feature                      | SCM Review | QA  |
+|----------|------------------------------|------------|-----|
+| Backend  | Setup proxy                  | feat/proxy | N/A |
+| Frontend | Tools setup                  | feat/menu  | N/A |
+| ML       | Initialisation of a ml model | feat/ml    | N/A |
+
+### Week 2
+| Area     | Feature                                  | SCM Review  | QA  |
+|----------|------------------------------------------|-------------|-----|
+| Backend  | Setup variables for menu and profil      | feat/route  | N/A |
+| Backend  | Display filter for cards in search route | feat/search | N/A |
+| Frontend | Display menu                             | feat/menu   | N/A |
+| Frontend | Display profil                           | feat/profil | N/A |
+| Frontend | Display filter for cards in search route | feat/search | N/A |
+| ML       | Enhance model data usage                 | feat/ml     | N/A |
 
 ## 4 Source repository
 ### Repo
@@ -63,15 +69,15 @@ https://github.com/Franck-dev-hub/card_vault
 ## 5 Bug tracking
 ### Week 1
 | Area     | Bug found | Bug resolved | Ratio |
-| -------- | --------- | ------------ | ----- |
-| Backend  |     1     |       1      |       |
-| Frontend |           |              |       |
-| ML       |           |              |       |
-| DevOps   |           |              |       |
+| -------- |-----------|--------------|-------|
+| Backend  | 1         | 1            | 1     |
+| Frontend | 1         | 1            | 1     |
+| ML       | 2         | 2            | 1     |
 
 ## 6 Testing evidence and results
 ### Week 1
-- QA test (postman ect)
+- ML : Test with an image from the data set -> 100% confidence
+- ML : Test with a real photo -> 72% confidence
 
 ## 7 Production environment
 | Area     | Environment |

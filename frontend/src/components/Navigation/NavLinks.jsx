@@ -1,14 +1,14 @@
-import { LayoutDashboard, BarChart3, Search, Lock, Microscope } from 'lucide-react';
+import { Home, ClipboardList, Camera, Lock, Search } from 'lucide-react';
 
 export const NAV_ITEMS = [
-  { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-  { name: 'Statistics', icon: BarChart3, path: '/statistics' },
-  { name: 'Scan', icon: Search, path: '/scan' },
+  { name: 'Dashboard', icon: Home, path: '/dashboard' },
+  { name: 'Statistics', icon: ClipboardList, path: '/statistics' },
+  { name: 'Scan', icon: Camera, path: '/scan' },
   { name: 'Vault', icon: Lock, path: '/vault' },
-  { name: 'Research', icon: Microscope, path: '/research' },
+  { name: 'Research', icon: Search, path: '/research' },
 ];
 
-export const NavLinks = ({ className = '', onClick }) => {
+export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {
   return (
     <>
       {NAV_ITEMS.map((item) => (
@@ -16,9 +16,15 @@ export const NavLinks = ({ className = '', onClick }) => {
           key={item.name}
           href={item.path}
           onClick={onClick}
-          className={`flex items-center gap-2 px-4 py-2 hover:bg-primary hover:text-primary-content rounded-lg transition-colors ${className}`}
+          className={`
+            flex items-center gap-2 px-4 py-2 
+            hover:bg-primary hover:text-primary-content 
+            rounded-lg transition-colors 
+            ${isSidebar ? 'text-white text-lg' : ''}
+            ${className}
+          `}
         >
-          <item.icon size={20} />
+          <item.icon size={isSidebar ? 24 : 20} />
           <span>{item.name}</span>
         </a>
       ))}

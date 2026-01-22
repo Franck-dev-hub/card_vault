@@ -1,68 +1,259 @@
-import { useState } from 'react';
-import { User } from 'lucide-react';
-import { Sidebar } from './Sidebar';
-import { UserMenu } from './UserMenu';
+import { useState, useRef, useEffect } from 'react';
+import { Home, ClipboardList, Camera, Lock, Search, User, LogIn, UserPlus, Globe, ChevronDown, ChevronUp } from 'lucide-react';
 
-export const Navbar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+const NAV_ITEMS = [
+  { name: 'Dashboard', icon: Home, path: '/dashboard' },
+  { name: 'Statistics', icon: ClipboardList, path: '/statistics' },
+  { name: 'Scan', icon: Camera, path: '/scan' },
+  { name: 'Vault', icon: Lock, path: '/vault' },
+  { name: 'Research', icon: Search, path: '/research' },
+];
+
+const LANGUAGES = [
+  { code: 'fr', name: 'Français' },
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'ja', name: '日本語' },
+];
+
+const LanguageSelector = ({ label, selectedLang, onSelect }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const currentLang = LANGUAGES.find(l => l.code === selectedLang) || LANGUAGES[0];
 
   return (
-    <>
-      <nav style={{ margin: '2rem', marginTop: '3rem' }}>
-        <div className="flex items-center justify-between">
-          {/* Bouton burger DaisyUI à gauche */}
-          <label className="btn btn-circle swap swap-rotate">
-            {/* checkbox contrôlée par le state React */}
-            <input
-              type="checkbox"
-              checked={isSidebarOpen}
-              onChange={(e) => setIsSidebarOpen(e.target.checked)}
-            />
+    <div>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="group flex items-center justify-between w-full px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+      >
+        <div className="flex items-center gap-4">
+          <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
+            <Globe size={24} className="text-blue-600" strokeWidth={2} />
+          </div>
+          <div className="text-left">
+            <span className="text-gray-800 font-semibold text-lg group-hover:text-blue-700 block">{label}</span>
+            <span className="text-gray-500 text-sm">{currentLang.name}</span>
+          </div>
+        </div>
+        <div className="text-blue-600">
+          {isOpen ? (
+            <ChevronUp size={20} strokeWidth={2} />
+          ) : (
+            <ChevronDown size={20} strokeWidth={2} />
+          )}
+        </div>
+      </button>
 
-            {/* icône hamburger */}
-            <svg
-              className="swap-off fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 512 512"
+      {isOpen && (
+        <div className="mt-2 ml-12 flex flex-col gap-1">
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => {
+                onSelect(lang.code);
+                setIsOpen(false);
+              }}
+              className={`
+                text-left px-4 py-3 rounded-xl transition-all duration-200 font-medium
+                ${selectedLang === lang.code
+                  ? 'bg-blue-500 text-white shadow-md'
+                  : 'bg-white text-gray-700 hover:bg-blue-100 hover:text-blue-700 border border-blue-100'
+                }
+              `}
             >
-              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-            </svg>
+              {lang.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-            {/* icône close */}
+export const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAvatarOpen, setIsAvatarOpen] = useState(false);
+  const [appLanguage, setAppLanguage] = useState('fr');
+  const [cardsLanguage, setCardsLanguage] = useState('en');
+  const menuRef = useRef(null);
+  const avatarMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+      if (avatarMenuRef.current && !avatarMenuRef.current.contains(event.target)) {
+        setIsAvatarOpen(false);
+      }
+    };
+
+    if (isOpen || isAvatarOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, isAvatarOpen]);
+
+  return (
+    <div className="relative z-50">
+      {/* Navbar */}
+      <div className="bg-linear-to-r from-blue-700 to-blue-200 navbar bg-base-100 shadow-sm rounded-b-lg">
+        <div className="flex-1 flex items-center">
+          <img src="image/logo_card_vault.png" alt="Logo" className="h-20 w-20 p-200" style={{ marginLeft: '40px' }} />
+          <div style={{ marginLeft: '40px' }}>
+            <a className="btn btn-ghost p-1 hover:bg-transparent font-sans font-extrabold text-4xl tracking-wide bg-gradient-to-r from-blue-600 to-white bg-clip-text text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+              Card Vault
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Conteneur burger + avatar */}
+      <div className="flex items-center w-full mt-2 pl-4 pr-8 h-16">
+
+        {/* Bouton burger */}
+        <div style={{ marginLeft: '20px' }}>
+          <button
+            className="btn btn-circle border-2 border-black bg-transparent hover:bg-gray-100"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <svg
-              className="swap-on fill-current"
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 512 512"
+              className="h-6 w-6 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <polygon
-                points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-          </label>
-
-          {/* Titre au centre */}
-          <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
-
-          {/* Avatar à droite - cliquable pour ouvrir UserMenu */}
-          <button
-            className="btn btn-circle"
-            onClick={() => setIsUserMenuOpen(true)}
-          >
-            <User size={24} />
           </button>
         </div>
-      </nav>
 
-      {/* Sidebar qui glisse depuis la gauche */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+        {/* Dashboard centré */}
+        <div className="flex-1 flex justify-center">
+          <div className="px-8 py-3 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full shadow-lg">
+            <span className="text-2xl font-bold text-white tracking-wide drop-shadow-md">Dashboard</span>
+          </div>
+        </div>
 
-      {/* UserMenu qui glisse depuis la droite */}
-      <UserMenu isOpen={isUserMenuOpen} onClose={() => setIsUserMenuOpen(false)} />
-    </>
+        {/* Bouton avatar */}
+        <div style={{ marginRight: '20px' }}>
+          <button
+            className="btn btn-circle border-2 border-black bg-transparent hover:bg-gray-1000"
+            onClick={() => setIsAvatarOpen(!isAvatarOpen)}
+          >
+            <User size={24} strokeWidth={1.5} className="text-black" />
+          </button>
+        </div>
+
+      </div>
+
+      {/* Panneau Burger qui glisse depuis la gauche - sous la navbar */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      <div
+        ref={menuRef}
+        className={`
+          absolute left-0 top-full w-80 bg-gradient-to-br from-blue-50 to-white
+          transform transition-transform duration-300 ease-in-out
+          z-40 shadow-2xl overflow-y-auto max-h-[calc(100vh-180px)] rounded-br-3xl border-r-2 border-b-2 border-blue-200
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        {/* Menu items */}
+        <nav className="flex flex-col gap-2 px-6 py-6">
+          {NAV_ITEMS.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.name}
+                href={item.path}
+                onClick={() => setIsOpen(false)}
+                className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
+                  <Icon size={24} className="text-blue-600" strokeWidth={2} />
+                </div>
+                <span className="text-gray-800 font-semibold text-lg group-hover:text-blue-700">{item.name}</span>
+              </a>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* Panneau Avatar qui glisse depuis la droite - sous la navbar */}
+      {isAvatarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
+          onClick={() => setIsAvatarOpen(false)}
+        />
+      )}
+
+      <div
+        ref={avatarMenuRef}
+        className={`
+          absolute right-0 top-full w-80 bg-gradient-to-bl from-blue-50 to-white
+          transform transition-transform duration-300 ease-in-out
+          z-40 shadow-2xl overflow-y-auto max-h-[calc(100vh-180px)] rounded-bl-3xl border-l-2 border-b-2 border-blue-200
+          ${isAvatarOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}
+      >
+
+        {/* Menu items */}
+        <nav className="flex flex-col gap-2 px-6 py-6">
+          {/* Login */}
+          <a
+            href="/login"
+            onClick={() => setIsAvatarOpen(false)}
+            className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+          >
+            <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
+              <LogIn size={24} className="text-blue-600" strokeWidth={2} />
+            </div>
+            <span className="text-gray-800 font-semibold text-lg group-hover:text-blue-700">Login</span>
+          </a>
+
+          {/* Create Account */}
+          <a
+            href="/signup"
+            onClick={() => setIsAvatarOpen(false)}
+            className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+          >
+            <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
+              <UserPlus size={24} className="text-blue-600" strokeWidth={2} />
+            </div>
+            <span className="text-gray-800 font-semibold text-lg group-hover:text-blue-700">Create Account</span>
+          </a>
+
+          {/* Séparateur */}
+          <div className="border-t-2 border-blue-200 my-3"></div>
+
+          {/* App Language */}
+          <LanguageSelector
+            label="App Language"
+            selectedLang={appLanguage}
+            onSelect={setAppLanguage}
+          />
+
+          {/* Cards Language */}
+          <LanguageSelector
+            label="Cards Language"
+            selectedLang={cardsLanguage}
+            onSelect={setCardsLanguage}
+          />
+        </nav>
+      </div>
+    </div>
   );
 };

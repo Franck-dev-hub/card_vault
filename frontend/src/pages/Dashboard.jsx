@@ -10,6 +10,10 @@ export default function Dashboard() {
   return (
     <div className={styles.container}>
       {/* Contenu du dashboard */}
+      <>
+        <h1>Tableau de bord</h1>
+        <p>Bienvenue sur votre tableau de bord.</p>
+      </>
     </div>
   );
 }

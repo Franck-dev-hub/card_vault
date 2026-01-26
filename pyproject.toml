@@ -21,3 +21,8 @@ dependencies = [
     "transformers>=4.57.6",
     "uvicorn>=0.40.0",
 ]
+
+[tool.uv.workspace]
+members = [
+    "ml-service",
+]

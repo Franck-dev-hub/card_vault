@@ -16,7 +16,7 @@ dist/
 build/
 
 # ML Data & Indexes
-ml-service/data/
+ml-service/data_cache/
 ml-service/*.npz
 ml-service/*.faiss
 ml-service/*.npy

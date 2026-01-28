@@ -1,5 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Home, ClipboardList, Camera, Lock, Search, User, LogIn, UserPlus, Globe, ChevronDown, ChevronUp } from 'lucide-react';
+
+// Mapping des routes vers les titres de page
+const PAGE_TITLES = {
+  '/': 'Dashboard',
+  '/dashboard': 'Dashboard',
+  '/login': 'Login',
+  '/create-account': 'Create Account',
+  '/statistics': 'Statistics',
+  '/scan': 'Scan',
+  '/vault': 'Vault',
+  '/research': 'Research',
+};
 
 const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
@@ -78,6 +91,10 @@ export const Navbar = () => {
   const [cardsLanguage, setCardsLanguage] = useState('en');
   const menuRef = useRef(null);
   const avatarMenuRef = useRef(null);
+  const location = useLocation();
+
+  // Obtenir le titre de la page actuelle
+  const currentPageTitle = PAGE_TITLES[location.pathname] || 'Page';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -110,7 +127,7 @@ export const Navbar = () => {
       </div>
 
       {/* Conteneur burger + avatar */}
-      <div className="flex items-center w-full mt-2 pl-4 pr-8 h-16">
+      <div className="flex items-center w-full mt-2 pl-4 pr-8 h-16 bg-linear-to-r from-gray-400 via-gray-200 to-white rounded-full mx-4 shadow-md">
 
         {/* Bouton burger */}
         <div style={{ marginLeft: '20px' }}>
@@ -135,10 +152,10 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* Dashboard centré */}
+        {/* Titre de la page centré */}
         <div className="flex-1 flex justify-center">
-          <div className="px-8 py-3 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full shadow-lg">
-            <span className="text-2xl font-bold text-white tracking-wide drop-shadow-md">Dashboard</span>
+          <div className="w-[350px] h-[60px] flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-200 rounded-full shadow-lg border-4 border-white">
+            <span className="text-2xl font-bold text-white tracking-wide drop-shadow-md">{currentPageTitle}</span>
           </div>
         </div>
 
@@ -165,14 +182,16 @@ export const Navbar = () => {
       <div
         ref={menuRef}
         className={`
-          absolute left-0 top-full w-80 bg-gradient-to-br from-blue-50 to-white
+          absolute left-0 top-full h-[calc(100vh-0px)] w-80 bg-gradient-to-br from-blue-50 to-white
           transform transition-transform duration-300 ease-in-out
-          z-40 shadow-2xl overflow-y-auto max-h-[calc(100vh-180px)] rounded-br-3xl border-r-2 border-b-2 border-blue-200
+          z-40 shadow-2xl overflow-y-auto rounded-tr-3xl rounded-br-3xl border-r-2 border-b-2 border-blue-200
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
         {/* Menu items */}
-        <nav className="flex flex-col gap-2 px-6 py-6">
+        <nav className="flex flex-col items-center gap-4 p-8">
+          <div className="h-8"></div>
+
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             return (
@@ -180,7 +199,7 @@ export const Navbar = () => {
                 key={item.name}
                 href={item.path}
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md "
               >
                 <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
                   <Icon size={24} className="text-blue-600" strokeWidth={2} />
@@ -203,20 +222,22 @@ export const Navbar = () => {
       <div
         ref={avatarMenuRef}
         className={`
-          absolute right-0 top-full w-80 bg-gradient-to-bl from-blue-50 to-white
+          absolute right-0 top-[145px] h-[calc(100vh-0px)] w-80 bg-gradient-to-bl from-blue-50 to-white
           transform transition-transform duration-300 ease-in-out
-          z-40 shadow-2xl overflow-y-auto max-h-[calc(100vh-180px)] rounded-bl-3xl border-l-2 border-b-2 border-blue-200
+          z-50 shadow-2xl overflow-y-auto rounded-tl-3xl rounded-bl-3xl border-l-2 border-b-2 border-blue-200
           ${isAvatarOpen ? 'translate-x-0' : 'translate-x-full'}
         `}
       >
 
         {/* Menu items */}
-        <nav className="flex flex-col gap-2 px-6 py-6">
+        <nav className="flex flex-col items-center gap-4 p-8">
+          <div className="h-8"></div>
+
           {/* Login */}
           <a
             href="/login"
             onClick={() => setIsAvatarOpen(false)}
-            className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
               <LogIn size={24} className="text-blue-600" strokeWidth={2} />
@@ -226,9 +247,9 @@ export const Navbar = () => {
 
           {/* Create Account */}
           <a
-            href="/signup"
+            href="/create-account"
             onClick={() => setIsAvatarOpen(false)}
-            className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl bg-white border-2 border-blue-100 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-colors">
               <UserPlus size={24} className="text-blue-600" strokeWidth={2} />

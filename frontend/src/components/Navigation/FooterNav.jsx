@@ -1,3 +1,4 @@
+import { Link, useLocation } from 'react-router-dom';
 import { Home, ClipboardList, Camera, Lock, Search } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -8,36 +9,41 @@ const NAV_ITEMS = [
   { name: 'Research', icon: Search, path: '/research' },
 ];
 
-export const FooterNav = ({ activePath = '/dashboard' }) => {
+export const FooterNav = () => {
+  const location = useLocation();
+  const currentPath = location.pathname === '/' ? '/dashboard' : location.pathname;
+
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:hidden">
-      <div className="flex justify-around items-center py-2 px-2">
+    <footer className="shrink-0 bg-linear-to-t from-blue-50 to-white border-t-2 border-blue-200 md:hidden shadow-lg">
+      <div className="flex justify-around items-center px-4" style={{ paddingTop: '20px', paddingBottom: '12px' }}>
         {NAV_ITEMS.map((item) => {
-          const isActive = activePath === item.path;
+          const isActive = currentPath === item.path;
           const Icon = item.icon;
 
           return (
-            <a
+            <Link
               key={item.name}
-              href={item.path}
-              className={`
-                flex flex-col items-center gap-1 px-3 py-2
-                rounded-xl border transition-all duration-200
-                ${isActive
-                  ? 'bg-blue-100 border-blue-200'
-                  : 'bg-white border-gray-200 hover:bg-gray-50'
-                }
-              `}
+              to={item.path}
+              className="group flex flex-col items-center gap-1 px-3 py-2 transition-all duration-200"
             >
               <Icon
-                size={20}
-                className="text-gray-700"
-                strokeWidth={1.5}
+                size={22}
+                className={`
+                  transition-colors
+                  ${isActive ? 'text-blue-600' : 'text-gray-600 group-hover:text-blue-600'}
+                `}
+                strokeWidth={2}
               />
-              <span className="text-xs text-gray-800 font-medium">
+              <span className={`
+                text-xs font-semibold transition-colors
+                ${isActive
+                  ? 'text-blue-700'
+                  : 'text-gray-800 group-hover:text-blue-700'
+                }
+              `}>
                 {item.name}
               </span>
-            </a>
+            </Link>
           );
         })}
       </div>

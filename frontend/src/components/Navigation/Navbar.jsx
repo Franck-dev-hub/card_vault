@@ -8,6 +8,7 @@ const PAGE_TITLES = {
   '/dashboard': 'Dashboard',
   '/login': 'Login',
   '/create-account': 'Create Account',
+  '/profile': 'Profile',
   '/statistics': 'Statistics',
   '/scan': 'Scan',
   '/vault': 'Vault',

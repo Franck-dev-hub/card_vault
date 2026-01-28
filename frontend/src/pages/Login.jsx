@@ -20,7 +20,7 @@ export default function Login() {
       <BackgroundGradient className="rounded-3xl">
         <div className="card w-full max-w-96 bg-base-100 shadow-2xl border-2 border-gray-100 rounded-3xl">
           <div className="card-body px-8! py-10! md:px-16! md:py-12! bg-linear-to-bl from-blue-50 to-white rounded-3xl">
-          <h2 className="card-title text-2xl justify-center mb-4">Login</h2>
+          {/*<h2 className="card-title text-2xl justify-center mb-4">Login</h2>*/}
 
           <form onSubmit={handleSubmit} className="w-full">
             {/* Email */}

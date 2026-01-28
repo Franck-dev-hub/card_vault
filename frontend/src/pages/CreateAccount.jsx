@@ -37,7 +37,7 @@ export default function CreateAccount() {
       <BackgroundGradient className="rounded-3xl">
         <div className="card w-full max-w-96 bg-linear-to-bl from-blue-50 to-white rounded-3xl">
           <div className="card-body px-8! py-10! md:px-16! md:py-12!">
-            <h2 className="card-title text-2xl justify-center mb-4">Create Account</h2>
+            {/*<h2 className="card-title text-2xl justify-center mb-4">Create Account</h2>*/}
 
           <form onSubmit={handleSubmit} className="w-full">
             {/* Username */}

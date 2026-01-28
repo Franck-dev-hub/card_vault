@@ -107,7 +107,7 @@
 | 3    | Frontend | Implement vault                          | feat/vault      | Check display working                                                 |
 | 3    | Frontend | Implement research                       | feat/research   | Check display working                                                 |
 | 3    | Frontend | Implement parameters                     | feat/parameters | Check display working                                                 |
-| 3    | Frontend | Implement profil                         | feat/profil     | Check display working                                                 |
+| 3    | Frontend | Implement profil                         | feat/profilAuth | Check display working                                                 |
 | 3    | ML       | Use user photo then delete it            | feat/ml         | Check that the photo is usable                                        |
 | 3    | ML       | Send best match in a route               | feat/ml         | Check that the json is usable in frontend                             |
 |      |          |                                          |                 |                                                                       |

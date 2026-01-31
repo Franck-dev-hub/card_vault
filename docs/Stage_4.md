@@ -11,125 +11,125 @@
 - 7 [Production environment](#7-production-environment)
 
 ## 1 Sprint Reviews
-| Week | Area      | Result                                    |
-|------|-----------|-------------------------------------------|
-| 1    | Backend   | Proxy setup                               |
-| 1    | Frontend  | Taillwind, Daisyui and Lucide React setup |
-| 1    | ML        | First model setup                         |
-|      |           |                                           |
-| 2    | Backend   | Send Pokemon informations in JSON route   |
-| 2    | Frontend  | Account pages                             |
-| 2    | ML        | Use Hugging Face streaming                |
-|      |           |                                           |
-| 3    | Backend   |                                           |
-| 3    | Frontend  |                                           |
-| 3    | ML        |                                           |
-|      |           |                                           |
-| 4    | Backend   |                                           |
-| 4    | Frontend  |                                           |
-| 4    | ML        |                                           |
-|      |           |                                           |
-| 5    | Backend   |                                           |
-| 5    | Frontend  |                                           |
-| 5    | ML        |                                           |
-|      |           |                                           |
-| 6    | Backend   |                                           |
-| 6    | Frontend  |                                           |
-| 6    | ML        |                                           |
-|      |           |                                           |
-| 7    | Backend   |                                           |
-| 7    | Frontend  |                                           |
-| 7    | ML        |                                           |
-|      |           |                                           |
-| 8    | Backend   |                                           |
-| 8    | Frontend  |                                           |
-| 8    | ML        |                                           |
+| Week | Assignment | Area      | Result                                    |
+|------|------------|-----------|-------------------------------------------|
+| 1    | Jérémy     | Backend   | Proxy setup                               |
+| 1    | Haitu      | Frontend  | Taillwind, Daisyui and Lucide React setup |
+| 1    | Franck     | ML        | First model setup                         |
+|      |            |           |                                           |
+| 2    | Jérémy     | Backend   | Send Pokemon informations in JSON route   |
+| 2    | Haitu      | Frontend  | Account pages                             |
+| 2    | Franck     | ML        | Use Hugging Face streaming                |
+|      |            |           |                                           |
+| 3    | Jérémy     | Backend   |                                           |
+| 3    | Haitu      | Frontend  |                                           |
+| 3    | Franck     | ML        |                                           |
+|      |            |           |                                           |
+| 4    | Jérémy     | Backend   |                                           |
+| 4    | Haitu      | Frontend  |                                           |
+| 4    | Franck     | ML        |                                           |
+|      |            |           |                                           |
+| 5    | Jérémy     | Backend   |                                           |
+| 5    | Haitu      | Frontend  |                                           |
+| 5    | Franck     | ML        |                                           |
+|      |            |           |                                           |
+| 6    | Jérémy     | Backend   |                                           |
+| 6    | Haitu      | Frontend  |                                           |
+| 6    | Franck     | ML        |                                           |
+|      |            |           |                                           |
+| 7    | Jérémy     | Backend   |                                           |
+| 7    | Haitu      | Frontend  |                                           |
+| 7    | Franck     | ML        |                                           |
+|      |            |           |                                           |
+| 8    | Jérémy     | Backend   |                                           |
+| 8    | Haitu      | Frontend  |                                           |
+| 8    | Franck     | ML        |                                           |
 
 ## 2 Retrospectives
 > What worked well during the sprint?
 > What challenges did we face?
 > What changes can we make to improve the next sprint?
- Noeunoeuf (ID: sv08-001)
-| Week | Area      | What worked            | Challenges                         | Changes                    |
-|------|-----------|------------------------|------------------------------------|----------------------------|
-| 1    | Backend   | Proxy setup            | Connect front and back together    | Standardise API endpoints  |
-| 1    | Frontend  | Create interface       | Complete install and configuration | Initial routing/navigation |
-| 1    | ML        | Model is working       | Manage heavy data                  | Optimise the data pipeline |
-|      |           |                        |                                    |                            |
-| 2    | Backend   | Fetch set & card data  | Send the correct data              | Normelise cards data       |
-| 2    | Frontend  | Display form correctly | search how use framework           | Create other menu pages    |
-| 2    | ML        | Streaming is working   | Send and receive streaming data    | Connect to frontend        |
-|      |           |                        |                                    |                            |
-| 3    | Backend   |                        |                                    |                            |
-| 3    | Frontend  |                        |                                    |                            |
-| 3    | ML        |                        |                                    |                            |
-|      |           |                        |                                    |                            |
-| 4    | Backend   |                        |                                    |                            |
-| 4    | Frontend  |                        |                                    |                            |
-| 4    | ML        |                        |                                    |                            |
-|      |           |                        |                                    |                            |
-| 5    | Backend   |                        |                                    |                            |
-| 5    | Frontend  |                        |                                    |                            |
-| 5    | ML        |                        |                                    |                            |
-|      |           |                        |                                    |                            |
-| 6    | Backend   |                        |                                    |                            |
-| 6    | Frontend  |                        |                                    |                            |
-| 6    | ML        |                        |                                    |                            |
-|      |           |                        |                                    |                            |
-| 7    | Backend   |                        |                                    |                            |
-| 7    | Frontend  |                        |                                    |                            |
-| 7    | ML        |                        |                                    |                            |
-|      |           |                        |                                    |                            |
-| 8    | Backend   |                        |                                    |                            |
-| 8    | Frontend  |                        |                                    |                            |
-| 8    | ML        |                        |                                    |                            |
+
+| Week | Assignment | Area      | What worked            | Challenges                         | Changes                    |
+|------|------------|-----------|------------------------|------------------------------------|----------------------------|
+| 1    | Jérémy     | Backend   | Proxy setup            | Connect front and back together    | Standardise API endpoints  |
+| 1    | Haitu      | Frontend  | Create interface       | Complete install and configuration | Initial routing/navigation |
+| 1    | Franck     | ML        | Model is working       | Manage heavy data                  | Optimise the data pipeline |
+|      |            |           |                        |                                    |                            |
+| 2    | Jérémy     | Backend   | Fetch set & card data  | Send the correct data              | Normelise cards data       |
+| 2    | Haitu      | Frontend  | Display form correctly | search how use framework           | Create other menu pages    |
+| 2    | Franck     | ML        | Streaming is working   | Send and receive streaming data    | Connect to frontend        |
+|      |            |           |                        |                                    |                            |
+| 3    | Jérémy     | Backend   |                        |                                    |                            |
+| 3    | Haitu      | Frontend  |                        |                                    |                            |
+| 3    | Franck     | ML        |                        |                                    |                            |
+|      |            |           |                        |                                    |                            |
+| 4    | Jérémy     | Backend   |                        |                                    |                            |
+| 4    | Haitu      | Frontend  |                        |                                    |                            |
+| 4    | Franck     | ML        |                        |                                    |                            |
+|      |            |           |                        |                                    |                            |
+| 5    | Jérémy     | Backend   |                        |                                    |                            |
+| 5    | Haitu      | Frontend  |                        |                                    |                            |
+| 5    | Franck     | ML        |                        |                                    |                            |
+|      |            |           |                        |                                    |                            |
+| 6    | Jérémy     | Backend   |                        |                                    |                            |
+| 6    | Haitu      | Frontend  |                        |                                    |                            |
+| 6    | Franck     | ML        |                        |                                    |                            |
+|      |            |           |                        |                                    |                            |
+| 7    | Jérémy     | Backend   |                        |                                    |                            |
+| 7    | Haitu      | Frontend  |                        |                                    |                            |
+| 7    | Franck     | ML        |                        |                                    |                            |
+|      |            |           |                        |                                    |                            |
+| 8    | Jérémy     | Backend   |                        |                                    |                            |
+| 8    | Haitu      | Frontend  |                        |                                    |                            |
+| 8    | Franck     | ML        |                        |                                    |                            |
 
 ## 3 Sprint planning
 > Sprint plan with prioritized tasks, deadlines, and responsibilities for all team members.
 
-| Week | Area     | Feature                                  | SCM Review      | QA                                                                    |
-|------|----------|------------------------------------------|-----------------|-----------------------------------------------------------------------|
-| 1    | Backend  | Setup proxy                              | feat/proxy      | Verify that requests pass from the Proxy to the API without error     |
-| 1    | Frontend | Tools setup                              | feat/menu       | Check for errors during compilation                                   |
-| 1    | ML       | Initialisation of a ml model             | feat/ml         | Check that the model loads into memory and responds to a simple query |
-|      |          |                                          |                 |                                                                       |
-| 2    | Backend  | Setup variables for menu and profil      | feat/route      | Test the endpoints with Postman to validate the JSON format           |
-| 2    | Backend  | Display filter for cards in search route | feat/search     | Verify that the filters return the correct card IDs                   |
-| 2    | Frontend | Display menu                             | feat/menu       | Check the visual rendering and responsiveness on mobile/desktop       |
-| 2    | Frontend | Display profil                           | feat/profil     | Check the visual rendering and responsiveness on mobile/desktop       |
-| 2    | Frontend | Display filter for cards in search route | feat/search     | Check that clicking on a filter updates the gallery display           |
-| 2    | ML       | Enhance model data usage                 | feat/ml         | Measure latency and monitor RAM/VRAM to manage large data sets        |
-|      |          |                                          |                 |                                                                       |
-| 3    | Backend  | Finalise data resitution                 | feat/apiService | Check the data is correctly restitued                                 |
-| 3    | Backend  | Start auth logic                         | feat/auth       | Check JWT and bcrypt usage                                            |
-| 3    | Frontend | Implement statistics                     | feat/stats      | Check display working                                                 |
-| 3    | Frontend | Implement scan                           | feat/scan       | Check display working                                                 |
-| 3    | Frontend | Implement vault                          | feat/vault      | Check display working                                                 |
-| 3    | Frontend | Implement research                       | feat/research   | Check display working                                                 |
-| 3    | Frontend | Implement parameters                     | feat/parameters | Check display working                                                 |
-| 3    | Frontend | Implement profil                         | feat/profilAuth | Check display working                                                 |
-| 3    | ML       | Use user photo then delete it            | feat/ml         | Check that the photo is usable                                        |
-| 3    | ML       | Send best match in a route               | feat/ml         | Check that the json is usable in frontend                             |
-|      |          |                                          |                 |                                                                       |
-| 4    | Backend  |                                          |                 |                                                                       |
-| 4    | Frontend |                                          |                 |                                                                       |
-| 4    | ML       |                                          |                 |                                                                       |
-|      |          |                                          |                 |                                                                       |
-| 5    | Backend  |                                          |                 |                                                                       |
-| 5    | Frontend |                                          |                 |                                                                       |
-| 5    | ML       |                                          |                 |                                                                       |
-|      |          |                                          |                 |                                                                       |
-| 6    | Backend  |                                          |                 |                                                                       |
-| 6    | Frontend |                                          |                 |                                                                       |
-| 6    | ML       |                                          |                 |                                                                       |
-|      |          |                                          |                 |                                                                       |
-| 7    | Backend  |                                          |                 |                                                                       |
-| 7    | Frontend |                                          |                 |                                                                       |
-| 7    | ML       |                                          |                 |                                                                       |
-|      |          |                                          |                 |                                                                       |
-| 8    | Backend  |                                          |                 |                                                                       |
-| 8    | Frontend |                                          |                 |                                                                       |
-| 8    | ML       |                                          |                 |                                                                       |
+| Week | Assignment | Area     | Feature                                  | SCM Review      | QA                                                                    |
+|------|------------|----------|------------------------------------------|-----------------|-----------------------------------------------------------------------|
+| 1    | Jérémy     | Backend  | Setup proxy                              | feat/proxy      | Verify that requests pass from the Proxy to the API without error     |
+| 1    | Haitu      | Frontend | Tools setup                              | feat/menu       | Check for errors during compilation                                   |
+| 1    | Franck     | ML       | Initialisation of a ml model             | feat/ml         | Check that the model loads into memory and responds to a simple query |
+|      |            |          |                                          |                 |                                                                       |
+| 2    | Jérémy     | Backend  | Setup variables for menu and profil      | feat/route      | Test the endpoints with Postman to validate the JSON format           |
+| 2    | Jérémy     | Backend  | Display filter for cards in search route | feat/search     | Verify that the filters return the correct card IDs                   |
+| 2    | Haitu      | Frontend | Display menu                             | feat/menu       | Check the visual rendering and responsiveness on mobile/desktop       |
+| 2    | Haitu      | Frontend | Display profil                           | feat/profil     | Check the visual rendering and responsiveness on mobile/desktop       |
+| 2    | Haitu      | Frontend | Display filter for cards in search route | feat/search     | Check that clicking on a filter updates the gallery display           |
+| 2    | Franck     | ML       | Enhance model data usage                 | feat/ml         | Measure latency and monitor RAM/VRAM to manage large data sets        |
+|      |            |          |                                          |                 |                                                                       |
+| 3    | Jérémy     | Backend  | Finalise data resitution                 | feat/apiService | Check the data is correctly restitued                                 |
+| 3    | Jérémy     | Backend  | Start auth logic                         | feat/auth       | Check JWT and bcrypt usage                                            |
+| 3    | Haitu      | Frontend | Implement statistics                     | feat/stats      | Check display working                                                 |
+| 3    | Haitu      | Frontend | Implement scan                           | feat/scan       | Check display working                                                 |
+| 3    | Haitu      | Frontend | Implement vault                          | feat/vault      | Check display working                                                 |
+| 3    | Haitu      | Frontend | Implement research                       | feat/research   | Check display working                                                 |
+| 3    | Haitu      | Frontend | Implement parameters                     | feat/parameters | Check display working                                                 |
+| 3    | Haitu      | Frontend | Implement profil                         | feat/profilAuth | Check display working                                                 |
+| 3    | Franck     | Docs     | Create full working figma model          | N/A             | N/A                                                                   |
+|      |            |          |                                          |                 |                                                                       |
+| 4    | Jérémy     | Backend  |                                          |                 |                                                                       |
+| 4    | Haitu      | Frontend |                                          |                 |                                                                       |
+| 4    | Franck     | ML       | Use user photo then delete it            | feat/ml         | Check that the photo is usable                                        |
+| 4    | Franck     | ML       | Send best match in a route               | feat/ml         | Check that the json is usable in frontend                             |
+|      |            |          |                                          |                 |                                                                       |
+| 5    | Jérémy     | Backend  |                                          |                 |                                                                       |
+| 5    | Haitu      | Frontend |                                          |                 |                                                                       |
+| 5    | Franck     | ML       |                                          |                 |                                                                       |
+|      |            |          |                                          |                 |                                                                       |
+| 6    | Jérémy     | Backend  |                                          |                 |                                                                       |
+| 6    | Haitu      | Frontend |                                          |                 |                                                                       |
+| 6    | Franck     | ML       |                                          |                 |                                                                       |
+|      |            |          |                                          |                 |                                                                       |
+| 7    | Jérémy     | Backend  |                                          |                 |                                                                       |
+| 7    | Haitu      | Frontend |                                          |                 |                                                                       |
+| 7    | Franck     | ML       |                                          |                 |                                                                       |
+|      |            |          |                                          |                 |                                                                       |
+| 8    | Jérémy     | Backend  |                                          |                 |                                                                       |
+| 8    | Haitu      | Frontend |                                          |                 |                                                                       |
+| 8    | Franck     | ML       |                                          |                 |                                                                       |
 
 ## 4 Source repository
 ### Repo

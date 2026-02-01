@@ -8,6 +8,7 @@ import CreateAccount from './pages/CreateAccount';
 import Profile from './pages/Profile';
 import Parameters from './pages/Parameters';
 import LandingPage from './pages/LandingPage';
+import Statistics from './pages/Statistics';
 import './App.css';
 import { MainLayout } from './components/Layout/MainLayout';
 
@@ -68,12 +69,7 @@ function App() {
               <Route path="confidentiality" element={<Confidentiality />} />
               <Route path="cookies" element={<Cookies />} />
               <Route path="contacts" element={<Contacts />} />
-              {/* Décommente quand tu auras créé ces pages :
-              
-              
-              
-              
-              */}
+
             </Route>
 
             {/* Routes protégées - Nécessitent authentification */}
@@ -117,8 +113,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* Routes à activer plus tard quand les composants seront créés
             <Route
               path="/statistics"
               element={
@@ -129,6 +123,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            {/* Routes à activer plus tard quand les composants seront créés
+
             <Route
               path="/scan"
               element={

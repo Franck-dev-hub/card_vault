@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Vault } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
@@ -53,7 +53,7 @@ export default function Login() {
                 <span className="label-text text-gray-700 dark:text-gray-300">Password</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
-                <Lock size={18} className="text-gray-500 dark:text-gray-400" />
+                <Vault size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="password"
                   placeholder="••••••••"

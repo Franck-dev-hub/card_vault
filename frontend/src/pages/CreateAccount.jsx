@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Mail, Lock } from 'lucide-react';
+import { User, Mail, Vault } from 'lucide-react';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
 
@@ -88,7 +88,7 @@ export default function CreateAccount() {
                 <span className="label-text text-gray-700 dark:text-gray-300">Password</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
-                <Lock size={18} className="text-gray-500 dark:text-gray-400" />
+                <Vault size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="password"
                   placeholder="At least 6 characters"
@@ -108,7 +108,7 @@ export default function CreateAccount() {
                 <span className="label-text text-gray-700 dark:text-gray-300">Confirm Password</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
-                <Lock size={18} className="text-gray-500 dark:text-gray-400" />
+                <Vault size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="password"
                   placeholder="Repeat your password"

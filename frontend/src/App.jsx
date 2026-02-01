@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import Parameters from './pages/Parameters';
 import LandingPage from './pages/LandingPage';
 import Statistics from './pages/Statistics';
+import Scan from './pages/Scan';
 import './App.css';
 import { MainLayout } from './components/Layout/MainLayout';
 
@@ -123,9 +124,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* Routes à activer plus tard quand les composants seront créés
-
             <Route
               path="/scan"
               element={
@@ -136,6 +134,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            {/* Routes à activer plus tard quand les composants seront créés
+
+
             <Route
               path="/vault"
               element={

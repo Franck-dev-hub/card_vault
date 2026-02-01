@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // ⬅️ Ajoute useNavigate
-import { Home, ChartColumn, Camera, Lock, Search, User, LogIn, LogOut, UserPlus, Globe, ChevronDown, ChevronUp, Settings, Info, ArrowLeft } from 'lucide-react'; // ⬅️ Ajoute ArrowLeft
+import { Home, ChartColumn, Camera, Vault, Search, User, LogIn, LogOut, UserPlus, Globe, ChevronDown, ChevronUp, Settings, Info, ArrowLeft } from 'lucide-react'; // ⬅️ Ajoute ArrowLeft
 import { FaDiscord } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -47,7 +47,7 @@ const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
   { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
-  { name: 'Vault', icon: Lock, path: '/vault' },
+  { name: 'Vault', icon: Vault, path: '/vault' },
   { name: 'Research', icon: Search, path: '/research' },
   { name: 'About', icon: Info, path: '/about' },
 ];

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, ChartColumn, Camera, Lock, Search } from 'lucide-react';
+import { Home, ChartColumn, Camera, Vault, Search } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 
@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
   { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
-  { name: 'Vault', icon: Lock, path: '/vault' },
+  { name: 'Vault', icon: Vault, path: '/vault' },
   { name: 'Research', icon: Search, path: '/research' },
 ];
 

@@ -1,231 +1,244 @@
-/* Container principal */
+/* Container principal avec un meilleur dégradé */
 .container {
   padding: 1.5rem;
   min-height: 100vh;
-  transition: background 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: all 0.5s ease;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-/* Cela force TOUS les éléments à l'intérieur de Research à utiliser la même police */
 .container * {
   font-family: inherit;
 }
 
-/* Mode LIGHT - gradient bleu-violet */
 .container.light {
-  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
-  background-attachment: fixed;
+  background: radial-gradient(circle at top left, #f0f9ff 0%, #e0e7ff 100%);
 }
 
-/* Mode DARK - gradient sombre */
 .container.dark {
-  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
-  background-attachment: fixed;
+  background: radial-gradient(circle at top left, #0f172a 0%, #1e1b4b 100%);
 }
 
-/* Accordéon Principal (Filter / Sort) */
-.accordionWrapper {
-  margin-bottom: 1rem;
-}
-
+/* Accordéon Principal - Look Premium */
 .accordionHeader {
   width: 100%;
-  height: 65px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1.5rem;
-  background-color: white;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.accordionHeader:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.15);
+}
+
+.accordionWrapper {
+  margin-bottom: 2rem; /* Espacement entre Filter et Sort augmenté */
 }
 
 .label {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  letter-spacing: -0.02em;
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.icon {
-  color: #000;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.iconOpen {
-  transform: rotate(-90deg);
-}
-
-/* Contenu déroulant (Zone blanche sous Filter) */
+/* Contenu déroulant */
 .content {
-  padding: 1rem;
-  background-color: white; /* Fond blanc opaque comme sur l'image */
-  border-radius: 0 0 16px 16px;
-  margin-top: -12px; /* Fusion avec le header */
-  padding-top: 20px;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 20px 20px;
+  margin-top: -15px;
+  padding-top: 25px;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
 }
 
-/* SOUS-ACCORDÉONS (Licenses / Extensions) */
+/* SOUS-MENUS - Ajusté pour la hauteur variable */
 .subAccordionHeader {
   width: 100%;
+  min-height: 55px; /* Hauteur min */
+  height: auto;      /* Permet de s'agrandir si texte long */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.8rem 1.2rem;
   background: white;
-  border: 1px solid #e5e7eb; /* Bordure fine grise */
-  border-radius: 12px;
-  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+  gap: 15px;
+}
+
+.subAccordionHeader:hover {
+  border-color: #6366f1;
+  background: #f8fafc;
 }
 
 .subLabel {
-  font-size: 1.2rem;
-  color: #1a1a1a;
+  font-weight: 500;
+  flex-shrink: 0; /* Empêche le titre de s'écraser */
 }
 
-/* Groupe à droite : Valeur sélectionnée + Flèche */
+/* ZONE DE SÉLECTION - Aligne texte + chevron */
 .subSelectArea {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  flex: 1; /* Prend la place restante */
 }
 
 .selectedValue {
-  font-size: 1.1rem;
+  font-size: 1rem; /* Un poil plus petit pour l'équilibre */
   color: #1a1a1a;
   font-weight: 400;
+  white-space: normal;    /* Autorise le retour à la ligne */
+  text-align: right;      /* Aligne vers le chevron */
+  line-height: 1.2;
+  word-break: break-word;
 }
 
-.subIcon {
-  color: #000;
-  transition: transform 0.3s ease;
-}
-
-/* Liste de choix (Dropdown interne) */
+/* Liste de choix (Dropdown) */
 .licenseList {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  margin-top: 4px;
-  overflow: hidden;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .licenseItem {
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.licenseItem:last-child {
-  border-bottom: none;
+  padding: 1rem 1.2rem;
+  transition: all 0.2s ease;
 }
 
 .licenseItem:hover {
-  background-color: #f1f5f9;
+  background-color: #eef2ff;
+  color: #4338ca;
+  padding-left: 1.5rem;
 }
 
-/* DARK MODE ADJUSTMENTS */
-.dark .accordionHeader, 
-.dark .content, 
-.dark .subAccordionHeader {
-  background-color: #1f2937;
-  border-color: #374151;
+/* GRILLE DE CARTES */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 2rem 0;
 }
 
-.dark .label, 
-.dark .subLabel, 
-.dark .selectedValue, 
-.dark .icon, 
+.cardWrapper {
+  perspective: 1000px;
+}
+
+.cardContainer {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cardContainer:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.cardImage {
+  width: 100%;
+  display: block;
+  border-radius: 15px;
+}
+
+.cardHoverInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 15px 10px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cardContainer:hover .cardHoverInfo {
+  opacity: 1;
+}
+
+/* DARK MODE */
+.dark .accordionHeader {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .content {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.dark .subAccordionHeader, .dark .licenseList {
+  background: #1e293b;
+  border-color: #334155;
+  color: white;
+}
+
+.dark .label {
+  background: linear-gradient(90deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+}
+
+.dark .licenseItem:hover {
+  background-color: #312e81;
+  color: #e0e7ff;
+}
+
+.dark .selectedValue {
+  color: #cbd5e1;
+}
+
 .dark .subIcon {
   color: white;
 }
 
-.dark .licenseList {
-  background: #111827;
-  border-color: #374151;
-}
-
-.dark .licenseItem:hover {
-  background-color: #374151;
-}
-
-/* États de chargement et erreur */
-.loading, .error {
+/* Ligne Extension avec Badge */
+.extRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
   align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-}
-.error { color: #e74c3c; background-color: #fdecea; }
-
-.subAccordionWrapper {
-  animation: fadeIn 0.3s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Force l'icône à tourner aussi pour les sous-menus */
-.iconOpen {
-  transform: rotate(-90deg);
-}
-
-/* Conteneur de la grille */
-.resultsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colonnes identiques */
-  gap: 12px;                             /* Espace entre les cartes */
-  padding: 1rem 0.5rem;                  /* Espace sur les côtés gauche/droite */
-  margin-top: 1rem;
-}
-
-/* Item de la carte */
-.cardItem {
-  width: 100%;
-  aspect-ratio: 2/3;                     /* Ratio standard d'une carte à jouer */
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
-
-.cardItem:hover {
-  transform: translateY(-5px);           /* Petit effet de survol */
-}
-
-/* Image de la carte */
-.cardImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;                     /* Pour que l'image remplisse bien le cadre */
-  display: block;
-}
-
-/* Style spécifique pour le "Coming soon" à l'intérieur de Sort */
-.comingSoonCard {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #1a1a1a;
-  width: 100%;
-}
-
-.dark .comingSoonCard {
-  background: #1f2937;
+.extensionCount {
+  font-size: 0.7rem;
+  background: #6366f1;
   color: white;
-  border-color: #374151;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* ANIMATION DES CHEVRONS */
+.subIcon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  flex-shrink: 0;
+}
+
+.iconOpen {
+  transform: rotate(-90deg) !important;
 }

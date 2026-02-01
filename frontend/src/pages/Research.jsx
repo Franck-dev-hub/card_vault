@@ -1,32 +1,47 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronDown, Search } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import styles from './Research.module.css';
 
 export default function Research() {
-  const { loading, error } = useApi('/research/');
   const { isDark } = useTheme();
   
+  // --- ÉTATS POUR L'INTERFACE ---
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  
   const [isLicenseMenuOpen, setIsLicenseMenuOpen] = useState(false);
-  const [selectedLicense, setSelectedLicense] = useState(null);
-
   const [isExtensionsOpen, setIsExtensionsOpen] = useState(false);
+
+  // --- ÉTATS POUR LA RECHERCHE ---
+  const [selectedLicense, setSelectedLicense] = useState(null);
   const [selectedExtension, setSelectedExtension] = useState(null);
 
-  const licenses = ["Pokemon", "Magic"];
-  const extensions = ["Base1"];
+  // --- CONSTRUCTION DE L'URL DYNAMIQUE (FastAPI) ---
+  const dynamicUrl = selectedLicense 
+    ? `/search/${selectedLicense.toLowerCase()}${selectedExtension ? `/${selectedExtension.toLowerCase()}` : ''}`
+    : '/search';
 
-  // Simulation de 9 cartes pour remplir la grille 3x3
-  const cards = Array(9).fill({ id: 1 });
-  
+  // Appel API réel
+  const { data, loading, error } = useApi(dynamicUrl);
+
+  // --- LOGIQUE DE DONNÉES ---
+  // 1. Les licences (Pokemon, Magic)
+  const licenses = ["Pokemon", "Magic"];
+
+  // 2. Les extensions (si on est sur /search/pokemon, data contient la liste des sets)
+  const availableExtensions = Array.isArray(data) 
+  ? data 
+  : (data?.name ? [data] : []);
+
+  // 3. Les cartes (si on est sur /search/pokemon/base1, les cartes sont dans data.cards)
+  const cards = data?.cards || [];
+
+  console.log("Données reçues :", data);
   return (
     <div className={`${styles.container} ${isDark ? styles.dark : styles.light}`}>
       
-      {/* SECTION FILTER */}
+      {/* --- SECTION FILTER --- */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsFilterOpen(!isFilterOpen)}>
           <span className={styles.label}>Filter</span>
@@ -35,6 +50,8 @@ export default function Research() {
 
         {isFilterOpen && (
           <div className={styles.content}>
+            
+            {/* SÉLECTEUR DE LICENCE */}
             <div className={styles.subAccordionWrapper}>
               <button className={styles.subAccordionHeader} onClick={() => setIsLicenseMenuOpen(!isLicenseMenuOpen)}>
                 <span className={styles.subLabel}>Licenses</span>
@@ -46,7 +63,11 @@ export default function Research() {
               {isLicenseMenuOpen && (
                 <div className={styles.licenseList}>
                   {licenses.map((lib) => (
-                    <div key={lib} className={styles.licenseItem} onClick={() => { setSelectedLicense(lib); setIsLicenseMenuOpen(false); }}>
+                    <div key={lib} className={styles.licenseItem} onClick={() => { 
+                      setSelectedLicense(lib); 
+                      setSelectedExtension(null); 
+                      setIsLicenseMenuOpen(false); 
+                    }}>
                       {lib}
                     </div>
                   ))}
@@ -54,22 +75,35 @@ export default function Research() {
               )}
             </div>
 
+            {/* SÉLECTEUR D'EXTENSION (Dynamique via l'API) */}
             {selectedLicense && (
               <div className={styles.subAccordionWrapper}>
                 <button className={styles.subAccordionHeader} onClick={() => setIsExtensionsOpen(!isExtensionsOpen)}>
                   <span className={styles.subLabel}>Extensions</span>
                   <div className={styles.subSelectArea}>
-                    <span className={styles.selectedValue}>{selectedExtension || '-- Select --'}</span>
+                    <span className={styles.selectedValue}>
+                      {selectedExtension ? availableExtensions.find(e => e.id === selectedExtension)?.name : '-- Select --'}
+                    </span>
                     <ChevronLeft className={`${styles.subIcon} ${isExtensionsOpen ? styles.iconOpen : ''}`} size={20} />
                   </div>
                 </button>
                 {isExtensionsOpen && (
                   <div className={styles.licenseList}>
-                    {extensions.map((ext) => (
-                      <div key={ext} className={styles.licenseItem} onClick={() => { setSelectedExtension(ext); setIsExtensionsOpen(false); }}>
-                        {ext}
-                      </div>
-                    ))}
+                    {availableExtensions.length > 0 ? (
+                      availableExtensions.map((ext) => (
+                        <div key={ext.id} className={styles.licenseItem} onClick={() => { 
+                          setSelectedExtension(ext.id); 
+                          setIsExtensionsOpen(false); 
+                        }}>
+                          <div className={styles.extRow}>
+                            <span>{ext.name}</span>
+                            <small className={styles.cardCount}>{ext.cardCount?.total} cards</small>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className={styles.noData}>Loading extensions...</div>
+                    )}
                   </div>
                 )}
               </div>
@@ -78,34 +112,46 @@ export default function Research() {
         )}
       </div>
 
-      {/* SECTION SORT */}
+      {/* --- SECTION SORT --- */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsSortOpen(!isSortOpen)}>
           <span className={styles.label}>Sort</span>
           {isSortOpen ? <ChevronDown className={styles.icon} size={24} /> : <ChevronLeft className={styles.icon} size={24} />}
         </button>
-        {isSortOpen && (
-          <div className={styles.content}>
-            <div className={styles.comingSoon}>Coming soon</div>
+        {isSortOpen && <div className={styles.content}><div className={styles.comingSoon}>Coming soon</div></div>}
+      </div>
+
+      {/* --- GRILLE DE RÉSULTATS --- */}
+      <div className={styles.mainDisplay}>
+        {loading && <div className={styles.loader}>Searching for the best maps...</div>}
+        
+        {error && <div className={styles.error}>Error: {error}</div>}
+
+        {!loading && cards.length > 0 && (
+          <div className={styles.resultsGrid}>
+            {cards.map((card) => (
+              <div key={card.id} className={styles.cardWrapper}>
+                <div className={styles.cardContainer}>
+                  <img 
+                    src={`${card.image}/low.png`} 
+                    alt={card.name} 
+                    className={styles.cardImage}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://tcg.pokemon.com/assets/img/global/tcg-card-back.png';
+                    }}
+                  />
+                  <div className={styles.cardHoverInfo}>
+                    <span className={styles.cardId}>#{card.localId}</span>
+                    <p className={styles.cardName}>{card.name}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
-
-      {/* GRILLE DE CARTES (Apparaît après sélection) */}
-      {selectedLicense && selectedExtension && (
-        <div className={styles.resultsGrid}>
-          {cards.map((_, index) => (
-            <div key={index} className={styles.cardWrapper}>
-              <img 
-                src="https://static.fnac-static.com/multimedia/Images/FR/MDM/b1/5c/25/19225777/1540-1/tsp20241106022234/Carte-a-collectionner-Pokemon-Carte-Promo-Go-1-Bonus-de-commande-ne-peut-etre-vendu-separement.jpg" 
-                alt="Pokemon Card" 
-                className={styles.cardImage}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
     </div>
   );
 }

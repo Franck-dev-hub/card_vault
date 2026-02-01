@@ -1,0 +1,10 @@
+{
+  "pokemon": {
+    "name": "Pokémon",
+    "id": "pokemon"
+  },
+  "magic": {
+    "name": "Magic",
+    "id": "magic"
+  }
+}

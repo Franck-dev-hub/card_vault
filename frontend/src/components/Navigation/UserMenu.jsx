@@ -122,7 +122,7 @@ export const UserMenu = ({ isOpen, onClose }) => {
       {/* Menu qui glisse depuis la droite - entre navbar et footer */}
       <div
         className={`
-          fixed right-0 top-32 bottom-19 w-80
+          fixed right-0 top-33 bottom-15 w-80
           transform transition-all duration-300 ease-in-out
           z-50 shadow-2xl overflow-y-auto rounded-tl-3xl rounded-bl-3xl border-l-2
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}

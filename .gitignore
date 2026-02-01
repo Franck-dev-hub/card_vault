@@ -6,6 +6,7 @@
 .idea/
 
 # Python
+.venv/
 __pycache__/
 
 # React
@@ -13,3 +14,15 @@ node_modules/
 .next/
 dist/
 build/
+
+# ML Data & Indexes
+ml-service/data/
+ml-service/*.npz
+ml-service/*.faiss
+ml-service/*.npy
+
+# Scraped Images
+ml-service/scrapping/images/
+
+# Project
+.env.private

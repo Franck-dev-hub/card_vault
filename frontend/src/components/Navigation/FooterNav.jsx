@@ -44,7 +44,7 @@ export const FooterNav = () => {
                 ${isActive
                   ? isDark
                     ? 'bg-blue-900/30 ring-2 ring-blue-500 shadow-lg shadow-blue-500/20'
-                    : 'bg-blue-100 ring-2 ring-purple-400 shadow-lg shadow-blue-400/30'
+                    : 'bg-blue-100 ring-2 ring-blue-300 shadow-lg shadow-blue-400/30'
                   : isDark
                     ? 'group-active:bg-gray-700 group-active:ring-2 group-active:ring-gray-600'
                     : 'group-active:bg-blue-50 group-active:ring-2 group-active:ring-blue-300'

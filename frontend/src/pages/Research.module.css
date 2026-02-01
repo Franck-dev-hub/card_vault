@@ -1,40 +1,231 @@
 /* Container principal */
 .container {
-  padding: 2rem;
+  padding: 1.5rem;
   min-height: 100vh;
   transition: background 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Mode LIGHT - gradient bleu-violet (identique Dashboard) */
+/* Cela force TOUS les éléments à l'intérieur de Research à utiliser la même police */
+.container * {
+  font-family: inherit;
+}
+
+/* Mode LIGHT - gradient bleu-violet */
 .container.light {
   background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
   background-attachment: fixed;
 }
 
-/* Mode DARK - gradient sombre (identique Dashboard) */
+/* Mode DARK - gradient sombre */
 .container.dark {
   background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
   background-attachment: fixed;
 }
 
-/* États de chargement et erreur */
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666666;
+/* Accordéon Principal (Filter / Sort) */
+.accordionWrapper {
+  margin-bottom: 1rem;
 }
 
-.error {
+.accordionHeader {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  background-color: white;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+.icon {
+  color: #000;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.iconOpen {
+  transform: rotate(-90deg);
+}
+
+/* Contenu déroulant (Zone blanche sous Filter) */
+.content {
+  padding: 1rem;
+  background-color: white; /* Fond blanc opaque comme sur l'image */
+  border-radius: 0 0 16px 16px;
+  margin-top: -12px; /* Fusion avec le header */
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* SOUS-ACCORDÉONS (Licenses / Extensions) */
+.subAccordionHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #e5e7eb; /* Bordure fine grise */
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.subLabel {
+  font-size: 1.2rem;
+  color: #1a1a1a;
+}
+
+/* Groupe à droite : Valeur sélectionnée + Flèche */
+.subSelectArea {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.selectedValue {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  font-weight: 400;
+}
+
+.subIcon {
+  color: #000;
+  transition: transform 0.3s ease;
+}
+
+/* Liste de choix (Dropdown interne) */
+.licenseList {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.licenseItem {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.licenseItem:last-child {
+  border-bottom: none;
+}
+
+.licenseItem:hover {
+  background-color: #f1f5f9;
+}
+
+/* DARK MODE ADJUSTMENTS */
+.dark .accordionHeader, 
+.dark .content, 
+.dark .subAccordionHeader {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.dark .label, 
+.dark .subLabel, 
+.dark .selectedValue, 
+.dark .icon, 
+.dark .subIcon {
+  color: white;
+}
+
+.dark .licenseList {
+  background: #111827;
+  border-color: #374151;
+}
+
+.dark .licenseItem:hover {
+  background-color: #374151;
+}
+
+/* États de chargement et erreur */
+.loading, .error {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   font-size: 1.2rem;
-  color: #e74c3c;
-  background-color: #fdecea;
-  padding: 2rem;
+}
+.error { color: #e74c3c; background-color: #fdecea; }
+
+.subAccordionWrapper {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Force l'icône à tourner aussi pour les sous-menus */
+.iconOpen {
+  transform: rotate(-90deg);
+}
+
+/* Conteneur de la grille */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes identiques */
+  gap: 12px;                             /* Espace entre les cartes */
+  padding: 1rem 0.5rem;                  /* Espace sur les côtés gauche/droite */
+  margin-top: 1rem;
+}
+
+/* Item de la carte */
+.cardItem {
+  width: 100%;
+  aspect-ratio: 2/3;                     /* Ratio standard d'une carte à jouer */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.cardItem:hover {
+  transform: translateY(-5px);           /* Petit effet de survol */
+}
+
+/* Image de la carte */
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                     /* Pour que l'image remplisse bien le cadre */
+  display: block;
+}
+
+/* Style spécifique pour le "Coming soon" à l'intérieur de Sort */
+.comingSoonCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
   text-align: center;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  width: 100%;
+}
+
+.dark .comingSoonCard {
+  background: #1f2937;
+  color: white;
+  border-color: #374151;
 }

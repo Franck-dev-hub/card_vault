@@ -1,8 +1,8 @@
-import { Home, ClipboardList, Camera, Lock, Search, X } from 'lucide-react';
+import { Home, ChartColumn, Camera, Lock, Search, X } from 'lucide-react';
 
 const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
-  { name: 'Statistics', icon: ClipboardList, path: '/statistics' },
+  { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
   { name: 'Vault', icon: Lock, path: '/vault' },
   { name: 'Research', icon: Search, path: '/research' },

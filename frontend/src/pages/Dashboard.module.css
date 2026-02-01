@@ -1,7 +1,19 @@
 .container {
   padding: 2rem;
-  background-color: #ffffff;
   min-height: 100vh;
+  transition: background 0.3s ease; /* Transition smooth entre light/dark */
+}
+
+/* Mode LIGHT - gradient bleu-violet */
+.container.light {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+  background-attachment: fixed;
+}
+
+/* Mode DARK - gradient sombre */
+.container.dark {
+  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+  background-attachment: fixed;
 }
 
 .header {
@@ -11,8 +23,18 @@
 .title {
   font-size: 2rem;
   margin: 0;
-  color: #000000;
   font-weight: 600;
+  /* Couleur du titre adapté au mode */
+}
+
+/* Titre en mode light */
+.light .title {
+  color: #1f2937;
+}
+
+/* Titre en mode dark */
+.dark .title {
+  color: #f9fafb;
 }
 
 .loading {

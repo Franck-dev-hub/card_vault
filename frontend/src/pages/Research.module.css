@@ -1,0 +1,40 @@
+/* Container principal */
+.container {
+  padding: 2rem;
+  min-height: 100vh;
+  transition: background 0.3s ease;
+}
+
+/* Mode LIGHT - gradient bleu-violet (identique Dashboard) */
+.container.light {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+  background-attachment: fixed;
+}
+
+/* Mode DARK - gradient sombre (identique Dashboard) */
+.container.dark {
+  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+  background-attachment: fixed;
+}
+
+/* États de chargement et erreur */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #e74c3c;
+  background-color: #fdecea;
+  padding: 2rem;
+  text-align: center;
+}

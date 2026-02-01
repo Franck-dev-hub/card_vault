@@ -11,6 +11,7 @@ import LandingPage from './pages/LandingPage';
 import Statistics from './pages/Statistics';
 import Scan from './pages/Scan';
 import Vault from './pages/Vault';
+import Research from './pages/Research';
 import './App.css';
 import { MainLayout } from './components/Layout/MainLayout';
 
@@ -144,11 +145,7 @@ function App() {
                   </MainLayout>
                 </ProtectedRoute>
               }
-            />            
-            {/* Routes à activer plus tard quand les composants seront créés
-
-
-
+            />
             <Route
               path="/research"
               element={
@@ -158,8 +155,7 @@ function App() {
                   </MainLayout>
                 </ProtectedRoute>
               }
-            />
-            */}
+            />        
 
             {/* Redirection par défaut */}
             <Route path="*" element={<Navigate to="/landing" replace />} />

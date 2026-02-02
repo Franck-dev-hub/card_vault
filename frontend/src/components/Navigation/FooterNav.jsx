@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Home, ChartColumn, Camera, Vault, Search } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
-
 const NAV_ITEMS = [
   { icon: Home, path: '/dashboard' },
   { icon: ChartColumn, path: '/statistics' },
@@ -11,71 +10,55 @@ const NAV_ITEMS = [
   { icon: Search, path: '/research' },
 ];
 
-
 export const FooterNav = () => {
   const location = useLocation();
   const { isDark } = useTheme();
   const currentPath = location.pathname === '/' ? '/dashboard' : location.pathname;
 
-
   return (
     <footer className={`
-      shrink-0 md:hidden shadow-lg transition-colors duration-300
+      shrink-0 md:hidden transition-colors duration-300 border-t
       ${isDark 
-        ? 'bg-gradient-to-t from-gray-800 to-gray-900' 
-        : 'bg-gradient-to-t from-blue-50 to-white'
+        ? 'bg-[#1a1b1e] border-gray-800' 
+        : 'bg-[#f0f2f5] border-gray-200'
       }
     `}>
-      <div className="flex justify-around items-center px-4" style={{ paddingTop: '8px', paddingBottom: '8px' }}>
+      <div className="flex justify-around items-center px-2 py-3!">
         {NAV_ITEMS.map((item) => {
           const isActive = currentPath === item.path;
           const Icon = item.icon;
 
-
           return (
             <Link
-              key={item.name}
+              key={item.path}
               to={item.path}
-              className="group flex flex-col items-center gap-1 px-3 py-2 transition-all duration-200"
+              className="flex flex-col items-center gap-1 transition-all duration-200"
             >
-              {/* Carré autour de l'icône */}
+              {/* Le bouton Neumorphique */}
               <div className={`
-                w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-200
-                ${isActive
-                  ? isDark
-                    ? 'bg-blue-900/30 ring-2 ring-blue-500 shadow-lg shadow-blue-500/20'
-                    : 'bg-blue-100 ring-2 ring-blue-300 shadow-lg shadow-blue-400/30'
-                  : isDark
-                    ? 'group-active:bg-gray-700 group-active:ring-2 group-active:ring-gray-600'
-                    : 'group-active:bg-blue-50 group-active:ring-2 group-active:ring-blue-300'
+                w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-300
+                ${isDark 
+                  ? isActive
+                    ? 'bg-[#1a1b1e] shadow-[inset_4px_4px_8px_#0d0d0f,inset_-4px_-4px_8px_#27292d] text-blue-500' 
+                    : 'bg-[#1a1b1e] shadow-[6px_6px_12px_#0d0d0f,-6px_-6px_12px_#27292d] text-gray-500'
+                  : isActive
+                    ? 'bg-[#f0f2f5] shadow-[inset_4px_4px_8px_#cbced1,inset_-4px_-4px_8px_#ffffff] text-purple-400'
+                    : 'bg-[#f0f2f5] shadow-[6px_6px_12px_#cbced1,-6px_-6px_12px_#ffffff] text-gray-600'
                 }
               `}>
                 <Icon
                   size={40}
-                  className={`
-                    transition-all duration-200
-                    ${isActive 
-                      ? isDark 
-                        ? 'text-blue-400' 
-                        : 'text-blue-600' 
-                      : isDark
-                        ? 'text-gray-400 group-active:text-blue-400'
-                        : 'text-gray-600 group-active:text-blue-600'
-                    }
-                  `}
-                  strokeWidth={2}
+                  className="transition-transform duration-200 active:scale-90"
+                  strokeWidth={isActive ? 2.5 : 2}
                 />
               </div>
 
+              {/* Label optionnel (peut être masqué pour coller à tes images) */}
               <span className={`
-                text-xs font-semibold transition-all duration-200
-                ${isActive
-                  ? isDark
-                    ? 'text-blue-400'
-                    : 'text-blue-700'
-                  : isDark
-                    ? 'text-gray-300 group-active:text-blue-400'
-                    : 'text-gray-800 group-active:text-blue-700'
+                text-[10px] font-medium mt-1
+                ${isActive 
+                  ? isDark ? 'text-blue-400' : 'text-blue-600'
+                  : 'text-gray-500'
                 }
               `}>
                 {item.name}

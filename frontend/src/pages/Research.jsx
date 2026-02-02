@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import styles from './Research.module.css';
@@ -14,25 +14,30 @@ export default function Research() {
 
   const [selectedLicense, setSelectedLicense] = useState(null);
   const [selectedExtension, setSelectedExtension] = useState(null);
+  const [selectedExtObject, setSelectedExtObject] = useState(null);
 
+  // 1. APPEL POUR LES EXTENSIONS (Fixe par licence)
+  const extUrl = selectedLicense ? `/search/${selectedLicense.toLowerCase()}` : null;
+  const { data: extData } = useApi(extUrl);
+
+  // 2. APPEL POUR LES CARTES (Dynamique)
   const dynamicUrl = selectedLicense 
     ? `/search/${selectedLicense.toLowerCase()}${selectedExtension ? `/${selectedExtension.toLowerCase()}` : ''}`
     : '/search';
-
   const { data, loading, error } = useApi(dynamicUrl);
 
   const licenses = ["Pokemon", "Magic"];
 
-  // LOGIQUE FLEXIBLE POUR POKEMON ET MAGIC
-  const availableExtensions = data?.data && Array.isArray(data.data)
-    ? data.data
-    : (Array.isArray(data) ? data : []);
+  const availableExtensions = extData?.data && Array.isArray(extData.data)
+    ? extData.data
+    : (Array.isArray(extData) ? extData : []);
 
   const cards = data?.cards || data?.data || [];
 
   return (
     <div className={`${styles.container} ${isDark ? styles.dark : styles.light}`}>
       
+      {/* SECTION FILTER */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsFilterOpen(!isFilterOpen)}>
           <span className={styles.label}>Filter</span>
@@ -41,8 +46,7 @@ export default function Research() {
 
         {isFilterOpen && (
           <div className={styles.content}>
-            
-            {/* LICENCES */}
+            {/* SOUS-MENU LICENCES */}
             <div className={styles.subAccordionWrapper}>
               <button className={styles.subAccordionHeader} onClick={() => setIsLicenseMenuOpen(!isLicenseMenuOpen)}>
                 <span className={styles.subLabel}>Licenses</span>
@@ -57,6 +61,7 @@ export default function Research() {
                     <div key={lib} className={styles.licenseItem} onClick={() => { 
                       setSelectedLicense(lib); 
                       setSelectedExtension(null); 
+                      setSelectedExtObject(null);
                       setIsLicenseMenuOpen(false); 
                     }}>
                       {lib}
@@ -66,14 +71,14 @@ export default function Research() {
               )}
             </div>
 
-            {/* EXTENSIONS */}
+            {/* SOUS-MENU EXTENSIONS */}
             {selectedLicense && (
               <div className={styles.subAccordionWrapper}>
                 <button className={styles.subAccordionHeader} onClick={() => setIsExtensionsOpen(!isExtensionsOpen)}>
                   <span className={styles.subLabel}>Extensions</span>
                   <div className={styles.subSelectArea}>
                     <span className={styles.selectedValue}>
-                      {selectedExtension ? (availableExtensions.find(e => (e.id || e.code) === selectedExtension)?.name) : '-- Select --'}
+                      {selectedExtObject ? selectedExtObject.name : '-- Select --'}
                     </span>
                     <ChevronLeft className={`${styles.subIcon} ${isExtensionsOpen ? styles.iconOpen : ''}`} size={20} />
                   </div>
@@ -86,6 +91,7 @@ export default function Research() {
                         return (
                           <div key={extId} className={styles.licenseItem} onClick={() => {
                             setSelectedExtension(extId);
+                            setSelectedExtObject(ext);
                             setIsExtensionsOpen(false);
                           }}>
                             <div className={styles.extRow}>
@@ -108,16 +114,20 @@ export default function Research() {
         )}
       </div>
 
-      {/* SORT */}
+      {/* SECTION SORT (RE-INTÉGRÉE ICI) */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsSortOpen(!isSortOpen)}>
           <span className={styles.label}>Sort</span>
           {isSortOpen ? <ChevronDown className={styles.icon} size={24} /> : <ChevronLeft className={styles.icon} size={24} />}
         </button>
-        {isSortOpen && <div className={styles.content}><div className={styles.comingSoon}>Coming soon</div></div>}
+        {isSortOpen && (
+          <div className={styles.content}>
+            <div className={styles.comingSoon}>Coming soon</div>
+          </div>
+        )}
       </div>
 
-      {/* GRILLE */}
+      {/* GRILLE DE RÉSULTATS */}
       <div className={styles.mainDisplay}>
         {loading && <div className={styles.loader}>Searching for the best maps...</div>}
         {error && <div className={styles.error}>Error: {error}</div>}
@@ -125,22 +135,22 @@ export default function Research() {
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>
             {cards.map((card) => {
-              // Gestion de l'image pour les deux licences
               const imgUrl = card.image_url || (card.image ? `${card.image}/low.png` : '');
-
               return (
                 <div key={card.id || card.api_id} className={styles.cardWrapper}>
                   <div className={styles.cardContainer}>
                     <img 
                       src={imgUrl} 
                       alt={card.name} 
-                      className={styles.cardImage}
+                      className={styles.cardImage} 
                       loading="lazy"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = 'https://tcg.pokemon.com/assets/img/global/tcg-card-back.png';
-                      }}
                     />
+                    
+                    {/* Badge de possession forcé pour le test */}
+                    <div className={styles.ownedBadge}>
+                      <Check size={30} strokeWidth={3} />
+                    </div>
+
                     <div className={styles.cardHoverInfo}>
                       <span className={styles.cardId}>#{card.localId || card.collector_number}</span>
                       <p className={styles.cardName}>{card.name}</p>

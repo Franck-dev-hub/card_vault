@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
-from app.services.pokemon import pokemon_api_services
-from app.services.magic import magic_api_services
+from app.services.external.pokemon import pokemon_api_services
+from app.services.external.magic import magic_api_services
 
 router = APIRouter(prefix="", tags=["search"])
 

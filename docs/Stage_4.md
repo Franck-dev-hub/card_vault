@@ -186,10 +186,17 @@ https://github.com/Franck-dev-hub/card_vault
 | 8    | ML        |           |              |       |
 
 ## 6 Testing evidence and results
-| Week | Area | Test                      | Result          |
-|------|------|---------------------------|-----------------|
-| 1    | ML   | Find from a dataset image | 100% confidence |
-| 1    | ML   | Find from real photo      | 72% confidence  |
+| Week | Area    | Test                                     | Result          |
+|------|---------|------------------------------------------|-----------------|
+| 1    | ML      | Find from a dataset image                | 100% confidence |
+| 1    | ML      | Find from real photo                     | 72% confidence  |
+|      |         |                                          |                 |
+| 2    | Backend | GET localhost/api/search/pokemon         | responses 200   |
+| 2    | Backend | GET localhost/api/search/pokemon/base1/1 | responses 200   |
+| 2    | ML      | Find from real photo                     | 82% confidence  |
+|      |         |                                          |                 |
+| 3    | Backend | GET localhost/api/search/magic           | responses 200   |
+| 3    | Backend | GET localhost/api/search/magic/khm/esika | responses 200   |
 
 ## 7 Production environment
 ### Backend

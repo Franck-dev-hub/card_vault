@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './CardDetails.module.css';
 import { useTheme } from '../../contexts/ThemeContext';
-import { X } from 'lucide-react'; // Utilisation de Lucide pour une croix propre
+import { X, Plus, Minus, ChevronDown } from 'lucide-react'; 
 
-const AccordionSection = ({ title, children, isDark }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div className={styles.accordionSection}>
@@ -16,9 +16,7 @@ const AccordionSection = ({ title, children, isDark }) => {
       >
         <span>{title}</span>
         <span className={`${styles.accordionArrow} ${isOpen ? styles.arrowOpen : ''}`}>
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          <ChevronDown size={24} />
         </span>
       </button>
       {isOpen && (
@@ -32,6 +30,16 @@ const AccordionSection = ({ title, children, isDark }) => {
 
 export default function CardDetails({ card, onClose }) {
   const { isDark } = useTheme();
+
+  // --- ÉTAT POUR LES COMPTEURS VAULT ---
+  const [quantities, setQuantities] = useState({ Normal: 0, Reverse: 0, Holo: 0 });
+
+  const handleCount = (variant, delta) => {
+    setQuantities(prev => ({
+      ...prev,
+      [variant]: Math.max(0, prev[variant] + delta)
+    }));
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -59,12 +67,10 @@ export default function CardDetails({ card, onClose }) {
     <div className={`${styles.overlay} ${isDark ? styles.dark : ''}`}>
       <div className={`${styles.modalContent} ${isDark ? styles.dark : styles.light}`}>
         
-        {/* BOUTON STATIQUE : Il est en dehors de la zone de scroll */}
         <button className={styles.closeButton} onClick={onClose} aria-label="Fermer">
           <X size={32} />
         </button>
 
-        {/* ZONE DE SCROLL : Tout le contenu interne défilera ici */}
         <div className={styles.scrollableArea}>
           <div className={styles.cardImageContainer}>
             <img 
@@ -81,8 +87,31 @@ export default function CardDetails({ card, onClose }) {
           </div>
 
           <div className={styles.accordionGroup}>
-            <AccordionSection title="Vault" isDark={isDark}>
-              <p>Détails du coffre pour cette carte...</p>
+            {/* --- SECTION VAULT GRISE AVEC COMPTEURS BLANCS --- */}
+            <AccordionSection title="Vault" isDark={isDark} defaultOpen={true}>
+              <div className={styles.vaultWrapper}>
+                {['Normal', 'Reverse', 'Holo'].map((variant) => (
+                  <div key={variant} className={styles.vaultRow}>
+                    <button 
+                      className={styles.vaultBtn} 
+                      onClick={() => handleCount(variant, -1)}
+                    >
+                      <Minus size={20} />
+                    </button>
+                    
+                    <div className={styles.vaultDisplay}>
+                      {variant} : {quantities[variant]}
+                    </div>
+                    
+                    <button 
+                      className={styles.vaultBtn} 
+                      onClick={() => handleCount(variant, 1)}
+                    >
+                      <Plus size={20} />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </AccordionSection>
 
             <AccordionSection title="Prices" isDark={isDark}>

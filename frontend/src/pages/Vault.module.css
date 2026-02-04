@@ -1,40 +1,299 @@
-/* Container principal */
+/* --- Container & Background --- */
 .container {
-  padding: 2rem;
+  padding: 1.5rem 1rem 5rem 1rem;
   min-height: 100vh;
-  transition: background 0.3s ease;
 }
 
-/* Mode LIGHT - gradient bleu-violet (identique Dashboard) */
 .container.light {
   background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
   background-attachment: fixed;
 }
 
-/* Mode DARK - gradient sombre (identique Dashboard) */
 .container.dark {
   background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
   background-attachment: fixed;
 }
 
-/* États de chargement et erreur */
-.loading {
+/* --- Liste des Menus --- */
+.menuList {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666666;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.menuButton {
+  width: 100%;
+  padding: 25px 20px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 18px;
   font-size: 1.2rem;
-  color: #e74c3c;
-  background-color: #fdecea;
-  padding: 2rem;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  z-index: 2; /* Garde le bouton au dessus */
+}
+
+/* --- Contenu Déroulant (LE SECRET EST ICI) --- */
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  
+  /* On force la transparence totale du conteneur de transition */
+  background: transparent !important; 
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.content.show {
+  max-height: 2000px;
+}
+
+/* On utilise innerContent uniquement pour espacer le premier élément (Sort) du bouton principal */
+.innerContent {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: transparent !important;
+}
+
+/* --- Bouton Sort (Isolé) --- */
+.sortButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 20px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-top: 15px; /* Crée le premier espace vide */
+  margin-bottom: 15px; /* Crée l'espace avant la première carte */
+}
+
+/* --- Cartes de Licences (Isolées) --- */
+.licensesList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Crée l'espace vide entre chaque carte de licence */
+  background: transparent !important;
+}
+
+.licenseCard {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  /* Pas de marges ici, le gap du parent s'en occupe */
+}
+
+/* --- Éléments internes des cartes --- */
+.logoWrapper {
+  height: 80px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.licenseLogo {
+  max-width: 180px;
+  max-height: 70px;
+  object-fit: contain;
+}
+
+.countBox {
+  width: 100%;
+  background: #f8fafc; /* Un gris très léger pour la zone de texte */
+  border-radius: 12px;
+  padding: 12px;
   text-align: center;
+}
+
+.countNumber {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.countLabel {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* --- Dark Mode --- */
+.dark .menuButton, 
+.dark .sortButton, 
+.dark .licenseCard {
+  background-color: #1e293b;
+  color: white;
+}
+
+.dark .countBox {
+  background-color: #0f172a;
+}
+
+/* Titre avec bouton retour */
+.selectedTitle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Cartes Extensions */
+.extensionCard {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.extHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.extIconPlaceholder {
+  font-size: 2rem;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.extInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.extName {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Barre de progression */
+.progressBarContainer {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: #6366f1; /* Couleur bleutée de ton image */
+  border-radius: 10px;
+}
+
+.extStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.megTag {
+  background: #334155;
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Mode Sombre */
+.dark .extensionCard { background: #1e293b; color: white; }
+.dark .progressBarContainer { background: #334155; }
+
+/* --- Grille des cartes --- */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-bottom: 30px;
+}
+
+.cardItem img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* --- Bloc Stats Set / Master Set --- */
+.setsOverview {
+  display: flex;
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  gap: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.setStat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.setLabel {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #1e293b;
+}
+
+.miniProgress {
+  height: 5px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.miniProgress div {
+  height: 100%;
+  background: #6366f1;
+  border-radius: 10px;
+}
+
+.setNumbers {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* --- Adaptations Dark Mode --- */
+.dark .setsOverview {
+  background: #1e293b;
+}
+
+.dark .setLabel {
+  color: #f8fafc;
+}
+
+.dark .miniProgress {
+  background: #0f172a;
+}
+
+.dark .setNumbers {
+  color: #94a3b8;
+}
+
+.emptyBox {
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
 }

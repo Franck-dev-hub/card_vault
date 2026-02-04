@@ -111,7 +111,7 @@ export default function CardDetails({ card, onClose }) {
 
           <div className={styles.accordionGroup}>
             {/* --- SECTION VAULT GRISE AVEC COMPTEURS BLANCS --- */}
-            <AccordionSection title="Vault" isDark={isDark} defaultOpen={true}>
+            <AccordionSection title="Vault" isDark={isDark}>
               <div className={styles.vaultWrapper}>
                 {["Normal", "Reverse", "Holo"].map((variant) => (
                   <div key={variant} className={styles.vaultRow}>
@@ -177,11 +177,23 @@ export default function CardDetails({ card, onClose }) {
             </AccordionSection>
 
             <AccordionSection title="Cards" isDark={isDark}>
-              <p>Autres versions de cette carte...</p>
+              <div className={styles.comingSoonWrapper}>
+                <div className={styles.comingSoonCard}>Coming soon</div>
+              </div>
             </AccordionSection>
 
             <AccordionSection title="Description" isDark={isDark}>
-              <p>Description détaillée de la carte...</p>
+              <div className={styles.descriptionWrapper}>
+                <div className={styles.descriptionCard}>
+                  Illustrator : {card.artist || "Jean-Michel"}
+                </div>
+                <div className={styles.descriptionCard}>
+                  Rarity : {card.rarity || "Common"}
+                </div>
+                <div className={styles.descriptionCard}>
+                  Description : {card.flavorText || "Card description"}
+                </div>
+              </div>
             </AccordionSection>
           </div>
         </div>

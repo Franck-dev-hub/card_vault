@@ -211,3 +211,61 @@
   .modalContent { max-width: 500px; }
   .mainCardImage { max-width: 380px; }
 }
+
+/* --- SECTION PRICES --- */
+.pricesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* La carte blanche pour chaque variante */
+.priceCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px; /* Arrondi prononcé comme sur l'image */
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.dark .priceCard {
+  background-color: #2d2d2e;
+  border-color: #404040;
+}
+
+/* Titre de la variante (Normal, Holo, etc.) */
+.priceTypeTitle {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #1a202c;
+}
+
+.dark .priceTypeTitle {
+  color: #f1f5f9;
+}
+
+/* Lignes de prix (Low, Average, Trend) */
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.dark .priceRow {
+  color: #cbd5e0;
+}
+
+/* On met le prix en gras pour la lisibilité */
+.priceRow span:last-child {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.dark .priceRow span:last-child {
+  color: #f1f5f9;
+}

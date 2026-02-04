@@ -82,7 +82,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex h-full items-center justify-center px-3 py-4 md:py-8">
+    <div className={`flex h-full items-center justify-center px-3 py-4 md:py-8 transition-colors duration-500 ${isDark
+        ? 'bg-slate-900'
+        : 'bg-gradient-to-br from-[#e0f2fe] to-[#ddd6fe] bg-fixed'
+      }`}>
       <BackgroundGradient className="rounded-3xl">
         <div className={`card w-full shadow-2xl border-2 rounded-3xl max-h-[70vh] md:max-h-[calc(100vh-200px)] flex flex-col ${
           isDark

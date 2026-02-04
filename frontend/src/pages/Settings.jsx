@@ -33,7 +33,10 @@ export default function Settings() {
 
 
   return (
-    <div className="flex h-full items-start justify-center px-6 py-8! md:py-8">
+    <div className={`flex min-h-screen items-start justify-center px-6 py-8! md:py-8 transition-colors duration-500 ${isDark
+        ? 'bg-slate-900' // Fond sombre classique
+        : 'bg-gradient-to-br from-[#e0f2fe] to-[#ddd6fe] bg-fixed' // Ton nouveau style
+      }`}>
       <BackgroundGradient className="rounded-3xl">
         <div className={`card w-[85vw] max-w-sm shadow-2xl border-2 rounded-3xl max-h-[85vh] md:max-h-[calc(100vh-200px)] flex flex-col ${
           isDark

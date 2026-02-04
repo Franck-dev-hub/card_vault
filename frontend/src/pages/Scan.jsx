@@ -7,7 +7,7 @@ import styles from './Scan.module.css';
 
 export default function Scan() {
   const navigate = useNavigate();
-  const { loading, error } = useApi('/scan/');
+  const { loading, error } = useApi('/scan');
   const { isDark } = useTheme();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -18,6 +18,7 @@ export default function Scan() {
 
   // --- NOUVEL ÉTAT POUR LES COMPTEURS ---
   const [quantities, setQuantities] = useState({ Normal: 0, Reverse: 0, Holo: 0 });
+  const [cameraError, setCameraError] = useState(null);
 
   const mockResults = [
     { id: 1, name: "Pikachu", set: "Vivid Voltage", match: 82, id_card: "SWSH044", img: "https://images.pokemontcg.io/swsh4/44_hires.png" },
@@ -59,14 +60,41 @@ export default function Scan() {
   }, [isScanned]);
 
   const startCamera = async () => {
+    setCameraError(null);
+
+    // Vérifier si getUserMedia est disponible
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setCameraError("Caméra non supportée. Assurez-vous d'utiliser HTTPS.");
+      return;
+    }
+
     try {
+      // Essayer d'abord avec la caméra arrière
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
+        video: { facingMode: { ideal: "environment" } },
         audio: false
       });
       if (videoRef.current) videoRef.current.srcObject = stream;
     } catch (err) {
-      console.error("Caméra non disponible:", err);
+      console.error("Caméra arrière non disponible, essai avec caméra par défaut:", err);
+
+      try {
+        // Fallback : n'importe quelle caméra
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false
+        });
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      } catch (fallbackErr) {
+        console.error("Aucune caméra disponible:", fallbackErr);
+        if (fallbackErr.name === 'NotAllowedError') {
+          setCameraError("Permission caméra refusée. Autorisez l'accès dans les paramètres.");
+        } else if (fallbackErr.name === 'NotFoundError') {
+          setCameraError("Aucune caméra détectée sur cet appareil.");
+        } else {
+          setCameraError(`Erreur caméra: ${fallbackErr.message}`);
+        }
+      }
     }
   };
 
@@ -74,6 +102,7 @@ export default function Scan() {
     setIsScanned(false);
     setCapturedImage(null);
     setSelectedCard(null);
+    setCameraError(null);
     // Optionnel : décommente la ligne suivante si tu veux remettre les compteurs à 0 lors d'un nouveau scan
     // setQuantities({ Normal: 0, Reverse: 0, Holo: 0 });
   };
@@ -100,7 +129,17 @@ export default function Scan() {
         
         <div className={styles.cameraFrame}>
           {!isScanned ? (
-            <video ref={videoRef} autoPlay playsInline className={styles.video} />
+            cameraError ? (
+              <div className={styles.errorOverlay}>
+                <Camera size={48} style={{ opacity: 0.5, marginBottom: '1rem' }} />
+                <p>{cameraError}</p>
+                <button onClick={startCamera} className={styles.retryBtn}>
+                  Réessayer
+                </button>
+              </div>
+            ) : (
+              <video ref={videoRef} autoPlay playsInline className={styles.video} />
+            )
           ) : selectedCard ? (
             /* --- VUE DÉTAILS --- */
             <div className={styles.detailsView}>

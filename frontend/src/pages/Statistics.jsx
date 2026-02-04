@@ -3,7 +3,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import styles from './Statistics.module.css';
 
 export default function Statistics() {
-  const { loading, error } = useApi('/statistics/');
+  const { loading, error } = useApi('/stats');
   const { isDark } = useTheme();
 
   if (loading) return <div className={styles.loading}>Loading...</div>;

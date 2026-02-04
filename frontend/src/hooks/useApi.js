@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// On pointe vers le serveur Python (8000) et non vers le React (3000)
-const API_BASE_URL = 'http://localhost/api'; 
+// Utilise une URL relative pour fonctionner avec ngrok et localhost
+const API_BASE_URL = '/api'; 
 
 export const useApi = (endpoint) => {
   const [data, setData] = useState(null);

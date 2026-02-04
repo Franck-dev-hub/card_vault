@@ -6,7 +6,7 @@ import { CircleUserRound } from 'lucide-react';
 import CardDetails from '../components/CardDetails/CardDetails'; // Import du nouveau composant
 
 export default function Dashboard() {
-  const { loading, error } = useApi('/dashboard/');
+  const { loading, error } = useApi('/dashboard');
   const { isDark } = useTheme();
 
   // État pour gérer la carte sélectionnée (null = fermé)

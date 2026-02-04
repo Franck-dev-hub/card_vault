@@ -11,11 +11,13 @@
 }
 
 .container.light {
-  background: radial-gradient(circle at top left, #f0f9ff 0%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+  background-attachment: fixed;
 }
 
 .container.dark {
-  background: radial-gradient(circle at top left, #0f172a 0%, #1e1b4b 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+  background-attachment: fixed;
 }
 
 /* Accordéon Principal - Look Premium */

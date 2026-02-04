@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 import { useTheme } from '../contexts/ThemeContext';
+import styles from './Settings.module.css';
 
 
 const LANGUAGES = [

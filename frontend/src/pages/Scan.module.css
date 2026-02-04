@@ -1,40 +1,286 @@
-/* Container principal */
+/* --- STRUCTURE GLOBALE --- */
 .container {
-  padding: 2rem;
-  min-height: 100vh;
-  transition: background 0.3s ease;
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Mode LIGHT - gradient bleu-violet (identique Dashboard) */
 .container.light {
   background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
   background-attachment: fixed;
 }
 
-/* Mode DARK - gradient sombre (identique Dashboard) */
 .container.dark {
   background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
   background-attachment: fixed;
 }
 
-/* États de chargement et erreur */
-.loading {
+.scanWrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666666;
+  justify-content: center;
+  gap: 10px;
 }
 
-.error {
+/* --- FENÊTRE CAMÉRA / RÉSULTATS --- */
+.cameraFrame {
+  width: 95%;
+  flex: 1;
+  max-height: 90%; /* Ajuste cette valeur pour changer la hauteur (ex: 70%, 80%, 90%) */
+  min-height: 0;
+  background: #6e727a;
+  border: 8px solid white;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.dark .cameraFrame {
+  border-color: #334155; /* Couleur gris foncé/bleuté pour le mode dark */
+  background: #1e293b;    /* Fond plus sombre quand la caméra est éteinte */
+}
+
+.cameraFrame::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 30%;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.dark .cameraFrame::after {
+  border-color: rgba(74, 222, 128, 0.5); /* Optionnel : devient vert néon discret */
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- LISTE DES RÉSULTATS (3 CARTES) --- */
+.resultsOverlay {
+  position: absolute;
+  inset: 0;
+  background: #f0f4ff;
+  padding: 10px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dark .resultsOverlay {
+  background: #1e293b;
+}
+
+.resultsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.cardResult {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex: 1; /* Les 3 cartes se partagent l'espace équitablement */
+  min-height: 0;
+}
+
+.dark .cardResult {
+  background: #334155;
+  border: 1px solid #475569;
+}
+
+.resultCardImg {
+  height: 85%; 
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.resultDetails {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.matchText {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.dark .matchText, .dark .cardInfoText {
+  color: #f1f5f9;
+}
+
+.bestMatch { color: #1a8a4d; }
+
+.dark .bestMatch {
+  color: #22c55e !important; /* Un vert un peu plus flashy pour le mode sombre */
+}
+
+.cardInfoText {
+  font-size: 0.95rem;
+  color: #444;
+  margin: 0;
+}
+
+/* --- VUE DÉTAILS --- */
+.detailsView {
+  position: absolute;
+  inset: 0;
+  background: #f0f4ff;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.dark .detailsView { background: #1e293b; }
+
+.detailCardImg {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+  animation: pulseGlowLight 3s infinite ease-in-out;
+}
+
+.dark .detailCardImg {
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.detailName {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #333;
+  margin: 10px 0 0 0;
+}
+
+.dark .detailName { color: #ffffff; }
+
+.detailInfo {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.dark .detailInfo { color: #cbd5e1; }
+
+/* --- SECTION INVENTAIRE --- */
+.inventorySection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inventoryRow {
+  background: white;
+  border-radius: 12px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #eee;
+}
+
+.dark .inventoryRow {
+  background: #334155;
+  border-color: #475569;
+}
+
+.dark .variantLabel, .dark .quantity { color: #ffffff; }
+
+.countValue { display: flex; gap: 8px; font-weight: 600; }
+
+.countBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dark .countBtn {
+  background: #475569;
+  border-color: #64748b;
+  color: white;
+}
+
+/* --- BOUTON SCAN --- */
+.buttonContainer {
+  width: 100%;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
+}
+
+.scanBtn {
+  background: white;
+  color: #333;
+  border: none;
+  padding: 12px 45px;
+  border-radius: 18px;
+  font-weight: 600;
+  display: flex;
   align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #e74c3c;
-  background-color: #fdecea;
-  padding: 2rem;
-  text-align: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.dark .scanBtn {
+  background: #334155;
+  color: #ffffff;
+  border: 1px solid #475569;
+}
+
+.dark .btnIcon { color: #ffffff; }
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(74, 222, 128, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(74, 222, 128, 0.5); }
+  100% { box-shadow: 0 0 10px rgba(74, 222, 128, 0.2); }
+}
+
+@keyframes pulseGlowLight {
+  0% { 
+    filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.5)); 
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.9)); 
+  }
+  100% { 
+    filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.5)); 
+  }
 }

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react'; // Ajout de useMemo pour la performance
 import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
-import styles from './Research.module.css';
+import styles from './Search.module.css';
 
-export default function Research() {
+export default function Search() {
   const { isDark } = useTheme();
   
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -16,11 +16,11 @@ export default function Research() {
   const [selectedExtension, setSelectedExtension] = useState(null);
   const [selectedExtObject, setSelectedExtObject] = useState(null);
 
-  // 1. APPEL POUR LES EXTENSIONS (Fixe par licence)
+  // 1. APPEL POUR LES EXTENSIONS
   const extUrl = selectedLicense ? `/search/${selectedLicense.toLowerCase()}` : null;
   const { data: extData } = useApi(extUrl);
 
-  // 2. APPEL POUR LES CARTES (Dynamique)
+  // 2. APPEL POUR LES CARTES
   const dynamicUrl = selectedLicense 
     ? `/search/${selectedLicense.toLowerCase()}${selectedExtension ? `/${selectedExtension.toLowerCase()}` : ''}`
     : '/search';
@@ -28,9 +28,16 @@ export default function Research() {
 
   const licenses = ["Pokemon", "Magic"];
 
-  const availableExtensions = extData?.data && Array.isArray(extData.data)
-    ? extData.data
-    : (Array.isArray(extData) ? extData : []);
+  // --- LOGIQUE D'INVERSION DES EXTENSIONS ---
+  // On utilise useMemo pour ne pas recalculer l'inversion à chaque rendu
+  const availableExtensions = useMemo(() => {
+    const rawData = extData?.data && Array.isArray(extData.data)
+      ? extData.data
+      : (Array.isArray(extData) ? extData : []);
+    
+    // On crée une copie avec [...] puis on inverse pour mettre les plus récentes en haut
+    return [...rawData].reverse();
+  }, [extData]);
 
   const cards = data?.cards || data?.data || [];
 
@@ -71,7 +78,7 @@ export default function Research() {
               )}
             </div>
 
-            {/* SOUS-MENU EXTENSIONS */}
+            {/* SOUS-MENU EXTENSIONS (INVERSÉES) */}
             {selectedLicense && (
               <div className={styles.subAccordionWrapper}>
                 <button className={styles.subAccordionHeader} onClick={() => setIsExtensionsOpen(!isExtensionsOpen)}>
@@ -114,7 +121,7 @@ export default function Research() {
         )}
       </div>
 
-      {/* SECTION SORT (RE-INTÉGRÉE ICI) */}
+      {/* SECTION SORT */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsSortOpen(!isSortOpen)}>
           <span className={styles.label}>Sort</span>
@@ -145,12 +152,9 @@ export default function Research() {
                       className={styles.cardImage} 
                       loading="lazy"
                     />
-                    
-                    {/* Badge de possession forcé pour le test */}
                     <div className={styles.ownedBadge}>
                       <Check size={30} strokeWidth={3} />
                     </div>
-
                     <div className={styles.cardHoverInfo}>
                       <span className={styles.cardId}>#{card.localId || card.collector_number}</span>
                       <p className={styles.cardName}>{card.name}</p>

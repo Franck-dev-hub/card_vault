@@ -94,24 +94,24 @@ const LandingPage = () => {
         />
       )}
 
-      {/* Menu qui glisse depuis la droite */}
+      {/* Menu qui glisse depuis la droite - même design que UserMenu */}
       <div
         ref={menuRef}
         className={`
           fixed top-0 right-0 h-screen w-80
           transform transition-all duration-300 ease-in-out
-          z-50 shadow-2xl rounded-tl-3xl rounded-bl-3xl
+          z-50 shadow-2xl overflow-y-auto rounded-tl-3xl rounded-bl-3xl border-l-2
           ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
-          ${isDark 
-            ? 'bg-gradient-to-b from-gray-800 to-gray-900' 
-            : 'bg-gradient-to-b from-white to-gray-50'
+          ${isDark
+            ? 'bg-gradient-to-bl from-gray-800 to-gray-900 border-gray-700'
+            : 'bg-gradient-to-bl from-blue-50 to-white border-blue-200'
           }
         `}
       >
         {/* Menu items */}
-        <div className="flex flex-col p-6 gap-4 h-full">
+        <nav className="flex flex-col items-center gap-4 p-8 pb-16 h-full">
           {/* Espace en haut */}
-          <div className="h-8"></div>
+          <div className="h-4"></div>
 
           {/* Login */}
           <button
@@ -119,14 +119,16 @@ const LandingPage = () => {
               navigate('/login');
               setIsMenuOpen(false);
             }}
-            className={`flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group ${
+            className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
               isDark
-                ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600'
-                : 'bg-white hover:bg-gray-100 border border-gray-200'
+                ? 'bg-gray-700 border-gray-600 hover:border-blue-400 hover:bg-gray-600'
+                : 'bg-white border-blue-100 hover:border-blue-400 hover:bg-blue-50'
             }`}
           >
-            <LogIn size={22} className={`${isDark ? 'text-blue-400' : 'text-gray-700'} group-hover:text-blue-600 transition-colors`} strokeWidth={2} />
-            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>Login</span>
+            <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
+              <LogIn size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
+            </div>
+            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Login</span>
           </button>
 
           {/* Create Account */}
@@ -135,69 +137,17 @@ const LandingPage = () => {
               navigate('/create-account');
               setIsMenuOpen(false);
             }}
-            className={`flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group ${
+            className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
               isDark
-                ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600'
-                : 'bg-white hover:bg-gray-100 border border-gray-200'
+                ? 'bg-gray-700 border-gray-600 hover:border-blue-400 hover:bg-gray-600'
+                : 'bg-white border-blue-100 hover:border-blue-400 hover:bg-blue-50'
             }`}
           >
-            <UserPlus size={22} className={`${isDark ? 'text-blue-400' : 'text-gray-700'} group-hover:text-blue-600 transition-colors`} strokeWidth={2} />
-            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>Create account</span>
+            <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
+              <UserPlus size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
+            </div>
+            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Create Account</span>
           </button>
-
-          {/* App Language */}
-          <div className="relative">
-            <button
-              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-              className={`flex items-center justify-between w-full px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md ${
-                isDark
-                  ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600'
-                  : 'bg-white hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Globe size={22} className={isDark ? 'text-gray-300' : 'text-gray-700'} strokeWidth={2} />
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>App language</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{currentLang.flag} {currentLang.name.split(' ')[0]}</span>
-                {isLangDropdownOpen ? (
-                  <ChevronUp size={18} className={isDark ? 'text-gray-400' : 'text-gray-600'} />
-                ) : (
-                  <ChevronDown size={18} className={isDark ? 'text-gray-400' : 'text-gray-600'} />
-                )}
-              </div>
-            </button>
-
-            {/* Language Dropdown */}
-            {isLangDropdownOpen && (
-              <div className={`mt-2 rounded-xl p-2 shadow-lg max-h-48 overflow-y-auto ${
-                isDark 
-                  ? 'bg-gray-700 border border-gray-600' 
-                  : 'bg-white border border-gray-200'
-              }`}>
-                {LANGUAGES.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => {
-                      setSelectedLanguage(lang.code);
-                      setIsLangDropdownOpen(false);
-                    }}
-                    className={`flex items-center gap-3 w-full px-4 py-2 rounded-lg transition-all duration-200 ${
-                      selectedLanguage === lang.code
-                        ? 'bg-blue-500 text-white'
-                        : isDark
-                        ? 'hover:bg-gray-600 text-gray-200'
-                        : 'hover:bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    <span className="text-lg">{lang.flag}</span>
-                    <span className="font-medium">{lang.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
 
           {/* Buy me a tea */}
           <a
@@ -205,16 +155,29 @@ const LandingPage = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsMenuOpen(false)}
-            className={`flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group ${
+            style={{
+              backgroundColor: isDark ? 'rgb(31 41 55)' : 'white',
+              borderColor: isDark ? 'rgb(5 150 105)' : 'rgb(167 243 208)',
+            }}
+            className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
               isDark
-                ? 'bg-gray-700 hover:bg-yellow-900/30 border border-gray-600'
-                : 'bg-white hover:bg-yellow-50 border border-gray-200'
+                ? 'hover:border-emerald-500 hover:bg-emerald-900/30'
+                : 'hover:border-emerald-400 hover:bg-emerald-50'
             }`}
           >
-            <div className="flex items-center justify-center w-6 h-6">
-              <SiBuymeacoffee size={22} className="text-[#FFDD00] group-hover:scale-110 transition-transform" />
+            <div
+              style={{
+                backgroundColor: isDark ? 'rgba(6, 78, 59, 0.5)' : 'rgb(209 250 229)',
+              }}
+              className={`p-2 rounded-xl transition-colors ${
+                isDark
+                  ? 'group-hover:bg-emerald-800/50'
+                  : 'group-hover:bg-emerald-200'
+              }`}
+            >
+              <SiBuymeacoffee size={24} className="text-[#FFDD00]" />
             </div>
-            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>Buy me a tea</span>
+            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-emerald-400' : 'text-gray-800 group-hover:text-emerald-600'}`}>Buy me a tea</span>
           </a>
 
           {/* Discord */}
@@ -223,16 +186,16 @@ const LandingPage = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsMenuOpen(false)}
-            className={`flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group ${
+            className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
               isDark
-                ? 'bg-gray-700 hover:bg-indigo-900/30 border border-gray-600'
-                : 'bg-white hover:bg-indigo-50 border border-gray-200'
+                ? 'bg-gray-700 border-indigo-700 hover:border-indigo-500 hover:bg-indigo-900/30'
+                : 'bg-white border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50'
             }`}
           >
-            <div className="flex items-center justify-center w-6 h-6">
-              <FaDiscord size={22} className="text-[#5865F2] group-hover:scale-110 transition-transform" />
+            <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-900/50 group-hover:bg-indigo-800/50' : 'bg-indigo-100 group-hover:bg-indigo-200'}`}>
+              <FaDiscord size={24} className="text-[#5865F2]" />
             </div>
-            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>Discord</span>
+            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>Discord</span>
           </a>
 
           {/* About */}
@@ -241,16 +204,18 @@ const LandingPage = () => {
               navigate('/about');
               setIsMenuOpen(false);
             }}
-            className={`flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group ${
+            className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
               isDark
-                ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600'
-                : 'bg-white hover:bg-gray-100 border border-gray-200'
+                ? 'bg-gray-700 border-gray-600 hover:border-blue-400 hover:bg-gray-600'
+                : 'bg-white border-blue-100 hover:border-blue-400 hover:bg-blue-50'
             }`}
           >
-            <Info size={22} className={`${isDark ? 'text-blue-400' : 'text-gray-700'} group-hover:text-blue-600 transition-colors`} strokeWidth={2} />
-            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>About</span>
+            <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
+              <Info size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
+            </div>
+            <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
           </button>
-        </div>
+        </nav>
       </div>
 
       {/* Contenu principal centré */}

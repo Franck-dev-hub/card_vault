@@ -14,8 +14,8 @@ const AUTHENTICATED_PAGES = [
   '/statistics',
   '/scan',
   '/vault',
-  '/research',
-  '/parameters',
+  '/search',
+  '/settings',
   '/profile',
   '/about',
 ];
@@ -28,11 +28,11 @@ const PAGE_TITLES = {
   '/login': 'Login',
   '/create-account': 'Create Account',
   '/profile': 'Profile',
-  '/parameters': 'Parameters',
+  '/settings': 'Settings',
   '/statistics': 'Statistics',
   '/scan': 'Scan',
   '/vault': 'Vault',
-  '/research': 'Research',
+  '/search': 'Search',
   '/about': 'About',
   '/about/faq': 'FAQ',
   '/about/legal-notices': 'Legal notices',
@@ -48,7 +48,7 @@ const NAV_ITEMS = [
   { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
   { name: 'Vault', icon: Vault, path: '/vault' },
-  { name: 'Research', icon: Search, path: '/research' },
+  { name: 'Search', icon: Search, path: '/search' },
   { name: 'About', icon: Info, path: '/about' },
 ];
 
@@ -146,9 +146,9 @@ export const Navbar = () => {
 
   // ⬇️ AJOUTE CETTE LOGIQUE POUR LE BOUTON RETOUR
   // Afficher le bouton retour pour les sous-pages /about/*
-  const showBackButton = location.pathname.startsWith('/about/') || 
-                         location.pathname === '/profile' || 
-                         location.pathname === '/parameters';
+  const showBackButton = location.pathname.startsWith('/about/') ||
+                         location.pathname === '/profile' ||
+                         location.pathname === '/settings';
 
 
   useEffect(() => {
@@ -373,9 +373,9 @@ export const Navbar = () => {
               </a>
 
 
-              {/* Parameters */}
+              {/* Settings */}
               <a
-                href="/parameters"
+                href="/settings"
                 onClick={() => setIsAvatarOpen(false)}
                 className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
                   isDark
@@ -386,7 +386,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Settings size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Parameters</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Settings</span>
               </a>
 
 

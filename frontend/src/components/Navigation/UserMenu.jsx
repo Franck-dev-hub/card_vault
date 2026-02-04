@@ -1,104 +1,17 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { LogIn, LogOut, UserPlus, Globe, ChevronDown, ChevronUp, User, Settings, Info } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LogIn, LogOut, UserPlus, User, Settings, Info } from 'lucide-react';
 import { FaDiscord } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
-// Pages accessibles uniquement aux utilisateurs authentifiés
-const AUTHENTICATED_PAGES = [
-  '/',
-  '/dashboard',
-  '/statistics',
-  '/scan',
-  '/vault',
-  '/research',
-  '/parameters',
-  '/profile',
-];
-
-const LANGUAGES = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'pt', name: 'Português', flag: '🇵🇹' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-];
-
-const LanguageSelector = ({ label, selectedLang, onSelect, isDark }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const currentLang = LANGUAGES.find(l => l.code === selectedLang) || LANGUAGES[0];
-
-  return (
-    <div>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`group flex items-center justify-between w-full px-5 py-4 rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
-          isDark
-            ? 'bg-gray-700 border-gray-600 hover:border-blue-400 hover:bg-gray-600'
-            : 'bg-white border-blue-100 hover:border-blue-400 hover:bg-blue-50'
-        }`}
-      >
-        <div className="flex items-center gap-4">
-          <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
-            <Globe size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
-          </div>
-          <div className="text-left">
-            <span className={`font-semibold text-lg block ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{label}</span>
-            <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{currentLang.flag} {currentLang.name}</span>
-          </div>
-        </div>
-        <div className={isDark ? 'text-blue-400' : 'text-blue-600'}>
-          {isOpen ? (
-            <ChevronUp size={20} strokeWidth={2} />
-          ) : (
-            <ChevronDown size={20} strokeWidth={2} />
-          )}
-        </div>
-      </button>
-
-      {isOpen && (
-        <div className="mt-2 ml-12 flex flex-col gap-1">
-          {LANGUAGES.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => {
-                onSelect(lang.code);
-                setIsOpen(false);
-              }}
-              className={`
-                text-left px-4 py-3 rounded-xl transition-all duration-200 font-medium flex items-center gap-2
-                ${selectedLang === lang.code
-                  ? 'bg-blue-500 text-white shadow-md'
-                  : isDark
-                    ? 'bg-gray-600 text-gray-200 hover:bg-gray-500 hover:text-blue-400 border border-gray-500'
-                    : 'bg-white text-gray-700 hover:bg-blue-100 hover:text-blue-700 border border-blue-100'
-                }
-              `}
-            >
-              <span>{lang.flag}</span>
-              <span>{lang.name}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export const UserMenu = ({ isOpen, onClose }) => {
-  const [appLanguage, setAppLanguage] = useState('en');
-  const [cardsLanguage, setCardsLanguage] = useState('en');
-  const location = useLocation();
+export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
   const { isDark } = useTheme();
 
-  // Vérifier si l'utilisateur est sur une page authentifiée
-  const isOnAuthenticatedPage = AUTHENTICATED_PAGES.includes(location.pathname);
+  // Si forceGuestMenu est true, on affiche le menu invité même si isAuthenticated est true
+  const showAuthenticatedMenu = isAuthenticated && !forceGuestMenu;
 
   const handleLogout = () => {
     const confirmLogout = window.confirm('Are you sure you want to log out?');
@@ -136,7 +49,7 @@ export const UserMenu = ({ isOpen, onClose }) => {
         <nav className="flex flex-col items-center gap-4 p-8 pb-16 h-full">
           <div className="h-4"></div>
 
-          {isAuthenticated && isOnAuthenticatedPage ? (
+          {showAuthenticatedMenu ? (
             <>
               {/* Menu pour utilisateur authentifié */}
 
@@ -158,10 +71,10 @@ export const UserMenu = ({ isOpen, onClose }) => {
                 <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Profile</span>
               </button>
 
-              {/* Parameters */}
+              {/* Settings */}
               <button
                 onClick={() => {
-                  navigate('/parameters');
+                  navigate('/settings');
                   onClose();
                 }}
                 className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
@@ -173,7 +86,7 @@ export const UserMenu = ({ isOpen, onClose }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Settings size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Parameters</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Settings</span>
               </button>
 
               {/* Buy me a tea */}
@@ -300,28 +213,6 @@ export const UserMenu = ({ isOpen, onClose }) => {
                 </div>
                 <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Create Account</span>
               </button>
-
-              {/* Séparateur */}
-              <div className={`border-t-2 my-3 w-full ${isDark ? 'border-gray-600' : 'border-blue-200'}`}></div>
-
-              {/* App Language */}
-              <LanguageSelector
-                label="App Language"
-                selectedLang={appLanguage}
-                onSelect={setAppLanguage}
-                isDark={isDark}
-              />
-
-              {/* Cards Language */}
-              <LanguageSelector
-                label="Cards Language"
-                selectedLang={cardsLanguage}
-                onSelect={setCardsLanguage}
-                isDark={isDark}
-              />
-
-              {/* Séparateur */}
-              <div className={`border-t-2 my-3 w-full ${isDark ? 'border-gray-600' : 'border-blue-200'}`}></div>
 
               {/* Buy me a tea */}
               <a

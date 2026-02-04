@@ -6,6 +6,7 @@ import { Navbar } from '../Navigation/Navbar';
 import { FooterNav } from '../Navigation/FooterNav';
 import { UserMenu } from '../Navigation/UserMenu';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 // Mapping des routes vers les titres de page
@@ -17,8 +18,8 @@ const PAGE_TITLES = {
   '/statistics': 'Statistics',
   '/scan': 'Scan',
   '/vault': 'Vault',
-  '/research': 'Research',
-  '/parameters': 'Parameters',
+  '/search': 'Search',
+  '/settings': 'Settings',
   '/profile': 'Profile',
   '/about': 'About',
   '/About': 'About',
@@ -36,8 +37,8 @@ const PAGES_WITH_BACK_BUTTON = [
   '/statistics',
   '/scan',
   '/vault',
-  '/research',
-  '/parameters',
+  '/search',
+  '/settings',
   '/profile',
 ];
 
@@ -49,9 +50,15 @@ const AUTHENTICATED_PAGES = [
   '/statistics',
   '/scan',
   '/vault',
-  '/research',
-  '/parameters',
+  '/search',
+  '/settings',
   '/profile',
+];
+
+// Pages invité avec header minimal (bouton retour vers /landing)
+const GUEST_PAGES_WITH_BACK = [
+  '/login',
+  '/create-account',
 ];
 
 
@@ -61,22 +68,33 @@ export const MainLayout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  
+  const { isAuthenticated } = useAuth();
+
   // Vérifier si on est sur une page /about (insensible à la casse)
   const isAboutPage = location.pathname.toLowerCase().startsWith('/about');
+
+  // Vérifier si on est sur une page invité avec bouton retour
+  const isGuestPageWithBack = GUEST_PAGES_WITH_BACK.includes(location.pathname);
 
   // Obtenir le titre de la page actuelle
   const currentPageTitle = PAGE_TITLES[location.pathname] || 'Page';
 
   // Vérifier si on doit afficher le bouton retour
+  // Inclut les pages /about et les pages invité pour les utilisateurs non authentifiés (retour vers /landing)
   const showBackButton = PAGES_WITH_BACK_BUTTON.includes(location.pathname) ||
-                         location.pathname.toLowerCase().startsWith('/about/');
+                         location.pathname.toLowerCase().startsWith('/about/') ||
+                         (isAboutPage && !isAuthenticated) ||
+                         isGuestPageWithBack;
 
   // Vérifier si l'utilisateur est sur une page authentifiée (affiche le FooterNav)
   const isOnAuthenticatedPage = AUTHENTICATED_PAGES.includes(location.pathname);
 
-  // Afficher le FooterNav sur les pages authentifiées ET les pages /about
-  const showFooterNav = isOnAuthenticatedPage || isAboutPage;
+  // Afficher le FooterNav seulement si l'utilisateur est authentifié
+  // Sur les pages /about, on ne montre la nav que si l'utilisateur est connecté
+  const showFooterNav = isOnAuthenticatedPage || (isAboutPage && isAuthenticated);
+
+  // Afficher la Navbar desktop seulement si l'utilisateur est authentifié ou sur une page authentifiée
+  const showNavbar = isOnAuthenticatedPage || (isAboutPage && isAuthenticated);
 
 
   return (
@@ -84,8 +102,32 @@ export const MainLayout = ({ children }) => {
     <div className="h-screen bg-app-gradient overflow-hidden">
       {/* Bloc interne pour le contenu, SANS bg-white */}
       <div className="h-full flex flex-col">
-        {/* Header desktop (Navbar) */}
-        {!isMobile && <Navbar />}
+        {/* Header desktop (Navbar) - affiché seulement si authentifié ou sur page authentifiée */}
+        {!isMobile && showNavbar && <Navbar />}
+
+        {/* Header desktop minimal pour pages invité (about, login, create-account) quand non authentifié */}
+        {!isMobile && ((isAboutPage && !isAuthenticated) || isGuestPageWithBack) && (
+          <div className={`flex items-center px-6 py-4 shadow-md transition-colors duration-300 ${
+            isDark
+              ? 'bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900'
+              : 'bg-gradient-to-r from-blue-600 via-blue-400 to-purple-500'
+          }`}>
+            <button
+              onClick={() => navigate('/landing')}
+              className="btn btn-circle border-2 bg-transparent border-white/50 hover:bg-white/10 text-white transition-colors"
+              aria-label="Retour à l'accueil"
+            >
+              <ArrowLeft size={24} strokeWidth={1.5} />
+            </button>
+            <div className="flex-1 flex justify-center">
+              <h1 className="font-extrabold text-2xl tracking-wide text-white drop-shadow-md">
+                {currentPageTitle}
+              </h1>
+            </div>
+            {/* Espace pour équilibrer */}
+            <div style={{ width: '48px' }}></div>
+          </div>
+        )}
 
 
         {/* Header mobile - Style navbar desktop sans burger */}
@@ -123,7 +165,7 @@ export const MainLayout = ({ children }) => {
               {/* Bouton retour (affiché conditionnellement) */}
               {showBackButton ? (
                 <button
-                  onClick={() => navigate(-1)}
+                  onClick={() => (isAboutPage && !isAuthenticated) || isGuestPageWithBack ? navigate('/landing') : navigate(-1)}
                   className={`btn btn-circle border-2 bg-transparent transition-colors ${
                     isDark
                       ? 'border-gray-400 hover:bg-gray-600 text-gray-200'
@@ -180,7 +222,11 @@ export const MainLayout = ({ children }) => {
 
         {/* UserMenu mobile qui glisse depuis la droite */}
         {isMobile && (
-          <UserMenu isOpen={isUserMenuOpen} onClose={() => setIsUserMenuOpen(false)} />
+          <UserMenu
+            isOpen={isUserMenuOpen}
+            onClose={() => setIsUserMenuOpen(false)}
+            forceGuestMenu={isAboutPage && !showNavbar}
+          />
         )}
       </div>
     </div>

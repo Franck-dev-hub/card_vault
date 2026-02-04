@@ -26,7 +26,6 @@ export default function Login() {
       <BackgroundGradient className="rounded-3xl">
         <div className="card w-full max-w-96 bg-white dark:bg-slate-800 shadow-2xl border-2 border-gray-100 dark:border-gray-700 rounded-3xl">
           <div className="card-body px-8! py-10! md:px-16! md:py-12! bg-gradient-to-bl from-blue-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-3xl">
-          {/*<h2 className="card-title text-2xl justify-center mb-4">Login</h2>*/}
 
           <form onSubmit={handleSubmit} className="w-full">
             {/* Email */}

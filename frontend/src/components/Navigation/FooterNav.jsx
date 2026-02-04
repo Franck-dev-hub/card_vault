@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { icon: ChartColumn, path: '/statistics' },
   { icon: Camera, path: '/scan' },
   { icon: Vault, path: '/vault' },
-  { icon: Search, path: '/research' },
+  { icon: Search, path: '/search' },
 ];
 
 export const FooterNav = () => {

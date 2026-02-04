@@ -6,12 +6,12 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
 import Profile from './pages/Profile';
-import Parameters from './pages/Parameters';
+import Settings from './pages/Settings';
 import LandingPage from './pages/LandingPage';
 import Statistics from './pages/Statistics';
 import Scan from './pages/Scan';
 import Vault from './pages/Vault';
-import Research from './pages/Research';
+import Search from './pages/Search';
 import './App.css';
 import { MainLayout } from './components/Layout/MainLayout';
 
@@ -107,11 +107,11 @@ function App() {
               }
             />
             <Route
-              path="/parameters"
+              path="/settings"
               element={
                 <ProtectedRoute>
                   <MainLayout>
-                    <Parameters />
+                    <Settings />
                   </MainLayout>
                 </ProtectedRoute>
               }
@@ -147,11 +147,11 @@ function App() {
               }
             />
             <Route
-              path="/research"
+              path="/search"
               element={
                 <ProtectedRoute>
                   <MainLayout>
-                    <Research />
+                    <Search />
                   </MainLayout>
                 </ProtectedRoute>
               }

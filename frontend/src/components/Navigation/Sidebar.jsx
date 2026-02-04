@@ -5,7 +5,7 @@ const NAV_ITEMS = [
   { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
   { name: 'Vault', icon: Vault, path: '/vault' },
-  { name: 'Research', icon: Search, path: '/research' },
+  { name: 'Search', icon: Search, path: '/search' },
 ];
 
 export const Sidebar = ({ isOpen, onClose }) => {

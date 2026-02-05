@@ -10,7 +10,7 @@ const yugiohLogo = "https://upload.wikimedia.org/wikipedia/commons/1/11/Yu-Gi-Oh
 const cardBack = "https://images.pokemonfree.com/back.png";
 
 export default function Vault() {
-  const { loading, error } = useApi("/vault/");
+  const { loading, error } = useApi("/vault");
   const { isDark } = useTheme();
   
   // États de navigation

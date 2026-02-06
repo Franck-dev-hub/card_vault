@@ -1,6 +1,6 @@
 .container {
   padding: 2rem;
-  min-height: 100vh;
+  height: calc(80vh - 80px);
   transition: background 0.3s ease; /* Transition smooth entre light/dark */
 }
 

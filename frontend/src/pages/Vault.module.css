@@ -1,7 +1,7 @@
 /* --- Container & Background --- */
 .container {
   padding: 1.5rem 1rem 5rem 1rem;
-  min-height: 100vh;
+  height: calc(80vh - 80px);
 }
 
 .container.light {

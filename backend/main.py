@@ -14,6 +14,7 @@ app.add_middleware(
 
 app.include_router(dashboardController.router, prefix="/api")
 
+
 @app.get("/api/health")
 def health():
     return {"status": "ok"}

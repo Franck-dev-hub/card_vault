@@ -25,4 +25,4 @@ ml-service/*.npy
 ml-service/scrapping/images/
 
 # Project
-.env.private
+.env.local

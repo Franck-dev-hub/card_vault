@@ -1,20 +1,71 @@
-/* --- Container & Background --- */
+/* --- Global Background & Reset --- */
+:global(body) {
+  margin: 0;
+  min-height: 100vh;
+}
+
 .container {
-  padding: 1.5rem 1rem 5rem 1rem;
-  height: calc(80vh - 80px);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh; 
+  min-height: 100dvh; /* Hauteur dynamique pour mobile */
+  padding: 1.5rem 1rem 0 1rem;
+  box-sizing: border-box;
 }
 
 .container.light {
-  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%) fixed;
 }
 
 .container.dark {
-  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%) fixed;
 }
 
-/* --- Liste des Menus --- */
+/* --- Vue Flexible (Supprime l'espace vide) --- */
+.viewContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  width: 100%;
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* --- Header Navigation --- */
+.headerTitle {
+  background: white;
+  padding: 18px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-weight: 700;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 60px;
+}
+
+.backIcon {
+  position: absolute;
+  left: 20px;
+  cursor: pointer;
+}
+
+.sortButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 20px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Menu Principal --- */
 .menuList {
   display: flex;
   flex-direction: column;
@@ -32,268 +83,171 @@
   color: #333;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  z-index: 2; /* Garde le bouton au dessus */
 }
 
-/* --- Contenu Déroulant (LE SECRET EST ICI) --- */
-.content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  
-  /* On force la transparence totale du conteneur de transition */
-  background: transparent !important; 
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.content.show {
-  max-height: 2000px;
-}
-
-/* On utilise innerContent uniquement pour espacer le premier élément (Sort) du bouton principal */
-.innerContent {
-  padding: 0;
+/* --- Licenses (Design Image 2) --- */
+.scrollList {
   display: flex;
   flex-direction: column;
-  background: transparent !important;
-}
-
-/* --- Bouton Sort (Isolé) --- */
-.sortButton {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 15px 20px;
-  background: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin-top: 15px; /* Crée le premier espace vide */
-  margin-bottom: 15px; /* Crée l'espace avant la première carte */
-}
-
-/* --- Cartes de Licences (Isolées) --- */
-.licensesList {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Crée l'espace vide entre chaque carte de licence */
-  background: transparent !important;
+  gap: 15px;
 }
 
 .licenseCard {
   background: white;
-  border-radius: 18px;
-  padding: 25px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-  /* Pas de marges ici, le gap du parent s'en occupe */
+  gap: 15px;
+  cursor: pointer;
 }
 
-/* --- Éléments internes des cartes --- */
 .logoWrapper {
-  height: 80px;
-  margin-bottom: 15px;
+  width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 .licenseLogo {
-  max-width: 180px;
-  max-height: 70px;
+  max-width: 80%;
+  max-height: 120px;
   object-fit: contain;
 }
 
 .countBox {
   width: 100%;
-  background: #f8fafc; /* Un gris très léger pour la zone de texte */
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
   padding: 12px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .countNumber {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #475569;
+  font-size: 2rem;
+  font-weight: 400; /* Plus fin comme sur l'image */
+  color: #64748b; 
+  line-height: 1;
 }
 
 .countLabel {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-top: 5px;
 }
 
-/* --- Dark Mode --- */
-.dark .menuButton, 
-.dark .sortButton, 
-.dark .licenseCard {
-  background-color: #1e293b;
-  color: white;
-}
-
-.dark .countBox {
-  background-color: #0f172a;
-}
-
-/* Titre avec bouton retour */
-.selectedTitle {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  justify-content: center;
-  gap: 15px;
-}
-
-/* Cartes Extensions */
+/* --- Extensions --- */
 .extensionCard {
   background: white;
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 15px;
+  padding: 15px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.extHeader {
+/* --- Stats & Grille de Cartes --- */
+.statsHeaderRow {
   display: flex;
   gap: 12px;
-  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 15px;
 }
 
-.extIconPlaceholder {
-  font-size: 2rem;
-  background: #f8fafc;
-  padding: 10px;
-  border-radius: 8px;
+.statBox { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.statTitle { font-weight: 800; font-size: 0.85rem; }
+.statValues { font-size: 0.8rem; font-weight: 700; color: #64748b; }
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-bottom: 120px; /* Espace pour le menu du bas */
 }
 
-.extInfo {
-  flex: 1;
+.cardContainer {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  aspect-ratio: 2/3;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ownedBadge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  z-index: 2;
+  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.extName {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-/* Barre de progression */
+/* --- Barres de Progression --- */
 .progressBarContainer {
   width: 100%;
   height: 6px;
   background: #e2e8f0;
   border-radius: 10px;
+  margin: 5px 0;
   overflow: hidden;
 }
 
 .progressBar {
   height: 100%;
-  background: #6366f1; /* Couleur bleutée de ton image */
-  border-radius: 10px;
-}
-
-.extStats {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.megTag {
-  background: #334155;
-  color: white;
-  font-size: 0.6rem;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-/* Mode Sombre */
-.dark .extensionCard { background: #1e293b; color: white; }
-.dark .progressBarContainer { background: #334155; }
-
-/* --- Grille des cartes --- */
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding-bottom: 30px;
-}
-
-.cardItem img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: block;
-}
-
-/* --- Bloc Stats Set / Master Set --- */
-.setsOverview {
-  display: flex;
-  background: white;
-  border-radius: 15px;
-  padding: 15px;
-  gap: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.setStat {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.setLabel {
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #1e293b;
-}
-
-.miniProgress {
-  height: 5px;
-  background: #f1f5f9;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.miniProgress div {
-  height: 100%;
   background: #6366f1;
   border-radius: 10px;
 }
 
-.setNumbers {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #64748b;
+/* --- Dark Mode --- */
+.dark .menuButton, .dark .headerTitle, .dark .sortButton, 
+.dark .statsHeaderRow, .dark .licenseCard, .dark .extensionCard {
+  background-color: #1e293b;
+  color: white;
 }
 
-/* --- Adaptations Dark Mode --- */
-.dark .setsOverview {
-  background: #1e293b;
+.dark .countBox { background: #0f172a; border-color: #334155; }
+.dark .countNumber { color: #94a3b8; }
+.dark .countLabel { color: #f8fafc; }
+.dark .statValues { color: #94a3b8; }
+.dark .progressBarContainer { background: #334155; }
+
+/* --- Animations & Media --- */
+@keyframes badgePop {
+  from { transform: translate(-50%, -50%) scale(0); }
+  to { transform: translate(-50%, -50%) scale(1); }
 }
 
-.dark .setLabel {
-  color: #f8fafc;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.dark .miniProgress {
-  background: #0f172a;
-}
-
-.dark .setNumbers {
-  color: #94a3b8;
-}
-
-.emptyBox {
-  padding: 20px;
-  text-align: center;
-  color: #94a3b8;
+@media (max-width: 768px) {
+  .container.light, .container.dark {
+    background-attachment: scroll;
+    background-size: cover;
+  }
 }

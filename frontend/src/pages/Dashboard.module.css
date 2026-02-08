@@ -1,7 +1,8 @@
 .container {
   padding: 2rem;
-  height: calc(80vh - 80px);
+  height: 100%;
   transition: background 0.3s ease; /* Transition smooth entre light/dark */
+  overflow: hidden
 }
 
 /* Mode LIGHT - gradient bleu-violet */

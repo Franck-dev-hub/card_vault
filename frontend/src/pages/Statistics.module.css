@@ -2,7 +2,7 @@
 .container {
   padding: 0 1rem; /* On enlève le padding vertical pour supprimer l'espace du haut */
   /* On ajuste à 100% du viewport moins la zone du bas et du haut */
-  height: calc(80vh - 80px); 
+  height: 100%; 
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -99,3 +99,4 @@
 .dark .itemName { color: #fff; }
 .dark .itemPrice { color: #ccc; }
 .dark .imagePlaceholder { background-color: #334155; }
+

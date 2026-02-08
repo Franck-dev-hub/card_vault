@@ -197,6 +197,11 @@ https://github.com/Franck-dev-hub/card_vault
 |      |         |                                          |                 |
 | 3    | Backend | GET localhost/api/search/magic           | responses 200   |
 | 3    | Backend | GET localhost/api/search/magic/khm/esika | responses 200   |
+|      |         |                                          |                 |
+| 4    | Frontend| ThemeContext: default theme, toggle, localStorage persistence, data-theme attribute    | 5/5 passed      |
+| 4    | Frontend| ThemeToggle: render, aria-label accessibility, click toggle | 3/3 passed |
+| 4    | Frontend| ProtectedRoute: render when authenticated, loading state | 2/2 passed |
+| 4    | Frontend| FooterNav: 5 navigation links (dashboard, statistics, scan, vault, search) | 6/6 passed |
 
 ## 7 Production environment
 ### Backend

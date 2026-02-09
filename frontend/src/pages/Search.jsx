@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'; // Ajout de useMemo pour la performan
 import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
+import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Search.module.css';
 
 export default function Search() {
@@ -15,6 +16,7 @@ export default function Search() {
   const [selectedLicense, setSelectedLicense] = useState(null);
   const [selectedExtension, setSelectedExtension] = useState(null);
   const [selectedExtObject, setSelectedExtObject] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   // 1. APPEL POUR LES EXTENSIONS
   const extUrl = selectedLicense ? `/search/${selectedLicense.toLowerCase()}` : null;
@@ -144,12 +146,21 @@ export default function Search() {
             {cards.map((card) => {
               const imgUrl = card.image_url || (card.image ? `${card.image}/low.png` : '');
               return (
-                <div key={card.id || card.api_id} className={styles.cardWrapper}>
+                <div
+                  key={card.id || card.api_id}
+                  className={styles.cardWrapper}
+                  onClick={() => setSelectedCard({
+                    ...card,
+                    imageUrl: imgUrl,
+                    number: card.localId || card.collector_number,
+                    setName: selectedExtObject?.name || card.set_name,
+                  })}
+                >
                   <div className={styles.cardContainer}>
-                    <img 
-                      src={imgUrl} 
-                      alt={card.name} 
-                      className={styles.cardImage} 
+                    <img
+                      src={imgUrl}
+                      alt={card.name}
+                      className={styles.cardImage}
                       loading="lazy"
                     />
                     <div className={styles.ownedBadge}>
@@ -166,6 +177,10 @@ export default function Search() {
           </div>
         )}
       </div>
+
+      {selectedCard && (
+        <CardDetails card={selectedCard} onClose={() => setSelectedCard(null)} />
+      )}
     </div>
   );
 }

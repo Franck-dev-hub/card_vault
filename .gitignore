@@ -1,11 +1,14 @@
 # Envrionment
-.venv/
+.env
+.env.dev
 
 # IDEs
 .vscode/
 .idea/
+.pyc
 
 # Python
+.venv/
 __pycache__/
 
 # React
@@ -13,3 +16,15 @@ node_modules/
 .next/
 dist/
 build/
+
+# ML Data & Indexes
+ml_service/data/
+*.npz
+*.faiss
+*.npy
+
+# Scraped Images
+ml_service/scrapping/images/
+
+# Project
+.env.private

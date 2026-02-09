@@ -3,17 +3,10 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.models import database, user as user_model
+from app.models.database import get_db
 from app.schemas.user import UserCreate
 
 router = APIRouter(prefix="", tags=["register"])
-
-# Dependency to get DB session
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # Function to hash passwords
 def hash_password(password: str) -> str:

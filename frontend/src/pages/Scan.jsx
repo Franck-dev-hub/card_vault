@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, Plus, Minus } from 'lucide-react';
+import { Camera } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
+import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Scan.module.css';
 
 // --- MOCK RESULTS (à supprimer quand l'API /predict sera prête) ---
@@ -26,17 +27,7 @@ export default function Scan() {
   const [isPredicting, setIsPredicting] = useState(false); // --- LOADING PENDANT L'APPEL API ---
   const [predictError, setPredictError] = useState(null);  // --- ERREUR API ---
 
-  // --- NOUVEL ÉTAT POUR LES COMPTEURS ---
-  const [quantities, setQuantities] = useState({ Normal: 0, Reverse: 0, Holo: 0 });
   const [cameraError, setCameraError] = useState(null);
-
-  // --- LOGIQUE DE MISE À JOUR DES COMPTEURS ---
-  const handleCount = (variant, delta) => {
-    setQuantities(prev => ({
-      ...prev,
-      [variant]: Math.max(0, prev[variant] + delta)
-    }));
-  };
 
   // --- LOGIQUE DU BOUTON BACK ---
   useEffect(() => {
@@ -196,36 +187,6 @@ export default function Scan() {
             <div className={styles.errorOverlay}>
               <p>Analyse en cours...</p>
             </div>
-          ) : selectedCard ? (
-            /* --- VUE DÉTAILS --- */
-            <div className={styles.detailsView}>
-              <img src={selectedCard.img} alt={selectedCard.name} className={styles.detailCardImg} />
-              <h2 className={styles.detailName}>{selectedCard.name}</h2>
-              <p className={styles.detailInfo}>{selectedCard.id_card} ({selectedCard.match}%) {selectedCard.set}</p>
-              
-              <div className={styles.inventorySection}>
-                {['Normal', 'Reverse', 'Holo'].map((variant) => (
-                  <div key={variant} className={styles.inventoryRow}>
-                    <button 
-                      className={styles.countBtn} 
-                      onClick={() => handleCount(variant, -1)}
-                    >
-                      <Minus size={18} />
-                    </button>
-                    <div className={styles.countValue}>
-                      <span className={styles.variantLabel}>{variant} :</span>
-                      <span className={styles.quantity}>{quantities[variant]}</span>
-                    </div>
-                    <button 
-                      className={styles.countBtn} 
-                      onClick={() => handleCount(variant, 1)}
-                    >
-                      <Plus size={18} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
           ) : (
             /* --- VUE RÉSULTATS --- */
             <div className={styles.resultsOverlay}>
@@ -265,6 +226,18 @@ export default function Scan() {
           </button>
         </div>
       </div>
+
+      {selectedCard && (
+        <CardDetails
+          card={{
+            ...selectedCard,
+            imageUrl: selectedCard.img,
+            number: selectedCard.id_card,
+            setName: selectedCard.set,
+          }}
+          onClose={() => setSelectedCard(null)}
+        />
+      )}
     </div>
   );
 }

@@ -17,6 +17,12 @@ export default function Search() {
   const [selectedExtension, setSelectedExtension] = useState(null);
   const [selectedExtObject, setSelectedExtObject] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [ownedCards, setOwnedCards] = useState({});
+
+  // Callback appelé par CardDetails quand les quantités changent
+  const handleOwnershipChange = (cardId, isOwned) => {
+    setOwnedCards((prev) => ({ ...prev, [cardId]: isOwned }));
+  };
 
   // 1. APPEL POUR LES EXTENSIONS
   const extUrl = selectedLicense ? `/search/${selectedLicense.toLowerCase()}` : null;
@@ -163,9 +169,11 @@ export default function Search() {
                       className={styles.cardImage}
                       loading="lazy"
                     />
-                    <div className={styles.ownedBadge}>
-                      <Check size={30} strokeWidth={3} />
-                    </div>
+                    {ownedCards[card.id || card.api_id] && (
+                      <div className={styles.ownedBadge}>
+                        <Check size={30} strokeWidth={3} />
+                      </div>
+                    )}
                     <div className={styles.cardHoverInfo}>
                       <span className={styles.cardId}>#{card.localId || card.collector_number}</span>
                       <p className={styles.cardName}>{card.name}</p>
@@ -179,7 +187,11 @@ export default function Search() {
       </div>
 
       {selectedCard && (
-        <CardDetails card={selectedCard} onClose={() => setSelectedCard(null)} />
+        <CardDetails
+          card={selectedCard}
+          onClose={() => setSelectedCard(null)}
+          onOwnershipChange={handleOwnershipChange}
+        />
       )}
     </div>
   );

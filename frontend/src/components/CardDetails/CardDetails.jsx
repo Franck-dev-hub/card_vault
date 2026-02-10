@@ -32,7 +32,7 @@ const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
   );
 };
 
-export default function CardDetails({ card, onClose }) {
+export default function CardDetails({ card, onClose, onOwnershipChange }) {
   const { isDark } = useTheme();
 
   // --- ÉTAT POUR LES COMPTEURS VAULT ---
@@ -43,10 +43,24 @@ export default function CardDetails({ card, onClose }) {
   });
 
   const handleCount = (variant, delta) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [variant]: Math.max(0, prev[variant] + delta),
-    }));
+    setQuantities((prev) => {
+      const updated = {
+        ...prev,
+        [variant]: Math.max(0, prev[variant] + delta),
+      };
+
+      // Notifie le parent si la carte est possédée (au moins 1 exemplaire)
+      const isOwned = updated.Normal + updated.Reverse + updated.Holo > 0;
+      const cardId = card.id || card.api_id;
+      if (onOwnershipChange) {
+        onOwnershipChange(cardId, isOwned);
+      }
+
+      // TODO: Envoyer au backend quand l'endpoint sera prêt
+      // axios.post('/api/vault', { cardId, quantities: updated });
+
+      return updated;
+    });
   };
 
   useEffect(() => {

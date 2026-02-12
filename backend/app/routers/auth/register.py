@@ -1,0 +1,46 @@
+import bcrypt
+from datetime import datetime
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app.models import database, user as user_model
+from app.models.database import get_db
+from app.schemas.user import UserCreate
+
+router = APIRouter(prefix="", tags=["register"])
+
+# Function to hash passwords
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt(rounds=12)
+    return bcrypt.hashpw(password.encode("utf-8"), salt).decode("utf-8")
+
+@router.get("/register")
+async def get_register():
+    return {
+        "title": "Register",
+    }
+
+@router.post("/register")
+def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
+    # Check if user already exists
+    db_user = db.query(user_model.User).filter(user_model.User.email == user_data.email).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Hash the password
+    hashed_password = hash_password(user_data.password)
+
+    # Create a new user
+    new_user = user_model.User(
+        username=user_data.username,
+        email=user_data.email,
+        password = hashed_password,
+        created_at=datetime.now().isoformat(),
+        updated_at=datetime.now().isoformat()
+    )
+
+    # Save to Postgres
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return {"message": "User created successfully", "user_id": new_user.id}

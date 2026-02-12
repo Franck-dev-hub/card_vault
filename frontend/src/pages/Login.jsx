@@ -16,7 +16,6 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login with:', { email, password, rememberMe });
-    // Simuler l'authentification (à remplacer par ton API plus tard)
     login();
     navigate('/dashboard');
   };

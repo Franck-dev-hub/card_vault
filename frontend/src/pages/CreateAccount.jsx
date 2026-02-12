@@ -16,7 +16,6 @@ export default function CreateAccount() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation basique
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -27,11 +26,9 @@ export default function CreateAccount() {
       return;
     }
 
-    // Reset l'erreur
-    setError('');
+      setError('');
 
-    // Ici tu appelleras ton API plus tard
-    console.log('Creating account:', { username, email, password });
+        console.log('Creating account:', { username, email, password });
   };
 
 

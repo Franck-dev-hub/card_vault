@@ -1,21 +1,19 @@
-import React, { useState } from 'react'; // Ajout de useState
+import React, { useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import styles from './Dashboard.module.css';
 import { CircleUserRound } from 'lucide-react';
-import CardDetails from '../components/CardDetails/CardDetails'; // Import du nouveau composant
+import CardDetails from '../components/CardDetails/CardDetails';
 
 export default function Dashboard() {
   const { loading, error } = useApi('/dashboard');
   const { isDark } = useTheme();
 
-  // État pour gérer la carte sélectionnée (null = fermé)
   const [selectedCard, setSelectedCard] = useState(null);
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.error}>Error : {error}</div>;
 
-  // Données simulées (ajoute des propriétés pour tester l'affichage du pop-up)
   const lastCards = [
     { id: 1, name: "Pikachu", number: "025", setTotal: "102", expansion: "BS", setName: "Base Set", imageUrl: "https://images.pokemontcg.io/base1/58.png" },
     { id: 2, name: "Dracaufeu", number: "004", setTotal: "102", expansion: "BS", setName: "Base Set", imageUrl: "https://images.pokemontcg.io/base1/4.png" },
@@ -23,12 +21,10 @@ export default function Dashboard() {
     { id: 4, name: "Tortank", number: "002", setTotal: "102", expansion: "BS", setName: "Base Set", imageUrl: "https://images.pokemontcg.io/base1/2.png" },
   ];
 
-  // Fonction pour ouvrir le pop-up
   const handleOpenCard = (card) => {
     setSelectedCard(card);
   };
 
-  // Fonction pour fermer le pop-up
   const handleCloseCard = () => {
     setSelectedCard(null);
   };
@@ -82,7 +78,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Rendu conditionnel du Pop-up CardDetails */}
       {selectedCard && (
         <CardDetails 
           card={selectedCard} 

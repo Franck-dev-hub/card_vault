@@ -36,7 +36,6 @@ const LandingPage = () => {
   const menuRef = useRef(null);
   const sectionsRef = useRef([]);
 
-  // Fermer le menu quand on clique en dehors
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -53,7 +52,6 @@ const LandingPage = () => {
     };
   }, [isMenuOpen]);
 
-  // Intersection Observer pour animer les sections au scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.models.database import engine, Base
-from app.models.user import User
+from app.services.database.postgres.postgres import engine, Base
+from dotenv import load_dotenv
 
-#------------- routers -------------#
+# Routers
 from app.routers import dashboard
 from app.routers import scan
 from app.routers import status
@@ -14,8 +14,13 @@ from app.routers.auth import login
 from app.routers.auth import logout
 from app.routers.auth import register
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize FastAPI app
 app = FastAPI(redirect_slashes=True)
 
+# Configure CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -30,7 +35,7 @@ try:
 except Exception as e:
     print(f"Warning: Could not create tables at startup: {e}")
 
-#----------------------- router -----------------------#
+# Router
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(scan.router, prefix="/api")
 app.include_router(search.router, prefix="/api")

@@ -1,10 +1,14 @@
-from fastapi import APIRouter, Depends, Cookie
-from sqlalchemy.orm import Session
-from app.services.session import SessionManager
+import app.services.cookies.session as session_manager
+from fastapi import APIRouter, HTTPException, Request
+from app.models import user as user_model
+from app.services.database.postgres.postgres import get_postgres
+from app.schemas.user import UserLogin
 from starlette.responses import JSONResponse
-from app.models.database import get_db
+
+session_manager_instance = session_manager.SessionManager()
 
 router = APIRouter(prefix="", tags=["logout"])
+
 
 @router.get("/logout")
 async def get_logout():
@@ -12,21 +16,33 @@ async def get_logout():
         "title": "Logout",
     }
 
+
 @router.post("/logout")
-def logout_user(session_id: str = Cookie(None), db: Session = Depends(get_db)):
-    if session_id:
-        SessionManager.invalidate_session_token(session_id, db)
+def logout_user(request: Request):
+    # Get the session token from the cookie
+    session_token = request.cookies.get("session_id")
 
-        response = JSONResponse(content={"message": "Logged out successfully"})
-
-        # Clear the cookie
-        response.delete_cookie(
-            key="session_id",
-            secure=True,
-            httponly=True,
-            samesite="lax"
+    if not session_token:
+        raise HTTPException(
+            status_code=400,
+            detail="No session found"
         )
 
-        return response
+    # Delete session
+    try:
+        session_manager_instance.delete_session(session_token)
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Error deleting session"
+        )
 
-    return JSONResponse(content={"message": "No active session"}, status_code=400)
+    # Create response with JSON
+    response = JSONResponse(
+        status_code=200,
+        content={
+            "message": "Logout successful",
+        }
+    )
+    response.delete_cookie(key="session_id")
+    return response

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Vault } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
-
 
 export default function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -11,9 +11,10 @@ export default function CreateAccount() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -26,9 +27,17 @@ export default function CreateAccount() {
       return;
     }
 
-      setError('');
+    setError('');
+    setLoading(true);
 
-        console.log('Creating account:', { username, email, password });
+    try {
+      await register(username, email, password);
+      navigate('/login');
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Registration failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
 

@@ -33,9 +33,9 @@ normalizer_map = {
 @router.get("/search/{license}/{extension}")
 @router.get("/search/{license}")
 async def get_cards(
-    license: str,
-    extension: str | None = None,
-    card: str | None = None
+        license: str,
+        extension: str | None = None,
+        card: str | None = None
 ):
     license_key = license.lower()
 

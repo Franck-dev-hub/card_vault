@@ -18,6 +18,7 @@ engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+
 # Dependency to get DB session
 def get_postgres():
     db = postgres.SessionLocal()

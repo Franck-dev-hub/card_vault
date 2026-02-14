@@ -1,4 +1,3 @@
-import bcrypt
 import app.services.cookies.session as session_manager
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -6,17 +5,11 @@ from app.models import user as user_model
 from app.services.database.postgres.postgres import get_postgres
 from app.schemas.user import UserLogin
 from starlette.responses import JSONResponse
+from app.routers.auth.password import verify_password
 
 sm_instance = session_manager.SessionManager()
 
 router = APIRouter(prefix="", tags=["login"])
-
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return bcrypt.checkpw(
-        plain_password.encode("utf-8"),
-        hashed_password.encode("utf-8")
-    )
 
 
 @router.get("/login")

@@ -25,7 +25,7 @@ async def get_login():
 
 
 @router.post("/login")
-def login_user(credentials: UserLogin, db: Session = Depends(get_postgres)):
+async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)):
     user = (db.query(user_model.User)
             .filter(user_model.User.email == credentials.email)
             .first())

@@ -18,7 +18,7 @@ async def get_logout():
 
 
 @router.post("/logout")
-def logout_user(request: Request):
+async def post_logout(request: Request):
     # Get the session token from the cookie
     session_token = request.cookies.get("session_id")
 

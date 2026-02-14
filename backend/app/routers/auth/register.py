@@ -24,7 +24,7 @@ async def get_register():
 
 
 @router.post("/register")
-def register_user(user_data: UserCreate, db: Session = Depends(get_postgres)):
+async def post_register(user_data: UserCreate, db: Session = Depends(get_postgres)):
     # Check if user already exists
     db_username = db.query(user_model.User).filter(user_model.User.username == user_data.username).first()
     db_user_email = db.query(user_model.User).filter(user_model.User.email == user_data.email).first()

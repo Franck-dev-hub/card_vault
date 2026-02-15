@@ -1,0 +1,10 @@
+### [CONFIGURATION]
+@route = /predict
+
+### [PREDICT] Get a prediction
+# @name getPredict
+GET {{ml_url}}{{route}}
+
+### [PREDICT] Post a prediction
+# @name postPredict
+POST {{ml_url}}{{route}}

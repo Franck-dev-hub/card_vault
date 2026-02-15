@@ -1,0 +1,10 @@
+### [CONFIGURATION]
+@route = /health
+
+### [HEALTH] Backend health check
+# @name getApiHealth
+GET {{api_url}}{{route}}
+
+### [HEALTH] ML health check
+# @name getMlHealth
+GET {{ml_url}}{{route}}

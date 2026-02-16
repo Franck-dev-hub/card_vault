@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: postgres_db
+    container_name: postgres_card-vault
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -20,7 +20,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin_gui
+    container_name: pgadmin_card-vault
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
@@ -33,7 +33,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis_cache
+    container_name: redis_card-vault
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
@@ -47,7 +47,7 @@ services:
 
   redisinsight:
     image: redis/redisinsight:latest
-    container_name: redis_gui
+    container_name: redis_insight_card-vault
     ports:
       - "5540:5540"
     networks:
@@ -55,7 +55,7 @@ services:
 
   backend:
     build: ./backend
-    container_name: fastapi_backend
+    container_name: backend_card-vault
     environment:
       DB_HOST: ${DB_HOST:-postgres}
       DB_USER: ${DB_USER:-postgres}
@@ -77,7 +77,7 @@ services:
 
   ml_service:
     build: ./ml_service
-    container_name: ml_service
+    container_name: ml_service_card-vault
     environment:
       REDIS_URL: redis://redis:6379/0
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}
@@ -96,7 +96,7 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: react_frontend
+    container_name: frontend_card-vault
     environment:
       REACT_APP_API_URL: http://localhost/api
       REACT_APP_ML_API_URL: http://localhost/ml
@@ -112,7 +112,7 @@ services:
 
   proxy:
     build: ./proxy
-    container_name: nginx_proxy
+    container_name: nginx_proxy_card-vault
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"

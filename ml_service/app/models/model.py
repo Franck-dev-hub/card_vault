@@ -1,13 +1,11 @@
-import os
+import os, faiss, requests, torch
 import numpy as np
-import torch
 from pathlib import Path
 from PIL import Image
 from fastapi import HTTPException
 from transformers import AutoImageProcessor, AutoModel
 from datasets import load_dataset
 from huggingface_hub import hf_hub_download
-import faiss
 
 # Configuration
 BASE_DIR = Path(__file__).parent.absolute()
@@ -126,12 +124,24 @@ def search_card():
                 print(f"#{i+1} : No match found.")
                 continue
             score = scores[0][i]
-            card_info = metadata[idx]
-            results.append({
-                "name": card_info["name"],
-                "id": card_info["id"],
-                "score": float(score)
-            })
+            card_id = metadata[idx]["id"]
+
+            formatted_id = card_id.replace("-", "/")
+            url = f"http://backend:8000/api/search/pokemon/{formatted_id}"
+
+            try:
+                response = requests.get(url, timeout=2.0)
+                response.raise_for_status()
+                api_data = response.json()
+
+                if score >= CONFIDENCE:
+                    results.append({
+                        "score": round(float(score), 4),
+                        "data": api_data
+                    })
+            except requests.exceptions.RequestException as e:
+                print(f"API error for ID {card_id}: {e}")
+                results.append({"score": float(score), "card_id": card_id, "error": "API Unreachable"})
 
         return results
 

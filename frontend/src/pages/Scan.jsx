@@ -6,12 +6,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Scan.module.css';
 
-// --- MOCK RESULTS (à supprimer quand l'API /predict sera prête) ---
-const mockResults = [
-  { id: 1, name: "Pikachu", set: "Vivid Voltage", match: 82, id_card: "SWSH044", img: "https://images.pokemontcg.io/swsh4/44_hires.png" },
-  { id: 2, name: "Pikachu", set: "Base Set", match: 72, id_card: "58/102", img: "https://images.pokemontcg.io/base1/58_hires.png" },
-  { id: 3, name: "Raichu GX", set: "Hidden Fates", match: 69, id_card: "20/68", img: "https://images.pokemontcg.io/sm115/20_hires.png" }
-];
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL;
 
 export default function Scan() {
   const navigate = useNavigate();
@@ -110,7 +105,7 @@ export default function Scan() {
     setPredictError(null);
 
     try {
-      const response = await fetch('URL_API/predict', {  // ⚠️ REMPLACE URL_API par l'URL de ton collègue
+      const response = await fetch(`${API_BASE_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Image })

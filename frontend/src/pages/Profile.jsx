@@ -100,9 +100,9 @@ export default function Profile() {
             {/*<h2 className="card-title text-2xl justify-center mb-6">Profile</h2>*/}
 
             <form onSubmit={handleSubmit} className="w-full">
-              {/* Layout avec champs à gauche et photo à droite */}
+              {/* Layout with fields on the left and photo on the right */}
               <div className="flex gap-3 items-start mb-3 md:mb-6">
-                {/* Colonne gauche - Champs Name et Lastname */}
+                {/* Left column - Name and Lastname fields */}
                 <div className="flex-1 space-y-2 md:space-y-4">
                   {/* Name */}
                   <div className="form-control w-full">
@@ -139,7 +139,7 @@ export default function Profile() {
                   </div>
                 </div>
 
-                {/* Colonne droite - Photo de profil */}
+                {/* Right column - Profile photo */}
                 <div className="flex flex-col items-center gap-2">
                   <div className="avatar">
                     <div className={`w-20 md:w-24 rounded-full ring ring-primary ring-offset-2 ${
@@ -187,10 +187,10 @@ export default function Profile() {
                 />
               </div>
 
-              {/* Mail */}
+              {/* Email */}
               <div className="form-control w-full form-field-spacing">
                 <label className="label pb-1">
-                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Mail</span>
+                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Email</span>
                 </label>
                 <input
                   type="email"
@@ -203,59 +203,7 @@ export default function Profile() {
                   onChange={handleInputChange}
                 />
               </div>
-
-              {/* Language (Select) */}
-              <div className="form-control w-full form-field-spacing">
-                <label className="label pb-1">
-                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Language</span>
-                </label>
-                <div className="relative">
-                  <select
-                    name="language"
-                    className={`select select-bordered select-sm md:select-md w-full appearance-none ${
-                      isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                    }`}
-                    value={formData.language}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a language</option>
-                    <option value="en">English</option>
-                    <option value="fr">Français</option>
-                    <option value="es">Español</option>
-                    <option value="de">Deutsch</option>
-                  </select>
-                  <ChevronDown size={18} className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none ${
-                    isDark ? 'text-gray-400' : 'text-gray-500'
-                  }`} />
-                </div>
-              </div>
-
-              {/* Cash (Select) */}
-              <div className="form-control w-full form-field-spacing">
-                <label className="label pb-1">
-                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Currency</span>
-                </label>
-                <div className="relative">
-                  <select
-                    name="cash"
-                    className={`select select-bordered select-sm md:select-md w-full appearance-none ${
-                      isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                    }`}
-                    value={formData.cash}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a currency</option>
-                    <option value="usd">USD ($)</option>
-                    <option value="eur">EUR (€)</option>
-                    <option value="gbp">GBP (£)</option>
-                    <option value="jpy">JPY (¥)</option>
-                  </select>
-                  <ChevronDown size={18} className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none ${
-                    isDark ? 'text-gray-400' : 'text-gray-500'
-                  }`} />
-                </div>
-              </div>
-
+              
               {/* Save Button */}
               <button
                 type="submit"

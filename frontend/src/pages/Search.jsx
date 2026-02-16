@@ -47,7 +47,7 @@ export default function Search() {
     return [...rawData].reverse();
   }, [extData]);
 
-  const cards = data?.cards || data?.data || [];
+  const cards = Array.isArray(data) ? data : (data?.cards || data?.data || []);
 
   return (
     <div className={`${styles.container} ${isDark ? styles.dark : styles.light}`}>
@@ -93,7 +93,7 @@ export default function Search() {
                   <span className={styles.subLabel}>Extensions</span>
                   <div className={styles.subSelectArea}>
                     <span className={styles.selectedValue}>
-                      {selectedExtObject ? selectedExtObject.name : '-- Select --'}
+                      {selectedExtObject ? (selectedExtObject.set_name || selectedExtObject.name) : '-- Select --'}
                     </span>
                     <ChevronLeft className={`${styles.subIcon} ${isExtensionsOpen ? styles.iconOpen : ''}`} size={20} />
                   </div>
@@ -102,7 +102,7 @@ export default function Search() {
                   <div className={styles.licenseList}>
                     {availableExtensions.length > 0 ? (
                       availableExtensions.map((ext) => {
-                        const extId = ext.id || ext.code;
+                        const extId = ext.set_id || ext.id || ext.code;
                         return (
                           <div key={extId} className={styles.licenseItem} onClick={() => {
                             setSelectedExtension(extId);
@@ -110,10 +110,7 @@ export default function Search() {
                             setIsExtensionsOpen(false);
                           }}>
                             <div className={styles.extRow}>
-                              <span className={styles.extensionName}>{ext.name}</span>
-                              <small className={styles.extensionCount}>
-                                {ext.cardCount?.total || ext.card_count} cards
-                              </small>
+                              <span className={styles.extensionName}>{ext.set_name || ext.name}</span>
                             </div>
                           </div>
                         );
@@ -150,16 +147,16 @@ export default function Search() {
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>
             {cards.map((card) => {
-              const imgUrl = card.image_url || (card.image ? `${card.image}/low.png` : '');
+              const imgUrl = card.image_url ? `${card.image_url}/low.png` : (card.image ? `${card.image}/low.png` : '');
               return (
                 <div
-                  key={card.id || card.api_id}
+                  key={card.card_id || card.id || card.api_id}
                   className={styles.cardWrapper}
                   onClick={() => setSelectedCard({
                     ...card,
                     imageUrl: imgUrl,
-                    number: card.localId || card.collector_number,
-                    setName: selectedExtObject?.name || card.set_name,
+                    number: card.card_number || card.localId || card.collector_number,
+                    setName: selectedExtObject?.set_name || selectedExtObject?.name || card.set_name,
                   })}
                 >
                   <div className={styles.cardContainer}>
@@ -169,13 +166,13 @@ export default function Search() {
                       className={styles.cardImage}
                       loading="lazy"
                     />
-                    {ownedCards[card.id || card.api_id] && (
+                    {ownedCards[card.card_id || card.id || card.api_id] && (
                       <div className={styles.ownedBadge}>
                         <Check size={30} strokeWidth={3} />
                       </div>
                     )}
                     <div className={styles.cardHoverInfo}>
-                      <span className={styles.cardId}>#{card.localId || card.collector_number}</span>
+                      <span className={styles.cardId}>#{card.card_number || card.localId || card.collector_number}</span>
                       <p className={styles.cardName}>{card.name}</p>
                     </div>
                   </div>

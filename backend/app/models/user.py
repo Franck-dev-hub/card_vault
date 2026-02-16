@@ -1,6 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
-from .database import Base
+from app.services.database.postgres.postgres import Base
+
 
 # Define user table
 class User(Base):

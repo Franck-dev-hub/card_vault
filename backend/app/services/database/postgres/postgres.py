@@ -1,13 +1,9 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-from app.models import database
+from app.services.database.postgres import postgres
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Logic to choose localhost or postgres
+# Choose localhost or postgres
 db_host = os.environ.get("DB_HOST") if os.path.exists("/.dockerenv") else "localhost"
 db_user = os.environ.get("DB_USER")
 db_password = os.environ.get("DB_PASSWORD")
@@ -22,9 +18,10 @@ engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+
 # Dependency to get DB session
-def get_db():
-    db = database.SessionLocal()
+def get_postgres():
+    db = postgres.SessionLocal()
     try:
         yield db
     finally:

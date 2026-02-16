@@ -3,18 +3,33 @@ services:
     image: postgres:15-alpine
     container_name: postgres_db
     environment:
-      POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-      POSTGRES_DB: ${DB_NAME:-app_db}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}" ]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - app_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_gui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
 
   redis:
     image: redis:7-alpine
@@ -23,10 +38,18 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_network
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redis_gui
+    ports:
+      - "5540:5540"
     networks:
       - app_network
 
@@ -34,8 +57,12 @@ services:
     build: ./backend
     container_name: fastapi_backend
     environment:
-      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}
-      REDIS_URL: redis://redis:6379/0
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-app_db}
+      DB_PORT: ${DB_PORT:-5432}
+      REDIS_URL: redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}/0
       PYTHONUNBUFFERED: 1
     depends_on:
       postgres:
@@ -51,10 +78,6 @@ services:
   ml_service:
     build: ./ml_service
     container_name: ml_service
-    env_file:
-      - .env
-      - .env.dev
-      - .env.local
     environment:
       REDIS_URL: redis://redis:6379/0
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}
@@ -91,8 +114,8 @@ services:
     build: ./proxy
     container_name: nginx_proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
     depends_on:
       - frontend
       - backend

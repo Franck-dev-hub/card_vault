@@ -1,0 +1,16 @@
+### [CONFIGURATION]
+@route = /search/pokemon
+@extension = /base1
+@card = /1
+
+### [POKEMON] Get pokemon license
+# @name getPokemon
+GET {{api_url}}{{route}}
+
+### [POKEMON] Get pokemon extensions
+# @name getPokemonExtension
+GET {{api_url}}{{route}}{{extension}}
+
+### [POKEMON] Get pokemon card
+# @name getPokemonExtensionCard
+GET {{api_url}}{{route}}{{extension}}{{card}}

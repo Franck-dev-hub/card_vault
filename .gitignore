@@ -1,9 +1,11 @@
 # Envrionment
-.venv/
+.env
+.env.dev
 
 # IDEs
 .vscode/
 .idea/
+.pyc
 
 # Python
 .venv/
@@ -16,13 +18,13 @@ dist/
 build/
 
 # ML Data & Indexes
-ml-service/data_cache/
-ml-service/*.npz
-ml-service/*.faiss
-ml-service/*.npy
+ml_service/data/
+*.npz
+*.faiss
+*.npy
 
 # Scraped Images
-ml-service/scrapping/images/
+ml_service/scrapping/images/
 
 # Project
-.env.local
+.env.private

@@ -1,0 +1,15 @@
+### [CONFIGURATION]
+@route = /login
+
+### [LOGIN] Get login
+# @name getLogin
+GET {{api_url}}{{route}}
+
+### [LOGIN] Post login form
+# @name postLogin
+POST {{api_url}}{{route}}
+
+{
+  "email" : "toto@gmail.com",
+  "password": "secret_password"
+}

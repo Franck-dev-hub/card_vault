@@ -1,4 +1,4 @@
-/* --- STRUCTURE GLOBALE --- */
+/* --- GLOBAL STRUCTURE --- */
 .container {
   padding: 10px;
   height: 100%;
@@ -29,11 +29,11 @@
   gap: 10px;
 }
 
-/* --- FENÊTRE CAMÉRA / RÉSULTATS --- */
+/* --- CAMERA / RESULTS WINDOW --- */
 .cameraFrame {
   width: 95%;
   flex: 1;
-  max-height: 90%; /* Ajuste cette valeur pour changer la hauteur (ex: 70%, 80%, 90%) */
+  max-height: 90%; /* Adjust this value to change height (e.g. 70%, 80%, 90%) */
   min-height: 0;
   background: #6e727a;
   border: 8px solid white;
@@ -44,8 +44,8 @@
 }
 
 .dark .cameraFrame {
-  border-color: #334155; /* Couleur gris foncé/bleuté pour le mode dark */
-  background: #1e293b;    /* Fond plus sombre quand la caméra est éteinte */
+  border-color: #334155; /* Dark bluish gray for dark mode */
+  background: #1e293b;    /* Darker background when camera is off */
 }
 
 .cameraFrame::after {
@@ -62,7 +62,7 @@
 }
 
 .dark .cameraFrame::after {
-  border-color: rgba(74, 222, 128, 0.5); /* Optionnel : devient vert néon discret */
+  border-color: rgba(74, 222, 128, 0.5); /* Optional: subtle neon green */
 }
 
 .video {
@@ -71,7 +71,7 @@
   object-fit: cover;
 }
 
-/* --- LISTE DES RÉSULTATS (3 CARTES) --- */
+/* --- RESULTS LIST (3 CARDS) --- */
 .resultsOverlay {
   position: absolute;
   inset: 0;
@@ -102,7 +102,7 @@
   align-items: center;
   gap: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  flex: 1; /* Les 3 cartes se partagent l'espace équitablement */
+  flex: 1; /* 3 cards share space equally */
   min-height: 0;
 }
 
@@ -137,7 +137,7 @@
 .bestMatch { color: #1a8a4d; }
 
 .dark .bestMatch {
-  color: #22c55e !important; /* Un vert un peu plus flashy pour le mode sombre */
+  color: #22c55e !important; /* Brighter green for dark mode */
 }
 
 .cardInfoText {
@@ -146,7 +146,7 @@
   margin: 0;
 }
 
-/* --- VUE DÉTAILS --- */
+/* --- DETAILS VIEW --- */
 .detailsView {
   position: absolute;
   inset: 0;
@@ -192,7 +192,7 @@
 
 .dark .detailInfo { color: #cbd5e1; }
 
-/* --- SECTION INVENTAIRE --- */
+/* --- INVENTORY SECTION --- */
 .inventorySection {
   width: 100%;
   display: flex;
@@ -237,7 +237,7 @@
   color: white;
 }
 
-/* --- BOUTON SCAN --- */
+/* --- SCAN BUTTON --- */
 .buttonContainer {
   width: 100%;
   display: flex;
@@ -285,7 +285,7 @@
   }
 }
 
-/* --- ERREUR CAMÉRA --- */
+/* --- CAMERA ERROR --- */
 .errorOverlay {
   position: absolute;
   inset: 0;

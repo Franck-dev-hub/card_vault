@@ -6,7 +6,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Scan.module.css';
 
-// --- MOCK RESULTS (à supprimer quand l'API /predict sera prête) ---
+// --- MOCK RESULTS (remove when /predict API is ready) ---
 const mockResults = [
   { id: 1, name: "Pikachu", set: "Vivid Voltage", match: 82, id_card: "SWSH044", img: "https://images.pokemontcg.io/swsh4/44_hires.png" },
   { id: 2, name: "Pikachu", set: "Base Set", match: 72, id_card: "58/102", img: "https://images.pokemontcg.io/base1/58_hires.png" },
@@ -23,13 +23,13 @@ export default function Scan() {
   const [isScanned, setIsScanned] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [results, setResults] = useState([]);           // --- RÉSULTATS DYNAMIQUES ---
-  const [isPredicting, setIsPredicting] = useState(false); // --- LOADING PENDANT L'APPEL API ---
-  const [predictError, setPredictError] = useState(null);  // --- ERREUR API ---
+  const [results, setResults] = useState([]);           // --- DYNAMIC RESULTS ---
+  const [isPredicting, setIsPredicting] = useState(false); // --- LOADING DURING API CALL ---
+  const [predictError, setPredictError] = useState(null);  // --- API ERROR ---
 
   const [cameraError, setCameraError] = useState(null);
 
-  // --- LOGIQUE DU BOUTON BACK ---
+  // --- BACK BUTTON LOGIC ---
   useEffect(() => {
     const handlePopState = (e) => {
       if (selectedCard) {
@@ -57,37 +57,37 @@ export default function Scan() {
   const startCamera = async () => {
     setCameraError(null);
 
-    // Vérifier si getUserMedia est disponible
+    // Check if getUserMedia is available
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      setCameraError("Caméra non supportée. Assurez-vous d'utiliser HTTPS.");
+      setCameraError("Camera not supported. Make sure you are using HTTPS.");
       return;
     }
 
     try {
-      // Essayer d'abord avec la caméra arrière
+      // Try rear camera first
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: "environment" } },
         audio: false
       });
       if (videoRef.current) videoRef.current.srcObject = stream;
     } catch (err) {
-      console.error("Caméra arrière non disponible, essai avec caméra par défaut:", err);
+      console.error("Rear camera unavailable, trying default camera:", err);
 
       try {
-        // Fallback : n'importe quelle caméra
+        // Fallback: any available camera
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
           audio: false
         });
         if (videoRef.current) videoRef.current.srcObject = stream;
       } catch (fallbackErr) {
-        console.error("Aucune caméra disponible:", fallbackErr);
+        console.error("No camera available:", fallbackErr);
         if (fallbackErr.name === 'NotAllowedError') {
-          setCameraError("Permission caméra refusée. Autorisez l'accès dans les paramètres.");
+          setCameraError("Camera permission denied. Allow access in your settings.");
         } else if (fallbackErr.name === 'NotFoundError') {
-          setCameraError("Aucune caméra détectée sur cet appareil.");
+          setCameraError("No camera detected on this device.");
         } else {
-          setCameraError(`Erreur caméra: ${fallbackErr.message}`);
+          setCameraError(`Camera error: ${fallbackErr.message}`);
         }
       }
     }
@@ -100,29 +100,29 @@ export default function Scan() {
     setResults([]);
     setPredictError(null);
     setCameraError(null);
-    // Optionnel : décommente la ligne suivante si tu veux remettre les compteurs à 0 lors d'un nouveau scan
+    // Optional: uncomment the following line to reset counters on new scan
     // setQuantities({ Normal: 0, Reverse: 0, Holo: 0 });
   };
 
-  // --- ENVOI DE L'IMAGE VERS /predict ---
+  // --- SEND IMAGE TO /predict ---
   const sendToPredict = async (base64Image) => {
     setIsPredicting(true);
     setPredictError(null);
 
     try {
-      const response = await fetch('URL_API/predict', {  // ⚠️ REMPLACE URL_API par l'URL de ton collègue
+      const response = await fetch('/ml/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Image })
       });
 
-      if (!response.ok) throw new Error(`Erreur serveur: ${response.status}`);
+      if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
       const data = await response.json();
-      // data → tableau de 3 résultats avec score, id, data
+      // data → array of 3 results with score, id, data
 
-      // --- TRANSFORMER LA RÉPONSE POUR L'AFFICHAGE ---
-      // Adapte ce mapping selon le format exact de ton collègue
+      // --- FORMAT RESPONSE FOR DISPLAY ---
+      // Adapt this mapping to match your colleague's exact format
       const formattedResults = data.map((item, index) => ({
         id: index + 1,
         name: item.data.name,
@@ -134,9 +134,9 @@ export default function Scan() {
 
       setResults(formattedResults);
     } catch (err) {
-      console.error('Erreur predict:', err);
+      console.error('Predict error:', err);
       setPredictError(err.message);
-      // --- FALLBACK : utilise les mockResults si l'API échoue ---
+      // --- FALLBACK: use mockResults if API fails ---
       setResults(mockResults);
     } finally {
       setIsPredicting(false);
@@ -150,7 +150,7 @@ export default function Scan() {
       canvasRef.current.height = videoRef.current.videoHeight;
       context.drawImage(videoRef.current, 0, 0);
 
-      // --- CAPTURE EN WEBP + BASE64 ---
+      // --- CAPTURE AS WEBP + BASE64 ---
       const base64 = canvasRef.current.toDataURL('image/webp');
       setCapturedImage(base64);
       
@@ -158,7 +158,7 @@ export default function Scan() {
       if (stream) stream.getTracks().forEach(track => track.stop());
       setIsScanned(true);
 
-      // --- ENVOI VERS /predict ---
+      // --- SEND TO /predict ---
       await sendToPredict(base64);
     } else {
       handleResetScan();
@@ -176,23 +176,23 @@ export default function Scan() {
                 <Camera size={48} style={{ opacity: 0.5, marginBottom: '1rem' }} />
                 <p>{cameraError}</p>
                 <button onClick={startCamera} className={styles.retryBtn}>
-                  Réessayer
+                  Retry
                 </button>
               </div>
             ) : (
               <video ref={videoRef} autoPlay playsInline className={styles.video} />
             )
           ) : isPredicting ? (
-            /* --- VUE LOADING PENDANT L'ANALYSE --- */
+            /* --- LOADING VIEW DURING ANALYSIS --- */
             <div className={styles.errorOverlay}>
-              <p>Analyse en cours...</p>
+              <p>Analyzing...</p>
             </div>
           ) : (
-            /* --- VUE RÉSULTATS --- */
+            /* --- RESULTS VIEW --- */
             <div className={styles.resultsOverlay}>
               {predictError && (
                 <p style={{ color: 'orange', textAlign: 'center', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
-                  ⚠️ API indisponible — résultats de test affichés
+                  ⚠️ API unavailable — test results displayed
                 </p>
               )}
               <div className={styles.resultsList}>

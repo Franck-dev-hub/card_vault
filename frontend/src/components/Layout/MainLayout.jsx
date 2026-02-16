@@ -52,7 +52,7 @@ const AUTHENTICATED_PAGES = [
   "/profile",
 ];
 
-// Pages invité avec header minimal (bouton retour vers /landing)
+// Pages invité avec header minimal (bouton retour vers /)
 const GUEST_PAGES_WITH_BACK = ["/login", "/create-account"];
 
 export const MainLayout = ({ children }) => {
@@ -73,7 +73,7 @@ export const MainLayout = ({ children }) => {
   const currentPageTitle = PAGE_TITLES[location.pathname] || "Page";
 
   // Vérifier si on doit afficher le bouton retour
-  // Inclut les pages /about et les pages invité pour les utilisateurs non authentifiés (retour vers /landing)
+  // Inclut les pages /about et les pages invité pour les utilisateurs non authentifiés (retour vers /)
   const showBackButton =
     PAGES_WITH_BACK_BUTTON.includes(location.pathname) ||
     location.pathname.toLowerCase().startsWith("/about/") ||
@@ -110,7 +110,7 @@ export const MainLayout = ({ children }) => {
               }`}
             >
               <button
-                onClick={() => navigate("/landing")}
+                onClick={() => navigate("/")}
                 className="btn btn-circle border-2 bg-transparent border-white/50 hover:bg-white/10 text-white transition-colors"
                 aria-label="Retour à l'accueil"
               >
@@ -164,7 +164,7 @@ export const MainLayout = ({ children }) => {
                 <button
                   onClick={() =>
                     (isAboutPage && !isAuthenticated) || isGuestPageWithBack
-                      ? navigate("/landing")
+                      ? navigate("/")
                       : navigate(-1)
                   }
                   className={`btn btn-circle border-2 bg-transparent transition-colors ${

@@ -1,11 +1,9 @@
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export const ProtectedRoute = ({ children }) => {
+export const HomePage = ({ landing, dashboard }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
-    // Afficher un loader pendant la vérification de l'authentification
     return (
       <div className="h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-400 to-purple-500">
         <div className="text-center">
@@ -16,10 +14,5 @@ export const ProtectedRoute = ({ children }) => {
     );
   }
 
-  if (!isAuthenticated) {
-    // Rediriger vers la landing page si non authentifié
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
+  return isAuthenticated ? dashboard : landing;
 };

@@ -17,7 +17,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
     const confirmLogout = window.confirm('Are you sure you want to log out?');
     if (confirmLogout) {
       logout();
-      navigate('/landing');
+      navigate('/');
       onClose();
     }
   };

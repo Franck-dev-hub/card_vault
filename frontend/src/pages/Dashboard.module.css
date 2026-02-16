@@ -1,7 +1,20 @@
 .container {
   padding: 2rem;
-  background-color: #ffffff;
-  min-height: 100vh;
+  height: 100%;
+  transition: background 0.3s ease; /* Transition smooth entre light/dark */
+  overflow: hidden
+}
+
+/* Mode LIGHT - gradient bleu-violet */
+.container.light {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+  background-attachment: fixed;
+}
+
+/* Mode DARK - gradient sombre */
+.container.dark {
+  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+  background-attachment: fixed;
 }
 
 .header {
@@ -11,8 +24,19 @@
 .title {
   font-size: 2rem;
   margin: 0;
-  color: #000000;
   font-weight: 600;
+  /* Couleur du titre adapté au mode */
+  text-align: center;
+}
+
+/* Titre en mode light */
+.light .title {
+  color: #1f2937;
+}
+
+/* Titre en mode dark */
+.dark .title {
+  color: #f9fafb;
 }
 
 .loading {
@@ -35,3 +59,88 @@
   padding: 2rem;
   text-align: center;
 }
+
+/* --- Profil et Stats --- */
+.profileCard {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.avatarPlaceholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+
+.username {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statBox {
+  background: white;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.statLabel { display: block; font-size: 1.2rem; color: #444; }
+.statValue { display: block; font-size: 1.4rem; font-weight: bold; color: #666; }
+
+/* --- LE SCROLL HORIZONTAL --- */
+.sectionHeader h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.scrollWrapper {
+  display: flex;
+  overflow-x: auto; /* Active le scroll horizontal */
+  gap: 10px;
+  padding-bottom: 15px; /* Espace pour la barre de scroll */
+  scrollbar-width: none; /* Cache la barre sur Firefox */
+}
+
+.scrollWrapper::-webkit-scrollbar {
+  display: none; /* Cache la barre sur Chrome/Safari */
+}
+
+.cardItem {
+  flex: 0 0 auto; /* Empêche les cartes de rétrécir */
+  width: 80px;    /* Ajuste selon la taille voulue */
+}
+
+.cardImage {
+  width: 100%;
+  border-radius: 5px;
+  display: block;
+}
+
+/* --- Adaptations Dark Mode --- */
+.dark .profileCard, .dark .statBox {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+}
+.dark .statLabel, .dark .statValue { color: #e2e8f0; }

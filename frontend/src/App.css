@@ -1,2 +1,1 @@
-@import "tailwindcss";
-@plugin "daisyui";
+/* Styles spécifiques à App - DaisyUI et Tailwind sont déjà chargés dans index.css */

@@ -1,11 +1,11 @@
-import { Home, ClipboardList, Camera, Lock, Search } from 'lucide-react';
+import { Home, ChartColumn, Camera, Vault, Search } from 'lucide-react';
 
 export const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
-  { name: 'Statistics', icon: ClipboardList, path: '/statistics' },
+  { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
   { name: 'Scan', icon: Camera, path: '/scan' },
-  { name: 'Vault', icon: Lock, path: '/vault' },
-  { name: 'Research', icon: Search, path: '/research' },
+  { name: 'Vault', icon: Vault, path: '/vault' },
+  { name: 'Search', icon: Search, path: '/search' },
 ];
 
 export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {

@@ -2,16 +2,19 @@ import bcrypt
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.models import database, user as user_model
-from app.models.database import get_db
+from app.models import user as user_model
+from app.services.database.postgres.postgres import get_postgres
 from app.schemas.user import UserCreate
+from starlette.responses import JSONResponse
 
 router = APIRouter(prefix="", tags=["register"])
+
 
 # Function to hash passwords
 def hash_password(password: str) -> str:
     salt = bcrypt.gensalt(rounds=12)
     return bcrypt.hashpw(password.encode("utf-8"), salt).decode("utf-8")
+
 
 @router.get("/register")
 async def get_register():
@@ -19,12 +22,23 @@ async def get_register():
         "title": "Register",
     }
 
+
 @router.post("/register")
-def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
+async def post_register(user_data: UserCreate, db: Session = Depends(get_postgres)):
     # Check if user already exists
-    db_user = db.query(user_model.User).filter(user_model.User.email == user_data.email).first()
-    if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+    db_username = db.query(user_model.User).filter(user_model.User.username == user_data.username).first()
+    db_user_email = db.query(user_model.User).filter(user_model.User.email == user_data.email).first()
+    if db_username:
+        raise HTTPException(
+            status_code=409,
+            detail="Username already registered"
+        )
+
+    if db_user_email:
+        raise HTTPException(
+            status_code=409,
+            detail="Email already registered"
+        )
 
     # Hash the password
     hashed_password = hash_password(user_data.password)
@@ -33,7 +47,7 @@ def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     new_user = user_model.User(
         username=user_data.username,
         email=user_data.email,
-        password = hashed_password,
+        password=hashed_password,
         created_at=datetime.now().isoformat(),
         updated_at=datetime.now().isoformat()
     )
@@ -43,4 +57,12 @@ def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
 
-    return {"message": "User created successfully", "user_id": new_user.id}
+    # Create response with JSON
+    response = JSONResponse(
+        status_code=201,
+        content={
+            "message": "User created successfully",
+            "user_id": new_user.id
+        }
+    )
+    return response

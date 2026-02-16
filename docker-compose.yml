@@ -7,11 +7,11 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-        - "5432:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -38,7 +38,7 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -62,7 +62,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_NAME: ${DB_NAME:-app_db}
       DB_PORT: ${DB_PORT:-5432}
-      REDIS_URL: redis://redis:6379/0
+      REDIS_URL: redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}/0
       PYTHONUNBUFFERED: 1
     depends_on:
       postgres:
@@ -114,8 +114,8 @@ services:
     build: ./proxy
     container_name: nginx_proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
     depends_on:
       - frontend
       - backend

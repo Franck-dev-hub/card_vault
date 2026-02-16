@@ -49,6 +49,7 @@ app.include_router(register.router, prefix="/api")
 app.include_router(delete_account.router, prefix="/api")
 
 
+
 @app.get("/api/health")
 def health():
     return {"status": "ok"}

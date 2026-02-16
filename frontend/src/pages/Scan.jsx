@@ -122,15 +122,18 @@ export default function Scan() {
       // data → array of 3 results with score, id, data
 
       // --- FORMAT RESPONSE FOR DISPLAY ---
-      // Adapt this mapping to match your colleague's exact format
-      const formattedResults = data.map((item, index) => ({
-        id: index + 1,
-        name: item.data.name,
-        set: item.data.set_name,
-        match: Math.round(item.score * 100),  // score 0.87 → 87%
-        id_card: item.data.card_number,
-        img: item.data.image_url
-      }));
+      // data is an array of { score, data: [{ card object }] }
+      const formattedResults = data.map((item, index) => {
+        const card = item.data[0];
+        return {
+          id: index + 1,
+          name: card.name,
+          set: card.set_name,
+          match: Math.round(item.score * 100),  // score 0.8492 → 85%
+          id_card: card.card_number,
+          img: card.image_url,
+        };
+      });
 
       setResults(formattedResults);
     } catch (err) {

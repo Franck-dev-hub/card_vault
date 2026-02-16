@@ -75,7 +75,7 @@ services:
       - app_network
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
-  ml_service:
+  ml-service:
     build: ./ml_service
     container_name: ml_service
     environment:
@@ -102,7 +102,7 @@ services:
       REACT_APP_ML_API_URL: http://localhost/ml
     depends_on:
       - backend
-      - ml_service
+      - ml-service
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -119,7 +119,7 @@ services:
     depends_on:
       - frontend
       - backend
-      - ml_service
+      - ml-service
     networks:
       - app_network
 

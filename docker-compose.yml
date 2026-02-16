@@ -90,6 +90,7 @@ services:
     volumes:
       - ./ml_service:/app
       - ./ml_service/models:/app/models
+      - ./data_cache:/app/data_cache
     networks:
       - app_network
     command: uvicorn main:app --host 0.0.0.0 --port 5000 --reload

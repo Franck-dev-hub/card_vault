@@ -6,7 +6,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Scan.module.css';
 
-const API_BASE_URL = import.meta.env.REACT_APP_API_URL;
+const API_BASE_URL = import.meta.env.API_BASE_URL;
 
 export default function Scan() {
   const navigate = useNavigate();
@@ -105,7 +105,7 @@ export default function Scan() {
     setPredictError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/predict`, {
+      const response = await fetch(`http://localhost/ml/api/v1/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Image })

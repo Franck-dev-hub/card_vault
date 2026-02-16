@@ -1,4 +1,4 @@
-import os, faiss, requests, torch
+import io, os, faiss, requests, torch
 import numpy as np
 from pathlib import Path
 from PIL import Image
@@ -16,7 +16,7 @@ INDEX_FILE = DATA_DIR / "cards_index.faiss"
 NAMES_FILE = DATA_DIR / "cards_metadata.npy"
 BATCH_SIZE = 128
 CONFIDENCE = 0.6
-QUERY_PATH = BASE_DIR / "query.webp"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -87,7 +87,7 @@ def build_index():
     faiss.write_index(index, str(INDEX_FILE))
     np.save(str(NAMES_FILE), np.array(metadata, dtype=object))
 
-def search_card():
+def search_card(image_bytes: bytes):
     try:
         # If index doesn't exist, we build it
         if not os.path.exists(str(INDEX_FILE)) or not os.path.exists(str(NAMES_FILE)):
@@ -105,7 +105,7 @@ def search_card():
             metadata = np.load(str(NAMES_FILE), allow_pickle=True)
 
         # Prepare image to test
-        query_img = Image.open(str(QUERY_PATH)).convert("RGB")
+        query_img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
         inputs = processor(images=query_img, return_tensors="pt").to(device)
 
         with torch.no_grad():
@@ -150,6 +150,3 @@ def search_card():
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-
-if __name__ == "__main__":
-    search_card()

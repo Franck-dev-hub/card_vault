@@ -3,4 +3,4 @@
 
 ### [PREDICT] Get a prediction
 # @name getPredict
-GET {{ml_url}}{{route}}
+POST {{ml_url}}{{route}}

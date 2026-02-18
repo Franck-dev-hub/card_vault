@@ -1,9 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class NormalizedCard(BaseModel):
-    card_id: str           # ID de la carte dans l'API
-    api_id: str            # Source de l'API (pokemon, magic)
+    card_id: str
+    api_id: str
     set_name: Optional[str]
     set_id: Optional[str]
     card_number: Optional[str]

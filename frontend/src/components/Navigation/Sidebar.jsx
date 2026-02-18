@@ -1,0 +1,63 @@
+import { Home, ChartColumn, Camera, Vault, Search, X } from "lucide-react";
+
+const NAV_ITEMS = [
+  { name: "Dashboard", icon: Home, path: "/dashboard" },
+  { name: "Statistics", icon: ChartColumn, path: "/statistics" },
+  { name: "Scan", icon: Camera, path: "/scan" },
+  { name: "Vault", icon: Vault, path: "/vault" },
+  { name: "Search", icon: Search, path: "/search" },
+];
+
+export const Sidebar = ({ isOpen, onClose }) => {
+  return (
+    <>
+      {/* Backdrop (fond sombre semi-transparent) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar qui glisse depuis la gauche */}
+      <div
+        className={`
+          fixed left-0 top-0 h-screen w-72 bg-white
+          transform transition-transform duration-300 ease-in-out
+          z-50 shadow-2xl overflow-y-auto
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        `}
+      >
+        {/* Header avec bouton fermer */}
+        <div className="flex items-center justify-end p-4 pt-6">
+          <button
+            onClick={onClose}
+            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Fermer le menu"
+          >
+            <X size={24} className="text-gray-700" />
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="flex flex-col gap-3 px-6 py-4">
+          {NAV_ITEMS.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <a
+                key={item.name}
+                href={item.path}
+                onClick={onClose}
+                className="btn btn-xl rounded-xl justify-start gap-4 border border-gray-200 bg-white hover:bg-gray-50 mx-2"
+              >
+                <Icon size={24} className="text-gray-700" strokeWidth={1.5} />
+                <span className="text-gray-800 font-medium">{item.name}</span>
+              </a>
+            );
+          })}
+        </nav>
+      </div>
+    </>
+  );
+};

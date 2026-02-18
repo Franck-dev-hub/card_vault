@@ -1,0 +1,4 @@
+.container.light {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+  background-attachment: fixed;
+}

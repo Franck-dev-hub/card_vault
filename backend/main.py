@@ -1,17 +1,27 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-#------------- routers -------------#
-from app.routers import dashboard_controller
-from app.routers import scan_controller
-from app.routers import status_controller
-from app.routers import stats_controller
-from app.routers import search_controller
-from app.routers import vault_controller
-from app.routers.auth import login_controller
-from app.routers.auth import logout_controller
-from app.routers.auth import register_controller
+from app.services.database.postgres.postgres import engine, Base
+from dotenv import load_dotenv
+
+# Routers
+from app.routers import dashboard
+from app.routers import scan
+from app.routers import status
+from app.routers import stats
+from app.routers import search
+from app.routers import vault
+from app.routers.auth import login
+from app.routers.auth import logout
+from app.routers.auth import register
+from app.routers.auth import delete_account
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize FastAPI app
 app = FastAPI(redirect_slashes=True)
 
+# Configure CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -20,16 +30,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#----------------------- router -----------------------#
-app.include_router(dashboard_controller.router, prefix="/api")
-app.include_router(scan_controller.router, prefix="/api")
-app.include_router(search_controller.router, prefix="/api")
-app.include_router(stats_controller.router, prefix="/api")
-app.include_router(status_controller.router, prefix="/api")
-app.include_router(vault_controller.router, prefix="/api")
-app.include_router(login_controller.router, prefix="/api")
-app.include_router(logout_controller.router, prefix="/api")
-app.include_router(register_controller.router, prefix="/api")
+# Create tables in the database
+try:
+    Base.metadata.create_all(engine)
+except Exception as e:
+    print(f"Warning: Could not create tables at startup: {e}")
+
+# Router
+app.include_router(dashboard.router, prefix="/api")
+app.include_router(scan.router, prefix="/api")
+app.include_router(search.router, prefix="/api")
+app.include_router(stats.router, prefix="/api")
+app.include_router(status.router, prefix="/api")
+app.include_router(vault.router, prefix="/api")
+app.include_router(login.router, prefix="/api")
+app.include_router(logout.router, prefix="/api")
+app.include_router(register.router, prefix="/api")
+app.include_router(delete_account.router, prefix="/api")
+
 
 
 @app.get("/api/health")

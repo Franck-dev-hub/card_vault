@@ -1,0 +1,16 @@
+### [CONFIGURATION]
+@route = /search/magic
+@extension = /khm
+@card = /esika
+
+### [MAGIC] Get magic license
+# @name getMagic
+GET {{api_url}}{{route}}
+
+### [MAGIC] Get magic extensions
+# @name getMagicExtension
+GET {{api_url}}{{route}}{{extension}}
+
+### [MAGIC] Get magic card
+# @name getMagicExtensionCard
+GET {{api_url}}{{route}}{{extension}}{{card}}

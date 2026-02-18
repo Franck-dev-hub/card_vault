@@ -30,6 +30,8 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
             detail="Invalid credentials"
         )
 
+    remember_me = getattr(credentials, "remember_me", False)
+
     # Check if user already has an active session
     existing_session = sm_instance.read_session(user.id)
     if existing_session:
@@ -41,7 +43,7 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
 
         # Create new session
         try:
-            session_data = sm_instance.create_session(user.id)
+            session_data = sm_instance.create_session(user.id, remember_me=remember_me)
             session_id = session_data["session_id"]
             message = "Login successful"
             status_code = 201
@@ -60,6 +62,8 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
         }
     )
 
+    cookie_age = 3600 * 24 * 30 if remember_me else None
+
     # Set secure cookie with session token
     response.set_cookie(
         key="session_id",
@@ -67,7 +71,7 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
         httponly=True,
         secure=False,
         samesite="lax",
-        max_age=3600 * 24 * 30,
+        max_age=cookie_age,
     )
 
     return response

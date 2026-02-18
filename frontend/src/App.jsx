@@ -1,13 +1,15 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { HomePage } from './components/HomePage';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import LandingPage from './pages/LandingPage';
+import NotFound from './pages/NotFound';
 import Statistics from './pages/Statistics';
 import Scan from './pages/Scan';
 import Vault from './pages/Vault';
@@ -15,7 +17,6 @@ import Search from './pages/Search';
 import './App.css';
 import { MainLayout } from './components/Layout/MainLayout';
 
-// ⬇️ AJOUTE CES IMPORTS
 import { AboutLayout } from './pages/About/AboutLayout';
 import { About } from './pages/About/About';
 import { FAQ } from './pages/About/FAQ';
@@ -32,10 +33,22 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            {/* Route publique - Landing Page */}
-            <Route path="/landing" element={<LandingPage />} />
-            
-            {/* Routes publiques - Login et Create Account */}
+            {/* Route racine : Landing si non connecté, Dashboard si connecté */}
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  landing={<LandingPage />}
+                  dashboard={
+                    <MainLayout>
+                      <Dashboard />
+                    </MainLayout>
+                  }
+                />
+              }
+            />
+
+            {/* Routes publiques */}
             <Route
               path="/login"
               element={
@@ -53,7 +66,7 @@ function App() {
               }
             />
 
-            {/* ⬇️ ROUTES IMBRIQUÉES POUR /ABOUT */}
+            {/* Routes imbriquées pour /about */}
             <Route
               path="/about"
               element={
@@ -62,30 +75,16 @@ function App() {
                 </MainLayout>
               }
             >
-              {/* Route par défaut : /about */}
               <Route index element={<About />} />
-              
-              {/* Routes enfants : /about/xxx */}
               <Route path="faq" element={<FAQ />} />
               <Route path="terms" element={<Terms />} />
               <Route path="legal-notices" element={<LegalNotices />} />
               <Route path="confidentiality" element={<Confidentiality />} />
               <Route path="cookies" element={<Cookies />} />
               <Route path="contacts" element={<Contacts />} />
-
             </Route>
 
-            {/* Routes protégées - Nécessitent authentification */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Dashboard />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
+            {/* Routes protégées */}
             <Route
               path="/dashboard"
               element={
@@ -155,10 +154,10 @@ function App() {
                   </MainLayout>
                 </ProtectedRoute>
               }
-            />        
+            />
 
-            {/* Redirection par défaut */}
-            <Route path="*" element={<Navigate to="/landing" replace />} />
+            {/* 404 - Page non trouvée */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

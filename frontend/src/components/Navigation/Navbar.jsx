@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // ⬅️ Ajoute useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Home, ChartColumn, Camera, Vault, Search, User, LogIn, LogOut, UserPlus, Globe, ChevronDown, ChevronUp, Settings, Info, ArrowLeft } from 'lucide-react'; // ⬅️ Ajoute ArrowLeft
 import { FaDiscord } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 import ThemeToggle from '../ThemeToggle';
 
 
-// Pages accessibles uniquement aux utilisateurs authentifiés
+// Pages accessible only to authenticated users
 const AUTHENTICATED_PAGES = [
   '/',
   '/dashboard',
@@ -21,7 +22,7 @@ const AUTHENTICATED_PAGES = [
 ];
 
 
-// Mapping des routes vers les titres de page
+// Mapping routes to page titles
 const PAGE_TITLES = {
   '/': 'Dashboard',
   '/dashboard': 'Dashboard',
@@ -133,19 +134,19 @@ export const Navbar = () => {
   const menuRef = useRef(null);
   const avatarMenuRef = useRef(null);
   const location = useLocation();
-  const navigate = useNavigate(); // ⬅️ Ajoute navigate
+  const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { logout } = useAuth();
 
 
-  // Obtenir le titre de la page actuelle
+  // Get the title of the current page
   const currentPageTitle = PAGE_TITLES[location.pathname] || 'Page';
 
 
-  // Vérifier si l'utilisateur est sur une page authentifiée
+  // Check if the user is on an authenticated page
   const isAuthenticated = AUTHENTICATED_PAGES.includes(location.pathname);
 
-  // ⬇️ AJOUTE CETTE LOGIQUE POUR LE BOUTON RETOUR
-  // Afficher le bouton retour pour les sous-pages /about/*
+   // Display the back button for subpages /about/*
   const showBackButton = location.pathname.startsWith('/about/') ||
                          location.pathname === '/profile' ||
                          location.pathname === '/settings';
@@ -188,7 +189,7 @@ export const Navbar = () => {
       </div>
 
 
-      {/* Conteneur burger + avatar */}
+      {/* Burger container + avatar */}
       <div className={`flex items-center w-full mt-2 pl-4 pr-8 h-16 rounded-full mx-4 shadow-md transition-colors duration-300 ${
         isDark
           ? 'bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600'
@@ -196,7 +197,7 @@ export const Navbar = () => {
       }`}>
 
 
-        {/* Bouton burger */}
+        {/* Burger button */}
         <div style={{ marginLeft: '20px' }}>
           <button
             className={`btn btn-circle border-2 bg-transparent transition-colors ${
@@ -223,8 +224,7 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* ⬇️ AJOUTE LE BOUTON RETOUR ICI */}
-        {/* Bouton retour (affiché conditionnellement) */}
+        {/* Back button (displayed conditionally) */}
         {showBackButton && (
           <button
             onClick={() => navigate(-1)}
@@ -241,7 +241,7 @@ export const Navbar = () => {
         )}
 
 
-        {/* Titre de la page centré */}
+        {/* Centered page title */}
         <div className="flex-1 flex justify-center">
           <div className={`w-[350px] h-[60px] flex items-center justify-center rounded-full shadow-lg border-4 transition-colors duration-300 ${
             isDark
@@ -253,7 +253,7 @@ export const Navbar = () => {
         </div>
 
 
-        {/* Bouton avatar */}
+        {/* Avatar button */}
         <div style={{ marginRight: '20px' }}>
           <button
             className={`btn btn-circle border-2 bg-transparent transition-colors ${
@@ -271,7 +271,7 @@ export const Navbar = () => {
       </div>
 
 
-      {/* Panneau Burger qui glisse depuis la gauche - sous la navbar */}
+      {/* Burger panel sliding in from the left - below the navbar */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
@@ -293,7 +293,7 @@ export const Navbar = () => {
           }
         `}
       >
-        {/* Menu items */}
+        {/* Items menu */}
         <nav className="flex flex-col items-center gap-4 p-8">
           <div className="h-8"></div>
 
@@ -322,7 +322,7 @@ export const Navbar = () => {
       </div>
 
 
-      {/* Panneau Avatar qui glisse depuis la droite - sous la navbar */}
+      {/* Avatar panel sliding in from the right - below the navbar */}
       {isAvatarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
@@ -346,14 +346,14 @@ export const Navbar = () => {
       >
 
 
-        {/* Menu items */}
+        {/* Items menu */}
         <nav className="flex flex-col items-center gap-4 p-8 pb-16 h-full">
           <div className="h-4"></div>
 
 
           {isAuthenticated ? (
             <>
-              {/* Menu pour utilisateur authentifié */}
+              {/* Menu for authenticated users */}
 
 
               {/* Profile */}
@@ -462,7 +462,7 @@ export const Navbar = () => {
               </a>
 
 
-              {/* Spacer pour pousser le bouton logout en bas */}
+              {/* Spacer to push the logout button at the bottom */}
               <div className="grow"></div>
 
 
@@ -471,8 +471,8 @@ export const Navbar = () => {
                 onClick={() => {
                   const confirmLogout = window.confirm('Are you sure you want to log out?');
                   if (confirmLogout) {
-                    console.log('Logging out...');
-                    window.location.href = '/login';
+                    logout();
+                    navigate('/');
                   }
                   setIsAvatarOpen(false);
                 }}
@@ -490,7 +490,7 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              {/* Menu pour utilisateur non authentifié */}
+              {/* Menu for unauthenticated users */}
 
 
               {/* Login */}
@@ -527,7 +527,7 @@ export const Navbar = () => {
               </a>
 
 
-              {/* Séparateur */}
+              {/* Separator */}
               <div className={`border-t-2 my-3 w-full ${isDark ? 'border-gray-600' : 'border-blue-200'}`}></div>
 
 
@@ -549,7 +549,7 @@ export const Navbar = () => {
               />
 
 
-              {/* Séparateur */}
+              {/* Separator */}
               <div className={`border-t-2 my-3 w-full ${isDark ? 'border-gray-600' : 'border-blue-200'}`}></div>
 
 

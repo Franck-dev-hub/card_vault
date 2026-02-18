@@ -52,16 +52,16 @@ No feature for the moment
 ### Machine learning
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)  
 ![NumPy](https://img.shields.io/badge/NumPy-4DABCF?logo=numpy&logoColor=fff)
-![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=fff)
-![Matplotlib](https://custom-icon-badges.demolab.com/badge/Matplotlib-71D291?logo=matplotlib&logoColor=fff)  
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=fff)
 ![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white)
-![Scikit-learn](https://img.shields.io/badge/-scikit--learn-%23F7931E?logo=scikit-learn&logoColor=white)
 ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=000)
+![Transformers](https://img.shields.io/badge/Transformers-FF6F00?logo=huggingface&logoColor=white)
+![Pillow](https://img.shields.io/badge/Pillow-8CAAE6?logo=python&logoColor=white)
 
 ### Database
-![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
 ![Postgres](https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white)
+![pgAdmin](https://img.shields.io/badge/pgAdmin-316192?logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
+![RedisInsight](https://img.shields.io/badge/RedisInsight-DC382D?logo=redis&logoColor=white)
 
 ### DevOps
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
@@ -69,7 +69,6 @@ No feature for the moment
 ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff)
 ![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)  
 ![Proxy](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)  
-![Railway](https://img.shields.io/badge/Railway-0b0d0e?logo=railway&logoColor=white)
 ![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)
 
 ## Project structure

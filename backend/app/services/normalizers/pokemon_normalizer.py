@@ -53,7 +53,6 @@ def normalize_cards(data: Dict[str, Any]) -> List[Dict[str, Any]]:
             })
         return normalized
 
-    # ❌ liste de sets ou inconnue
     return []
 
 

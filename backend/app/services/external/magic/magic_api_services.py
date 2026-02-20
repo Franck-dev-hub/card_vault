@@ -1,25 +1,24 @@
 import httpx
-import requests
 
 BASE_URL = "https://api.scryfall.com/"
 
-<<<<<<< HEAD
-def fetch_extension():
-    return requests.get(f"{BASE_URL}/sets")
 
-def fetch_cards(extension: str):
-    return requests.get(f"{BASE_URL}/cards/search", params={"q": f"set:{extension}"})
+async def fetch_extensions():
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}/sets")
+    return response
 
-=======
+async def fetch_extension(extension_name: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}/sets/{extension_name}")
+    return response
 
-def fetch_extension():
-    return requests.get(f"{BASE_URL}/sets")
+async def fetch_cards(extension_name: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}/cards/search", params={"q": f"set:{extension_name}"})
+    return response
 
-
-def fetch_cards(extension: str):
-    return requests.get(f"{BASE_URL}/cards/search", params={"q": f"set:{extension}"})
-
-
->>>>>>> feat/ml
-def fetch_card(extension: str, card: str):
-    return requests.get(f"{BASE_URL}/cards/search", params={"q": f"set:{extension} name:\"{card}\""})
+async def fetch_card(extension_name: str, collector_number: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}/cards/{extension_name}/{collector_number}")
+    return response

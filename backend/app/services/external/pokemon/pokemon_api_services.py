@@ -1,35 +1,21 @@
-import requests
+import httpx
 
 LANGUAGE = "en"
 BASE_URL = "https://api.tcgdex.net/v2/"
 
-<<<<<<< HEAD
-def fetch_extension():
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/")
 
-def fetch_cards(extension: str):
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}")
+async def fetch_extension():
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}{LANGUAGE}/sets/")
+    return response
 
-def fetch_card(extension: str, card: str):
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}/{card}")
-
-
-
+async def fetch_cards(extension: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}")
+    return response
 
 
-
-
-
-=======
-
-def fetch_extension():
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/")
-
-
-def fetch_cards(extension: str):
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}")
-
-
-def fetch_card(extension: str, card: str):
-    return requests.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}/{card}")
->>>>>>> feat/ml
+async def fetch_card(extension: str, card: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{BASE_URL}{LANGUAGE}/sets/{extension}/{card}")
+    return response

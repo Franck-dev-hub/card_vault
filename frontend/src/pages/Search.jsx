@@ -147,7 +147,9 @@ export default function Search() {
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>
             {cards.map((card) => {
-              const imgUrl = card.image_url ? `${card.image_url}/low.png` : (card.image ? `${card.image}/low.png` : '');
+              const imgUrl = card.image_url
+                ? (card.license === 'magic' ? card.image_url : `${card.image_url}/low.png`)
+                : '';
               return (
                 <div
                   key={card.card_id || card.id || card.api_id}

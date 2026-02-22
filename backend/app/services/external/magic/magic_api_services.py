@@ -2,7 +2,6 @@ import httpx
 
 BASE_URL = "https://api.scryfall.com/"
 
-
 async def fetch_extensions():
     async with httpx.AsyncClient() as client:
         response = await client.get(f"{BASE_URL}/sets")

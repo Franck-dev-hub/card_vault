@@ -93,7 +93,7 @@ export default function Search() {
                   <span className={styles.subLabel}>Extensions</span>
                   <div className={styles.subSelectArea}>
                     <span className={styles.selectedValue}>
-                      {selectedExtObject ? (selectedExtObject.set_name || selectedExtObject.name) : '-- Select --'}
+                      {selectedExtObject ? (selectedExtObject.extension_name || selectedExtObject.set_name) : '-- Select --'}
                     </span>
                     <ChevronLeft className={`${styles.subIcon} ${isExtensionsOpen ? styles.iconOpen : ''}`} size={20} />
                   </div>
@@ -102,7 +102,7 @@ export default function Search() {
                   <div className={styles.licenseList}>
                     {availableExtensions.length > 0 ? (
                       availableExtensions.map((ext) => {
-                        const extId = ext.set_id || ext.id || ext.code;
+                        const extId = ext.extension_id || ext.set_id || ext.id;
                         return (
                           <div key={extId} className={styles.licenseItem} onClick={() => {
                             setSelectedExtension(extId);
@@ -110,7 +110,7 @@ export default function Search() {
                             setIsExtensionsOpen(false);
                           }}>
                             <div className={styles.extRow}>
-                              <span className={styles.extensionName}>{ext.set_name || ext.name}</span>
+                              <span className={styles.extensionName}>{ext.extension_name || ext.set_name}</span>
                             </div>
                           </div>
                         );
@@ -147,9 +147,9 @@ export default function Search() {
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>
             {cards.map((card) => {
-              const imgUrl = card.image_url
-                ? (card.license === 'magic' ? card.image_url : `${card.image_url}/low.png`)
-                : '';
+              const imgUrl = card.license === 'Magic'
+                ? (card.card_image?.small_image || '')
+                : (card.card_image ? `${card.card_image}/low.png` : '');
               return (
                 <div
                   key={card.card_id || card.id || card.api_id}
@@ -157,8 +157,8 @@ export default function Search() {
                   onClick={() => setSelectedCard({
                     ...card,
                     imageUrl: imgUrl,
-                    number: card.card_number || card.localId || card.collector_number,
-                    setName: selectedExtObject?.set_name || selectedExtObject?.name || card.set_name,
+                    number: card.card_number,
+                    setName: selectedExtObject?.extension_name || selectedExtObject?.set_name || card.extension_name,
                   })}
                 >
                   <div className={styles.cardContainer}>
@@ -174,8 +174,8 @@ export default function Search() {
                       </div>
                     )}
                     <div className={styles.cardHoverInfo}>
-                      <span className={styles.cardId}>#{card.card_number || card.localId || card.collector_number}</span>
-                      <p className={styles.cardName}>{card.name}</p>
+                      <span className={styles.cardId}>#{card.card_number}</span>
+                      <p className={styles.cardName}>{card.card_name}</p>
                     </div>
                   </div>
                 </div>

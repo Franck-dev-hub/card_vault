@@ -25,6 +25,9 @@ import { FaDiscord } from "react-icons/fa";
 import { SiBuymeacoffee } from "react-icons/si";
 import { useTheme } from "../contexts/ThemeContext";
 
+// Static feature definitions kept at module level so they are not recreated
+// on every render. Each entry bundles both content and theming data together
+// so the feature card renderer needs no external lookup to style itself.
 const FEATURES = [
   {
     icon: Camera,
@@ -93,12 +96,17 @@ const FEATURES = [
   },
 ];
 
+// Platform statistics displayed in the Stats section. Values are static for
+// now; wire up to a real /stats endpoint when server-side counts are ready.
 const STATS = [
   { value: 10000, suffix: "+", label: "Cards available" },
   { value: 100, suffix: "+", label: "Sets supported" },
   { value: 2, suffix: "", label: "Licenses" },
 ];
 
+// Decorative card silhouettes that float in the hero background. Each entry
+// defines position, rotation, animation timing and size so the effect looks
+// organic rather than uniform.
 const FLOATING_CARDS = [
   {
     x: "10%",
@@ -150,6 +158,9 @@ const FLOATING_CARDS = [
   },
 ];
 
+// Generate sparkle particle data once at module load. Random positions and
+// timings are fixed here so they remain stable across re-renders — generating
+// them inside the component would produce a different layout on every render.
 const SPARKLES = Array.from({ length: 20 }, (_, i) => ({
   id: i,
   x: `${Math.random() * 100}%`,
@@ -159,21 +170,47 @@ const SPARKLES = Array.from({ length: 20 }, (_, i) => ({
   duration: Math.random() * 2 + 1.5,
 }));
 
+/**
+ * Animated number counter that counts up from 0 to `value` when it scrolls
+ * into view.
+ *
+ * Uses Framer Motion's `useMotionValue` + `animate` instead of a `setInterval`
+ * so the easing curve is handled by the animation engine and the component
+ * does not need to manage its own timer cleanup beyond returning `controls.stop`.
+ *
+ * @param {number}  value   - Target numeric value to count up to.
+ * @param {string}  suffix  - String appended after the number (e.g. "+").
+ * @param {boolean} inView  - Drives whether the animation should run; passed
+ *                            from the parent's `useInView` hook so all counters
+ *                            start together when the section enters the viewport.
+ */
 const AnimatedCounter = ({ value, suffix, inView }) => {
   const count = useMotionValue(0);
+  // `useTransform` maps the raw motion value to a formatted string so the
+  // locale-aware formatting is applied on every animation frame without
+  // allocating a new string in a React state update cycle.
   const rounded = useTransform(count, (v) => Math.floor(v).toLocaleString());
   const [displayValue, setDisplayValue] = useState("0");
 
+  // Start the count-up animation when the section scrolls into view.
+  // The effect depends on `inView` so the animation only fires once the
+  // parent reports visibility, not on mount.
   useEffect(() => {
     if (inView) {
       const controls = animate(count, value, {
         duration: 2,
         ease: "easeOut",
       });
+      // Return the stop function directly as the cleanup so the animation is
+      // cancelled if the component unmounts before it finishes.
       return controls.stop;
     }
   }, [inView, count, value]);
 
+  // Subscribe to the motion value's change events and mirror the formatted
+  // string into React state so the DOM text updates on each animation frame.
+  // The subscription is cleaned up when `rounded` changes or the component
+  // unmounts, preventing memory leaks.
   useEffect(() => {
     const unsubscribe = rounded.on("change", (v) => setDisplayValue(v));
     return unsubscribe;
@@ -187,14 +224,34 @@ const AnimatedCounter = ({ value, suffix, inView }) => {
   );
 };
 
+/**
+ * Public landing page component.
+ *
+ * Shown to unauthenticated visitors. Contains a hero section, feature
+ * highlights, platform statistics, supported licenses, and a CTA section.
+ * Animations are driven by Framer Motion; scroll-triggered sections use
+ * `whileInView` so they animate exactly once as they enter the viewport.
+ */
 const LandingPage = () => {
   const navigate = useNavigate();
+  // ThemeContext provides the current mode and a toggle so this page can
+  // offer a theme switch in the header without owning the theme state itself.
   const { toggleTheme, isDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // menuRef is attached to the slide-in side panel so the click-outside
+  // handler can check whether a click occurred inside it.
   const menuRef = useRef(null);
+  // statsRef marks the stats section; `useInView` signals when it enters the
+  // viewport so the animated counters start at the right moment.
   const statsRef = useRef(null);
+  // `once: true` ensures the counters only animate on first scroll-into-view,
+  // not every time the user scrolls past. The margin offsets the trigger point
+  // so the animation starts slightly before the section fully enters view.
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
 
+  // Close the side menu when the user clicks outside of it. The listener is
+  // only added while the menu is open to avoid unnecessary global listeners,
+  // and is cleaned up both on close and on unmount via the effect's return.
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -209,10 +266,16 @@ const LandingPage = () => {
     };
   }, [isMenuOpen]);
 
+  // Smooth-scroll to the features section when the user clicks the chevron
+  // at the bottom of the hero, giving non-obvious navigation a clear affordance.
   const scrollToFeatures = () => {
     document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Framer Motion variant objects are defined here rather than inline so the
+  // JSX stays readable and the objects are not recreated on every render.
+
+  // Parent variant that staggers its children's entrance animations.
   const containerVariants = {
     hidden: {},
     visible: {
@@ -220,6 +283,8 @@ const LandingPage = () => {
     },
   };
 
+  // Feature card entrance: slides up and flattens its perspective tilt so
+  // cards appear to rise out of the page as they animate in.
   const cardVariants = {
     hidden: { opacity: 0, y: 40, rotateX: 15 },
     visible: {
@@ -230,6 +295,7 @@ const LandingPage = () => {
     },
   };
 
+  // Generic section entrance used for features, stats, licenses, and CTA.
   const sectionVariants = {
     hidden: { opacity: 0, y: 60 },
     visible: {
@@ -239,6 +305,8 @@ const LandingPage = () => {
     },
   };
 
+  // Split hero headline into individual words so each can be staggered in
+  // independently, creating a typewriter-like entrance effect.
   const heroWords1 = ["Your ", "Collection, "];
   const heroWords2 = ["your ", "Vault."];
 
@@ -447,6 +515,8 @@ const LandingPage = () => {
 
       {/* ========== HERO SECTION ========== */}
       <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-10 relative overflow-hidden">
+        {/* Decorative floating card silhouettes — pointer-events are disabled
+            so they never interfere with hero button clicks. */}
         <div className="absolute inset-0 pointer-events-none">
           {FLOATING_CARDS.map((card, i) => (
             <motion.div
@@ -479,6 +549,7 @@ const LandingPage = () => {
           ))}
         </div>
 
+        {/* Twinkling dot particles overlaid on the hero background. */}
         <div className="absolute inset-0 pointer-events-none">
           {SPARKLES.map((sparkle) => (
             <motion.div
@@ -528,7 +599,9 @@ const LandingPage = () => {
                 className="h-28 w-28 md:h-36 md:w-36 drop-shadow-2xl relative z-10"
               />
               <motion.div
-                className="absolute inset-0 z-20 pointer-events-none"
+                // Sheen overlay that sweeps across the logo on a loop to give
+              // it a holographic card-like gloss effect.
+              className="absolute inset-0 z-20 pointer-events-none"
                 style={{
                   background:
                     "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.1) 50%, transparent 55%)",
@@ -551,6 +624,9 @@ const LandingPage = () => {
               visible: { transition: { staggerChildren: 0.12 } },
             }}
           >
+            {/* Each word animates in individually via staggered children variants
+                defined on the parent h2 motion element above. `whitespace-pre`
+                preserves the trailing space inside each string. */}
             {heroWords1.map((word, i) => (
               <motion.span
                 key={i}
@@ -646,6 +722,8 @@ const LandingPage = () => {
         </p>
 
         <motion.div
+          // CSS perspective on the grid container enables the `rotateX`
+          // in `cardVariants` to produce a real 3-D tilt during entrance.
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
           style={{ perspective: "1000px" }}
           initial="hidden"
@@ -916,6 +994,8 @@ const LandingPage = () => {
         viewport={{ once: true, margin: "-80px" }}
         variants={sectionVariants}
       >
+        {/* Pass `statsInView` down to each counter so they all start their
+            count-up animation at the same moment the section enters view. */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-3xl mx-auto">
           {STATS.map((stat, index) => (
             <motion.div

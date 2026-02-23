@@ -4,24 +4,49 @@ import { Mail, Vault } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
+/**
+ * Login page component.
+ *
+ * Renders the sign-in form and delegates authentication to the AuthContext so
+ * that session management (token storage, user state) stays centralised and
+ * does not bleed into page-level logic.
+ */
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // rememberMe is tracked in local state; it will be forwarded to the auth
+  // layer once the "remember me" persistence feature is implemented.
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
+  // Separate error state (vs. form state) so the UI can reset the message
+  // independently of the field values.
   const [error, setError] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  /**
+   * Handles form submission.
+   *
+   * Prevents the native browser POST, calls the auth context's login method,
+   * and redirects to the dashboard on success. Any server-side error message
+   * is surfaced from the FastAPI `detail` field so users see a meaningful
+   * reason for failure instead of a generic string.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    // Clear a previous error so the alert disappears while the new request
+    // is in-flight rather than persisting stale feedback.
     setError(null);
 
     try {
       await login(email, password);
       navigate('/');
     } catch (err) {
+      // FastAPI returns validation/auth errors inside `detail`; fall back to a
+      // generic message so the UI never shows an empty string.
       setError(err.response?.data?.detail || 'Login failed');
     } finally {
       setLoading(false);
@@ -84,7 +109,8 @@ export default function Login() {
               </label>
             </div>
 
-            {/* Error */}
+            {/* Only render the alert when there is an actual error to avoid an
+                empty block occupying vertical space in the happy path. */}
             {error && (
               <div className="alert alert-error mt-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
                 <span>{error}</span>

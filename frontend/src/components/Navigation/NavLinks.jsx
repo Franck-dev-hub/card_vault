@@ -1,5 +1,7 @@
 import { Home, ChartColumn, Camera, Vault, Search } from 'lucide-react';
 
+// Exported so other components (e.g. Sidebar, Navbar) can share the same
+// navigation structure without duplicating the list.
 export const NAV_ITEMS = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
   { name: 'Statistics', icon: ChartColumn, path: '/statistics' },
@@ -8,6 +10,15 @@ export const NAV_ITEMS = [
   { name: 'Search', icon: Search, path: '/search' },
 ];
 
+/**
+ * Renders the shared navigation link list used in both the Sidebar and Navbar.
+ *
+ * @param {{ className?: string, onClick?: Function, isSidebar?: boolean }} props
+ *   - `className`  — extra Tailwind classes merged onto each link.
+ *   - `onClick`    — called when any link is clicked (e.g. to close a drawer).
+ *   - `isSidebar`  — when true, applies larger text and white colour for the
+ *                    sidebar's dark background.
+ */
 export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {
   return (
     <>
@@ -17,9 +28,9 @@ export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {
           href={item.path}
           onClick={onClick}
           className={`
-            flex items-center gap-2 px-4 py-2 
-            hover:bg-primary hover:text-primary-content 
-            rounded-lg transition-colors 
+            flex items-center gap-2 px-4 py-2
+            hover:bg-primary hover:text-primary-content
+            rounded-lg transition-colors
             ${isSidebar ? 'text-white text-lg' : ''}
             ${className}
           `}

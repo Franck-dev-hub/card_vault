@@ -1,7 +1,16 @@
 import { useTheme } from '../../contexts/ThemeContext';
 import './About.css';
 
+/**
+ * Terms — displays the Terms and Conditions for CardVault.
+ *
+ * The theme class is applied at the top-level wrapper so that CSS custom
+ * properties propagate to all nested sections without each section needing
+ * its own theme awareness.
+ */
 export const Terms = () => {
+  // Used to apply the correct light/dark CSS class to the page wrapper,
+  // which cascades down to all section headings and paragraphs via CSS variables.
   const { isDark } = useTheme();
 
   return (

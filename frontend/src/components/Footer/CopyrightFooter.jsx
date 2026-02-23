@@ -1,6 +1,13 @@
 // src/components/Footer/CopyrightFooter.jsx
 import { useTheme } from '../../contexts/ThemeContext';
 
+/**
+ * Footer that displays the copyright notice.
+ *
+ * Reads `isDark` from ThemeContext directly so the footer reacts instantly to
+ * theme changes even if a parent container does not propagate a data-theme
+ * attribute down to this level.
+ */
 export const CopyrightFooter = () => {
   const { isDark } = useTheme();
 

@@ -8,7 +8,7 @@
 
 # Python
 .venv/
-.lock
+*.lock
 __pycache__/
 
 # React

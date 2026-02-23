@@ -1,4 +1,4 @@
-/* Container principal avec un meilleur dégradé */
+/* Main container with improved gradient */
 .container {
   padding: 1.5rem;
   min-height: 100%;
@@ -20,7 +20,7 @@
   background-attachment: fixed;
 }
 
-/* Accordéon Principal - Look Premium */
+/* Main Accordion - Premium Look */
 .accordionHeader {
   width: 100%;
   height: 70px;
@@ -43,7 +43,7 @@
 }
 
 .accordionWrapper {
-  margin-bottom: 2rem; /* Espacement entre Filter et Sort augmenté */
+  margin-bottom: 2rem; /* Increased spacing between Filter and Sort */
 }
 
 .label {
@@ -54,7 +54,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Contenu déroulant */
+/* Drop-down content */
 .content {
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.6);
@@ -69,11 +69,11 @@
   border-top: none;
 }
 
-/* SOUS-MENUS - Ajusté pour la hauteur variable */
+/* SUB-MENUS - Adjusted for variable height */
 .subAccordionHeader {
   width: 100%;
-  min-height: 55px; /* Hauteur min */
-  height: auto;      /* Permet de s'agrandir si texte long */
+  min-height: 55px; /* Min height */
+  height: auto;      /* Allows expansion if text is long */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,10 +92,10 @@
 
 .subLabel {
   font-weight: 500;
-  flex-shrink: 0; /* Empêche le titre de s'écraser */
+  flex-shrink: 0; /* Prevents the title from crashing */
 }
 
-/* ZONE DE SÉLECTION - Aligne texte + chevron */
+/* SELECTION AREA - Align text + chevron */
 .subSelectArea {
   display: flex;
   align-items: center;
@@ -105,16 +105,16 @@
 }
 
 .selectedValue {
-  font-size: 1rem; /* Un poil plus petit pour l'équilibre */
+  font-size: 1rem;
   color: #1a1a1a;
   font-weight: 400;
-  white-space: normal;    /* Autorise le retour à la ligne */
-  text-align: right;      /* Aligne vers le chevron */
+  white-space: normal;    /* Allows line breaks */
+  text-align: right;      /* Align towards the chevron */
   line-height: 1.2;
   word-break: break-word;
 }
 
-/* Liste de choix (Dropdown) */
+/* Selection list (Dropdown) */
 .licenseList {
   background: white;
   border: 1px solid #e2e8f0;
@@ -136,11 +136,11 @@
   padding-left: 1.5rem;
 }
 
-/* GRILLE DE CARTES */
+/* CARD GRID */
 .resultsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 5px;
   padding: 2rem 0;
 }
 
@@ -150,10 +150,11 @@
 
 .cardContainer {
   position: relative;
-  border-radius: 15px;
+  border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: transparent;
 }
 
 .cardContainer:hover {
@@ -164,7 +165,8 @@
 .cardImage {
   width: 100%;
   display: block;
-  border-radius: 15px;
+  border-radius: 0px;
+  clip-path: inset(1% round 0);
 }
 
 .cardHoverInfo {
@@ -217,7 +219,7 @@
   color: white;
 }
 
-/* Ligne Extension avec Badge */
+/* Extension Line with Badge */
 .extRow {
   display: flex;
   justify-content: space-between;
@@ -234,7 +236,7 @@
   font-weight: bold;
 }
 
-/* ANIMATION DES CHEVRONS */
+/* ROOF TRUSS ANIMATION */
 .subIcon {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
@@ -245,28 +247,28 @@
   transform: rotate(-90deg) !important;
 }
 
-/* Pastille Validée au milieu */
+/* Validated sticker in the middle */
 .ownedBadge {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centre parfaitement */
+  transform: translate(-50%, -50%); /* Perfectly centred */
   
   width: 50px;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.9); /* Blanc légèrement transparent */
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #10b981; /* Un beau vert pour le check */
+  color: #10b981; /* Green for check */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 2; /* Pour passer au dessus de l'image mais sous le hover si besoin */
-  pointer-events: none; /* Évite de bloquer le survol de la carte */
+  z-index: 2; /* To go over the image but under the hover if necessary */
+  pointer-events: none; /* Avoid blocking the map's hover function */
   animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Animation d'apparition "pop" */
+/* Pop-up animation */
 @keyframes badgePop {
   from {
     transform: translate(-50%, -50%) scale(0);

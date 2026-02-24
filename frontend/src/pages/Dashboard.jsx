@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
 import styles from './Dashboard.module.css';
 import { CircleUserRound } from 'lucide-react';
 import CardDetails from '../components/CardDetails/CardDetails';
@@ -22,6 +23,7 @@ export default function Dashboard() {
   // we can guard renders without duplicating request logic here.
   const { loading, error } = useApi('/dashboard');
   const { isDark } = useTheme();
+  const { user } = useAuth();
 
   // Tracks which card's detail panel is currently open; null means closed.
   const [selectedCard, setSelectedCard] = useState(null);
@@ -59,7 +61,7 @@ export default function Dashboard() {
             color={isDark ? "#ffffff" : "#333333"}
           />
         </div>
-        <h2 className={styles.username}>Pseudo</h2>
+        <h2 className={styles.username}>{user?.username}</h2>
       </div>
 
       {/* Section Stats */}

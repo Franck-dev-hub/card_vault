@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Camera, RefreshCw, Trash2, ChevronDown } from 'lucide-react';
+import { User, Camera, RefreshCw, Trash2 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
 /**
@@ -19,17 +20,14 @@ import { BackgroundGradient } from '../components/ui/background-gradient';
 export default function Profile() {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { user } = useAuth();
 
   // All editable profile fields are kept in a single state object so a single
   // `handleInputChange` handler can update any field by name without writing a
   // dedicated setter per field.
   const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
     password: '',
-    email: '',
-    language: '',
-    cash: ''
+    email: user?.email || '',
   });
 
   // `previewPhoto` holds a base64 data URL so the avatar preview updates
@@ -154,44 +152,22 @@ export default function Profile() {
             {/*<h2 className="card-title text-2xl justify-center mb-6">Profile</h2>*/}
 
             <form onSubmit={handleSubmit} className="w-full">
-              {/* Two-column layout: name fields on the left, avatar on the
+              {/* Two-column layout: username on the left, avatar on the
                   right so the photo stays visually associated with the
                   identity fields it represents. */}
               <div className="flex gap-3 items-start mb-3 md:mb-6">
-                {/* Left column - Name and Lastname fields */}
+                {/* Left column - Username (read-only) */}
                 <div className="flex-1 space-y-2 md:space-y-4">
-                  {/* Name */}
+                  {/* Username */}
                   <div className="form-control w-full">
                     <label className="label pb-1">
-                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Name</span>
+                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Username</span>
                     </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder=""
-                      className={`input input-bordered input-sm md:input-md w-full ${
-                        isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                      }`}
-                      value={formData.name}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  {/* Lastname */}
-                  <div className="form-control w-full">
-                    <label className="label pb-1">
-                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Lastname</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="lastname"
-                      placeholder=""
-                      className={`input input-bordered input-sm md:input-md w-full ${
-                        isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                      }`}
-                      value={formData.lastname}
-                      onChange={handleInputChange}
-                    />
+                    <div className={`input input-bordered input-sm md:input-md w-full flex items-center ${
+                      isDark ? 'bg-slate-700 border-gray-600 text-gray-400' : 'bg-gray-50 text-gray-500'
+                    }`}>
+                      {user?.username}
+                    </div>
                   </div>
                 </div>
 

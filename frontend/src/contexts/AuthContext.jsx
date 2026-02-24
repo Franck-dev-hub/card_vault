@@ -47,7 +47,9 @@ export const AuthProvider = ({ children }) => {
       try {
         const userId = localStorage.getItem('user_id');
         if (userId) {
-          setUser({ id: userId });
+          const username = localStorage.getItem('username');
+          const email = localStorage.getItem('email');
+          setUser({ id: userId, username, email });
           setIsAuthenticated(true);
         }
       } catch {
@@ -97,7 +99,16 @@ export const AuthProvider = ({ children }) => {
     });
     const { user_id } = response.data;
     localStorage.setItem('user_id', user_id);
-    setUser({ id: user_id });
+    try {
+      const meResponse = await axios.get(`${API_BASE_URL}/me`);
+      const { username, email: userEmail } = meResponse.data;
+      localStorage.setItem('username', username);
+      localStorage.setItem('email', userEmail);
+      setUser({ id: user_id, username, email: userEmail });
+    } catch {
+      // TODO: /me is not yet available, we continue without username/email
+      setUser({ id: user_id });
+    }
     setIsAuthenticated(true);
     return response.data;
   };
@@ -117,6 +128,8 @@ export const AuthProvider = ({ children }) => {
       console.error('Logout error:', err);
     } finally {
       localStorage.removeItem('user_id');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
       setUser(null);
       setIsAuthenticated(false);
     }

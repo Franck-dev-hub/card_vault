@@ -105,7 +105,7 @@ export default function Scan() {
     setPredictError(null);
 
     try {
-      const response = await fetch(`http://localhost/ml/api/v1/predict`, {
+      const response = await fetch(`/ml/api/v1/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Image })

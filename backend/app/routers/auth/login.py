@@ -35,6 +35,11 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
     except Exception:
         raise HTTPException(status_code=500, detail="Error creating session")
 
+    if getattr(credentials, "remember_me", False):
+        max_age = os.environ.get("SESSION_COOKIE_TIME_LONG")
+    else:
+        max_age = os.environ.get("SESSION_COOKIE_TIME_DEFAULT")
+
     # Build response
     response = JSONResponse(
         status_code=status_code,
@@ -52,7 +57,7 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
         httponly=True,
         secure=secure_mode,
         samesite="lax",
-        max_age=3600 * 24 * 30,
+        max_age=max_age,
     )
 
     return response

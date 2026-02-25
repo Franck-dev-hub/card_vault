@@ -99,8 +99,8 @@ services:
     build: ./frontend
     container_name: frontend_card-vault
     environment:
-      - REACT_APP_API_URL=http://zshawsome.freeboxos.fr/api
-      - REACT_APP_ML_API_URL=http://zshawsome.freeboxos.fr/ml
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+      - REACT_APP_ML_API_URL=${REACT_APP_ML_API_URL}
     depends_on:
       - backend
       - ml_service

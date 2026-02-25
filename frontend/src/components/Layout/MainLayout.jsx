@@ -165,16 +165,17 @@ export const MainLayout = ({ children }) => {
                   : "bg-gradient-to-r from-blue-600 via-blue-400 to-purple-500"
               }`}
             >
-              <div className="flex items-center justify-center px-4 py-3">
+              <div className="flex items-center justify-start pl-4! pr-4 py-0.5!">
                 <img
-                  src="/image/logo_card_vault.png"
+                  src="/image/logo_card_vault.webp"
                   alt="Logo"
                   className="h-16 w-16"
                 />
-                <div style={{ marginLeft: "20px" }}>
-                  <h1 className="font-extrabold text-3xl tracking-wide bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-                    Card Vault
-                  </h1>
+                <div style={{ marginLeft: "5px" }}>
+                  <a className="flex flex-col items-start leading-none font-sans font-bold italic uppercase tracking-tighter cursor-pointer text-white leading-none">
+                    <span className="text-[2rem]">Card</span>
+                    <span className="text-[2rem]">Vault</span>
+                  </a>
                 </div>
               </div>
             </div>

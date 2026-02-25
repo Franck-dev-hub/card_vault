@@ -319,16 +319,17 @@ const LandingPage = () => {
       }`}
     >
       {/* ========== HEADER ========== */}
-      <header className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-black/10">
+      <header className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between px-6! py-4 backdrop-blur-md bg-black/10">
         <div className="flex items-center gap-3">
           <img
-            src="/image/logo_card_vault.png"
+            src="/image/logo_card_vault.webp"
             alt="Card Vault Logo"
             className="h-12 w-12 drop-shadow-lg"
           />
-          <h1 className="text-2xl font-bold text-white drop-shadow-lg">
-            Card Vault
-          </h1>
+          <div className="flex flex-col items-start font-sans font-bold italic uppercase tracking-tighter text-white drop-shadow-lg">
+            <span className="text-2xl leading-none">Card</span>
+            <span className="text-2xl leading-none">Vault</span>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -594,7 +595,7 @@ const LandingPage = () => {
           >
             <div className="relative overflow-hidden rounded-3xl">
               <img
-                src="/image/logo_card_vault.png"
+                src="/image/logo_card_vault.webp"
                 alt="Card Vault"
                 className="h-28 w-28 md:h-36 md:w-36 drop-shadow-2xl relative z-10"
               />

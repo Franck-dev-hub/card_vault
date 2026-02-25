@@ -32,19 +32,13 @@ class SessionManager:
         return {"session_id": session_id, "token": token}
 
     # Read session data for a user
-    def read_session(self, user_id: int):
-        # Find existing session
-        try:
-            # Search Redis for sessions with this user_id
-            keys = self.redis_cache.redis_client.keys("*")
-            for key in keys:
-                session_data = self.redis_cache.read_redis(key)
-                if session_data:
-                    data = json.loads(session_data)
-                    if data.get("user_id") == user_id:
-                        return data
-        except Exception as e:
-            raise RuntimeError(f"Can't find user session with user id: {user_id}. {e}")
+    def read_session(self, session_id: str):
+        session_data = self.redis_cache.read_redis(session_id)
+
+        if not session_data:
+            return None
+
+        return json.loads(session_data)
 
     # Update session data
     def update_session(self, session_id):

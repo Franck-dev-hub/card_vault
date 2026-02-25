@@ -33,7 +33,7 @@ export const About = () => {
     <div className="about-container">
       <div className="about-header">
         <img
-          src="/image/logo_card_vault.png"
+          src="/image/logo_card_vault.webp"
           alt="Card Vault Logo"
           className="about-logo"
         />

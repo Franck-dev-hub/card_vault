@@ -5,15 +5,28 @@ import { SiBuymeacoffee } from 'react-icons/si';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
+/**
+ * Slide-in user menu panel (avatar drawer).
+ *
+ * @param {{ isOpen: boolean, onClose: Function, forceGuestMenu?: boolean }} props
+ *   - `isOpen`         — controls the slide-in/out CSS animation.
+ *   - `onClose`        — called when the backdrop or any menu action closes the panel.
+ *   - `forceGuestMenu` — when true, renders the guest menu even for authenticated users.
+ *                        Useful on public pages where the auth context is available but the
+ *                        app intentionally shows the logged-out UI (e.g. landing page).
+ */
 export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
   const { isDark } = useTheme();
 
-  // Si forceGuestMenu est true, on affiche le menu invité même si isAuthenticated est true
+  // Derived flag: forceGuestMenu overrides real auth state so the component
+  // can be reused on pages that need a guest experience.
   const showAuthenticatedMenu = isAuthenticated && !forceGuestMenu;
 
   const handleLogout = () => {
+    // Require explicit confirmation before calling logout to prevent accidental
+    // sign-outs triggered by mis-clicks on a touch interface.
     const confirmLogout = window.confirm('Are you sure you want to log out?');
     if (confirmLogout) {
       logout();
@@ -24,7 +37,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
 
   return (
     <>
-      {/* Backdrop (fond sombre semi-transparent) - entre navbar et footer */}
+      {/* Backdrop (semi-transparent dark background) - between navbar and footer */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
@@ -32,7 +45,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
         />
       )}
 
-      {/* Menu qui glisse depuis la droite - entre navbar et footer */}
+      {/* Menu that slides in from the right - between the navigation bar and footer */}
       <div
         className={`
           fixed right-0 top-33 bottom-20 w-80
@@ -51,7 +64,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
 
           {showAuthenticatedMenu ? (
             <>
-              {/* Menu pour utilisateur authentifié */}
+              {/* Menu for authenticated users */}
 
               {/* Profile */}
               <button
@@ -156,10 +169,10 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
               </button>
 
-              {/* Spacer pour ajouter un peu d'espace avant logout */}
+              {/* Spacer to add a little space before logout */}
               <div className="h-60"></div>
 
-              {/* Log Out le spacer s'applique en mode mobile mais pas en mode desktop*/}
+              {/* Log Out: the spacer applies in mobile mode but not in desktop mode.*/}
               <button
                 onClick={handleLogout}
                 className={`group flex items-center gap-4 px-6 py-4 w-[85%] rounded-2xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
@@ -176,7 +189,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
             </>
           ) : (
             <>
-              {/* Menu pour utilisateur non authentifié */}
+              {/* Menu for unauthenticated users */}
 
               {/* Login */}
               <button

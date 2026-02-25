@@ -1,5 +1,7 @@
 import { Home, ChartColumn, Camera, Vault, Search, X } from "lucide-react";
 
+// Local copy — Sidebar does not export NAV_ITEMS because its styling
+// differs from the shared NavLinks component.
 const NAV_ITEMS = [
   { name: "Dashboard", icon: Home, path: "/dashboard" },
   { name: "Statistics", icon: ChartColumn, path: "/statistics" },
@@ -8,10 +10,19 @@ const NAV_ITEMS = [
   { name: "Search", icon: Search, path: "/search" },
 ];
 
+/**
+ * Off-canvas sidebar that slides in from the left.
+ *
+ * @param {{ isOpen: boolean, onClose: Function }} props
+ *   - `isOpen`   — controls the slide-in/out animation via CSS translate.
+ *   - `onClose`  — called when the backdrop or close button is clicked.
+ */
 export const Sidebar = ({ isOpen, onClose }) => {
   return (
     <>
-      {/* Backdrop (fond sombre semi-transparent) */}
+      {/* Semi-transparent backdrop sits below the sidebar (z-40) but above
+          page content, so clicking outside closes the menu without interacting
+          with the page underneath. */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
@@ -19,7 +30,9 @@ export const Sidebar = ({ isOpen, onClose }) => {
         />
       )}
 
-      {/* Sidebar qui glisse depuis la gauche */}
+      {/* Sidebar panel — z-50 keeps it above the backdrop.
+          translate-x toggling drives the slide animation without
+          unmounting the DOM node, which avoids re-mount flicker. */}
       <div
         className={`
           fixed left-0 top-0 h-screen w-72 bg-white
@@ -28,7 +41,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        {/* Header avec bouton fermer */}
+        {/* Close button in the top-right corner of the panel */}
         <div className="flex items-center justify-end p-4 pt-6">
           <button
             onClick={onClose}
@@ -39,7 +52,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Navigation Links */}
+        {/* Navigation links — clicking any link also closes the sidebar */}
         <nav className="flex flex-col gap-3 px-6 py-4">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;

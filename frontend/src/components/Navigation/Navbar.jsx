@@ -8,7 +8,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import ThemeToggle from '../ThemeToggle';
 
 
-// Pages accessible only to authenticated users
+// Used to conditionally render authenticated vs. guest menu items in the
+// avatar panel. Checking the path list is simpler than reading auth context
+// here, because Navbar renders on every route including public ones.
 const AUTHENTICATED_PAGES = [
   '/',
   '/dashboard',
@@ -22,7 +24,9 @@ const AUTHENTICATED_PAGES = [
 ];
 
 
-// Mapping routes to page titles
+// Provides a human-readable title for the centred pill in the sub-navbar.
+// Keeping it as a plain object lookup avoids a useEffect/state combo and is
+// synchronous, which prevents a flash of the wrong title on navigation.
 const PAGE_TITLES = {
   '/': 'Dashboard',
   '/dashboard': 'Dashboard',
@@ -146,12 +150,16 @@ export const Navbar = () => {
   // Check if the user is on an authenticated page
   const isAuthenticated = AUTHENTICATED_PAGES.includes(location.pathname);
 
-   // Display the back button for subpages /about/*
+  // Show a back button on detail/settings pages so the user can navigate up
+  // without relying on the browser's back button, which may not always work
+  // correctly inside a SPA with custom history manipulation.
   const showBackButton = location.pathname.startsWith('/about/') ||
                          location.pathname === '/profile' ||
                          location.pathname === '/settings';
 
-
+  // Close both menus when the user clicks anywhere outside their panels.
+  // The listener is attached only while a menu is open to avoid a permanent
+  // global handler that would fire on every click in the application.
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -179,10 +187,15 @@ export const Navbar = () => {
           : 'bg-gradient-to-r from-blue-600 via-blue-400 to-purple-500'
       }`}>
         <div className="flex-1 flex items-center">
-          <img src="/image/logo_card_vault.png" alt="Logo" className="h-20 w-20 p-200" style={{ marginLeft: '40px' }} />
-          <div style={{ marginLeft: '40px' }}>
-            <a className="btn btn-ghost p-1 hover:bg-transparent font-sans font-extrabold text-4xl tracking-wide bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
-              Card Vault
+          <img src="/image/logo_card_vault.webp" alt="Logo" className="h-20 w-20 p-200" style={{ marginLeft: '40px' }} />
+            <div style={{ marginLeft: '15px' }}>
+            <a className={`
+              flex flex-col items-start leading-none font-sans font-bold italic uppercase tracking-tighter cursor-pointer
+              text-white
+              leading-none
+            `}>
+              <span className="text-[2.5rem]">Card</span>
+              <span className="text-[2.5rem]">Vault</span>
             </a>
           </div>
         </div>

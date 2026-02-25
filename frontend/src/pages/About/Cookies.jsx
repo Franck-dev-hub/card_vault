@@ -1,23 +1,36 @@
 import './About.css';
 
+/**
+ * Cookies — Cookie Policy page for CardVault.
+ *
+ * Documents what cookies are used, why, their legal basis under GDPR,
+ * how users can manage them, and other relevant tracking technologies.
+ *
+ * Unlike the other About sub-pages, this component does not consume
+ * useTheme because it is nested inside AboutLayout, which already applies
+ * the theme class to the outer wrapper via <Outlet>. The inner container
+ * inherits theming through CSS cascade.
+ */
 export const Cookies = () => {
   return (
     <div className="about-container about-subpage">
       <div className="about-content">
+          {/* The h1 is intentionally commented out in the source;
+              section headings provide the structural hierarchy instead. */}
           {/*<h1>Cookie Policy</h1>*/}
           <p className="last-updated">Last updated: January 31, 2026</p>
 
           <section className="terms-section">
             <h2>1. What Are Cookies?</h2>
             <p>
-              Cookies are small text files that are stored on your device (computer, tablet, 
-              or mobile phone) when you visit a website. They allow the website to recognize 
-              your device and remember information about your visit, such as your preferences 
+              Cookies are small text files that are stored on your device (computer, tablet,
+              or mobile phone) when you visit a website. They allow the website to recognize
+              your device and remember information about your visit, such as your preferences
               and settings.
             </p>
             <p>
-              Cookies typically contain two pieces of information: a unique identifier and 
-              some data about your browsing activity. They help make websites work more 
+              Cookies typically contain two pieces of information: a unique identifier and
+              some data about your browsing activity. They help make websites work more
               efficiently and provide a better user experience.
             </p>
           </section>
@@ -25,7 +38,7 @@ export const Cookies = () => {
           <section className="terms-section">
             <h2>2. How CardVault Uses Cookies</h2>
             <p>
-              CardVault uses cookies to enhance your experience, provide essential functionality, 
+              CardVault uses cookies to enhance your experience, provide essential functionality,
               and analyze how our application is used. We use cookies to:
             </p>
             <ul>
@@ -40,11 +53,11 @@ export const Cookies = () => {
 
           <section className="terms-section">
             <h2>3. Types of Cookies We Use</h2>
-            
+
             <p><strong>Essential Cookies (Strictly Necessary)</strong></p>
             <p>
-              These cookies are necessary for the website to function properly and cannot 
-              be disabled in our systems. They are usually set in response to actions you 
+              These cookies are necessary for the website to function properly and cannot
+              be disabled in our systems. They are usually set in response to actions you
               take, such as logging in or filling in forms.
             </p>
             <ul>
@@ -52,14 +65,16 @@ export const Cookies = () => {
               <li><strong>Security cookies:</strong> Detect authentication abuse and protect your account</li>
               <li><strong>Session cookies:</strong> Maintain your session state across page requests</li>
             </ul>
+            {/* Essential cookies are exempt from consent under GDPR Article 6(1)(b)
+                because they are strictly necessary to fulfil the service contract. */}
             <p>
-              <strong>Legal basis:</strong> These cookies are necessary for the performance of 
+              <strong>Legal basis:</strong> These cookies are necessary for the performance of
               our contract with you and do not require consent under GDPR Article 6(1)(b).
             </p>
 
             <p><strong>Functionality Cookies (Preference Cookies)</strong></p>
             <p>
-              These cookies enable enhanced functionality and personalization. They may be set 
+              These cookies enable enhanced functionality and personalization. They may be set
               by us or by third-party providers whose services we have added to our pages.
             </p>
             <ul>
@@ -69,14 +84,14 @@ export const Cookies = () => {
               <li><strong>Display settings:</strong> Remember your view preferences (list/grid)</li>
             </ul>
             <p>
-              <strong>Legal basis:</strong> Consent under GDPR Article 6(1)(a) or legitimate 
+              <strong>Legal basis:</strong> Consent under GDPR Article 6(1)(a) or legitimate
               interest under Article 6(1)(f).
             </p>
 
             <p><strong>Analytics Cookies (Performance Cookies)</strong></p>
             <p>
-              These cookies help us understand how visitors interact with our website by 
-              collecting and reporting information anonymously. They allow us to count visits 
+              These cookies help us understand how visitors interact with our website by
+              collecting and reporting information anonymously. They allow us to count visits
               and traffic sources to measure and improve performance.
             </p>
             <ul>
@@ -86,9 +101,11 @@ export const Cookies = () => {
               <li><strong>User behavior:</strong> Understand navigation patterns</li>
             </ul>
             <p>
-              <strong>Third-party services:</strong> We may use services like Google Analytics 
+              <strong>Third-party services:</strong> We may use services like Google Analytics
               or similar tools for analytics purposes.
             </p>
+            {/* Analytics cookies require explicit user consent under GDPR Article 6(1)(a)
+                because they are not strictly necessary for the service to function. */}
             <p>
               <strong>Legal basis:</strong> Consent under GDPR Article 6(1)(a).
             </p>
@@ -96,18 +113,18 @@ export const Cookies = () => {
 
           <section className="terms-section">
             <h2>4. First-Party vs Third-Party Cookies</h2>
-            
+
             <p><strong>First-Party Cookies</strong></p>
             <p>
-              These cookies are set directly by CardVault and can only be read by our website. 
-              We use first-party cookies for authentication, session management, and storing 
+              These cookies are set directly by CardVault and can only be read by our website.
+              We use first-party cookies for authentication, session management, and storing
               your preferences.
             </p>
 
             <p><strong>Third-Party Cookies</strong></p>
             <p>
-              These cookies are set by third-party services integrated into our application, 
-              such as analytics providers or cloud infrastructure services. Third-party cookies 
+              These cookies are set by third-party services integrated into our application,
+              such as analytics providers or cloud infrastructure services. Third-party cookies
               may track your activity across multiple websites.
             </p>
             <p>
@@ -122,16 +139,16 @@ export const Cookies = () => {
 
           <section className="terms-section">
             <h2>5. Session Cookies vs Persistent Cookies</h2>
-            
+
             <p><strong>Session Cookies</strong></p>
             <p>
-              Session cookies are temporary and are deleted when you close your browser. 
+              Session cookies are temporary and are deleted when you close your browser.
               They are used to maintain your session while you navigate through our application.
             </p>
 
             <p><strong>Persistent Cookies</strong></p>
             <p>
-              Persistent cookies remain on your device for a set period or until you delete 
+              Persistent cookies remain on your device for a set period or until you delete
               them. They help remember your preferences across multiple visits.
             </p>
             <p>
@@ -175,35 +192,35 @@ export const Cookies = () => {
           <section className="terms-section">
             <h2>7. Cookie Consent and Your Rights</h2>
             <p>
-              In compliance with the GDPR and ePrivacy Directive, we obtain your consent 
-              before placing non-essential cookies on your device. When you first visit 
+              In compliance with the GDPR and ePrivacy Directive, we obtain your consent
+              before placing non-essential cookies on your device. When you first visit
               CardVault, you will see a cookie banner asking for your consent.
             </p>
             <p>
               <strong>Your rights regarding cookies:</strong>
             </p>
             <ul>
-              <li><strong>Give or refuse consent:</strong> You can choose which categories of 
+              <li><strong>Give or refuse consent:</strong> You can choose which categories of
               cookies to accept</li>
-              <li><strong>Granular control:</strong> Accept or reject specific cookie categories 
+              <li><strong>Granular control:</strong> Accept or reject specific cookie categories
               (functionality, analytics)</li>
               <li><strong>Withdraw consent:</strong> Change your cookie preferences at any time</li>
-              <li><strong>Equal choice:</strong> Refusing cookies will not affect your access to 
+              <li><strong>Equal choice:</strong> Refusing cookies will not affect your access to
               essential features</li>
             </ul>
             <p>
-              <strong>Important:</strong> Refusing essential cookies may prevent certain features 
+              <strong>Important:</strong> Refusing essential cookies may prevent certain features
               from working properly, such as staying logged in.
             </p>
           </section>
 
           <section className="terms-section">
             <h2>8. How to Manage Cookies</h2>
-            
+
             <p><strong>Through CardVault Settings:</strong></p>
             <p>
-              You can manage your cookie preferences directly through our cookie banner or 
-              by accessing your account settings. Click "Cookie Preferences" in the footer 
+              You can manage your cookie preferences directly through our cookie banner or
+              by accessing your account settings. Click "Cookie Preferences" in the footer
               to update your choices at any time.
             </p>
 
@@ -227,7 +244,7 @@ export const Cookies = () => {
             </ul>
 
             <p>
-              <strong>Note:</strong> Disabling cookies may affect your experience on CardVault 
+              <strong>Note:</strong> Disabling cookies may affect your experience on CardVault
               and other websites.
             </p>
           </section>
@@ -235,12 +252,12 @@ export const Cookies = () => {
           <section className="terms-section">
             <h2>9. Do Not Track (DNT)</h2>
             <p>
-              Some browsers include a "Do Not Track" (DNT) feature that signals to websites 
-              that you do not want your online activity tracked. Currently, there is no 
+              Some browsers include a "Do Not Track" (DNT) feature that signals to websites
+              that you do not want your online activity tracked. Currently, there is no
               industry standard for how websites should respond to DNT signals.
             </p>
             <p>
-              CardVault respects your privacy choices. If you wish to limit tracking, we 
+              CardVault respects your privacy choices. If you wish to limit tracking, we
               recommend using our cookie consent settings or your browser's privacy controls.
             </p>
           </section>
@@ -251,11 +268,11 @@ export const Cookies = () => {
               In addition to cookies, we may use other tracking technologies:
             </p>
             <ul>
-              <li><strong>Local Storage:</strong> Store data locally in your browser for 
+              <li><strong>Local Storage:</strong> Store data locally in your browser for
               improved performance</li>
-              <li><strong>Session Storage:</strong> Temporary storage cleared when you close 
+              <li><strong>Session Storage:</strong> Temporary storage cleared when you close
               your browser tab</li>
-              <li><strong>Web Beacons:</strong> Small transparent images used in conjunction 
+              <li><strong>Web Beacons:</strong> Small transparent images used in conjunction
               with cookies for analytics</li>
             </ul>
             <p>
@@ -266,12 +283,12 @@ export const Cookies = () => {
           <section className="terms-section">
             <h2>11. Updates to This Cookie Policy</h2>
             <p>
-              We may update this Cookie Policy from time to time to reflect changes in our 
-              practices, technology, legal requirements, or other factors. When we make 
+              We may update this Cookie Policy from time to time to reflect changes in our
+              practices, technology, legal requirements, or other factors. When we make
               material changes, we will update the "Last updated" date at the top of this page.
             </p>
             <p>
-              We may also notify you through our cookie banner or via email if significant 
+              We may also notify you through our cookie banner or via email if significant
               changes affect your rights or how we use cookies.
             </p>
           </section>
@@ -279,7 +296,7 @@ export const Cookies = () => {
           <section className="terms-section">
             <h2>12. Contact Us</h2>
             <p>
-              If you have any questions about our use of cookies or this Cookie Policy, 
+              If you have any questions about our use of cookies or this Cookie Policy,
               please contact us:
             </p>
             <p>

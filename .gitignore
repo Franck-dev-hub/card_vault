@@ -26,6 +26,9 @@ ml_service/data/
 # Scraped Images
 ml_service/scrapping/images/
 
+# Server
+certbot/
+
 # Project
 .env
 .env.dev

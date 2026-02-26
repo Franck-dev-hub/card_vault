@@ -15,7 +15,6 @@ DATA_DIR = BASE_DIR / "data_cache"
 INDEX_FILE = DATA_DIR / "cards_index.faiss"
 NAMES_FILE = DATA_DIR / "cards_metadata.npy"
 BATCH_SIZE = 128
-CONFIDENCE = 0.6
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -128,17 +127,16 @@ def search_card(image_bytes: bytes):
 
             formatted_id = card_id.replace("-", "/")
             url = f"http://backend:8000/api/search/pokemon/{formatted_id}"
-
             try:
                 response = requests.get(url, timeout=2.0)
                 response.raise_for_status()
                 api_data = response.json()
 
-                if score >= CONFIDENCE:
-                    results.append({
-                        "score": round(float(score), 4),
-                        "data": api_data
+                results.append({
+                    "score": round(float(score), 4),
+                    "data": api_data
                     })
+
             except requests.exceptions.RequestException as e:
                 print(f"API error for ID {card_id}: {e}")
                 results.append({"score": float(score), "card_id": card_id, "error": "API Unreachable"})

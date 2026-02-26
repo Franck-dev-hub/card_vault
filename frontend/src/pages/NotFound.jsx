@@ -1,8 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
 
+/**
+ * 404 Not Found page component.
+ *
+ * Displayed by the router when no route matches the requested URL.
+ * Uses the ThemeContext so the background gradient stays consistent with
+ * the rest of the unauthenticated pages (e.g. LandingPage).
+ */
 const NotFound = () => {
   const navigate = useNavigate();
+  // Read the current theme so the page background matches the app theme
+  // even though this page lives outside the normal authenticated shell.
   const { isDark } = useTheme();
 
   return (
@@ -18,6 +27,8 @@ const NotFound = () => {
       <p className="text-white/60 mb-8 text-center max-w-md">
         The page you are looking for does not exist or has been moved.
       </p>
+      {/* Navigate programmatically instead of using a Link so the user lands
+          on the real root route resolution rather than a hard-coded path. */}
       <button
         onClick={() => navigate("/")}
         className="px-8 py-3 bg-white text-blue-600 font-bold rounded-full shadow-lg hover:scale-105 transition-transform"

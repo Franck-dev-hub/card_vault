@@ -11,5 +11,6 @@ POST {{api_url}}{{route}}
 
 {
   "email" : "toto@gmail.com",
-  "password": "secret_password"
+  "password": "secret_password",
+  "remember_me": false
 }

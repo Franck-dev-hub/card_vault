@@ -1,58 +1,91 @@
-import { useState, useMemo } from 'react'; // Ajout de useMemo pour la performance
+import { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
 import styles from './Search.module.css';
 
+/**
+ * Search page component.
+ *
+ * Allows users to browse cards filtered by license and extension. The page
+ * makes two sequential API calls:
+ *   1. When a license is selected — fetches available extensions for that
+ *      license so the extension dropdown can be populated.
+ *   2. Always — fetches the card list for the current license + extension
+ *      combination. When no filters are active it fetches a default list.
+ *
+ * Ownership state is maintained locally so the checkmark badge updates
+ * immediately after a CardDetails interaction without refetching the grid.
+ */
 export default function Search() {
   const { isDark } = useTheme();
-  
+
+  // Accordion open/close state for each filter group.
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isLicenseMenuOpen, setIsLicenseMenuOpen] = useState(false);
   const [isExtensionsOpen, setIsExtensionsOpen] = useState(false);
 
   const [selectedLicense, setSelectedLicense] = useState(null);
+  // `selectedExtension` stores the raw ID used to build the API URL.
   const [selectedExtension, setSelectedExtension] = useState(null);
+  // `selectedExtObject` stores the full extension object for display purposes
+  // (name label) and to pass context to CardDetails.
   const [selectedExtObject, setSelectedExtObject] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  // Keyed by card ID so individual cards can be updated in O(1) without
+  // iterating the whole card list.
   const [ownedCards, setOwnedCards] = useState({});
 
-  // Callback appelé par CardDetails quand les quantités changent
+  /**
+   * Called by CardDetails when the user toggles ownership for a card.
+   * Updates the local `ownedCards` map optimistically so the grid reflects
+   * the change before the next API sync.
+   *
+   * @param {string|number} cardId
+   * @param {boolean} isOwned
+   */
   const handleOwnershipChange = (cardId, isOwned) => {
     setOwnedCards((prev) => ({ ...prev, [cardId]: isOwned }));
   };
 
-  // 1. APPEL POUR LES EXTENSIONS
+  // --- API CALL 1: extensions for the selected license ---
+  // The URL is set to null when no license is selected so `useApi` skips the
+  // request rather than hitting a malformed endpoint.
   const extUrl = selectedLicense ? `/search/${selectedLicense.toLowerCase()}` : null;
   const { data: extData } = useApi(extUrl);
 
-  // 2. APPEL POUR LES CARTES
-  const dynamicUrl = selectedLicense 
+  // --- API CALL 2: cards for the selected license + extension ---
+  const dynamicUrl = selectedLicense
     ? `/search/${selectedLicense.toLowerCase()}${selectedExtension ? `/${selectedExtension.toLowerCase()}` : ''}`
     : '/search';
   const { data, loading, error } = useApi(dynamicUrl);
 
   const licenses = ["Pokemon", "Magic"];
 
-  // --- LOGIQUE D'INVERSION DES EXTENSIONS ---
-  // On utilise useMemo pour ne pas recalculer l'inversion à chaque rendu
+  // Reverse the extensions list so the most recently released set appears at
+  // the top of the dropdown, matching how collectors typically search.
+  // `useMemo` avoids re-reversing on every render when only unrelated state
+  // changes (e.g. dropdown open/close).
   const availableExtensions = useMemo(() => {
     const rawData = extData?.data && Array.isArray(extData.data)
       ? extData.data
       : (Array.isArray(extData) ? extData : []);
-    
-    // On crée une copie avec [...] puis on inverse pour mettre les plus récentes en haut
+
+    // Spread into a new array before reversing so the original API response
+    // cache is not mutated.
     return [...rawData].reverse();
   }, [extData]);
 
+  // Normalise the card list across the three possible response shapes the API
+  // may return depending on the endpoint variant hit.
   const cards = Array.isArray(data) ? data : (data?.cards || data?.data || []);
 
   return (
     <div className={`${styles.container} ${isDark ? styles.dark : styles.light}`}>
-      
-      {/* SECTION FILTER */}
+
+      {/* FILTER ACCORDION */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsFilterOpen(!isFilterOpen)}>
           <span className={styles.label}>Filter</span>
@@ -61,7 +94,7 @@ export default function Search() {
 
         {isFilterOpen && (
           <div className={styles.content}>
-            {/* SOUS-MENU LICENCES */}
+            {/* LICENSE SUB-MENU */}
             <div className={styles.subAccordionWrapper}>
               <button className={styles.subAccordionHeader} onClick={() => setIsLicenseMenuOpen(!isLicenseMenuOpen)}>
                 <span className={styles.subLabel}>Licenses</span>
@@ -73,11 +106,13 @@ export default function Search() {
               {isLicenseMenuOpen && (
                 <div className={styles.licenseList}>
                   {licenses.map((lib) => (
-                    <div key={lib} className={styles.licenseItem} onClick={() => { 
-                      setSelectedLicense(lib); 
-                      setSelectedExtension(null); 
+                    <div key={lib} className={styles.licenseItem} onClick={() => {
+                      setSelectedLicense(lib);
+                      // Reset extension selection when the license changes so
+                      // stale extension IDs from another license are not used.
+                      setSelectedExtension(null);
                       setSelectedExtObject(null);
-                      setIsLicenseMenuOpen(false); 
+                      setIsLicenseMenuOpen(false);
                     }}>
                       {lib}
                     </div>
@@ -86,7 +121,7 @@ export default function Search() {
               )}
             </div>
 
-            {/* SOUS-MENU EXTENSIONS (INVERSÉES) */}
+            {/* EXTENSION SUB-MENU — only visible once a license is chosen */}
             {selectedLicense && (
               <div className={styles.subAccordionWrapper}>
                 <button className={styles.subAccordionHeader} onClick={() => setIsExtensionsOpen(!isExtensionsOpen)}>
@@ -102,6 +137,8 @@ export default function Search() {
                   <div className={styles.licenseList}>
                     {availableExtensions.length > 0 ? (
                       availableExtensions.map((ext) => {
+                        // Support both Pokemon (extension_id) and Magic (set_id)
+                        // response shapes with a unified ID reference.
                         const extId = ext.extension_id || ext.set_id || ext.id;
                         return (
                           <div key={extId} className={styles.licenseItem} onClick={() => {
@@ -126,7 +163,7 @@ export default function Search() {
         )}
       </div>
 
-      {/* SECTION SORT */}
+      {/* SORT ACCORDION (not yet implemented) */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsSortOpen(!isSortOpen)}>
           <span className={styles.label}>Sort</span>
@@ -139,7 +176,7 @@ export default function Search() {
         )}
       </div>
 
-      {/* GRILLE DE RÉSULTATS */}
+      {/* RESULTS GRID */}
       <div className={styles.mainDisplay}>
         {loading && <div className={styles.loader}>Searching for the best maps...</div>}
         {error && <div className={styles.error}>Error: {error}</div>}
@@ -147,17 +184,23 @@ export default function Search() {
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>
             {cards.map((card) => {
+              // Build the image URL differently per license because the Pokemon
+              // API returns a base path while the Magic API returns a full URL.
               const imgUrl = card.license === 'Magic'
                 ? (card.card_image?.small_image || '')
                 : (card.card_image ? `${card.card_image}/low.png` : '');
               return (
                 <div
+                  // Prefer the most specific ID available; fall back along a
+                  // chain to handle different API response shapes gracefully.
                   key={card.card_id || card.id || card.api_id}
                   className={styles.cardWrapper}
                   onClick={() => setSelectedCard({
                     ...card,
                     imageUrl: imgUrl,
                     number: card.card_number,
+                    // Provide the set name for display in CardDetails, sourcing
+                    // it from the selected extension object when possible.
                     setName: selectedExtObject?.extension_name || selectedExtObject?.set_name || card.extension_name,
                   })}
                 >
@@ -166,8 +209,12 @@ export default function Search() {
                       src={imgUrl}
                       alt={card.name}
                       className={styles.cardImage}
+                      // Defer off-screen image loads to reduce initial bandwidth
+                      // on large extension sets.
                       loading="lazy"
                     />
+                    {/* Show a checkmark badge only when the card is recorded
+                        as owned so the grid gives an instant collection overview. */}
                     {ownedCards[card.card_id || card.id || card.api_id] && (
                       <div className={styles.ownedBadge}>
                         <Check size={30} strokeWidth={3} />
@@ -185,6 +232,8 @@ export default function Search() {
         )}
       </div>
 
+      {/* Mount CardDetails as an overlay only when a card is selected to
+          avoid rendering a hidden panel on every grid render. */}
       {selectedCard && (
         <CardDetails
           card={selectedCard}

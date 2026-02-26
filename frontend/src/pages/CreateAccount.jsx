@@ -4,6 +4,14 @@ import { User, Mail, Vault } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
+/**
+ * Registration page component.
+ *
+ * Runs client-side validation before touching the network so that obvious
+ * mistakes (mismatched passwords, too-short password) are caught instantly
+ * without a round-trip. The actual account creation is delegated to the
+ * AuthContext so that session handling remains in one place.
+ */
 export default function CreateAccount() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -14,14 +22,27 @@ export default function CreateAccount() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
+  /**
+   * Handles form submission with client-side validation guards.
+   *
+   * Validation runs before setting `loading` so we never show a spinner for
+   * an immediately-rejected form. On success the user is redirected to the
+   * login page rather than auto-logged-in, keeping the auth flow explicit.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Guard: passwords must match before we attempt the API call.
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
+    // Guard: enforce the minimum length rule on the client to give instant
+    // feedback. The server validates this too, but client-side checks avoid
+    // unnecessary network traffic.
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
@@ -32,8 +53,12 @@ export default function CreateAccount() {
 
     try {
       await register(username, email, password);
+      // Redirect to login after registration so the user explicitly signs in,
+      // which is cleaner than auto-login and avoids implicit session setup.
       navigate('/login');
     } catch (err) {
+      // FastAPI returns validation/auth errors inside `detail`; fall back to a
+      // generic message so the UI never shows an empty string.
       setError(err.response?.data?.detail || 'Registration failed');
     } finally {
       setLoading(false);
@@ -125,7 +150,8 @@ export default function CreateAccount() {
             </div>
 
 
-            {/* Error */}
+            {/* Only render the alert when there is an error message to avoid
+                empty space in the happy path. */}
             {error && (
               <div className="alert alert-error mt-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
                 <span>{error}</span>

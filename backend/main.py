@@ -14,6 +14,7 @@ from app.routers.auth import login
 from app.routers.auth import logout
 from app.routers.auth import register
 from app.routers.auth import delete_account
+from app.routers.auth import me
 
 # Load environment variables from .env file
 load_dotenv()
@@ -47,6 +48,7 @@ app.include_router(login.router, prefix="/api")
 app.include_router(logout.router, prefix="/api")
 app.include_router(register.router, prefix="/api")
 app.include_router(delete_account.router, prefix="/api")
+app.include_router(me.router, prefix="/api")
 
 
 

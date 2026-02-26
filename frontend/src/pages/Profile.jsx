@@ -1,25 +1,47 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Camera, RefreshCw, Trash2, ChevronDown } from 'lucide-react';
+import { User, Camera, RefreshCw, Trash2 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
+/**
+ * Profile page component.
+ *
+ * Allows the authenticated user to update their personal information, change
+ * their avatar, sync collection data from external sources, and permanently
+ * delete their account.
+ *
+ * NOTE: The submit, sync, and delete handlers currently log to the console and
+ * show browser `alert`/`confirm` dialogs. These are stubs that should be
+ * replaced with real API calls (PATCH /users/me, DELETE /users/me, etc.) once
+ * the endpoints are available.
+ */
 export default function Profile() {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { user } = useAuth();
 
+  // All editable profile fields are kept in a single state object so a single
+  // `handleInputChange` handler can update any field by name without writing a
+  // dedicated setter per field.
   const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
     password: '',
-    email: '',
-    language: '',
-    cash: ''
+    email: user?.email || '',
   });
 
+  // `previewPhoto` holds a base64 data URL so the avatar preview updates
+  // immediately after the user picks a file, without uploading to the server.
   const [previewPhoto, setPreviewPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  /**
+   * Generic change handler for all text/email/password inputs.
+   * Uses the input's `name` attribute to key into `formData` so one function
+   * serves every field in the form.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -28,6 +50,14 @@ export default function Profile() {
     }));
   };
 
+  /**
+   * Reads the selected image file and stores it as a base64 data URL in
+   * `previewPhoto` so the avatar preview is instant (no upload round-trip).
+   * The actual upload will happen on form submit when the backend endpoint is
+   * ready.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e
+   */
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -39,6 +69,14 @@ export default function Profile() {
     }
   };
 
+  /**
+   * Submits updated profile data to the API.
+   *
+   * Currently a stub — replace `console.log` and `alert` with a real
+   * PATCH /users/me request and proper error handling.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -54,6 +92,11 @@ export default function Profile() {
     }
   };
 
+  /**
+   * Triggers a manual sync of the user's collection data with external APIs.
+   *
+   * Currently a stub — replace with a POST /sync request.
+   */
   const handleSyncData = async () => {
     try {
       console.log('Syncing data...');
@@ -64,6 +107,13 @@ export default function Profile() {
     }
   };
 
+  /**
+   * Permanently deletes the user's account after an explicit confirmation.
+   *
+   * A native `window.confirm` is used as a quick guard. When the real DELETE
+   * endpoint is integrated, a custom modal with a typed confirmation (e.g.
+   * "type your username to confirm") would be safer for an irreversible action.
+   */
   const handleDeleteAccount = async () => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete your account? This action is irreversible.'
@@ -73,6 +123,8 @@ export default function Profile() {
       try {
         console.log('Deleting account...');
         alert('Account deleted');
+        // Redirect to the landing page so the user is not stuck on a page
+        // that requires an authenticated session that no longer exists.
         navigate('/');
       } catch (error) {
         console.error('Delete error:', error);
@@ -100,42 +152,22 @@ export default function Profile() {
             {/*<h2 className="card-title text-2xl justify-center mb-6">Profile</h2>*/}
 
             <form onSubmit={handleSubmit} className="w-full">
-              {/* Layout with fields on the left and photo on the right */}
+              {/* Two-column layout: username on the left, avatar on the
+                  right so the photo stays visually associated with the
+                  identity fields it represents. */}
               <div className="flex gap-3 items-start mb-3 md:mb-6">
-                {/* Left column - Name and Lastname fields */}
+                {/* Left column - Username (read-only) */}
                 <div className="flex-1 space-y-2 md:space-y-4">
-                  {/* Name */}
+                  {/* Username */}
                   <div className="form-control w-full">
                     <label className="label pb-1">
-                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Name</span>
+                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Username</span>
                     </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder=""
-                      className={`input input-bordered input-sm md:input-md w-full ${
-                        isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                      }`}
-                      value={formData.name}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  {/* Lastname */}
-                  <div className="form-control w-full">
-                    <label className="label pb-1">
-                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Lastname</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="lastname"
-                      placeholder=""
-                      className={`input input-bordered input-sm md:input-md w-full ${
-                        isDark ? 'bg-slate-700 border-gray-600 text-gray-100' : ''
-                      }`}
-                      value={formData.lastname}
-                      onChange={handleInputChange}
-                    />
+                    <div className={`input input-bordered input-sm md:input-md w-full flex items-center ${
+                      isDark ? 'bg-slate-700 border-gray-600 text-gray-400' : 'bg-gray-50 text-gray-500'
+                    }`}>
+                      {user?.username}
+                    </div>
                   </div>
                 </div>
 
@@ -148,12 +180,17 @@ export default function Profile() {
                       {previewPhoto ? (
                         <img src={previewPhoto} alt="Profile preview" />
                       ) : (
+                        // Fallback gradient avatar shown until the user picks
+                        // a photo or the existing avatar is loaded from the API.
                         <div className="bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white">
                           <User size={40} />
                         </div>
                       )}
                     </div>
                   </div>
+                  {/* The file input is hidden and triggered by clicking the
+                      camera icon label, which is standard for custom-styled
+                      file pickers. */}
                   <label className="cursor-pointer">
                     <div className="avatar">
                       <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary-focus">
@@ -203,7 +240,7 @@ export default function Profile() {
                   onChange={handleInputChange}
                 />
               </div>
-              
+
               {/* Save Button */}
               <button
                 type="submit"
@@ -214,7 +251,8 @@ export default function Profile() {
               </button>
             </form>
 
-            {/* Sync Data Button */}
+            {/* Sync Data Button — lives outside the form so it does not
+                accidentally trigger form submission when clicked. */}
             <button
               onClick={handleSyncData}
               className={`btn btn-sm md:btn-md btn-outline w-full form-field-spacing gap-2 mt-3 md:mt-6 ${
@@ -227,7 +265,9 @@ export default function Profile() {
               Sync Data
             </button>
 
-            {/* Delete Account Button */}
+            {/* Delete Account Button — styled in red to signal a destructive
+                action and separated from the save button to reduce accidental
+                clicks. */}
             <button
               onClick={handleDeleteAccount}
               className={`btn btn-sm md:btn-md btn-outline w-full form-field-spacing gap-2 ${

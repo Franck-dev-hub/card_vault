@@ -11,6 +11,8 @@ import { useTheme } from '../contexts/ThemeContext';
 import styles from './Settings.module.css';
 
 
+// Supported display and card languages. Defined at module level so the array
+// is not recreated on every render.
 const LANGUAGES = [
   { code: 'fr', name: 'Français' },
   { code: 'en', name: 'English' },
@@ -20,13 +22,36 @@ const LANGUAGES = [
 ];
 
 
+/**
+ * Settings page component.
+ *
+ * Exposes user-configurable preferences:
+ *   - App language  — controls the UI locale.
+ *   - Card language — controls which language edition is preferred when
+ *                     displaying card data from external APIs.
+ *   - Dark mode     — delegates to ThemeContext so the preference is shared
+ *                     across the whole application.
+ *
+ * The two language dropdowns are mutually exclusive (opening one closes the
+ * other) to prevent the UI from becoming cluttered with multiple open lists.
+ */
 export default function Settings() {
+  // `isDark` and `toggleTheme` come from ThemeContext so theme state is the
+  // single source of truth across the app — not duplicated in this component.
   const { isDark, toggleTheme } = useTheme();
   const [appLanguage, setAppLanguage] = useState('fr');
   const [cardLanguage, setCardLanguage] = useState('en');
+  // Each dropdown tracks its own open/closed state independently.
   const [isAppLangOpen, setIsAppLangOpen] = useState(false);
   const [isCardLangOpen, setIsCardLangOpen] = useState(false);
 
+  /**
+   * Resolves a language code to its human-readable display name.
+   * Returns the raw code as a fallback so unknown codes never render as blank.
+   *
+   * @param {string} code - BCP-47 language code (e.g. 'en', 'fr').
+   * @returns {string} Human-readable language name.
+   */
   const getLanguageName = (code) => {
     return LANGUAGES.find(l => l.code === code)?.name || code;
   };
@@ -34,8 +59,8 @@ export default function Settings() {
 
   return (
     <div className={`flex min-h-screen items-start justify-center px-6 py-8! md:py-8 transition-colors duration-500 ${isDark
-        ? 'bg-slate-900' // Fond sombre classique
-        : 'bg-gradient-to-br from-[#e0f2fe] to-[#ddd6fe] bg-fixed' // Ton nouveau style
+        ? 'bg-slate-900'
+        : 'bg-gradient-to-br from-[#e0f2fe] to-[#ddd6fe] bg-fixed'
       }`}>
       <BackgroundGradient className="rounded-3xl">
         <div className={`card w-[85vw] max-w-sm shadow-2xl border-2 rounded-3xl max-h-[85vh] md:max-h-[calc(100vh-200px)] flex flex-col ${
@@ -55,6 +80,8 @@ export default function Settings() {
               <button
                 onClick={() => {
                   setIsAppLangOpen(!isAppLangOpen);
+                  // Closing the card language dropdown when opening the app
+                  // language dropdown keeps only one list visible at a time.
                   setIsCardLangOpen(false);
                 }}
                 className={`group w-full border-2 rounded-2xl py-3 px-4 md:py-5 md:px-4 transition-all duration-200 shadow-sm hover:shadow-md ${
@@ -78,6 +105,8 @@ export default function Settings() {
                           ? 'text-gray-100 group-hover:text-blue-400'
                           : 'text-gray-800 group-hover:text-blue-700'
                       }`}>App Language</span>
+                      {/* Show the current selection as a subtitle so the user
+                          can see their choice without opening the dropdown. */}
                       <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                         {getLanguageName(appLanguage)}
                       </span>
@@ -108,6 +137,8 @@ export default function Settings() {
                         setIsAppLangOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-left transition-colors ${
+                        // Highlight the currently active language so users can
+                        // confirm their existing selection at a glance.
                         appLanguage === lang.code
                           ? isDark
                             ? 'bg-blue-600 text-white'
@@ -130,6 +161,7 @@ export default function Settings() {
               <button
                 onClick={() => {
                   setIsCardLangOpen(!isCardLangOpen);
+                  // Mirror the mutual-exclusion behaviour from above.
                   setIsAppLangOpen(false);
                 }}
                 className={`group w-full border-2 rounded-2xl py-3 px-4 md:py-5 md:px-4 transition-all duration-200 shadow-sm hover:shadow-md ${
@@ -200,7 +232,11 @@ export default function Settings() {
             </div>
 
 
-            {/* Dark Mode Toggle */}
+            {/* Dark Mode Toggle
+                The toggle is a custom pill built from a div + span rather than
+                a native checkbox so it can be styled independently of the
+                browser's default checkbox appearance. The hidden checkbox still
+                drives the `onChange` so keyboard accessibility is preserved. */}
             <div className={`group border-2 rounded-2xl py-3 px-4 md:py-5 md:px-4 shadow-sm hover:shadow-md mb-3 md:mb-4 transition-all duration-200 ${
               isDark
                 ? 'bg-gray-700 border-gray-600 hover:border-blue-400 hover:bg-gray-600'
@@ -232,6 +268,9 @@ export default function Settings() {
                     onChange={toggleTheme}
                     className="hidden"
                   />
+                  {/* Pill background shifts colour based on theme state.
+                      The inner span slides left/right via a translate class
+                      to simulate a hardware-style toggle switch. */}
                   <div
                     className={`relative inline-flex h-11 w-20 md:h-9 md:w-16 items-center rounded-full transition-colors ${
                       isDark ? 'bg-blue-600' : 'bg-gray-300'

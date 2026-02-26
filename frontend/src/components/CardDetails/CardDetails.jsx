@@ -35,7 +35,8 @@ const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
 export default function CardDetails({ card, onClose, onOwnershipChange }) {
   const { isDark } = useTheme();
 
-  // --- ÉTAT POUR LES COMPTEURS VAULT ---
+  // Tracks how many copies of each variant the user owns.
+  // Keeping counts local for now; the TODO below marks where backend sync should go.
   const [quantities, setQuantities] = useState({
     Normal: 0,
     Reverse: 0,
@@ -46,23 +47,28 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
     setQuantities((prev) => {
       const updated = {
         ...prev,
+        // Math.max(0, …) prevents the count from going below zero.
         [variant]: Math.max(0, prev[variant] + delta),
       };
 
-      // Notifie le parent si la carte est possédée (au moins 1 exemplaire)
+      // Notify the parent when ownership status changes (at least one copy owned).
+      // This lets parent components (e.g. Vault) update their owned-card lists
+      // without needing to manage quantity details themselves.
       const isOwned = updated.Normal + updated.Reverse + updated.Holo > 0;
       const cardId = card.id || card.api_id;
       if (onOwnershipChange) {
         onOwnershipChange(cardId, isOwned);
       }
 
-      // TODO: Envoyer au backend quand l'endpoint sera prêt
+      // TODO: Persist quantities to the backend when the endpoint is ready.
       // axios.post('/api/vault', { cardId, quantities: updated });
 
       return updated;
     });
   };
 
+  // Disable body scrolling while the modal is open so the background page
+  // does not scroll underneath the overlay on mobile devices.
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -70,6 +76,8 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
     };
   }, []);
 
+  // useCallback stabilises the handler reference so the keydown effect below
+  // only re-registers when `onClose` itself changes, not on every render.
   const handleEscape = useCallback(
     (event) => {
       if (event.key === "Escape") {
@@ -79,6 +87,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
     [onClose],
   );
 
+  // Allow keyboard users to close the modal with Escape — accessibility best practice.
   useEffect(() => {
     document.addEventListener("keydown", handleEscape, false);
     return () => {
@@ -88,6 +97,9 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
 
   if (!card) return null;
 
+  // createPortal renders the modal into document.body rather than inline in the
+  // component tree. This ensures the overlay always covers the full viewport
+  // regardless of any ancestor's overflow, position, or z-index constraints.
   return createPortal(
     <div className={`${styles.overlay} ${isDark ? styles.dark : ""}`}>
       <div
@@ -124,7 +136,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
           </div>
 
           <div className={styles.accordionGroup}>
-            {/* --- SECTION VAULT GRISE AVEC COMPTEURS BLANCS --- */}
+            {/* --- GREY VAULT SECTION WITH WHITE COUNTERS --- */}
             <AccordionSection title="Vault" isDark={isDark}>
               <div className={styles.vaultWrapper}>
                 {["Normal", "Reverse", "Holo"].map((variant) => (

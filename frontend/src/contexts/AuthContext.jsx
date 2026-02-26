@@ -106,7 +106,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('email', userEmail);
       setUser({ id: user_id, username, email: userEmail });
     } catch {
-      // TODO: /me is not yet available, we continue without username/email
       setUser({ id: user_id });
     }
     setIsAuthenticated(true);

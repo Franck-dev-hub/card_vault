@@ -10,5 +10,5 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     username = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now)
+    created_at = Column(datetime.now)
+    updated_at = Column(datetime.now)

@@ -21,6 +21,12 @@ def standardized(
 
 
 def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
+    set_data = card.get("set") or {}
+    card_count = set_data.get("cardCount") or {}
+    pricing = card.get("pricing") or {}
+    cardmarket = pricing.get("cardmarket") or {}
+    variants = card.get("variants") or {}
+
     """Normalised data, for one card display"""
     return {
         "license": "Pokemon",
@@ -28,21 +34,21 @@ def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
         "card_number": card.get("localId"),
         "card_name": card.get("name"),
         "extension_id": card.get("id"),
-        "extension_name": card.get("set", {}).get("name"),
-        "extension_total_card": card.get("set", {}).get("cardCount", {}).get("official"),
-        "extension_total_extended": card.get("set", {}).get("cardCount", {}).get("total"),
+        "extension_name": set_data.get("name"),
+        "extension_total_card": card_count.get("official"),
+        "extension_total_extended": card_count.get("total"),
         "illustrator": card.get("illustrator"),
         "card_image": card.get("image"),
         "rarity": card.get("rarity"),
         "description": card.get("description"),
-        "euro": card.get("pricing",{}).get("unit"),
-        "avg_prices": card.get("pricing", {}).get("cardmarket", {}).get("avg"),
-        "low_prices": card.get("pricing", {}).get("cardmarket", {}).get("low"),
-        "trend_prices": card.get("pricing", {}).get("cardmarket", {}).get("trend"),
-        "avg_holo_prices": card.get("pricing", {}).get("cardmarket", {}).get("avg-holo"),
-        "low_holo_prices": card.get("pricing", {}).get("cardmarket", {}).get("low-holo"),
-        "trend_holo_prices": card.get("pricing", {}).get("cardmarket", {}).get("trend-holo"),
-        "variant": [v for v, status in card.get("variants", {}).items() if status],
+        "euro": pricing.get("unit"),
+        "avg_prices": cardmarket.get("avg"),
+        "low_prices": cardmarket.get("low"),
+        "trend_prices": cardmarket.get("trend"),
+        "avg_holo_prices": cardmarket.get("avg-holo"),
+        "low_holo_prices": cardmarket.get("low-holo"),
+        "trend_holo_prices": cardmarket.get("trend-holo"),
+        "variant": [v for v, status in variants.items() if status],
     }
 
 def standardized_data_cards(cards: Dict[str, Any]) -> Dict[str, Any]:

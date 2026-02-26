@@ -105,7 +105,7 @@ export default function Scan() {
     setPredictError(null);
 
     try {
-      const response = await fetch(`http://localhost/ml/api/v1/predict`, {
+      const response = await fetch(`/ml/api/v1/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Image })
@@ -143,10 +143,33 @@ export default function Scan() {
 
   const handleScanAction = async () => {
     if (!isScanned) {
-      const context = canvasRef.current.getContext('2d');
-      canvasRef.current.width = videoRef.current.videoWidth;
-      canvasRef.current.height = videoRef.current.videoHeight;
-      context.drawImage(videoRef.current, 0, 0);
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+
+      // Native camera resolution
+      const videoW = video.videoWidth;
+      const videoH = video.videoHeight;
+
+      // Displayed size of the <video> on screen
+      const rect = video.getBoundingClientRect();
+      const displayW = rect.width;
+      const displayH = rect.height;
+
+      // With object-fit: cover, the video is zoomed to fill the frame, and the larger ratio determines the scaling factor
+      const scale = Math.max(displayW / videoW, displayH / videoH);
+
+      // Visible area in the video’s real coordinates, centered
+      const visibleW = displayW / scale;
+      const visibleH = displayH / scale;
+      const srcX = (videoW - visibleW) / 2;
+      const srcY = (videoH - visibleH) / 2;
+
+      // The canvas defines the visible size
+      // DrawImage renders only the computed region
+      canvas.width = visibleW;
+      canvas.height = visibleH;
+      context.drawImage(video, srcX, srcY, visibleW, visibleH, 0, 0, visibleW, visibleH);
 
       // --- CAPTURE AS WEBP + BASE64 ---
       const base64 = canvasRef.current.toDataURL('image/webp');

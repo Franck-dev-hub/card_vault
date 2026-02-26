@@ -56,7 +56,6 @@ def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
         "card_id": _build_card_id(card.get("id")),
         "card_number": card.get("collector_number"),
         "card_name": card.get("name"),
-        "api_id": card.get("id"),
         "extension_name": card.get("set_name"),
         "extension_id": card.get("set"),
         "illustrator": card.get("artist"),

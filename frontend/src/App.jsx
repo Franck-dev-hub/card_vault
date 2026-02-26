@@ -26,14 +26,20 @@ import { Confidentiality } from './pages/About/Confidentiality';
 import { Cookies } from './pages/About/Cookies';
 import { Contacts } from './pages/About/Contacts';
 
-
+// ThemeProvider wraps everything so the theme is available throughout the
+// entire tree before AuthProvider reads any stored user preferences.
+// AuthProvider sits inside ThemeProvider but outside BrowserRouter so that
+// auth state is accessible to route guards without being re-mounted on navigation.
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            {/* Route racine : Landing si non connecté, Dashboard si connecté */}
+            {/* Root route: renders LandingPage for anonymous visitors and
+                Dashboard (inside MainLayout) for authenticated users.
+                HomePage handles the conditional rendering so neither page
+                is mounted unnecessarily. */}
             <Route
               path="/"
               element={
@@ -48,7 +54,7 @@ function App() {
               }
             />
 
-            {/* Routes publiques */}
+            {/* Public routes — accessible without authentication */}
             <Route
               path="/login"
               element={
@@ -66,7 +72,8 @@ function App() {
               }
             />
 
-            {/* Routes imbriquées pour /about */}
+            {/* Nested /about routes share the AboutLayout shell via React Router's
+                Outlet mechanism, avoiding code duplication across every about sub-page. */}
             <Route
               path="/about"
               element={
@@ -84,7 +91,9 @@ function App() {
               <Route path="contacts" element={<Contacts />} />
             </Route>
 
-            {/* Routes protégées */}
+            {/* Protected routes — ProtectedRoute redirects unauthenticated
+                users to /login before the child page ever mounts, preventing
+                any data fetching or rendering for unauthorised visitors. */}
             <Route
               path="/dashboard"
               element={
@@ -156,7 +165,8 @@ function App() {
               }
             />
 
-            {/* 404 - Page non trouvée */}
+            {/* Catch-all: renders a 404 page for any unrecognised path so
+                the user always gets meaningful feedback instead of a blank screen. */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

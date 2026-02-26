@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 
+/**
+ * Dropdown avatar button with context-sensitive navigation links.
+ *
+ * NOTE: `isAuthenticated` is hard-coded to `false` as a placeholder.
+ * Replace with `const { isAuthenticated } = useAuth()` once this component
+ * is fully wired to the authentication context.
+ *
+ * The dropdown uses DaisyUI's CSS `:focus-within` approach — no JS
+ * click-outside logic is needed.
+ */
 export default function Avatar() {
-  // TODO: Plus tard, vous remplacerez cette valeur par votre vrai état d'authentification
-  // Par exemple : const { isAuthenticated } = useAuth();
-  const isAuthenticated = false; // Pour l'instant, toujours false
+  // TODO: Replace with `const { isAuthenticated } = useAuth();`
+  const isAuthenticated = false; // Placeholder — always renders the guest menu
 
   return (
     <div className="dropdown dropdown-end">
@@ -14,7 +23,7 @@ export default function Avatar() {
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         {isAuthenticated ? (
-          // Menu pour utilisateur connecté
+          // Authenticated menu: profile access and logout action
           <>
             <li>
               <Link to="/profile" className="justify-between">
@@ -29,7 +38,7 @@ export default function Avatar() {
             </li>
           </>
         ) : (
-          // Menu pour utilisateur non connecté (menu actuel)
+          // Guest menu: entry points to login and account creation
           <>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/create-account">Create Account</Link></li>

@@ -1,13 +1,26 @@
 import { useTheme } from '../../contexts/ThemeContext';
 import './About.css';
 
+/**
+ * Confidentiality — Privacy Policy page for CardVault.
+ *
+ * Covers GDPR compliance, data collection, user rights, and contact
+ * information for the French data protection authority (CNIL).
+ *
+ * The theme class is applied at the outermost wrapper so all nested
+ * typography inherits the correct color tokens from About.css.
+ */
 export const Confidentiality = () => {
+  // Drives the light/dark CSS class on the wrapper, cascading theme tokens
+  // down to all child elements without prop-drilling.
   const { isDark } = useTheme();
 
   return (
     <div className={`about-page ${isDark ? 'dark' : 'light'}`}>
       <div className="about-container about-subpage">
         <div className="about-content">
+          {/* The h1 is intentionally commented out in the source;
+              the page title is currently conveyed only by the section structure. */}
           {/*<h1>Privacy Policy</h1>}*/}
           <p className="last-updated">Last updated: January 31, 2026</p>
 

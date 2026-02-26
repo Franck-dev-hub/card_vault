@@ -31,7 +31,7 @@ async def get_licenses():
 async def search(
     license: str,
     extension: str | None = None,
-    card: int | None = None,
+    card: str | None = None,
 ):
     license_key = license.lower()
 

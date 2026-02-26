@@ -8,7 +8,11 @@ import { UserMenu } from "../Navigation/UserMenu";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
 
-// Mapping des routes vers les titres de page
+/**
+ * Maps every known route to its human-readable page title.
+ * Defined at module scope so the object reference is stable across renders.
+ * Falls back to "Page" for any unknown path.
+ */
 const PAGE_TITLES = {
   "/": "Dashboard",
   "/dashboard": "Dashboard",
@@ -30,7 +34,11 @@ const PAGE_TITLES = {
   "/about/contacts": "Contacts",
 };
 
-// Pages qui DOIVENT afficher le bouton retour
+/**
+ * Routes that always show a back button in the header.
+ * These are authenticated inner pages where the user navigated away from the
+ * dashboard, so going back makes sense as the primary exit action.
+ */
 const PAGES_WITH_BACK_BUTTON = [
   "/statistics",
   "/scan",
@@ -40,7 +48,10 @@ const PAGES_WITH_BACK_BUTTON = [
   "/profile",
 ];
 
-// Pages accessibles uniquement aux utilisateurs authentifiés (affiche le FooterNav)
+/**
+ * Routes that belong to the authenticated shell.
+ * Used to decide whether to show the full Navbar and FooterNav.
+ */
 const AUTHENTICATED_PAGES = [
   "/",
   "/dashboard",
@@ -52,54 +63,71 @@ const AUTHENTICATED_PAGES = [
   "/profile",
 ];
 
-// Pages invité avec header minimal (bouton retour vers /)
+/**
+ * Guest routes that still need a minimal header with a back-to-home button.
+ * Keeps unauthenticated users from feeling stranded on the login or
+ * create-account pages.
+ */
 const GUEST_PAGES_WITH_BACK = ["/login", "/create-account"];
 
+/**
+ * Application shell that wraps every page with the appropriate header and
+ * footer navigation based on authentication state and viewport size.
+ *
+ * Layout rules:
+ *  - **Desktop authenticated**: full `<Navbar>` at the top, no footer nav.
+ *  - **Desktop guest** (about / login / create-account): minimal header with
+ *    a back-to-home button and a centred page title.
+ *  - **Mobile**: two-part header (branding bar + pill nav bar) and a
+ *    `<FooterNav>` bottom tab bar when the user is authenticated.
+ *  - **UserMenu** slide-in panel is mounted on mobile for all routes so the
+ *    user can always reach their account or guest options.
+ *
+ * @param {{ children: React.ReactNode }} props
+ */
 export const MainLayout = ({ children }) => {
   const isMobile = useResponsive();
+  // Controls the mobile slide-in user menu visibility.
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
   const { isAuthenticated } = useAuth();
 
-  // Vérifier si on est sur une page /about (insensible à la casse)
+  // Case-insensitive check so "/About" and "/about" are treated identically.
   const isAboutPage = location.pathname.toLowerCase().startsWith("/about");
 
-  // Vérifier si on est sur une page invité avec bouton retour
   const isGuestPageWithBack = GUEST_PAGES_WITH_BACK.includes(location.pathname);
 
-  // Obtenir le titre de la page actuelle
+  // Fall back to "Page" for any route not listed in PAGE_TITLES.
   const currentPageTitle = PAGE_TITLES[location.pathname] || "Page";
 
-  // Vérifier si on doit afficher le bouton retour
-  // Inclut les pages /about et les pages invité pour les utilisateurs non authentifiés (retour vers /)
+  // Show the back button for inner authenticated pages, all /about sub-routes,
+  // the top-level /about when unauthenticated, and guest pages like /login.
   const showBackButton =
     PAGES_WITH_BACK_BUTTON.includes(location.pathname) ||
     location.pathname.toLowerCase().startsWith("/about/") ||
     (isAboutPage && !isAuthenticated) ||
     isGuestPageWithBack;
 
-  // Vérifier si l'utilisateur est sur une page authentifiée (affiche le FooterNav)
   const isOnAuthenticatedPage = AUTHENTICATED_PAGES.includes(location.pathname);
 
-  // Afficher le FooterNav seulement si l'utilisateur est authentifié
-  // Sur les pages /about, on ne montre la nav que si l'utilisateur est connecté
+  // Show bottom tab bar only for authenticated pages; on /about show it only
+  // if the user is already logged in (otherwise there is nothing to navigate to).
   const showFooterNav =
     isOnAuthenticatedPage || (isAboutPage && isAuthenticated);
 
-  // Afficher la Navbar desktop seulement si l'utilisateur est authentifié ou sur une page authentifiée
+  // Mirror the same logic for the desktop Navbar.
   const showNavbar = isOnAuthenticatedPage || (isAboutPage && isAuthenticated);
 
   return (
-    // Fond global avec gradient
+    // Full-viewport container with the global gradient background.
     <div className="h-dvh bg-app-gradient overflow-hidden">
-      {/* Bloc interne pour le contenu, SANS bg-white */}
       <div className="h-full flex flex-col">
-        {/* Header desktop (Navbar) - affiché seulement si authentifié ou sur page authentifiée */}
+        {/* Desktop: full navigation bar for authenticated / about pages */}
         {!isMobile && showNavbar && <Navbar />}
 
-        {/* Header desktop minimal pour pages invité (about, login, create-account) quand non authentifié */}
+        {/* Desktop: minimal header for unauthenticated guest pages */}
         {!isMobile &&
           ((isAboutPage && !isAuthenticated) || isGuestPageWithBack) && (
             <div
@@ -121,15 +149,15 @@ export const MainLayout = ({ children }) => {
                   {currentPageTitle}
                 </h1>
               </div>
-              {/* Espace pour équilibrer */}
+              {/* Spacer mirrors the button width to keep the title centred */}
               <div style={{ width: "48px" }}></div>
             </div>
           )}
 
-        {/* Header mobile - Style navbar desktop sans burger */}
+        {/* Mobile: two-row header */}
         {isMobile && (
           <div className="relative z-50">
-            {/* Première barre - Logo + Card Vault */}
+            {/* Row 1: branding bar with logo and app name */}
             <div
               className={`shadow-lg rounded-b-lg transition-colors duration-300 ${
                 isDark
@@ -137,21 +165,22 @@ export const MainLayout = ({ children }) => {
                   : "bg-gradient-to-r from-blue-600 via-blue-400 to-purple-500"
               }`}
             >
-              <div className="flex items-center justify-center px-4 py-3">
+              <div className="flex items-center justify-start pl-4! pr-4 py-0.5!">
                 <img
-                  src="/image/logo_card_vault.png"
+                  src="/image/logo_card_vault.webp"
                   alt="Logo"
                   className="h-16 w-16"
                 />
-                <div style={{ marginLeft: "20px" }}>
-                  <h1 className="font-extrabold text-3xl tracking-wide bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-                    Card Vault
-                  </h1>
+                <div style={{ marginLeft: "5px" }}>
+                  <a className="flex flex-col items-start leading-none font-sans font-bold italic uppercase tracking-tighter cursor-pointer text-white leading-none">
+                    <span className="text-[2rem]">Card</span>
+                    <span className="text-[2rem]">Vault</span>
+                  </a>
                 </div>
               </div>
             </div>
 
-            {/* Deuxième barre - Bouton retour (conditionnel) + Titre + Dark Mode + Avatar */}
+            {/* Row 2: floating pill bar with back button, page title, and avatar */}
             <div
               className={`flex items-center w-auto mt-2 px-4 h-16 rounded-full mx-2 shadow-2xl backdrop-blur-md border transition-all duration-300 ${
                 isDark
@@ -159,7 +188,7 @@ export const MainLayout = ({ children }) => {
                   : "bg-white/70 border-white/40 shadow-gray-200"
               }`}
             >
-              {/* Bouton retour (affiché conditionnellement) */}
+              {/* Back button — navigate(-1) for inner pages, "/" for guest/about pages */}
               {showBackButton ? (
                 <button
                   onClick={() =>
@@ -178,11 +207,11 @@ export const MainLayout = ({ children }) => {
                   <ArrowLeft size={24} strokeWidth={1.5} />
                 </button>
               ) : (
-                // Espace vide à gauche pour équilibrer quand pas de bouton retour
+                // Empty spacer keeps the title centred when no back button is shown.
                 <div style={{ width: "48px" }}></div>
               )}
 
-              {/* Titre de la page centré */}
+              {/* Centred page title pill */}
               <div className="flex-1 flex justify-center">
                 <div
                   className={`w-70 h-12.5 flex items-center justify-center rounded-full shadow-lg border-4 transition-colors duration-300 ${
@@ -197,7 +226,7 @@ export const MainLayout = ({ children }) => {
                 </div>
               </div>
 
-              {/* Bouton avatar */}
+              {/* Avatar button — opens the slide-in UserMenu */}
               <button
                 className={`btn btn-circle border-2 bg-transparent transition-colors ${
                   isDark
@@ -213,7 +242,7 @@ export const MainLayout = ({ children }) => {
           </div>
         )}
 
-        {/* Zone de contenu : laisse le gradient visible */}
+        {/* Page content — semi-transparent so the app gradient shows through */}
         <main
           className={`flex-1 overflow-auto rounded-t-[30px] transition-colors duration-300 ${
             isDark ? "bg-gray-900/40 backdrop-blur-sm" : "bg-white/20"
@@ -224,11 +253,13 @@ export const MainLayout = ({ children }) => {
 
         {isMobile && showFooterNav && <FooterNav />}
 
-        {/* UserMenu mobile qui glisse depuis la droite */}
+        {/* Slide-in user menu — always mounted on mobile so it can animate out */}
         {isMobile && (
           <UserMenu
             isOpen={isUserMenuOpen}
             onClose={() => setIsUserMenuOpen(false)}
+            // On unauthenticated about pages there is no Navbar, so force the
+            // guest variant of the menu regardless of auth state.
             forceGuestMenu={isAboutPage && !showNavbar}
           />
         )}

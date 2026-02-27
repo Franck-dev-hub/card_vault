@@ -168,34 +168,33 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
                 {[
                   {
                     type: "Normal",
-                    low: "0.17€",
-                    avg: "0.20€",
-                    trend: "0.19€",
+                    low: card.low_prices,
+                    avg: card.avg_prices,
+                    trend: card.trend_prices,
                   },
                   {
-                    type: "Reverse",
-                    low: "0.19€",
-                    avg: "0.22€",
-                    trend: "0.21€",
+                    type: "Holo",
+                    low: card.low_holo_prices,
+                    avg: card.avg_holo_prices,
+                    trend: card.trend_holo_prices,
                   },
-                  { type: "Holo", low: "0.27€", avg: "0.30€", trend: "0.29€" },
                 ].map((priceData) => (
                   <div key={priceData.type} className={styles.priceCard}>
                     <h4 className={styles.priceTypeTitle}>{priceData.type}</h4>
 
                     <div className={styles.priceRow}>
                       <span>Low</span>
-                      <span>{priceData.low}</span>
+                      <span>{priceData.low != null ? `${priceData.low}€` : "N/A"}</span>
                     </div>
 
                     <div className={styles.priceRow}>
                       <span>Average</span>
-                      <span>{priceData.avg}</span>
+                      <span>{priceData.avg != null ? `${priceData.avg}€` : "N/A"}</span>
                     </div>
 
                     <div className={styles.priceRow}>
                       <span>Trend</span>
-                      <span>{priceData.trend}</span>
+                      <span>{priceData.trend != null ? `${priceData.trend}€` : "N/A"}</span>
                     </div>
                   </div>
                 ))}
@@ -211,13 +210,13 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
             <AccordionSection title="Description" isDark={isDark}>
               <div className={styles.descriptionWrapper}>
                 <div className={styles.descriptionCard}>
-                  Illustrator : {card.artist || "Jean-Michel"}
+                  Illustrator : {card.artist || "N/A"}
                 </div>
                 <div className={styles.descriptionCard}>
-                  Rarity : {card.rarity || "Common"}
+                  Rarity : {card.rarity || "N/A"}
                 </div>
                 <div className={styles.descriptionCard}>
-                  Description : {card.flavorText || "Card description"}
+                  Description : {card.flavorText || "N/A"}
                 </div>
               </div>
             </AccordionSection>

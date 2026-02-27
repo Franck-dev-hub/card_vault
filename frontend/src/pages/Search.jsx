@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
@@ -38,6 +38,69 @@ export default function Search() {
   // iterating the whole card list.
   const [ownedCards, setOwnedCards] = useState({});
 
+  // When a Pokemon card is selected from the list, the list endpoint only
+  // returns 6 basic fields (no prices, description, illustrator, rarity).
+  // This handler opens the modal immediately with available data, then
+  // fetches the full card detail in the background to enrich the display.
+  const handleCardClick = useCallback(async (card, imgUrl) => {
+    console.log('[Search] click → license:', card.license, '| ext:', selectedExtension, '| card_number:', card.card_number);
+
+    // For Magic, avg_prices is a dict {"eur": "0.10", "eur_foil": "0.35"}.
+    // Flatten it into the fields CardDetails expects.
+    const magicPrices = card.license === 'Magic' && typeof card.avg_prices === 'object' && card.avg_prices !== null
+      ? {
+          avg_prices: card.avg_prices.eur ?? null,
+          avg_holo_prices: card.avg_prices.eur_foil ?? null,
+          low_prices: null,
+          trend_prices: null,
+          low_holo_prices: null,
+          trend_holo_prices: null,
+        }
+      : {};
+
+    setSelectedCard({
+      ...card,
+      name: card.card_name,
+      imageUrl: imgUrl,
+      number: card.card_number,
+      artist: card.illustrator,
+      flavorText: card.description,
+      setName: selectedExtObject?.extension_name || selectedExtObject?.set_name || card.extension_name,
+      ...magicPrices,
+    });
+
+    if (card.license === 'Pokemon' && selectedExtension && card.card_number) {
+      try {
+        const response = await fetch(`/api/search/pokemon/${selectedExtension.toLowerCase()}/${card.card_number}`);
+        if (response.ok) {
+          const data = await response.json();
+          // The backend returns an array with one item: [{...card detail...}]
+          const detail = Array.isArray(data) ? data[0] : data;
+          console.log('[Search] card detail:', detail);
+          if (detail) {
+            setSelectedCard(prev => {
+              if (!prev) return null;
+              return {
+                ...prev,
+                artist: detail.illustrator,
+                rarity: detail.rarity,
+                flavorText: detail.description,
+                low_prices: detail.low_prices,
+                avg_prices: detail.avg_prices,
+                trend_prices: detail.trend_prices,
+                low_holo_prices: detail.low_holo_prices,
+                avg_holo_prices: detail.avg_holo_prices,
+                trend_holo_prices: detail.trend_holo_prices,
+              };
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch card detail:', err);
+      }
+    }
+  }, [selectedExtension, selectedExtObject]);
+
   /**
    * Called by CardDetails when the user toggles ownership for a card.
    * Updates the local `ownedCards` map optimistically so the grid reflects
@@ -73,10 +136,10 @@ export default function Search() {
       ? extData.data
       : (Array.isArray(extData) ? extData : []);
 
-    // Spread into a new array before reversing so the original API response
-    // cache is not mutated.
-    return [...rawData].reverse();
-  }, [extData]);
+    // Pokemon: reverse so newest sets appear first.
+    // Magic: keep original API order (already newest-first from Scryfall).
+    return selectedLicense === 'Magic' ? [...rawData] : [...rawData].reverse();
+  }, [extData, selectedLicense]);
 
   // Normalise the card list across the three possible response shapes the API
   // may return depending on the endpoint variant hit.
@@ -178,7 +241,7 @@ export default function Search() {
 
       {/* RESULTS GRID */}
       <div className={styles.mainDisplay}>
-        {loading && <div className={styles.loader}>Searching for the best maps...</div>}
+        {loading && <div className={styles.loader}>Searching for the best cards...</div>}
         {error && <div className={styles.error}>Error: {error}</div>}
 
         {!loading && cards.length > 0 && (
@@ -195,14 +258,7 @@ export default function Search() {
                   // chain to handle different API response shapes gracefully.
                   key={card.card_id || card.id || card.api_id}
                   className={styles.cardWrapper}
-                  onClick={() => setSelectedCard({
-                    ...card,
-                    imageUrl: imgUrl,
-                    number: card.card_number,
-                    // Provide the set name for display in CardDetails, sourcing
-                    // it from the selected extension object when possible.
-                    setName: selectedExtObject?.extension_name || selectedExtObject?.set_name || card.extension_name,
-                  })}
+                  onClick={() => handleCardClick(card, imgUrl)}
                 >
                   <div className={styles.cardContainer}>
                     <img

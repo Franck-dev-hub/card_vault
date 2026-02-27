@@ -117,18 +117,29 @@ export default function Scan() {
       // data → array of 3 results with score, id, data
 
       // --- FORMAT RESPONSE FOR DISPLAY ---
-      // data is an array of { score, data: [{ card object }] }
-      const formattedResults = data.map((item, index) => {
-        const card = item.data[0];
-        return {
-          id: index + 1,
-          name: card.name,
-          set: card.set_name,
-          match: Math.round(item.score * 100),  // score 0.8492 → 85%
-          id_card: card.card_number,
-          img: card.image_url,
-        };
-      });
+      // Filter out errored results (no data array) then map to display fields.
+      const formattedResults = data
+        .filter(item => item.data && item.data.length > 0)
+        .map((item, index) => {
+          const card = item.data[0];
+          return {
+            id: index + 1,
+            name: card.card_name,
+            set: card.extension_name,
+            match: Math.round(item.score * 100),  // score 0.8492 → 85%
+            id_card: card.card_number,
+            img: card.card_image ? `${card.card_image}/low.png` : '',
+            artist: card.illustrator,
+            rarity: card.rarity,
+            flavorText: card.description,
+            avg_prices: card.avg_prices,
+            low_prices: card.low_prices,
+            trend_prices: card.trend_prices,
+            avg_holo_prices: card.avg_holo_prices,
+            low_holo_prices: card.low_holo_prices,
+            trend_holo_prices: card.trend_holo_prices,
+          };
+        });
 
       setResults(formattedResults);
     } catch (err) {

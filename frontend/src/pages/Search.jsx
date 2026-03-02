@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronDown, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
@@ -19,6 +20,7 @@ import styles from './Search.module.css';
  * immediately after a CardDetails interaction without refetching the grid.
  */
 export default function Search() {
+  const { t } = useTranslation();
   const { isDark } = useTheme();
 
   // Accordion open/close state for each filter group.
@@ -151,7 +153,7 @@ export default function Search() {
       {/* FILTER ACCORDION */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsFilterOpen(!isFilterOpen)}>
-          <span className={styles.label}>Filter</span>
+          <span className={styles.label}>{t('search.filter')}</span>
           {isFilterOpen ? <ChevronDown className={styles.icon} size={24} /> : <ChevronLeft className={styles.icon} size={24} />}
         </button>
 
@@ -160,9 +162,9 @@ export default function Search() {
             {/* LICENSE SUB-MENU */}
             <div className={styles.subAccordionWrapper}>
               <button className={styles.subAccordionHeader} onClick={() => setIsLicenseMenuOpen(!isLicenseMenuOpen)}>
-                <span className={styles.subLabel}>Licenses</span>
+                <span className={styles.subLabel}>{t('search.licenses')}</span>
                 <div className={styles.subSelectArea}>
-                  <span className={styles.selectedValue}>{selectedLicense || '-- Select --'}</span>
+                  <span className={styles.selectedValue}>{selectedLicense || t('common.select')}</span>
                   <ChevronLeft className={`${styles.subIcon} ${isLicenseMenuOpen ? styles.iconOpen : ''}`} size={20} />
                 </div>
               </button>
@@ -188,10 +190,10 @@ export default function Search() {
             {selectedLicense && (
               <div className={styles.subAccordionWrapper}>
                 <button className={styles.subAccordionHeader} onClick={() => setIsExtensionsOpen(!isExtensionsOpen)}>
-                  <span className={styles.subLabel}>Extensions</span>
+                  <span className={styles.subLabel}>{t('search.extensions')}</span>
                   <div className={styles.subSelectArea}>
                     <span className={styles.selectedValue}>
-                      {selectedExtObject ? (selectedExtObject.extension_name || selectedExtObject.set_name) : '-- Select --'}
+                      {selectedExtObject ? (selectedExtObject.extension_name || selectedExtObject.set_name) : t('common.select')}
                     </span>
                     <ChevronLeft className={`${styles.subIcon} ${isExtensionsOpen ? styles.iconOpen : ''}`} size={20} />
                   </div>
@@ -216,7 +218,7 @@ export default function Search() {
                         );
                       })
                     ) : (
-                      <div className={styles.noData}>Loading extensions...</div>
+                      <div className={styles.noData}>{t('search.loadingExtensions')}</div>
                     )}
                   </div>
                 )}
@@ -229,20 +231,20 @@ export default function Search() {
       {/* SORT ACCORDION (not yet implemented) */}
       <div className={styles.accordionWrapper}>
         <button className={styles.accordionHeader} onClick={() => setIsSortOpen(!isSortOpen)}>
-          <span className={styles.label}>Sort</span>
+          <span className={styles.label}>{t('common.sort')}</span>
           {isSortOpen ? <ChevronDown className={styles.icon} size={24} /> : <ChevronLeft className={styles.icon} size={24} />}
         </button>
         {isSortOpen && (
           <div className={styles.content}>
-            <div className={styles.comingSoon}>Coming soon</div>
+            <div className={styles.comingSoon}>{t('common.comingSoon')}</div>
           </div>
         )}
       </div>
 
       {/* RESULTS GRID */}
       <div className={styles.mainDisplay}>
-        {loading && <div className={styles.loader}>Searching for the best cards...</div>}
-        {error && <div className={styles.error}>Error: {error}</div>}
+        {loading && <div className={styles.loader}>{t('search.searching')}</div>}
+        {error && <div className={styles.error}>{t('common.error', { message: error })}</div>}
 
         {!loading && cards.length > 0 && (
           <div className={styles.resultsGrid}>

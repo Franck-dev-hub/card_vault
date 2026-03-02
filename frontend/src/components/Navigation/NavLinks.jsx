@@ -1,4 +1,5 @@
 import { Home, ChartColumn, Camera, Vault, Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 // Exported so other components (e.g. Sidebar, Navbar) can share the same
 // navigation structure without duplicating the list.
@@ -20,6 +21,7 @@ export const NAV_ITEMS = [
  *                    sidebar's dark background.
  */
 export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {
+  const { t } = useTranslation();
   return (
     <>
       {NAV_ITEMS.map((item) => (
@@ -36,7 +38,7 @@ export const NavLinks = ({ className = '', onClick, isSidebar = false }) => {
           `}
         >
           <item.icon size={isSidebar ? 24 : 20} />
-          <span>{item.name}</span>
+          <span>{t(`nav.${item.name.toLowerCase()}`)}</span>
         </a>
       ))}
     </>

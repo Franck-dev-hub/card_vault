@@ -1,0 +1,137 @@
+{
+  "settings": {
+    "appLanguage": "App-Sprache",
+    "cardLanguage": "Kartensprache",
+    "darkMode": "Dunkelmodus"
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "rememberMe": "Angemeldet bleiben",
+    "loggingIn": "Anmelden...",
+    "submit": "Anmelden",
+    "noAccount": "Noch kein Konto?",
+    "createAccount": "Konto erstellen",
+    "loginFailed": "Anmeldung fehlgeschlagen",
+    "username": "Benutzername",
+    "usernamePlaceholder": "Wähle einen Benutzernamen",
+    "passwordPlaceholder": "Mindestens 6 Zeichen",
+    "confirmPassword": "Passwort bestätigen",
+    "confirmPasswordPlaceholder": "Passwort wiederholen",
+    "passwordsMismatch": "Passwörter stimmen nicht überein",
+    "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein",
+    "creatingAccount": "Konto wird erstellt...",
+    "register": "Registrieren",
+    "alreadyHaveAccount": "Bereits ein Konto?",
+    "logIn": "Einloggen",
+    "registrationFailed": "Registrierung fehlgeschlagen"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler: {{message}}",
+    "comingSoon": "Demnächst verfügbar",
+    "sort": "Sortieren",
+    "select": "-- Auswählen --",
+    "na": "N/A",
+    "toggleTheme": "Design umschalten"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "backHome": "Zurück zur Startseite"
+  },
+  "dashboard": {
+    "cards": "Karten",
+    "value": "Wert",
+    "lastCards": "Zuletzt hinzugefügte Karten"
+  },
+  "profile": {
+    "username": "Benutzername",
+    "saveChanges": "Änderungen speichern",
+    "saving": "Speichern...",
+    "syncData": "Daten synchronisieren",
+    "deleteAccount": "Konto löschen",
+    "profileUpdated": "Profil erfolgreich aktualisiert!",
+    "errorUpdating": "Fehler beim Aktualisieren des Profils",
+    "dataSynced": "Daten erfolgreich synchronisiert!",
+    "errorSyncing": "Fehler beim Synchronisieren der Daten",
+    "deleteConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion ist irreversibel.",
+    "accountDeleted": "Konto gelöscht",
+    "errorDeleting": "Fehler beim Löschen des Kontos"
+  },
+  "search": {
+    "filter": "Filtern",
+    "licenses": "Lizenzen",
+    "extensions": "Erweiterungen",
+    "loadingExtensions": "Erweiterungen werden geladen...",
+    "searching": "Suche nach den besten Karten..."
+  },
+  "vault": {
+    "licenses": "Lizenzen",
+    "extensions": "Erweiterungen",
+    "inventories": "Inventare",
+    "decks": "Decks",
+    "cardsOwned": "Besessene Karten",
+    "completeSet": "Vollständiges Set",
+    "masterSet": "Master-Set"
+  },
+  "scan": {
+    "analyzing": "Analyse läuft...",
+    "retry": "Erneut versuchen",
+    "scanAgain": "Erneut scannen",
+    "scan": "Scannen",
+    "cameraNotSupported": "Kamera nicht unterstützt. Stelle sicher, dass du HTTPS verwendest.",
+    "cameraPermissionDenied": "Kamerazugriff verweigert. Erlaube den Zugriff in deinen Einstellungen.",
+    "noCameraDetected": "Kein Kamera auf diesem Gerät erkannt.",
+    "cameraError": "Kamerafehler: {{message}}",
+    "apiUnavailable": "⚠️ API nicht verfügbar — Testergebnisse werden angezeigt",
+    "match": "Übereinstimmung ({{percentage}}%)"
+  },
+  "statistics": {
+    "distributionByLicense": "Verteilung nach Lizenz",
+    "mostExpensive": "Teuerste"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "statistics": "Statistiken",
+    "scan": "Scannen",
+    "vault": "Tresor",
+    "search": "Suchen",
+    "about": "Über uns",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logOut": "Abmelden",
+    "login": "Anmelden",
+    "createAccount": "Konto erstellen",
+    "appLanguage": "App-Sprache",
+    "cardsLanguage": "Kartensprache",
+    "buyMeTea": "Kauf mir einen Tee",
+    "discord": "Discord",
+    "logoutConfirm": "Bist du sicher, dass du dich abmelden möchtest?",
+    "closeMenu": "Menü schließen",
+    "backToHome": "Zurück zur Startseite",
+    "back": "Zurück",
+    "page": "Seite",
+    "faq": "FAQ",
+    "legalNotices": "Rechtliche Hinweise",
+    "terms": "Nutzungsbedingungen",
+    "confidentiality": "Vertraulichkeit",
+    "cookies": "Cookies",
+    "contacts": "Kontakte"
+  },
+  "cardDetails": {
+    "vault": "Tresor",
+    "prices": "Preise",
+    "cards": "Karten",
+    "description": "Beschreibung",
+    "normal": "Normal",
+    "reverse": "Reverse",
+    "holo": "Holo",
+    "low": "Niedrig",
+    "average": "Durchschnitt",
+    "trend": "Trend",
+    "illustrator": "Illustrator",
+    "rarity": "Seltenheit",
+    "close": "Schließen"
+  }
+}

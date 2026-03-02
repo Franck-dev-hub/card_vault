@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Home, ChartColumn, Camera, Vault, Search, User, LogIn, LogOut, UserPlus, Globe, ChevronDown, ChevronUp, Settings, Info, ArrowLeft } from 'lucide-react'; // ⬅️ Ajoute ArrowLeft
 import { FaDiscord } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import ThemeToggle from '../ThemeToggle';
@@ -24,27 +25,27 @@ const AUTHENTICATED_PAGES = [
 ];
 
 
-// Provides a human-readable title for the centred pill in the sub-navbar.
-// Keeping it as a plain object lookup avoids a useEffect/state combo and is
-// synchronous, which prevents a flash of the wrong title on navigation.
+// Maps each route to its i18n translation key.
+// The value is passed to t() inside the component so titles update with the
+// selected language without requiring a full remount.
 const PAGE_TITLES = {
-  '/': 'Dashboard',
-  '/dashboard': 'Dashboard',
-  '/login': 'Login',
-  '/create-account': 'Create Account',
-  '/profile': 'Profile',
-  '/settings': 'Settings',
-  '/statistics': 'Statistics',
-  '/scan': 'Scan',
-  '/vault': 'Vault',
-  '/search': 'Search',
-  '/about': 'About',
-  '/about/faq': 'FAQ',
-  '/about/legal-notices': 'Legal notices',
-  '/about/terms': 'Terms',
-  '/about/confidentiality': 'Confidentiality',
-  '/about/cookies': 'Cookies',
-  '/about/contacts': 'Contacts',
+  '/': 'nav.dashboard',
+  '/dashboard': 'nav.dashboard',
+  '/login': 'nav.login',
+  '/create-account': 'nav.createAccount',
+  '/profile': 'nav.profile',
+  '/settings': 'nav.settings',
+  '/statistics': 'nav.statistics',
+  '/scan': 'nav.scan',
+  '/vault': 'nav.vault',
+  '/search': 'nav.search',
+  '/about': 'nav.about',
+  '/about/faq': 'nav.faq',
+  '/about/legal-notices': 'nav.legalNotices',
+  '/about/terms': 'nav.terms',
+  '/about/confidentiality': 'nav.confidentiality',
+  '/about/cookies': 'nav.cookies',
+  '/about/contacts': 'nav.contacts',
 };
 
 
@@ -131,6 +132,7 @@ const LanguageSelector = ({ label, selectedLang, onSelect, isDark }) => {
 
 
 export const Navbar = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [appLanguage, setAppLanguage] = useState('fr');
@@ -144,7 +146,7 @@ export const Navbar = () => {
 
 
   // Get the title of the current page
-  const currentPageTitle = PAGE_TITLES[location.pathname] || 'Page';
+  const currentPageTitle = t(PAGE_TITLES[location.pathname] || 'nav.page');
 
 
   // Check if the user is on an authenticated page
@@ -247,7 +249,7 @@ export const Navbar = () => {
                 : 'border-black hover:bg-gray-100 text-black'
             }`}
             style={{ marginLeft: '10px' }}
-            aria-label="Retour"
+            aria-label={t('nav.back')}
           >
             <ArrowLeft size={24} strokeWidth={1.5} />
           </button>
@@ -327,7 +329,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Icon size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{item.name}</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t(`nav.${item.name.toLowerCase()}`)}</span>
               </a>
             );
           })}
@@ -382,7 +384,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <User size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Profile</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.profile')}</span>
               </a>
 
 
@@ -399,7 +401,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Settings size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Settings</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.settings')}</span>
               </a>
 
 
@@ -435,7 +437,7 @@ export const Navbar = () => {
                       : 'text-gray-800 group-hover:text-emerald-600'
                     }`}
                 >
-                  Buy me a tea
+                  {t('nav.buyMeTea')}
                 </span>
               </a>
 
@@ -455,7 +457,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-900/50 group-hover:bg-indigo-800/50' : 'bg-indigo-100 group-hover:bg-indigo-200'}`}>
                   <FaDiscord size={24} className="text-[#5865F2]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>Discord</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>{t('nav.discord')}</span>
               </a>
 
 
@@ -471,7 +473,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Info size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.about')}</span>
               </a>
 
 
@@ -482,7 +484,7 @@ export const Navbar = () => {
               {/* Log Out */}
               <button
                 onClick={() => {
-                  const confirmLogout = window.confirm('Are you sure you want to log out?');
+                  const confirmLogout = window.confirm(t('nav.logoutConfirm'));
                   if (confirmLogout) {
                     logout();
                     navigate('/');
@@ -498,7 +500,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-red-900/50 group-hover:bg-red-800/50' : 'bg-red-100 group-hover:bg-red-200'}`}>
                   <LogOut size={24} className="text-red-500" strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-red-400 group-hover:text-red-300' : 'text-red-600 group-hover:text-red-700'}`}>Log Out</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-red-400 group-hover:text-red-300' : 'text-red-600 group-hover:text-red-700'}`}>{t('nav.logOut')}</span>
               </button>
             </>
           ) : (
@@ -519,7 +521,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <LogIn size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Login</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.login')}</span>
               </a>
 
 
@@ -536,7 +538,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <UserPlus size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Create Account</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.createAccount')}</span>
               </a>
 
 
@@ -546,7 +548,7 @@ export const Navbar = () => {
 
               {/* App Language */}
               <LanguageSelector
-                label="App Language"
+                label={t('nav.appLanguage')}
                 selectedLang={appLanguage}
                 onSelect={setAppLanguage}
                 isDark={isDark}
@@ -555,7 +557,7 @@ export const Navbar = () => {
 
               {/* Cards Language */}
               <LanguageSelector
-                label="Cards Language"
+                label={t('nav.cardsLanguage')}
                 selectedLang={cardsLanguage}
                 onSelect={setCardsLanguage}
                 isDark={isDark}
@@ -598,7 +600,7 @@ export const Navbar = () => {
                         : 'text-gray-800 group-hover:text-emerald-600'
                       }`}
                   >
-                    Buy me a tea
+                    {t('nav.buyMeTea')}
                   </span>
                 </a>
 
@@ -618,7 +620,7 @@ export const Navbar = () => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-900/50 group-hover:bg-indigo-800/50' : 'bg-indigo-100 group-hover:bg-indigo-200'}`}>
                   <FaDiscord size={24} className="text-[#5865F2]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>Discord</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>{t('nav.discord')}</span>
               </a>
 
 
@@ -634,7 +636,7 @@ export const Navbar = () => {
                   <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                     <Info size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                   </div>
-                  <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
+                  <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.about')}</span>
                 </a>
             </>
           )}

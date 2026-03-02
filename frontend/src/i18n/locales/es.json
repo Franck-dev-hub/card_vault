@@ -1,0 +1,137 @@
+{
+  "settings": {
+    "appLanguage": "Idioma de la aplicación",
+    "cardLanguage": "Idioma de las cartas",
+    "darkMode": "Modo oscuro"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "rememberMe": "Recuérdame",
+    "loggingIn": "Iniciando sesión...",
+    "submit": "Iniciar sesión",
+    "noAccount": "¿No tienes cuenta?",
+    "createAccount": "Crear cuenta",
+    "loginFailed": "Error al iniciar sesión",
+    "username": "Nombre de usuario",
+    "usernamePlaceholder": "Elige un nombre de usuario",
+    "passwordPlaceholder": "Al menos 6 caracteres",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmPasswordPlaceholder": "Repite tu contraseña",
+    "passwordsMismatch": "Las contraseñas no coinciden",
+    "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+    "creatingAccount": "Creando cuenta...",
+    "register": "Registrarse",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "logIn": "Iniciar sesión",
+    "registrationFailed": "Error al registrarse"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error: {{message}}",
+    "comingSoon": "Próximamente",
+    "sort": "Ordenar",
+    "select": "-- Seleccionar --",
+    "na": "N/A",
+    "toggleTheme": "Cambiar tema"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al inicio"
+  },
+  "dashboard": {
+    "cards": "Cartas",
+    "value": "Valor",
+    "lastCards": "Últimas cartas añadidas"
+  },
+  "profile": {
+    "username": "Nombre de usuario",
+    "saveChanges": "Guardar cambios",
+    "saving": "Guardando...",
+    "syncData": "Sincronizar datos",
+    "deleteAccount": "Eliminar cuenta",
+    "profileUpdated": "¡Perfil actualizado correctamente!",
+    "errorUpdating": "Error al actualizar el perfil",
+    "dataSynced": "¡Datos sincronizados correctamente!",
+    "errorSyncing": "Error al sincronizar los datos",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.",
+    "accountDeleted": "Cuenta eliminada",
+    "errorDeleting": "Error al eliminar la cuenta"
+  },
+  "search": {
+    "filter": "Filtrar",
+    "licenses": "Licencias",
+    "extensions": "Extensiones",
+    "loadingExtensions": "Cargando extensiones...",
+    "searching": "Buscando las mejores cartas..."
+  },
+  "vault": {
+    "licenses": "Licencias",
+    "extensions": "Extensiones",
+    "inventories": "Inventarios",
+    "decks": "Mazos",
+    "cardsOwned": "Cartas en posesión",
+    "completeSet": "Set completo",
+    "masterSet": "Set maestro"
+  },
+  "scan": {
+    "analyzing": "Analizando...",
+    "retry": "Reintentar",
+    "scanAgain": "Escanear de nuevo",
+    "scan": "Escanear",
+    "cameraNotSupported": "Cámara no compatible. Asegúrate de usar HTTPS.",
+    "cameraPermissionDenied": "Permiso de cámara denegado. Permite el acceso en tu configuración.",
+    "noCameraDetected": "No se detectó ninguna cámara en este dispositivo.",
+    "cameraError": "Error de cámara: {{message}}",
+    "apiUnavailable": "⚠️ API no disponible — se muestran resultados de prueba",
+    "match": "Coincidencia ({{percentage}}%)"
+  },
+  "statistics": {
+    "distributionByLicense": "Distribución por licencia",
+    "mostExpensive": "Más caras"
+  },
+  "nav": {
+    "dashboard": "Tablero",
+    "statistics": "Estadísticas",
+    "scan": "Escanear",
+    "vault": "Bóveda",
+    "search": "Buscar",
+    "about": "Acerca de",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logOut": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "createAccount": "Crear cuenta",
+    "appLanguage": "Idioma de la app",
+    "cardsLanguage": "Idioma de las cartas",
+    "buyMeTea": "Invítame a un té",
+    "discord": "Discord",
+    "logoutConfirm": "¿Estás seguro de que quieres cerrar sesión?",
+    "closeMenu": "Cerrar menú",
+    "backToHome": "Volver al inicio",
+    "back": "Atrás",
+    "page": "Página",
+    "faq": "FAQ",
+    "legalNotices": "Avisos legales",
+    "terms": "Términos",
+    "confidentiality": "Confidencialidad",
+    "cookies": "Cookies",
+    "contacts": "Contactos"
+  },
+  "cardDetails": {
+    "vault": "Bóveda",
+    "prices": "Precios",
+    "cards": "Cartas",
+    "description": "Descripción",
+    "normal": "Normal",
+    "reverse": "Reverso",
+    "holo": "Holo",
+    "low": "Bajo",
+    "average": "Promedio",
+    "trend": "Tendencia",
+    "illustrator": "Ilustrador",
+    "rarity": "Rareza",
+    "close": "Cerrar"
+  }
+}

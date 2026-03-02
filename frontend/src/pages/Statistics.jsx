@@ -7,6 +7,7 @@ import {
   XAxis,
   Tooltip,
 } from "recharts";
+import { useTranslation } from "react-i18next";
 import { useApi } from "../hooks/useApi";
 import { useTheme } from "../contexts/ThemeContext";
 import styles from "./Statistics.module.css";
@@ -23,6 +24,7 @@ import styles from "./Statistics.module.css";
  * still under development, so the UI is never blank during early testing.
  */
 export default function Statistics() {
+  const { t } = useTranslation();
   const { data, loading, error } = useApi("/stats");
   const { isDark } = useTheme();
 
@@ -44,8 +46,8 @@ export default function Statistics() {
   ];
 
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (loading) return <div className={styles.loading}>{t('common.loading')}</div>;
+  if (error) return <div className={styles.error}>{t('common.error', { message: error })}</div>;
 
 
   return (
@@ -54,7 +56,7 @@ export default function Statistics() {
 
         {/* SECTION 1: Distribution chart */}
         <section className={`${styles.card} ${isDark ? styles.cardDark : styles.cardLight}`}>
-          <h2 className={styles.cardTitle}>Distribution by license</h2>
+          <h2 className={styles.cardTitle}>{t('statistics.distributionByLicense')}</h2>
           <div className={styles.chartWrapper}>
             {/* ResponsiveContainer fills the parent's width so the chart
                 adapts to any screen size without hard-coded pixel values. */}
@@ -116,7 +118,7 @@ export default function Statistics() {
 
         {/* SECTION 2: Most expensive cards list */}
         <section className={`${styles.card} ${isDark ? styles.cardDark : styles.cardLight}`}>
-          <h2 className={styles.cardTitle}>Most expensive</h2>
+          <h2 className={styles.cardTitle}>{t('statistics.mostExpensive')}</h2>
           <div className={styles.list}>
             {mostExpensive.map((card) => (
               <div key={card.id} className={styles.listItem}>

@@ -6,8 +6,10 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import styles from './Settings.module.css';
 
 
@@ -39,7 +41,10 @@ export default function Settings() {
   // `isDark` and `toggleTheme` come from ThemeContext so theme state is the
   // single source of truth across the app — not duplicated in this component.
   const { isDark, toggleTheme } = useTheme();
-  const [appLanguage, setAppLanguage] = useState('fr');
+  // language + setLanguage come from LanguageContext — single source of truth
+  // persisted in localStorage and wired to i18next for instant UI updates.
+  const { language: appLanguage, setLanguage } = useLanguage();
+  const { t } = useTranslation();
   const [cardLanguage, setCardLanguage] = useState('en');
   // Each dropdown tracks its own open/closed state independently.
   const [isAppLangOpen, setIsAppLangOpen] = useState(false);
@@ -104,7 +109,7 @@ export default function Settings() {
                         isDark
                           ? 'text-gray-100 group-hover:text-blue-400'
                           : 'text-gray-800 group-hover:text-blue-700'
-                      }`}>App Language</span>
+                      }`}>{t('settings.appLanguage')}</span>
                       {/* Show the current selection as a subtitle so the user
                           can see their choice without opening the dropdown. */}
                       <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -133,7 +138,7 @@ export default function Settings() {
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setAppLanguage(lang.code);
+                        setLanguage(lang.code);
                         setIsAppLangOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-left transition-colors ${
@@ -184,7 +189,7 @@ export default function Settings() {
                         isDark
                           ? 'text-gray-100 group-hover:text-blue-400'
                           : 'text-gray-800 group-hover:text-blue-700'
-                      }`}>Card Language</span>
+                      }`}>{t('settings.cardLanguage')}</span>
                       <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                         {getLanguageName(cardLanguage)}
                       </span>
@@ -259,7 +264,7 @@ export default function Settings() {
                     isDark
                       ? 'text-gray-100 group-hover:text-blue-400'
                       : 'text-gray-800 group-hover:text-blue-700'
-                  }`}>Dark Mode</span>
+                  }`}>{t('settings.darkMode')}</span>
                 </div>
                 <label className="swap swap-rotate">
                   <input

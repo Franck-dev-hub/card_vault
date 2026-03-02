@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Vault } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
@@ -12,6 +13,7 @@ import { BackgroundGradient } from '../components/ui/background-gradient';
  * does not bleed into page-level logic.
  */
 export default function Login() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // rememberMe is tracked in local state; it will be forwarded to the auth
@@ -47,7 +49,7 @@ export default function Login() {
     } catch (err) {
       // FastAPI returns validation/auth errors inside `detail`; fall back to a
       // generic message so the UI never shows an empty string.
-      setError(err.response?.data?.detail || 'Login failed');
+      setError(err.response?.data?.detail || t('auth.loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -63,7 +65,7 @@ export default function Login() {
             {/* Email */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Email</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.email')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <Mail size={18} className="text-gray-500 dark:text-gray-400" />
@@ -81,7 +83,7 @@ export default function Login() {
             {/* Password */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Password</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.password')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <Vault size={18} className="text-gray-500 dark:text-gray-400" />
@@ -105,7 +107,7 @@ export default function Login() {
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                 />
-                <span className="label-text text-gray-700 dark:text-gray-300">Remember me</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.rememberMe')}</span>
               </label>
             </div>
 
@@ -123,16 +125,16 @@ export default function Login() {
               className="btn w-full mt-4! bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
               disabled={loading}
             >
-              {loading ? 'Logging in...' : 'Submit'}
+              {loading ? t('auth.loggingIn') : t('auth.submit')}
             </button>
           </form>
 
           {/* Sign Up Link */}
           <div className="text-center mt-4 w-full form-field-spacing">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Don't have an account?{' '}
+              {t('auth.noAccount')}{' '}
               <Link to="/create-account" className="link link-primary dark:text-blue-400">
-                Create account
+                {t('auth.createAccount')}
               </Link>
             </p>
           </div>

@@ -1,4 +1,5 @@
 import { Home, ChartColumn, Camera, Vault, Search, X } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 // Local copy — Sidebar does not export NAV_ITEMS because its styling
 // differs from the shared NavLinks component.
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
  *   - `onClose`  — called when the backdrop or close button is clicked.
  */
 export const Sidebar = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   return (
     <>
       {/* Semi-transparent backdrop sits below the sidebar (z-40) but above
@@ -46,7 +48,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
           <button
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="Fermer le menu"
+            aria-label={t('nav.closeMenu')}
           >
             <X size={24} className="text-gray-700" />
           </button>
@@ -65,7 +67,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
                 className="btn btn-xl rounded-xl justify-start gap-4 border border-gray-200 bg-white hover:bg-gray-50 mx-2"
               >
                 <Icon size={24} className="text-gray-700" strokeWidth={1.5} />
-                <span className="text-gray-800 font-medium">{item.name}</span>
+                <span className="text-gray-800 font-medium">{t(`nav.${item.name.toLowerCase()}`)}</span>
               </a>
             );
           })}

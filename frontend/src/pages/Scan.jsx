@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import CardDetails from '../components/CardDetails/CardDetails';
@@ -9,6 +10,7 @@ import styles from './Scan.module.css';
 const API_BASE_URL = import.meta.env.API_BASE_URL;
 
 export default function Scan() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { loading, error } = useApi('/scan');
   const { isDark } = useTheme();
@@ -54,7 +56,7 @@ export default function Scan() {
 
     // Check if getUserMedia is available
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      setCameraError("Camera not supported. Make sure you are using HTTPS.");
+      setCameraError(t('scan.cameraNotSupported'));
       return;
     }
 
@@ -78,11 +80,11 @@ export default function Scan() {
       } catch (fallbackErr) {
         console.error("No camera available:", fallbackErr);
         if (fallbackErr.name === 'NotAllowedError') {
-          setCameraError("Camera permission denied. Allow access in your settings.");
+          setCameraError(t('scan.cameraPermissionDenied'));
         } else if (fallbackErr.name === 'NotFoundError') {
-          setCameraError("No camera detected on this device.");
+          setCameraError(t('scan.noCameraDetected'));
         } else {
-          setCameraError(`Camera error: ${fallbackErr.message}`);
+          setCameraError(t('scan.cameraError', { message: fallbackErr.message }));
         }
       }
     }
@@ -208,7 +210,7 @@ export default function Scan() {
                 <Camera size={48} style={{ opacity: 0.5, marginBottom: '1rem' }} />
                 <p>{cameraError}</p>
                 <button onClick={startCamera} className={styles.retryBtn}>
-                  Retry
+                  {t('scan.retry')}
                 </button>
               </div>
             ) : (
@@ -217,14 +219,14 @@ export default function Scan() {
           ) : isPredicting ? (
             /* --- LOADING VIEW DURING ANALYSIS --- */
             <div className={styles.errorOverlay}>
-              <p>Analyzing...</p>
+              <p>{t('scan.analyzing')}</p>
             </div>
           ) : (
             /* --- RESULTS VIEW --- */
             <div className={styles.resultsOverlay}>
               {predictError && (
                 <p style={{ color: 'orange', textAlign: 'center', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
-                  ⚠️ API unavailable — test results displayed
+                  {t('scan.apiUnavailable')}
                 </p>
               )}
               <div className={styles.resultsList}>
@@ -237,7 +239,7 @@ export default function Scan() {
                     <img src={card.img} alt={card.name} className={styles.resultCardImg} />
                     <div className={styles.resultDetails}>
                       <h3 className={`${styles.matchText} ${index === 0 ? styles.bestMatch : ''}`}>
-                        Match ({card.match}%)
+                        {t('scan.match', { percentage: card.match })}
                       </h3>
                       <p className={styles.cardInfoText}>{card.name}</p>
                       <p className={styles.cardInfoText}>{card.set}</p>
@@ -254,7 +256,7 @@ export default function Scan() {
         <div className={styles.buttonContainer}>
           <button onClick={handleScanAction} className={styles.scanBtn}>
             <Camera size={24} className={styles.btnIcon} />
-            <span>{isScanned ? "Scan again" : "Scan"}</span>
+            <span>{isScanned ? t('scan.scanAgain') : t('scan.scan')}</span>
           </button>
         </div>
       </div>

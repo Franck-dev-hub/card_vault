@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import styles from "./CardDetails.module.css";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "../../contexts/ThemeContext";
 import { X, Plus, Minus, ChevronDown } from "lucide-react";
 
@@ -33,6 +34,7 @@ const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
 };
 
 export default function CardDetails({ card, onClose, onOwnershipChange }) {
+  const { t } = useTranslation();
   const { isDark } = useTheme();
 
   // Tracks how many copies of each variant the user owns.
@@ -108,7 +110,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
         <button
           className={styles.closeButton}
           onClick={onClose}
-          aria-label="Fermer"
+          aria-label={t('cardDetails.close')}
         >
           <X size={32} />
         </button>
@@ -137,7 +139,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
 
           <div className={styles.accordionGroup}>
             {/* --- GREY VAULT SECTION WITH WHITE COUNTERS --- */}
-            <AccordionSection title="Vault" isDark={isDark}>
+            <AccordionSection title={t('cardDetails.vault')} isDark={isDark}>
               <div className={styles.vaultWrapper}>
                 {["Normal", "Reverse", "Holo"].map((variant) => (
                   <div key={variant} className={styles.vaultRow}>
@@ -149,7 +151,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
                     </button>
 
                     <div className={styles.vaultDisplay}>
-                      {variant} : {quantities[variant]}
+                      {t(`cardDetails.${variant.toLowerCase()}`)} : {quantities[variant]}
                     </div>
 
                     <button
@@ -163,7 +165,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
               </div>
             </AccordionSection>
 
-            <AccordionSection title="Prices" isDark={isDark}>
+            <AccordionSection title={t('cardDetails.prices')} isDark={isDark}>
               <div className={styles.pricesWrapper}>
                 {[
                   {
@@ -180,43 +182,43 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
                   },
                 ].map((priceData) => (
                   <div key={priceData.type} className={styles.priceCard}>
-                    <h4 className={styles.priceTypeTitle}>{priceData.type}</h4>
+                    <h4 className={styles.priceTypeTitle}>{t(`cardDetails.${priceData.type.toLowerCase()}`)}</h4>
 
                     <div className={styles.priceRow}>
-                      <span>Low</span>
-                      <span>{priceData.low != null ? `${priceData.low}€` : "N/A"}</span>
+                      <span>{t('cardDetails.low')}</span>
+                      <span>{priceData.low != null ? `${priceData.low}€` : t('common.na')}</span>
                     </div>
 
                     <div className={styles.priceRow}>
-                      <span>Average</span>
-                      <span>{priceData.avg != null ? `${priceData.avg}€` : "N/A"}</span>
+                      <span>{t('cardDetails.average')}</span>
+                      <span>{priceData.avg != null ? `${priceData.avg}€` : t('common.na')}</span>
                     </div>
 
                     <div className={styles.priceRow}>
-                      <span>Trend</span>
-                      <span>{priceData.trend != null ? `${priceData.trend}€` : "N/A"}</span>
+                      <span>{t('cardDetails.trend')}</span>
+                      <span>{priceData.trend != null ? `${priceData.trend}€` : t('common.na')}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </AccordionSection>
 
-            <AccordionSection title="Cards" isDark={isDark}>
+            <AccordionSection title={t('cardDetails.cards')} isDark={isDark}>
               <div className={styles.comingSoonWrapper}>
-                <div className={styles.comingSoonCard}>Coming soon</div>
+                <div className={styles.comingSoonCard}>{t('common.comingSoon')}</div>
               </div>
             </AccordionSection>
 
-            <AccordionSection title="Description" isDark={isDark}>
+            <AccordionSection title={t('cardDetails.description')} isDark={isDark}>
               <div className={styles.descriptionWrapper}>
                 <div className={styles.descriptionCard}>
-                  Illustrator : {card.artist || "N/A"}
+                  {t('cardDetails.illustrator')} : {card.artist || t('common.na')}
                 </div>
                 <div className={styles.descriptionCard}>
-                  Rarity : {card.rarity || "N/A"}
+                  {t('cardDetails.rarity')} : {card.rarity || t('common.na')}
                 </div>
                 <div className={styles.descriptionCard}>
-                  Description : {card.flavorText || "N/A"}
+                  {t('cardDetails.description')} : {card.flavorText || t('common.na')}
                 </div>
               </div>
             </AccordionSection>

@@ -1,0 +1,137 @@
+{
+  "settings": {
+    "appLanguage": "Langue de l'application",
+    "cardLanguage": "Langue des cartes",
+    "darkMode": "Mode sombre"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "loggingIn": "Connexion en cours...",
+    "submit": "Connexion",
+    "noAccount": "Pas encore de compte ?",
+    "createAccount": "Créer un compte",
+    "loginFailed": "Échec de la connexion",
+    "username": "Nom d'utilisateur",
+    "usernamePlaceholder": "Choisissez un nom d'utilisateur",
+    "passwordPlaceholder": "Au moins 6 caractères",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Répétez votre mot de passe",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
+    "creatingAccount": "Création en cours...",
+    "register": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "logIn": "Se connecter",
+    "registrationFailed": "Échec de l'inscription"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur : {{message}}",
+    "comingSoon": "Bientôt disponible",
+    "sort": "Trier",
+    "select": "-- Sélectionner --",
+    "na": "N/A",
+    "toggleTheme": "Basculer le thème"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil"
+  },
+  "dashboard": {
+    "cards": "Cartes",
+    "value": "Valeur",
+    "lastCards": "Dernières cartes ajoutées"
+  },
+  "profile": {
+    "username": "Nom d'utilisateur",
+    "saveChanges": "Sauvegarder",
+    "saving": "Sauvegarde...",
+    "syncData": "Synchroniser les données",
+    "deleteAccount": "Supprimer le compte",
+    "profileUpdated": "Profil mis à jour avec succès !",
+    "errorUpdating": "Erreur lors de la mise à jour du profil",
+    "dataSynced": "Données synchronisées avec succès !",
+    "errorSyncing": "Erreur lors de la synchronisation des données",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+    "accountDeleted": "Compte supprimé",
+    "errorDeleting": "Erreur lors de la suppression du compte"
+  },
+  "search": {
+    "filter": "Filtrer",
+    "licenses": "Licences",
+    "extensions": "Extensions",
+    "loadingExtensions": "Chargement des extensions...",
+    "searching": "Recherche des meilleures cartes..."
+  },
+  "vault": {
+    "licenses": "Licences",
+    "extensions": "Extensions",
+    "inventories": "Inventaires",
+    "decks": "Decks",
+    "cardsOwned": "Cartes possédées",
+    "completeSet": "Série complète",
+    "masterSet": "Série maître"
+  },
+  "scan": {
+    "analyzing": "Analyse en cours...",
+    "retry": "Réessayer",
+    "scanAgain": "Scanner à nouveau",
+    "scan": "Scanner",
+    "cameraNotSupported": "Caméra non supportée. Assurez-vous d'utiliser HTTPS.",
+    "cameraPermissionDenied": "Permission caméra refusée. Autorisez l'accès dans vos paramètres.",
+    "noCameraDetected": "Aucune caméra détectée sur cet appareil.",
+    "cameraError": "Erreur caméra : {{message}}",
+    "apiUnavailable": "⚠️ API indisponible — résultats de test affichés",
+    "match": "Correspondance ({{percentage}}%)"
+  },
+  "statistics": {
+    "distributionByLicense": "Distribution par licence",
+    "mostExpensive": "Les plus chères"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "statistics": "Statistiques",
+    "scan": "Scan",
+    "vault": "Coffre",
+    "search": "Recherche",
+    "about": "À propos",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "logOut": "Se déconnecter",
+    "login": "Connexion",
+    "createAccount": "Créer un compte",
+    "appLanguage": "Langue de l'application",
+    "cardsLanguage": "Langue des cartes",
+    "buyMeTea": "Offrez-moi un thé",
+    "discord": "Discord",
+    "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?",
+    "closeMenu": "Fermer le menu",
+    "backToHome": "Retour à l'accueil",
+    "back": "Retour",
+    "page": "Page",
+    "faq": "FAQ",
+    "legalNotices": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "confidentiality": "Confidentialité",
+    "cookies": "Cookies",
+    "contacts": "Contacts"
+  },
+  "cardDetails": {
+    "vault": "Coffre",
+    "prices": "Prix",
+    "cards": "Cartes",
+    "description": "Description",
+    "normal": "Normal",
+    "reverse": "Reverse",
+    "holo": "Holo",
+    "low": "Bas",
+    "average": "Moyen",
+    "trend": "Tendance",
+    "illustrator": "Illustrateur",
+    "rarity": "Rareté",
+    "close": "Fermer"
+  }
+}

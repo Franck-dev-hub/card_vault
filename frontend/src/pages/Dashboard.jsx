@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useApi } from '../hooks/useApi';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,6 +20,7 @@ import CardDetails from '../components/CardDetails/CardDetails';
  * when available.
  */
 export default function Dashboard() {
+  const { t } = useTranslation();
   // `useApi` handles the fetch lifecycle and exposes loading/error states so
   // we can guard renders without duplicating request logic here.
   const { loading, error } = useApi('/dashboard');
@@ -30,8 +32,8 @@ export default function Dashboard() {
 
   // Show a single loading/error state that blocks the whole page so partial
   // renders with missing data don't confuse users.
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>Error : {error}</div>;
+  if (loading) return <div className={styles.loading}>{t('common.loading')}</div>;
+  if (error) return <div className={styles.error}>{t('common.error', { message: error })}</div>;
 
   // TODO: replace with real data from the API once the endpoint is ready.
   const lastCards = [
@@ -67,18 +69,18 @@ export default function Dashboard() {
       {/* Section Stats */}
       <div className={styles.statsContainer}>
         <div className={styles.statBox}>
-          <span className={styles.statLabel}>Cards</span>
+          <span className={styles.statLabel}>{t('dashboard.cards')}</span>
           <span className={styles.statValue}>1235</span>
         </div>
         <div className={styles.statBox}>
-          <span className={styles.statLabel}>Value</span>
+          <span className={styles.statLabel}>{t('dashboard.value')}</span>
           <span className={styles.statValue}>657 €</span>
         </div>
       </div>
 
       {/* Section Last Cards added */}
       <div className={styles.sectionHeader}>
-        <h3>Last cards added</h3>
+        <h3>{t('dashboard.lastCards')}</h3>
       </div>
 
       {/* Horizontal scroll list — each card is clickable to open the detail

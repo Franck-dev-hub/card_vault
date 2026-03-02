@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
+// Importing i18n initialises i18next before any component renders,
+// preventing a flash of untranslated content on first load.
+import './i18n';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './components/HomePage';
 import Dashboard from './pages/Dashboard';
@@ -32,9 +36,10 @@ import { Contacts } from './pages/About/Contacts';
 // auth state is accessible to route guards without being re-mounted on navigation.
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <BrowserRouter>
+    <LanguageProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
           <Routes>
             {/* Root route: renders LandingPage for anonymous visitors and
                 Dashboard (inside MainLayout) for authenticated users.
@@ -169,9 +174,10 @@ function App() {
                 the user always gets meaningful feedback instead of a blank screen. */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </ThemeProvider>
+          </BrowserRouter>
+        </AuthProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

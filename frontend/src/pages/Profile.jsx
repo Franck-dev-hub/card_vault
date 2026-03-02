@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Camera, RefreshCw, Trash2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
@@ -18,6 +19,7 @@ import { BackgroundGradient } from '../components/ui/background-gradient';
  * the endpoints are available.
  */
 export default function Profile() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
   const { user } = useAuth();
@@ -83,10 +85,10 @@ export default function Profile() {
 
     try {
       console.log('Updating profile:', formData);
-      alert('Profile updated successfully!');
+      alert(t('profile.profileUpdated'));
     } catch (error) {
       console.error('Update error:', error);
-      alert('Error updating profile');
+      alert(t('profile.errorUpdating'));
     } finally {
       setLoading(false);
     }
@@ -100,10 +102,10 @@ export default function Profile() {
   const handleSyncData = async () => {
     try {
       console.log('Syncing data...');
-      alert('Data synced successfully!');
+      alert(t('profile.dataSynced'));
     } catch (error) {
       console.error('Sync error:', error);
-      alert('Error syncing data');
+      alert(t('profile.errorSyncing'));
     }
   };
 
@@ -115,20 +117,18 @@ export default function Profile() {
    * "type your username to confirm") would be safer for an irreversible action.
    */
   const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete your account? This action is irreversible.'
-    );
+    const confirmDelete = window.confirm(t('profile.deleteConfirm'));
 
     if (confirmDelete) {
       try {
         console.log('Deleting account...');
-        alert('Account deleted');
+        alert(t('profile.accountDeleted'));
         // Redirect to the landing page so the user is not stuck on a page
         // that requires an authenticated session that no longer exists.
         navigate('/');
       } catch (error) {
         console.error('Delete error:', error);
-        alert('Error deleting account');
+        alert(t('profile.errorDeleting'));
       }
     }
   };
@@ -161,7 +161,7 @@ export default function Profile() {
                   {/* Username */}
                   <div className="form-control w-full">
                     <label className="label pb-1">
-                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Username</span>
+                      <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>{t('profile.username')}</span>
                     </label>
                     <div className={`input input-bordered input-sm md:input-md w-full flex items-center ${
                       isDark ? 'bg-slate-700 border-gray-600 text-gray-400' : 'bg-gray-50 text-gray-500'
@@ -210,7 +210,7 @@ export default function Profile() {
               {/* Password */}
               <div className="form-control w-full form-field-spacing">
                 <label className="label pb-1">
-                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Password</span>
+                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>{t('auth.password')}</span>
                 </label>
                 <input
                   type="password"
@@ -227,7 +227,7 @@ export default function Profile() {
               {/* Email */}
               <div className="form-control w-full form-field-spacing">
                 <label className="label pb-1">
-                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>Email</span>
+                  <span className={`label-text text-sm ${isDark ? 'text-gray-300' : ''}`}>{t('auth.email')}</span>
                 </label>
                 <input
                   type="email"
@@ -247,7 +247,7 @@ export default function Profile() {
                 className="btn btn-sm md:btn-md bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 w-full form-field-spacing"
                 disabled={loading}
               >
-                {loading ? 'Saving...' : 'Save Changes'}
+                {loading ? t('profile.saving') : t('profile.saveChanges')}
               </button>
             </form>
 
@@ -262,7 +262,7 @@ export default function Profile() {
               }`}
             >
               <RefreshCw size={18} />
-              Sync Data
+              {t('profile.syncData')}
             </button>
 
             {/* Delete Account Button — styled in red to signal a destructive
@@ -277,7 +277,7 @@ export default function Profile() {
               }`}
             >
               <Trash2 size={18} />
-              Delete Account
+              {t('profile.deleteAccount')}
             </button>
           </div>
         </div>

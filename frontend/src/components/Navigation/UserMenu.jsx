@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogIn, LogOut, UserPlus, User, Settings, Info } from 'lucide-react';
 import { FaDiscord } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -16,6 +17,7 @@ import { useTheme } from '../../contexts/ThemeContext';
  *                        app intentionally shows the logged-out UI (e.g. landing page).
  */
 export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
   const { isDark } = useTheme();
@@ -27,7 +29,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
   const handleLogout = () => {
     // Require explicit confirmation before calling logout to prevent accidental
     // sign-outs triggered by mis-clicks on a touch interface.
-    const confirmLogout = window.confirm('Are you sure you want to log out?');
+    const confirmLogout = window.confirm(t('nav.logoutConfirm'));
     if (confirmLogout) {
       logout();
       navigate('/');
@@ -81,7 +83,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <User size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Profile</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.profile')}</span>
               </button>
 
               {/* Settings */}
@@ -99,7 +101,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Settings size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Settings</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.settings')}</span>
               </button>
 
               {/* Buy me a tea */}
@@ -130,7 +132,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 >
                   <SiBuymeacoffee size={24} className="text-[#5f9b88]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-emerald-400' : 'text-gray-800 group-hover:text-emerald-600'}`}>Buy me a tea</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-emerald-400' : 'text-gray-800 group-hover:text-emerald-600'}`}>{t('nav.buyMeTea')}</span>
               </a>
 
               {/* Discord */}
@@ -148,7 +150,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-900/50 group-hover:bg-indigo-800/50' : 'bg-indigo-100 group-hover:bg-indigo-200'}`}>
                   <FaDiscord size={24} className="text-[#5865F2]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>Discord</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>{t('nav.discord')}</span>
               </a>
 
               {/* About */}
@@ -166,7 +168,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Info size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.about')}</span>
               </button>
 
               {/* Spacer to add a little space before logout */}
@@ -184,7 +186,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-red-900/50 group-hover:bg-red-800/50' : 'bg-red-100 group-hover:bg-red-200'}`}>
                   <LogOut size={24} className="text-red-500" strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-red-400 group-hover:text-red-300' : 'text-red-600 group-hover:text-red-700'}`}>Log Out</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-red-400 group-hover:text-red-300' : 'text-red-600 group-hover:text-red-700'}`}>{t('nav.logOut')}</span>
               </button>
             </>
           ) : (
@@ -206,7 +208,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <LogIn size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Login</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.login')}</span>
               </button>
 
               {/* Create Account */}
@@ -224,7 +226,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <UserPlus size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>Create Account</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.createAccount')}</span>
               </button>
 
               {/* Buy me a tea */}
@@ -255,7 +257,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 >
                   <SiBuymeacoffee size={24} className="text-[#FFDD00]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-emerald-400' : 'text-gray-800 group-hover:text-emerald-600'}`}>Buy me a tea</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-emerald-400' : 'text-gray-800 group-hover:text-emerald-600'}`}>{t('nav.buyMeTea')}</span>
               </a>
 
               {/* Discord */}
@@ -273,7 +275,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-900/50 group-hover:bg-indigo-800/50' : 'bg-indigo-100 group-hover:bg-indigo-200'}`}>
                   <FaDiscord size={24} className="text-[#5865F2]" />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>Discord</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-800 group-hover:text-indigo-600'}`}>{t('nav.discord')}</span>
               </a>
 
               {/* About */}
@@ -291,7 +293,7 @@ export const UserMenu = ({ isOpen, onClose, forceGuestMenu = false }) => {
                 <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-gray-600 group-hover:bg-gray-500' : 'bg-blue-100 group-hover:bg-blue-200'}`}>
                   <Info size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} strokeWidth={2} />
                 </div>
-                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>About</span>
+                <span className={`font-semibold text-lg ${isDark ? 'text-gray-100 group-hover:text-blue-400' : 'text-gray-800 group-hover:text-blue-700'}`}>{t('nav.about')}</span>
               </button>
             </>
           )}

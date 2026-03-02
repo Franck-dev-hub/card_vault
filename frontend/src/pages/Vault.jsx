@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import { ChevronDown, ArrowLeft, ChevronRight, Check } from "lucide-react";
 import styles from "./Vault.module.css";
@@ -18,6 +19,7 @@ const cardBack = "https://images.pokemonfree.com/back.png";
  * `useApi` calls when ready.
  */
 export default function Vault() {
+  const { t } = useTranslation();
   const { isDark } = useTheme();
 
   // `view` acts as the navigation stack; changing it re-renders the
@@ -56,10 +58,10 @@ export default function Vault() {
   // stays minimal — only one view is active at a time.
   const renderMainMenu = () => (
     <div className={styles.menuList}>
-      <button className={styles.menuButton} onClick={() => setView("licenses")}>Licenses</button>
-      <button className={styles.menuButton} onClick={() => setView("extensions")}>Extensions</button>
-      <button className={styles.menuButton} onClick={() => setView("inventories")}>Inventories</button>
-      <button className={styles.menuButton} onClick={() => setView("decks")}>Decks</button>
+      <button className={styles.menuButton} onClick={() => setView("licenses")}>{t('vault.licenses')}</button>
+      <button className={styles.menuButton} onClick={() => setView("extensions")}>{t('vault.extensions')}</button>
+      <button className={styles.menuButton} onClick={() => setView("inventories")}>{t('vault.inventories')}</button>
+      <button className={styles.menuButton} onClick={() => setView("decks")}>{t('vault.decks')}</button>
     </div>
   );
 
@@ -67,9 +69,9 @@ export default function Vault() {
     <div className={styles.viewContainer}>
       <div className={styles.headerTitle}>
         <ArrowLeft onClick={handleBack} className={styles.backIcon} />
-        <span>Licenses</span>
+        <span>{t('vault.licenses')}</span>
       </div>
-      <button className={styles.sortButton}><span>Sort</span><ChevronDown size={20} /></button>
+      <button className={styles.sortButton}><span>{t('common.sort')}</span><ChevronDown size={20} /></button>
       <div className={styles.scrollList}>
         {licensesData.map((lib) => (
           // Selecting a license stores it and drills into its extension list.
@@ -77,7 +79,7 @@ export default function Vault() {
             <div className={styles.logoWrapper}><img src={lib.logo} alt={lib.name} className={styles.licenseLogo} /></div>
             <div className={styles.countBox}>
               <div className={styles.countNumber}>{lib.count}</div>
-              <div className={styles.countLabel}>Cards owned</div>
+              <div className={styles.countLabel}>{t('vault.cardsOwned')}</div>
             </div>
           </div>
         ))}
@@ -101,9 +103,9 @@ export default function Vault() {
       <div className={styles.viewContainer}>
         <div className={styles.headerTitle}>
           <ArrowLeft onClick={handleBack} className={styles.backIcon} />
-          <span>{filterByLicense ? selectedLicense.name : "Extensions"}</span>
+          <span>{filterByLicense ? selectedLicense.name : t('vault.extensions')}</span>
         </div>
-        <button className={styles.sortButton}><span>Sort</span> <ChevronRight size={20} /></button>
+        <button className={styles.sortButton}><span>{t('common.sort')}</span> <ChevronRight size={20} /></button>
         <div className={styles.scrollList}>
           {list.map((ext) => (
             <div key={ext.id} className={styles.extensionCard} onClick={() => { setSelectedExtension(ext); setView("cards"); }}>
@@ -136,7 +138,7 @@ export default function Vault() {
       </div>
 
       <button className={styles.sortButton}>
-        <span>Sort</span>
+        <span>{t('common.sort')}</span>
         <ChevronRight size={20} />
       </button>
 
@@ -144,14 +146,14 @@ export default function Vault() {
           "master set" includes all variants/secret rares. */}
       <div className={styles.statsHeaderRow}>
         <div className={styles.statBox}>
-          <span className={styles.statTitle}>Complete set</span>
+          <span className={styles.statTitle}>{t('vault.completeSet')}</span>
           <div className={styles.progressBarContainer}>
             <div className={styles.progressBar} style={{ width: `${(selectedExtension?.collected / selectedExtension?.total) * 100}%` }}></div>
           </div>
           <span className={styles.statValues}>{selectedExtension?.collected} of {selectedExtension?.total}</span>
         </div>
         <div className={styles.statBox}>
-          <span className={styles.statTitle}>Master set</span>
+          <span className={styles.statTitle}>{t('vault.masterSet')}</span>
           <div className={styles.progressBarContainer}>
             <div className={styles.progressBar} style={{ width: `${(selectedExtension?.masterCollected / selectedExtension?.masterTotal) * 100}%` }}></div>
           </div>
@@ -199,7 +201,7 @@ export default function Vault() {
         <ArrowLeft onClick={handleBack} className={styles.backIcon} />
         <span>{title}</span>
       </div>
-      <div className={styles.comingSoonCard}>Coming soon</div>
+      <div className={styles.comingSoonCard}>{t('common.comingSoon')}</div>
     </div>
   );
 
@@ -211,8 +213,8 @@ export default function Vault() {
       {view === "extensions" && renderExtensions(false)}
       {view === "licenses_extensions" && renderExtensions(true)}
       {view === "cards" && renderCards()}
-      {view === "inventories" && renderPlaceholder("Inventories")}
-      {view === "decks" && renderPlaceholder("Decks")}
+      {view === "inventories" && renderPlaceholder(t('vault.inventories'))}
+      {view === "decks" && renderPlaceholder(t('vault.decks'))}
     </div>
   );
 }

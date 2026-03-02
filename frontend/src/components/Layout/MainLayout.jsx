@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useResponsive } from "../../hooks/useResponsive";
 import { User, ArrowLeft } from "lucide-react";
 import { Navbar } from "../Navigation/Navbar";
@@ -9,29 +10,29 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
 
 /**
- * Maps every known route to its human-readable page title.
+ * Maps every known route to its i18n translation key.
  * Defined at module scope so the object reference is stable across renders.
- * Falls back to "Page" for any unknown path.
+ * Falls back to "nav.page" for any unknown path.
  */
 const PAGE_TITLES = {
-  "/": "Dashboard",
-  "/dashboard": "Dashboard",
-  "/login": "Login",
-  "/create-account": "Create Account",
-  "/statistics": "Statistics",
-  "/scan": "Scan",
-  "/vault": "Vault",
-  "/search": "Search",
-  "/settings": "Settings",
-  "/profile": "Profile",
-  "/about": "About",
-  "/About": "About",
-  "/about/faq": "FAQ",
-  "/about/legal-notices": "Legal notices",
-  "/about/terms": "Terms",
-  "/about/confidentiality": "Confidentiality",
-  "/about/cookies": "Cookies",
-  "/about/contacts": "Contacts",
+  "/": "nav.dashboard",
+  "/dashboard": "nav.dashboard",
+  "/login": "nav.login",
+  "/create-account": "nav.createAccount",
+  "/statistics": "nav.statistics",
+  "/scan": "nav.scan",
+  "/vault": "nav.vault",
+  "/search": "nav.search",
+  "/settings": "nav.settings",
+  "/profile": "nav.profile",
+  "/about": "nav.about",
+  "/About": "nav.about",
+  "/about/faq": "nav.faq",
+  "/about/legal-notices": "nav.legalNotices",
+  "/about/terms": "nav.terms",
+  "/about/confidentiality": "nav.confidentiality",
+  "/about/cookies": "nav.cookies",
+  "/about/contacts": "nav.contacts",
 };
 
 /**
@@ -86,6 +87,7 @@ const GUEST_PAGES_WITH_BACK = ["/login", "/create-account"];
  * @param {{ children: React.ReactNode }} props
  */
 export const MainLayout = ({ children }) => {
+  const { t } = useTranslation();
   const isMobile = useResponsive();
   // Controls the mobile slide-in user menu visibility.
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -99,8 +101,8 @@ export const MainLayout = ({ children }) => {
 
   const isGuestPageWithBack = GUEST_PAGES_WITH_BACK.includes(location.pathname);
 
-  // Fall back to "Page" for any route not listed in PAGE_TITLES.
-  const currentPageTitle = PAGE_TITLES[location.pathname] || "Page";
+  // Fall back to "nav.page" for any route not listed in PAGE_TITLES.
+  const currentPageTitle = t(PAGE_TITLES[location.pathname] || "nav.page");
 
   // Show the back button for inner authenticated pages, all /about sub-routes,
   // the top-level /about when unauthenticated, and guest pages like /login.
@@ -140,7 +142,7 @@ export const MainLayout = ({ children }) => {
               <button
                 onClick={() => navigate("/")}
                 className="btn btn-circle border-2 bg-transparent border-white/50 hover:bg-white/10 text-white transition-colors"
-                aria-label="Retour à l'accueil"
+                aria-label={t('nav.backToHome')}
               >
                 <ArrowLeft size={24} strokeWidth={1.5} />
               </button>
@@ -202,7 +204,7 @@ export const MainLayout = ({ children }) => {
                       : "border-black hover:bg-gray-100 text-black"
                   }`}
                   style={{ marginLeft: "10px" }}
-                  aria-label="Retour"
+                  aria-label={t('nav.back')}
                 >
                   <ArrowLeft size={24} strokeWidth={1.5} />
                 </button>

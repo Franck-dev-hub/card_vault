@@ -1,4 +1,5 @@
 import { Sun, Moon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 
 /**
@@ -10,13 +11,14 @@ import { useTheme } from '../contexts/ThemeContext';
  * Theme state lives in ThemeContext, keeping this component free of local state.
  */
 export default function ThemeToggle() {
+  const { t } = useTranslation();
   const { isDark, toggleTheme } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
       className="p-2 rounded-lg bg-base-200 hover:bg-base-300 transition-colors"
-      aria-label="Toggle dark mode"
+      aria-label={t('common.toggleTheme')}
     >
       {/* Show Sun in dark mode so the user knows clicking will switch to light */}
       {isDark ? (

@@ -1,0 +1,137 @@
+{
+  "settings": {
+    "appLanguage": "アプリの言語",
+    "cardLanguage": "カードの言語",
+    "darkMode": "ダークモード"
+  },
+  "auth": {
+    "email": "メール",
+    "password": "パスワード",
+    "rememberMe": "ログイン状態を保持",
+    "loggingIn": "ログイン中...",
+    "submit": "ログイン",
+    "noAccount": "アカウントをお持ちでないですか？",
+    "createAccount": "アカウント作成",
+    "loginFailed": "ログインに失敗しました",
+    "username": "ユーザー名",
+    "usernamePlaceholder": "ユーザー名を選択",
+    "passwordPlaceholder": "6文字以上",
+    "confirmPassword": "パスワードの確認",
+    "confirmPasswordPlaceholder": "パスワードを再入力",
+    "passwordsMismatch": "パスワードが一致しません",
+    "passwordTooShort": "パスワードは6文字以上必要です",
+    "creatingAccount": "アカウント作成中...",
+    "register": "登録",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+    "logIn": "ログイン",
+    "registrationFailed": "登録に失敗しました"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー: {{message}}",
+    "comingSoon": "近日公開",
+    "sort": "並び替え",
+    "select": "-- 選択 --",
+    "na": "N/A",
+    "toggleTheme": "テーマ切替"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "お探しのページは存在しないか、移動されました。",
+    "backHome": "ホームに戻る"
+  },
+  "dashboard": {
+    "cards": "カード",
+    "value": "価値",
+    "lastCards": "最近追加されたカード"
+  },
+  "profile": {
+    "username": "ユーザー名",
+    "saveChanges": "変更を保存",
+    "saving": "保存中...",
+    "syncData": "データを同期",
+    "deleteAccount": "アカウントを削除",
+    "profileUpdated": "プロフィールを更新しました！",
+    "errorUpdating": "プロフィールの更新に失敗しました",
+    "dataSynced": "データを同期しました！",
+    "errorSyncing": "データの同期に失敗しました",
+    "deleteConfirm": "本当にアカウントを削除しますか？この操作は元に戻せません。",
+    "accountDeleted": "アカウントを削除しました",
+    "errorDeleting": "アカウントの削除に失敗しました"
+  },
+  "search": {
+    "filter": "フィルター",
+    "licenses": "ライセンス",
+    "extensions": "エクステンション",
+    "loadingExtensions": "エクステンションを読み込み中...",
+    "searching": "最高のカードを検索中..."
+  },
+  "vault": {
+    "licenses": "ライセンス",
+    "extensions": "エクステンション",
+    "inventories": "インベントリ",
+    "decks": "デッキ",
+    "cardsOwned": "所持カード",
+    "completeSet": "コンプリートセット",
+    "masterSet": "マスターセット"
+  },
+  "scan": {
+    "analyzing": "分析中...",
+    "retry": "再試行",
+    "scanAgain": "再スキャン",
+    "scan": "スキャン",
+    "cameraNotSupported": "カメラに対応していません。HTTPSを使用していることを確認してください。",
+    "cameraPermissionDenied": "カメラへのアクセスが拒否されました。設定でアクセスを許可してください。",
+    "noCameraDetected": "このデバイスにカメラが検出されませんでした。",
+    "cameraError": "カメラエラー: {{message}}",
+    "apiUnavailable": "⚠️ API利用不可 — テスト結果を表示中",
+    "match": "一致度 ({{percentage}}%)"
+  },
+  "statistics": {
+    "distributionByLicense": "ライセンス別分布",
+    "mostExpensive": "最高額"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "statistics": "統計",
+    "scan": "スキャン",
+    "vault": "保管庫",
+    "search": "検索",
+    "about": "について",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "logOut": "ログアウト",
+    "login": "ログイン",
+    "createAccount": "アカウント作成",
+    "appLanguage": "アプリの言語",
+    "cardsLanguage": "カードの言語",
+    "buyMeTea": "お茶をおごってください",
+    "discord": "Discord",
+    "logoutConfirm": "ログアウトしてもよろしいですか？",
+    "closeMenu": "メニューを閉じる",
+    "backToHome": "ホームに戻る",
+    "back": "戻る",
+    "page": "ページ",
+    "faq": "よくある質問",
+    "legalNotices": "法的通知",
+    "terms": "利用規約",
+    "confidentiality": "プライバシー",
+    "cookies": "クッキー",
+    "contacts": "お問い合わせ"
+  },
+  "cardDetails": {
+    "vault": "保管庫",
+    "prices": "価格",
+    "cards": "カード",
+    "description": "説明",
+    "normal": "ノーマル",
+    "reverse": "リバース",
+    "holo": "ホロ",
+    "low": "最安値",
+    "average": "平均",
+    "trend": "トレンド",
+    "illustrator": "イラストレーター",
+    "rarity": "レアリティ",
+    "close": "閉じる"
+  }
+}

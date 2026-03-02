@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Vault } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { BackgroundGradient } from '../components/ui/background-gradient';
 
@@ -13,6 +14,7 @@ import { BackgroundGradient } from '../components/ui/background-gradient';
  * AuthContext so that session handling remains in one place.
  */
 export default function CreateAccount() {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +38,7 @@ export default function CreateAccount() {
 
     // Guard: passwords must match before we attempt the API call.
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('auth.passwordsMismatch'));
       return;
     }
 
@@ -44,7 +46,7 @@ export default function CreateAccount() {
     // feedback. The server validates this too, but client-side checks avoid
     // unnecessary network traffic.
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError(t('auth.passwordTooShort'));
       return;
     }
 
@@ -59,7 +61,7 @@ export default function CreateAccount() {
     } catch (err) {
       // FastAPI returns validation/auth errors inside `detail`; fall back to a
       // generic message so the UI never shows an empty string.
-      setError(err.response?.data?.detail || 'Registration failed');
+      setError(err.response?.data?.detail || t('auth.registrationFailed'));
     } finally {
       setLoading(false);
     }
@@ -76,13 +78,13 @@ export default function CreateAccount() {
             {/* Username */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Username</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.username')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <User size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Choose a username"
+                  placeholder={t('auth.usernamePlaceholder')}
                   className="grow bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -95,7 +97,7 @@ export default function CreateAccount() {
             {/* Email */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Email</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.email')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <Mail size={18} className="text-gray-500 dark:text-gray-400" />
@@ -114,13 +116,13 @@ export default function CreateAccount() {
             {/* Password */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Password</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.password')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <Vault size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="password"
-                  placeholder="At least 6 characters"
+                  placeholder={t('auth.passwordPlaceholder')}
                   className="grow bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -134,13 +136,13 @@ export default function CreateAccount() {
             {/* Confirm Password */}
             <div className="form-control w-full form-field-spacing">
               <label className="label">
-                <span className="label-text text-gray-700 dark:text-gray-300">Confirm Password</span>
+                <span className="label-text text-gray-700 dark:text-gray-300">{t('auth.confirmPassword')}</span>
               </label>
               <label className="input input-bordered bg-white dark:bg-slate-700 dark:border-gray-600 flex items-center gap-2 w-full">
                 <Vault size={18} className="text-gray-500 dark:text-gray-400" />
                 <input
                   type="password"
-                  placeholder="Repeat your password"
+                  placeholder={t('auth.confirmPasswordPlaceholder')}
                   className="grow bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -165,7 +167,7 @@ export default function CreateAccount() {
               className="btn w-full mt-4! bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
               disabled={loading}
             >
-              {loading ? 'Creating account...' : 'Register'}
+              {loading ? t('auth.creatingAccount') : t('auth.register')}
             </button>
           </form>
 
@@ -173,9 +175,9 @@ export default function CreateAccount() {
           {/* Link to Login */}
           <div className="text-center mt-4 w-full form-field-spacing">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Already have an account?{' '}
+              {t('auth.alreadyHaveAccount')}{' '}
               <Link to="/login" className="link link-primary dark:text-blue-400">
-                Log in
+                {t('auth.logIn')}
               </Link>
             </p>
           </div>

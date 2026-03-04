@@ -45,7 +45,7 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
         status_code=status_code,
         content={
             "message": message,
-            "user_id": user.id
+            "user_id": str(user.id)
         }
     )
 

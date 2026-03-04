@@ -48,8 +48,8 @@ async def post_register(user_data: UserCreate, db: Session = Depends(get_postgre
         username=user_data.username,
         email=user_data.email,
         password=hashed_password,
-        created_at=datetime.now().isoformat(),
-        updated_at=datetime.now().isoformat()
+        created_at=datetime.now(),
+        updated_at=datetime.now()
     )
 
     # Save to Postgres
@@ -62,7 +62,7 @@ async def post_register(user_data: UserCreate, db: Session = Depends(get_postgre
         status_code=201,
         content={
             "message": "User created successfully",
-            "user_id": new_user.id
+            "user_id": str(new_user.id)
         }
     )
     return response

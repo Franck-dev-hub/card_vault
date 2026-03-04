@@ -31,6 +31,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from app.services.database.postgres.postgres import engine, Base
+from app.models.user import User
+from app.models.card import Card
+from app.models.collections import Collection
+
 # Create tables in the database
 try:
     Base.metadata.create_all(engine)
@@ -49,7 +54,6 @@ app.include_router(logout.router, prefix="/api")
 app.include_router(register.router, prefix="/api")
 app.include_router(delete_account.router, prefix="/api")
 app.include_router(me.router, prefix="/api")
-
 
 
 @app.get("/api/health")

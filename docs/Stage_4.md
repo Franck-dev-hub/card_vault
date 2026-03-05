@@ -39,9 +39,9 @@
 | 6    | Haitu      | Frontend | Connect authentification and ml                      | User can connect and take a photo of a card          |
 | 6    | Franck     | ML       | Finish to connect ml with back and front             | User can take a photo of a card and predict his card |
 |      |            |          |                                                      |                                                      |
-| 7    | Jérémy     | Backend  |                                                      |                                                      |
-| 7    | Haitu      | Frontend |                                                      |                                                      |
-| 7    | Franck     | ML       |                                                      |                                                      |
+| 7    | Jérémy     | Backend  | Start working on collection database                 | For the moment - nothing                             |
+| 7    | Haitu      | Frontend | Get /me data + update card details                   | Display user data + anhanced cards details           |
+| 7    | Franck     | Devops   | Deployment of the app on a local server              | Working online web app                               |
 |      |            |          |                                                      |                                                      |
 | 8    | Jérémy     | Backend  |                                                      |                                                      |
 | 8    | Haitu      | Frontend |                                                      |                                                      |
@@ -52,86 +52,86 @@
 > What challenges did we face?
 > What changes can we make to improve the next sprint?
 
-| Week | Assignment | Area     | What worked                           | Challenges                           | Improvements                       |
-|------|------------|----------|---------------------------------------|--------------------------------------|------------------------------------|
-| 1    | Jérémy     | Backend  | Proxy configuration completed quickly | Backend / frontend connection issues | Standardise API endpoints          |
-| 1    | Haitu      | Frontend | UI foundation implemented             | Framework configuration complexity   | Define routing early               |
-| 1    | Franck     | ML       | Model inference successful            | Large dataset memory usage           | Optimise data pipeline             |
-|      |            |          |                                       |                                      |                                    |
-| 2    | Jérémy     | Backend  | Card & set data fetched correctly     | Send correct data                    | Normelize cards data               |
-| 2    | Haitu      | Frontend | Forms rendering correctly             | Learning new UI framework            | Improve component modularity       |
-| 2    | Franck     | ML       | Streaming performance improved        | HuggingFace integration              | Create unified ML endpoint         |
-|      |            |          |                                       |                                      |                                    |
-| 3    | Jérémy     | Backend  | Multi-license search implemented      | Complex route logic                  | Refactor folder structure          |
-| 3    | Haitu      | Frontend | Page structure completed              | Connection between back & front      | Improve API mocking                |
-| 3    | Franck     | Docs     | Full figma prototype                  | Learning design tooling              | Work on ML                         |
-|      |            |          |                                       |                                      |                                    |
-| 4    | Jérémy     | Backend  | Data normalization stable             | Parsing external APIs                | Improve validation using Pydantic  |
-| 4    | Haitu      | Frontend | Camera integration working            | Learning Ngrok integration           | Move to production API             |
-| 4    | Franck     | ML       | Faster inference & JSON export        | Multi-service FastAPI sessions       | Help Jérémy on the backend         |
-|      |            |          |                                       |                                      |                                    |
-| 5    | Jérémy     | Backend  | Display magic datas                   | Parsing magic data                   | Display the right data             |
-| 5    | Haitu      | Frontend | Finish camera integration             | Create / use API requests            | Make tests for login and search    |
-| 5    | Franck     | Backend  | Login is working                      | Manage postgres and redis            | Connect front back and ml for scan |
-|      |            |          |                                       |                                      |                                    |
-| 6    | Jérémy     | Backend  | Display correct data despite license  | Universalise data                    | Think more about need before       |
-| 6    | Haitu      | Frontend | Authentification + backend connection | Use and parse routes                 | Improve CSS                        |
-| 6    | Franck     | ML       | Connection between back and front     | Create 2 fastAPI logics              | Deploy app                         |
-|      |            |          |                                       |                                      |                                    |
-| 7    | Jérémy     | Backend  |                                       |                                      |                                    |
-| 7    | Haitu      | Frontend |                                       |                                      |                                    |
-| 7    | Franck     | ML       |                                       |                                      |                                    |
-|      |            |          |                                       |                                      |                                    |
-| 8    | Jérémy     | Backend  |                                       |                                      |                                    |
-| 8    | Haitu      | Frontend |                                       |                                      |                                    |
-| 8    | Franck     | ML       |                                       |                                      |                                    |
+| Week | Assignment | Area     | What worked                                   | Challenges                           | Improvements                       |
+|------|------------|----------|-----------------------------------------------|--------------------------------------|------------------------------------|
+| 1    | Jérémy     | Backend  | Proxy configuration completed quickly         | Backend / frontend connection issues | Standardise API endpoints          |
+| 1    | Haitu      | Frontend | UI foundation implemented                     | Framework configuration complexity   | Define routing early               |
+| 1    | Franck     | ML       | Model inference successful                    | Large dataset memory usage           | Optimise data pipeline             |
+|      |            |          |                                               |                                      |                                    |
+| 2    | Jérémy     | Backend  | Card & set data fetched correctly             | Send correct data                    | Normelize cards data               |
+| 2    | Haitu      | Frontend | Forms rendering correctly                     | Learning new UI framework            | Improve component modularity       |
+| 2    | Franck     | ML       | Streaming performance improved                | HuggingFace integration              | Create unified ML endpoint         |
+|      |            |          |                                               |                                      |                                    |
+| 3    | Jérémy     | Backend  | Multi-license search implemented              | Complex route logic                  | Refactor folder structure          |
+| 3    | Haitu      | Frontend | Page structure completed                      | Connection between back & front      | Improve API mocking                |
+| 3    | Franck     | Docs     | Full figma prototype                          | Learning design tooling              | Work on ML                         |
+|      |            |          |                                               |                                      |                                    |
+| 4    | Jérémy     | Backend  | Data normalization stable                     | Parsing external APIs                | Improve validation using Pydantic  |
+| 4    | Haitu      | Frontend | Camera integration working                    | Learning Ngrok integration           | Move to production API             |
+| 4    | Franck     | ML       | Faster inference & JSON export                | Multi-service FastAPI sessions       | Help Jérémy on the backend         |
+|      |            |          |                                               |                                      |                                    |
+| 5    | Jérémy     | Backend  | Display magic datas                           | Parsing magic data                   | Display the right data             |
+| 5    | Haitu      | Frontend | Finish camera integration                     | Create / use API requests            | Make tests for login and search    |
+| 5    | Franck     | Backend  | Login is working                              | Manage postgres and redis            | Connect front back and ml for scan |
+|      |            |          |                                               |                                      |                                    |
+| 6    | Jérémy     | Backend  | Display correct data despite license          | Universalise data                    | Think more about need before       |
+| 6    | Haitu      | Frontend | Authentification + backend connection         | Use and parse routes                 | Improve CSS                        |
+| 6    | Franck     | ML       | Connection between back and front             | Create 2 fastAPI logics              | Deploy app                         |
+|      |            |          |                                               |                                      |                                    |
+| 7    | Jérémy     | Backend  | Initialisation of schemas & models            | Parse needed outcome data            | Finish implementation              |
+| 7    | Haitu      | Frontend | Integration a user data + update card details | Update card data                     | Finish implementation              |
+| 7    | Franck     | Devops   | The app is working online                     | Secure the deployment                | Help to finish databse             |
+|      |            |          |                                               |                                      |                                    |
+| 8    | Jérémy     | Backend  |                                               |                                      |                                    |
+| 8    | Haitu      | Frontend |                                               |                                      |                                    |
+| 8    | Franck     | ML       |                                               |                                      |                                    |
 
 ## 3 Sprint planning
 > Sprint plan with prioritized tasks, deadlines, and responsibilities for all team members.
 
-| Week | Member | Area            | Feature                                        | Branch                | QA Validation                                                  |
-|------|--------|-----------------|------------------------------------------------|-----------------------|----------------------------------------------------------------|
-| 1    | Jérémy | Backend         | Proxy setup                                    | feat/proxy            | Verify successful request forwarding from proxy to backend API |
-| 1    | Haitu  | Frontend        | UI toolchain setup (Tailwind, DaisyUI, Lucide) | feat/menu             | Ensure project compiles without errors                         |
-| 1    | Franck | ML              | Model initialization                           | feat/ml               | Validate model loads and returns prediction for sample input   |
-|      |        |                 |                                                |                       |                                                                |
-| 2    | Jérémy | Backend         | Menu & profile route variables                 | feat/route            | Validate JSON format using Postman                             |
-| 2    | Jérémy | Backend         | Search filters implementation                  | feat/search           | Confirm filters return correct card IDs                        |
-| 2    | Haitu  | Frontend        | Menu UI rendering                              | feat/menu             | Verify responsive rendering (desktop/mobile)                   |
-| 2    | Haitu  | Frontend        | Profile page rendering                         | feat/profile          | Validate layout and navigation                                 |
-| 2    | Haitu  | Frontend        | Filter integration in search page              | feat/search           | Confirm filter interaction updates gallery dynamically         |
-| 2    | Franck | ML              | Model optimization & memory handling           | feat/ml               | Monitor latency and RAM/VRAM usage                             |
-|      |        |                 |                                                |                       |                                                                |
-| 3    | Jérémy | Backend         | API data restitution finalization              | feat/apiService       | Validate consistent response structure                         |
-| 3    | Jérémy | Backend         | Authentication logic (JWT + bcrypt)            | feat/auth             | Validate password hashing and token generation                 |
-| 3    | Haitu  | Frontend        | Statistics page                                | feat/stats            | Verify correct rendering and data display                      |
-| 3    | Haitu  | Frontend        | Scan page UI                                   | feat/scan             | Validate route rendering                                       |
-| 3    | Haitu  | Frontend        | Vault page                                     | feat/vault            | Verify state management and layout                             |
-| 3    | Haitu  | Frontend        | Search page                                    | feat/research         | Validate search interaction                                    |
-| 3    | Haitu  | Frontend        | Parameters/settings page                       | feat/parameters       | Validate form interactions                                     |
-| 3    | Haitu  | Frontend        | Authenticated profile page                     | feat/profilAuth       | Confirm protected route behavior                               |
-| 3    | Franck | Documentation   | Complete Figma prototype                       | N/A                   | UI flows validated against implementation                      |
-|      |        |                 |                                                |                       |                                                                |
-| 4    | Jérémy | Backend         | Final authentication integration               | feat/auth             | Validate login, logout, encryption & token verification        |
-| 4    | Haitu  | Frontend        | Scan route camera integration                  | feat/scan             | Verify camera permission, photo capture & preview              |
-| 4    | Franck | ML              | User photo processing pipeline                 | feat/ml               | Validate image preprocessing and deletion after inference      |
-| 4    | Franck | ML              | ML prediction endpoint                         | feat/ml               | Confirm JSON response matches frontend schema                  |
-|      |        |                 |                                                |                       |                                                                |
-| 5    | Jérémy | Backend         | API data normalization completion              | feat/normalizedCard   | Ensure consistent schema across multiple APIs                  |
-| 5    | Haitu  | Frontend        | Photo upload to ML endpoint                    | feat/scan             | Validate image transmission and response handling              |
-| 5    | Franck | Backend         | Authentication refinement                      | feat/profilAuth       | Validate cookie/session behavior                               |
-|      |        |                 |                                                |                       |                                                                |
-| 6    | Jérémy | Backend         | Finalise search routes                         | feat/standardisedData | Ensure data is displaying right                                |
-| 6    | Haitu  | Frontend        | Finalise scan and login implementation         | feat/profilAuth       | Validate register login logout and delete account              |
-| 6    | Franck | ML              | Connect front back and ml for scan             | feat/ml               | Validate routes calls                                          |
-|      |        |                 |                                                |                       |                                                                |
-| 7    | Jérémy | Backend         | Create database for user's collection          | feat/userCollection   | Validate database creation and modification                    |
-| 7    | Haitu  | Frontend        | Update CSS to fit figma                        | feat/cdd              | Verify CSS fir figma                                           |
-| 7    | Franck | Backend + CI/CD | Deploy app + help backend                      | main + dev            | Deployment work                                                |
-|      |        |                 |                                                |                       |                                                                |
-| 8    | Jérémy | Backend         |                                                |                       |                                                                |
-| 8    | Haitu  | Frontend        |                                                |                       |                                                                |
-| 8    | Franck | ML              |                                                |                       |                                                                |
+| Week | Member | Area            | Feature                                         | Branch                | QA Validation                                                    |
+|------|--------|-----------------|-------------------------------------------------|-----------------------|------------------------------------------------------------------|
+| 1    | Jérémy | Backend         | Proxy setup                                     | feat/proxy            | Verify successful request forwarding from proxy to backend API   |
+| 1    | Haitu  | Frontend        | UI toolchain setup (Tailwind, DaisyUI, Lucide)  | feat/menu             | Ensure project compiles without errors                           |
+| 1    | Franck | ML              | Model initialization                            | feat/ml               | Validate model loads and returns prediction for sample input     |
+|      |        |                 |                                                 |                       |                                                                  |
+| 2    | Jérémy | Backend         | Menu & profile route variables                  | feat/route            | Validate JSON format using Postman                               |
+| 2    | Jérémy | Backend         | Search filters implementation                   | feat/search           | Confirm filters return correct card IDs                          |
+| 2    | Haitu  | Frontend        | Menu UI rendering                               | feat/menu             | Verify responsive rendering (desktop/mobile)                     |
+| 2    | Haitu  | Frontend        | Profile page rendering                          | feat/profile          | Validate layout and navigation                                   |
+| 2    | Haitu  | Frontend        | Filter integration in search page               | feat/search           | Confirm filter interaction updates gallery dynamically           |
+| 2    | Franck | ML              | Model optimization & memory handling            | feat/ml               | Monitor latency and RAM/VRAM usage                               |
+|      |        |                 |                                                 |                       |                                                                  |
+| 3    | Jérémy | Backend         | API data restitution finalization               | feat/apiService       | Validate consistent response structure                           |
+| 3    | Jérémy | Backend         | Authentication logic (JWT + bcrypt)             | feat/auth             | Validate password hashing and token generation                   |
+| 3    | Haitu  | Frontend        | Statistics page                                 | feat/stats            | Verify correct rendering and data display                        |
+| 3    | Haitu  | Frontend        | Scan page UI                                    | feat/scan             | Validate route rendering                                         |
+| 3    | Haitu  | Frontend        | Vault page                                      | feat/vault            | Verify state management and layout                               |
+| 3    | Haitu  | Frontend        | Search page                                     | feat/research         | Validate search interaction                                      |
+| 3    | Haitu  | Frontend        | Parameters/settings page                        | feat/parameters       | Validate form interactions                                       |
+| 3    | Haitu  | Frontend        | Authenticated profile page                      | feat/profilAuth       | Confirm protected route behavior                                 |
+| 3    | Franck | Documentation   | Complete Figma prototype                        | N/A                   | UI flows validated against implementation                        |
+|      |        |                 |                                                 |                       |                                                                  |
+| 4    | Jérémy | Backend         | Final authentication integration                | feat/auth             | Validate login, logout, encryption & token verification          |
+| 4    | Haitu  | Frontend        | Scan route camera integration                   | feat/scan             | Verify camera permission, photo capture & preview                |
+| 4    | Franck | ML              | User photo processing pipeline                  | feat/ml               | Validate image preprocessing and deletion after inference        |
+| 4    | Franck | ML              | ML prediction endpoint                          | feat/ml               | Confirm JSON response matches frontend schema                    |
+|      |        |                 |                                                 |                       |                                                                  |
+| 5    | Jérémy | Backend         | API data normalization completion               | feat/normalizedCard   | Ensure consistent schema across multiple APIs                    |
+| 5    | Haitu  | Frontend        | Photo upload to ML endpoint                     | feat/scan             | Validate image transmission and response handling                |
+| 5    | Franck | Backend         | Authentication refinement                       | feat/profilAuth       | Validate cookie/session behavior                                 |
+|      |        |                 |                                                 |                       |                                                                  |
+| 6    | Jérémy | Backend         | Finalise search routes                          | feat/standardisedData | Ensure data is displaying right                                  |
+| 6    | Haitu  | Frontend        | Finalise scan and login implementation          | feat/profilAuth       | Validate register login logout and delete account                |
+| 6    | Franck | ML              | Connect front back and ml for scan              | feat/ml               | Validate routes calls                                            |
+|      |        |                 |                                                 |                       |                                                                  |
+| 7    | Jérémy | Backend         | Create database for user's collection           | feat/userCollection   | Validate database creation and modification                      |
+| 7    | Haitu  | Frontend        | Update CSS to fit figma                         | feat/cdd              | Verify CSS fir figma                                             |
+| 7    | Franck | Backend + CI/CD | Deploy app + help backend                       | main + dev            | Deployment work                                                  |
+|      |        |                 |                                                 |                       |                                                                  |
+| 8    | Jérémy | Backend         | Finish to implement collection database         | feat/userCollection   | Validate creation, addition, substraction in database collection |
+| 8    | Haitu  | Frontend        | Connect backend for collection data             | feat/vault            | Validate creation, addition, substraction in database collection |
+| 8    | Franck | Backend         | Help on implementation + check everything is ok | N/A                   | Validate product is working                                      |
 
 ## 4 Source repository
 ### Repo
@@ -144,6 +144,7 @@ https://github.com/Franck-dev-hub/card_vault
 | frontend/   | Frontend logic         |
 | ml-service/ | Machine learning model |
 | proxy/      | Proxy logic            |
+| test/       | Tests folder           |
 
 ### Branching
 `main` - Main production branch
@@ -153,39 +154,39 @@ https://github.com/Franck-dev-hub/card_vault
 `hotfix/*` - Bug fix on production branch
 
 ## 5 Bug tracking
-| Week | Area      | Bug found | Bug resolved | Resolution Rate |
-|------|-----------|-----------|--------------|-----------------|
-| 1    | Backend   | 2         | 1            | 50%             |
-| 1    | Frontend  | 1         | 1            | 100%            |
-| 1    | ML        | 2         | 2            | 100%            |
-|      |           |           |              |                 |
-| 2    | Backend   | 2         | 2            | 100%            |
-| 2    | Frontend  | 2         | 1            | 50%             |
-| 2    | ML        | 3         | 3            | 100%            |
-|      |           |           |              |                 |
-| 3    | Backend   | 1         | 1            | 100%            |
-| 3    | Frontend  | 2         | 3            | 150%            |
-| 3    | ML        | 0         | 0            | 100%            |
-|      |           |           |              |                 |
-| 4    | Backend   | 0         | 1            | 200%            |
-| 4    | Frontend  | 2         | 1            | 50%             |
-| 4    | ML        | 0         | 0            | 100%            |
-|      |           |           |              |                 |
-| 5    | Backend   | 1         | 0            | 0%              |
-| 5    | Frontend  | 0         | 1            | 200%            |
-| 5    | ML        | 0         | 0            | 0%              |
-|      |           |           |              |                 |
-| 6    | Backend   | 0         | 0            | 100%            |
-| 6    | Frontend  | 1         | 1            | 100%            |
-| 6    | ML        | 1         | 0            | 0%              |
-|      |           |           |              |                 |
-| 7    | Backend   |           |              |                 |
-| 7    | Frontend  |           |              |                 |
-| 7    | ML        |           |              |                 |
-|      |           |           |              |                 |
-| 8    | Backend   |           |              |                 |
-| 8    | Frontend  |           |              |                 |
-| 8    | ML        |           |              |                 |
+| Week | Area     | Bug found | Bug resolved | Resolution Rate |
+|------|----------|-----------|--------------|-----------------|
+| 1    | Backend  | 2         | 1            | 50%             |
+| 1    | Frontend | 1         | 1            | 100%            |
+| 1    | ML       | 2         | 2            | 100%            |
+|      |          |           |              |                 |
+| 2    | Backend  | 2         | 2            | 100%            |
+| 2    | Frontend | 2         | 1            | 50%             |
+| 2    | ML       | 3         | 3            | 100%            |
+|      |          |           |              |                 |
+| 3    | Backend  | 1         | 1            | 100%            |
+| 3    | Frontend | 2         | 3            | 150%            |
+| 3    | ML       | 0         | 0            | 100%            |
+|      |          |           |              |                 |
+| 4    | Backend  | 0         | 1            | 200%            |
+| 4    | Frontend | 2         | 1            | 50%             |
+| 4    | ML       | 0         | 0            | 100%            |
+|      |          |           |              |                 |
+| 5    | Backend  | 1         | 0            | 0%              |
+| 5    | Frontend | 0         | 1            | 200%            |
+| 5    | ML       | 0         | 0            | 0%              |
+|      |          |           |              |                 |
+| 6    | Backend  | 0         | 0            | 100%            |
+| 6    | Frontend | 1         | 1            | 100%            |
+| 6    | ML       | 1         | 0            | 0%              |
+|      |          |           |              |                 |
+| 7    | Backend  | 4         | 0            | 0%              |
+| 7    | Frontend | 3         | 3            | 100%            |
+| 7    | Devops   | 2         | 2            | 0%              |
+|      |          |           |              |                 |
+| 8    | Backend  |           | 4            |                 |
+| 8    | Frontend |           |              |                 |
+| 8    | ML       |           |              |                 |
 
 ## 6 Testing evidence and results
 ### Backend

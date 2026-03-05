@@ -1,0 +1,15 @@
+### [CONFIGURATION]
+@route = /delete_account
+
+### [DELETE_ACCOUNT] ML health check
+# @name getDeleteAccount
+GET {{api_url}}{{route}}
+
+### [DELETE_ACCOUNT] ML health check
+# @name postDeleteAccount
+POST {{api_url}}{{route}}
+
+{
+  "email" : "toto@gmail.com",
+  "password": "secret_password"
+}

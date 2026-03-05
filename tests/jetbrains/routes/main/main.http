@@ -1,0 +1,19 @@
+### [DASHBOARD] Get dashboard
+# @name getDashboard
+GET {{api_url}}/dashboard
+
+### [VAULT] Get vault
+# @name getVault
+GET {{api_url}}/vault
+
+### [SEARCH] Get search
+# @name getSearch
+GET {{api_url}}/search
+
+### [SCAN] Get scan
+# @name getScan
+GET {{api_url}}/scan
+
+### [STATS] Get stats
+# @name getStats
+GET {{api_url}}/stats

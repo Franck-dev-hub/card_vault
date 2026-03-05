@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import styles from "./CardDetails.module.css";
 import { useTheme } from "../../contexts/ThemeContext";
 import { X, Plus, Minus, ChevronDown } from "lucide-react";
+import { addToCollection } from "../../api/collection";
 
 const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -35,13 +36,12 @@ const AccordionSection = ({ title, children, isDark, defaultOpen = false }) => {
 export default function CardDetails({ card, onClose, onOwnershipChange }) {
   const { isDark } = useTheme();
 
-  // Tracks how many copies of each variant the user owns.
-  // Keeping counts local for now; the TODO below marks where backend sync should go.
-  const [quantities, setQuantities] = useState({
-    Normal: 0,
-    Reverse: 0,
-    Holo: 0,
-  });
+  // Initialise one counter per variant returned by the API.
+  // Falls back to a default set while the backend field is not yet available.
+  const variants = card.variants || ["Normal", "Reverse", "Holo"];
+  const [quantities, setQuantities] = useState(() =>
+    Object.fromEntries(variants.map((v) => [v, 0]))
+  );
 
   const handleCount = (variant, delta) => {
     setQuantities((prev) => {
@@ -52,16 +52,19 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
       };
 
       // Notify the parent when ownership status changes (at least one copy owned).
-      // This lets parent components (e.g. Vault) update their owned-card lists
-      // without needing to manage quantity details themselves.
-      const isOwned = updated.Normal + updated.Reverse + updated.Holo > 0;
-      const cardId = card.id || card.api_id;
+      const isOwned = Object.values(updated).some((q) => q > 0);
+      const cardId = card.card_id || card.id;
       if (onOwnershipChange) {
         onOwnershipChange(cardId, isOwned);
       }
 
-      // TODO: Persist quantities to the backend when the endpoint is ready.
-      // axios.post('/api/vault', { cardId, quantities: updated });
+      // Only persist to backend when adding (+1), not when removing.
+      // A DELETE/PATCH endpoint will be needed later for removals.
+      if (delta > 0) {
+        addToCollection(cardId, variant.toLowerCase(), delta).catch((err) => {
+          console.error('Failed to add to collection:', err);
+        });
+      }
 
       return updated;
     });
@@ -139,7 +142,7 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
             {/* --- GREY VAULT SECTION WITH WHITE COUNTERS --- */}
             <AccordionSection title="Vault" isDark={isDark}>
               <div className={styles.vaultWrapper}>
-                {["Normal", "Reverse", "Holo"].map((variant) => (
+                {variants.map((variant) => (
                   <div key={variant} className={styles.vaultRow}>
                     <button
                       className={styles.vaultBtn}

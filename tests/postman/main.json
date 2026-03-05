@@ -1,0 +1,910 @@
+{
+  "info": {
+    "_postman_id": "ed1e9c54-85bc-4790-b624-4deba9f7732b",
+    "name": "Card_vault",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51487219",
+    "_collection_link": "https://go.postman.co/collection/51487219-ed1e9c54-85bc-4790-b624-4deba9f7732b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Main",
+      "item": [
+        {
+          "name": "Search",
+          "item": [
+            {
+              "name": "Pokemon",
+              "item": [
+                {
+                  "name": "pokemon",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{BASE_URL}}search/pokemon",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "pokemon"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "pokemon extension",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{BASE_URL}}search/pokemon/base1",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "pokemon",
+                        "base1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "pokemon card",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{BASE_URL}}search/pokemon/base1/1",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "pokemon",
+                        "base1",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Magic",
+              "item": [
+                {
+                  "name": "magic",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{BASE_URL}}search/magic",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "magic"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "magic extension",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{BASE_URL}}search/magic/fin",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "magic",
+                        "fin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "magic card",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{BASE_URL}}search/magic/khm/127",
+                      "host": [
+                        "{{BASE_URL}}search"
+                      ],
+                      "path": [
+                        "magic",
+                        "khm",
+                        "127"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scan",
+          "item": [
+            {
+              "name": "Predict",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ML_URL}}predict",
+                  "host": [
+                    "{{ML_URL}}predict"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Predict",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{ML_URL}}predict",
+                  "host": [
+                    "{{ML_URL}}predict"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Vault",
+          "item": [
+            {
+              "name": "vault",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user_id\": \"5e256a65-6df1-4b91-878e-7b21bde14142\",\n    \"card_id\": \"pokemon-base1-1\",\n    \"quantity\": \"1\",\n    \"variant\": \"firstEdition\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}vault",
+                  "host": [
+                    "{{BASE_URL}}vault"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Access token works\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}dashboard",
+              "host": [
+                "{{BASE_URL}}dashboard"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vault",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}vault",
+              "host": [
+                "{{BASE_URL}}vault"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}search",
+              "host": [
+                "{{BASE_URL}}search"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}scan",
+              "host": [
+                "{{BASE_URL}}scan"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}stats",
+              "host": [
+                "{{BASE_URL}}stats"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}register",
+              "host": [
+                "{{BASE_URL}}register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201 or 200\", function () {",
+                  "    pm.response.to.be.oneOf([200, 201]);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"toto\",\n    \"email\": \"toto@gmail.com\",\n    \"password\": \"totolerigolo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}register",
+              "host": [
+                "{{BASE_URL}}register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}login",
+              "host": [
+                "{{BASE_URL}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Login successful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"access_token\", jsonData.access_token);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"toto@gmail.com\",\n    \"password\": \"totolerigolo\",\n    \"remember_me\": \"true\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}login",
+              "host": [
+                "{{BASE_URL}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}me",
+              "host": [
+                "{{BASE_URL}}me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}delete_account",
+              "host": [
+                "{{BASE_URL}}delete_account"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Logout successful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"toto@gmail.com\",\n    \"password\": \"totolerigolo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}delete_account",
+              "host": [
+                "{{BASE_URL}}delete_account"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}logout",
+              "host": [
+                "{{BASE_URL}}logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Logout successful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}logout",
+              "host": [
+                "{{BASE_URL}}logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API test",
+      "item": [
+        {
+          "name": "Pokemon",
+          "item": [
+            {
+              "name": "pokemon extensions",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.tcgdex.net/v2/en/sets",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "tcgdex",
+                    "net"
+                  ],
+                  "path": [
+                    "v2",
+                    "en",
+                    "sets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "pokemon extension",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.tcgdex.net/v2/en/sets/swsh3",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "tcgdex",
+                    "net"
+                  ],
+                  "path": [
+                    "v2",
+                    "en",
+                    "sets",
+                    "swsh3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "pokemon - extension - card",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.tcgdex.net/v2/en/sets/swsh3/136",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "tcgdex",
+                    "net"
+                  ],
+                  "path": [
+                    "v2",
+                    "en",
+                    "sets",
+                    "swsh3",
+                    "136"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "pokemon card",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.tcgdex.net/v2/en/cards/swsh3-136",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "tcgdex",
+                    "net"
+                  ],
+                  "path": [
+                    "v2",
+                    "en",
+                    "cards",
+                    "swsh3-136"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Magic",
+          "item": [
+            {
+              "name": "magic extensions",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.scryfall.com/sets",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "scryfall",
+                    "com"
+                  ],
+                  "path": [
+                    "sets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "magic extension",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.scryfall.com/sets/fin",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "scryfall",
+                    "com"
+                  ],
+                  "path": [
+                    "sets",
+                    "fin"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "magic - extension - card",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.scryfall.com/cards/fin/1",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "scryfall",
+                    "com"
+                  ],
+                  "path": [
+                    "cards",
+                    "fin",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "magic card",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.scryfall.com/cards/95318d85-4a08-47ac-a43d-ea83c0bea81c",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "scryfall",
+                    "com"
+                  ],
+                  "path": [
+                    "cards",
+                    "95318d85-4a08-47ac-a43d-ea83c0bea81c"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "API Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}health",
+          "host": [
+            "{{BASE_URL}}health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ML Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{ML_URL}}health",
+          "host": [
+            "{{ML_URL}}health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

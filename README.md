@@ -24,17 +24,17 @@ The platform offers advanced filtering, cross-game organization, and an integrat
 - [License](#license)
 
 ## Landing page & Web app
-Landing page coming soon
-
-Web app coming coon
+[![Card Vault](https://img.shields.io/badge/Card%20Vault-667eea)](https://card-vault.fr)
 
 ## App features
-No feature for the moment
+- Create an account, login, logout
+- Manually add cards to a collection using search (Pokémon, Magic the Gathering)
+- Add cards to a collection by scanning them with a camera (Pokémon)
 
 ## Technologies used
 ### Backend
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
-![JWT](https://img.shields.io/badge/JWT-black?logo=json-web-tokens&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?logo=sqlalchemy&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009485.svg?logo=fastapi&logoColor=white)  
 ![Pytest](https://img.shields.io/badge/Pytest-fff?logo=pytest&logoColor=000)
 ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?logo=Pydantic&logoColor=white)
@@ -54,7 +54,7 @@ No feature for the moment
 ![NumPy](https://img.shields.io/badge/NumPy-4DABCF?logo=numpy&logoColor=fff)
 ![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white)
 ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=000)
-![Transformers](https://img.shields.io/badge/Transformers-FF6F00?logo=huggingface&logoColor=white)
+![Transformers](https://img.shields.io/badge/Transformers-FF6F00?logo=huggingface&logoColor=fff)
 ![Pillow](https://img.shields.io/badge/Pillow-8CAAE6?logo=python&logoColor=white)
 
 ### Database
@@ -108,10 +108,12 @@ docker-compose down -v
 - **Jeremy Laurens** [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](#https://github.com/JeremyLrs) [![LinkedIn](https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff)](#https://www.linkedin.com/in/jeremylrs/)
 
 ## Version history
-None for the moment
+V1.0.0 - Initial release
 
 ## Upcoming features
-None for the moment
+- Add more games
+- Add inventory and deck building
+- Add statistics and collection value estimation
 
 ## License
 This project is licensed under GNU AGPL v3.0 - see the LICENSE.txt file for details.

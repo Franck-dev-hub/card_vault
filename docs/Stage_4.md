@@ -13,78 +13,78 @@
 ## 1 Sprint Reviews
 > Summary of weekly deliverables and achieved outcomes
 
-| Week | Assignment | Area     | Deliverable                                          | Outcome                                              |
-|------|------------|----------|------------------------------------------------------|------------------------------------------------------|
-| 1    | Jérémy     | Backend  | Proxy configuration                                  | Proxy successfully forwarding requests to backend    |
-| 1    | Haitu      | Frontend | UI framework setup (Tailwind, DaisyUI, Lucide React) | UI toolchain operational                             |
-| 1    | Franck     | ML       | Initial model setup                                  | Model loads and processes dataset images             |
-|      |            |          |                                                      |                                                      |
-| 2    | Jérémy     | Backend  | Pokémon API integration                              | API routes returning valid JSON data                 |
-| 2    | Haitu      | Frontend | Account & profile pages                              | Basic navigation and layout implemented              |
-| 2    | Franck     | ML       | Hugging Face streaming integration                   | Real-time streaming inference working                |
-|      |            |          |                                                      |                                                      |
-| 3    | Jérémy     | Backend  | Search route logic                                   | Multi-license search functional                      |
-| 3    | Haitu      | Frontend | Create all pages                                     | All primary routes created                           |
-| 3    | Franck     | Docs     | Figma prototype                                      | Complete UI/UX mockup delivered                      |
-|      |            |          |                                                      |                                                      |
-| 4    | Jérémy     | Backend  | Card data normalization                              | Unified data model across APIs                       |
-| 4    | Haitu      | Frontend | Scan route integration                               | Camera capture integrated                            |
-| 4    | Franck     | Backend  | ML response endpoint                                 | ML route returning JSON                              |
-|      |            |          |                                                      |                                                      |
-| 5    | Jérémy     | Backend  | Finish card data normalization                       | Unified data model across APIs                       |
-| 5    | Haitu      | Frontend | Finish scan route integration                        | Working scan routes                                  |
-| 5    | Franck     | Backend  | Authentification                                     | User can register login logout                       |
-|      |            |          |                                                      |                                                      |
-| 6    | Jérémy     | Backend  | Display cards in search                              | Magic cards data                                     |
-| 6    | Haitu      | Frontend | Connect authentification and ml                      | User can connect and take a photo of a card          |
-| 6    | Franck     | ML       | Finish to connect ml with back and front             | User can take a photo of a card and predict his card |
-|      |            |          |                                                      |                                                      |
-| 7    | Jérémy     | Backend  | Start working on collection database                 | For the moment - nothing                             |
-| 7    | Haitu      | Frontend | Get /me data + update card details                   | Display user data + anhanced cards details           |
-| 7    | Franck     | Devops   | Deployment of the app on a local server              | Working online web app                               |
-|      |            |          |                                                      |                                                      |
-| 8    | Jérémy     | Backend  |                                                      |                                                      |
-| 8    | Haitu      | Frontend |                                                      |                                                      |
-| 8    | Franck     | ML       |                                                      |                                                      |
+| Week | Assignment | Area     | Deliverable                                            | Outcome                                                       |
+|------|------------|----------|--------------------------------------------------------|---------------------------------------------------------------|
+| 1    | Jérémy     | Backend  | Proxy configuration                                    | Proxy successfully forwarding requests to backend             |
+| 1    | Haitu      | Frontend | UI framework setup (Tailwind, DaisyUI, Lucide React)   | UI toolchain operational                                      |
+| 1    | Franck     | ML       | Initial model setup                                    | Model loads and processes dataset images                      |
+|      |            |          |                                                        |                                                               |
+| 2    | Jérémy     | Backend  | Pokémon API integration                                | API routes returning valid JSON data                          |
+| 2    | Haitu      | Frontend | Account & profile pages                                | Basic navigation and layout implemented                       |
+| 2    | Franck     | ML       | Hugging Face streaming integration                     | Real-time streaming inference working                         |
+|      |            |          |                                                        |                                                               |
+| 3    | Jérémy     | Backend  | Search route logic                                     | Multi-license search functional                               |
+| 3    | Haitu      | Frontend | Create all pages                                       | All primary routes created                                    |
+| 3    | Franck     | Docs     | Figma prototype                                        | Complete UI/UX mockup delivered                               |
+|      |            |          |                                                        |                                                               |
+| 4    | Jérémy     | Backend  | Card data normalization                                | Unified data model across APIs                                |
+| 4    | Haitu      | Frontend | Scan route integration                                 | Camera capture integrated                                     |
+| 4    | Franck     | Backend  | ML response endpoint                                   | ML route returning JSON                                       |
+|      |            |          |                                                        |                                                               |
+| 5    | Jérémy     | Backend  | Finish card data normalization                         | Unified data model across APIs                                |
+| 5    | Haitu      | Frontend | Finish scan route integration                          | Working scan routes                                           |
+| 5    | Franck     | Backend  | Authentification                                       | User can register login logout                                |
+|      |            |          |                                                        |                                                               |
+| 6    | Jérémy     | Backend  | Display cards in search                                | Magic cards data                                              |
+| 6    | Haitu      | Frontend | Connect authentification and ml                        | User can connect and take a photo of a card                   |
+| 6    | Franck     | ML       | Finish to connect ml with back and front               | User can take a photo of a card and predict his card          |
+|      |            |          |                                                        |                                                               |
+| 7    | Jérémy     | Backend  | Start working on collection database                   | For the moment - nothing                                      |
+| 7    | Haitu      | Frontend | Get /me data + update card details                     | Display user data + anhanced cards details                    |
+| 7    | Franck     | Devops   | Deployment of the app on a local server                | Working online web app                                        |
+|      |            |          |                                                        |                                                               |
+| 8    | Jérémy     | Backend  | Working database collection                            | Backend API to manage data for user collection                |
+| 8    | Haitu      | Frontend | Translation + connection with user collection database | Selectable language + add or remove card from user collection |
+| 8    | Franck     | Backend  | Help Jérémy on backend                                 | Working deployed web app                                      |
 
 ## 2 Retrospectives
 > What worked well during the sprint?
 > What challenges did we face?
 > What changes can we make to improve the next sprint?
 
-| Week | Assignment | Area     | What worked                                   | Challenges                           | Improvements                       |
-|------|------------|----------|-----------------------------------------------|--------------------------------------|------------------------------------|
-| 1    | Jérémy     | Backend  | Proxy configuration completed quickly         | Backend / frontend connection issues | Standardise API endpoints          |
-| 1    | Haitu      | Frontend | UI foundation implemented                     | Framework configuration complexity   | Define routing early               |
-| 1    | Franck     | ML       | Model inference successful                    | Large dataset memory usage           | Optimise data pipeline             |
-|      |            |          |                                               |                                      |                                    |
-| 2    | Jérémy     | Backend  | Card & set data fetched correctly             | Send correct data                    | Normelize cards data               |
-| 2    | Haitu      | Frontend | Forms rendering correctly                     | Learning new UI framework            | Improve component modularity       |
-| 2    | Franck     | ML       | Streaming performance improved                | HuggingFace integration              | Create unified ML endpoint         |
-|      |            |          |                                               |                                      |                                    |
-| 3    | Jérémy     | Backend  | Multi-license search implemented              | Complex route logic                  | Refactor folder structure          |
-| 3    | Haitu      | Frontend | Page structure completed                      | Connection between back & front      | Improve API mocking                |
-| 3    | Franck     | Docs     | Full figma prototype                          | Learning design tooling              | Work on ML                         |
-|      |            |          |                                               |                                      |                                    |
-| 4    | Jérémy     | Backend  | Data normalization stable                     | Parsing external APIs                | Improve validation using Pydantic  |
-| 4    | Haitu      | Frontend | Camera integration working                    | Learning Ngrok integration           | Move to production API             |
-| 4    | Franck     | ML       | Faster inference & JSON export                | Multi-service FastAPI sessions       | Help Jérémy on the backend         |
-|      |            |          |                                               |                                      |                                    |
-| 5    | Jérémy     | Backend  | Display magic datas                           | Parsing magic data                   | Display the right data             |
-| 5    | Haitu      | Frontend | Finish camera integration                     | Create / use API requests            | Make tests for login and search    |
-| 5    | Franck     | Backend  | Login is working                              | Manage postgres and redis            | Connect front back and ml for scan |
-|      |            |          |                                               |                                      |                                    |
-| 6    | Jérémy     | Backend  | Display correct data despite license          | Universalise data                    | Think more about need before       |
-| 6    | Haitu      | Frontend | Authentification + backend connection         | Use and parse routes                 | Improve CSS                        |
-| 6    | Franck     | ML       | Connection between back and front             | Create 2 fastAPI logics              | Deploy app                         |
-|      |            |          |                                               |                                      |                                    |
-| 7    | Jérémy     | Backend  | Initialisation of schemas & models            | Parse needed outcome data            | Finish implementation              |
-| 7    | Haitu      | Frontend | Integration a user data + update card details | Update card data                     | Finish implementation              |
-| 7    | Franck     | Devops   | The app is working online                     | Secure the deployment                | Help to finish databse             |
-|      |            |          |                                               |                                      |                                    |
-| 8    | Jérémy     | Backend  |                                               |                                      |                                    |
-| 8    | Haitu      | Frontend |                                               |                                      |                                    |
-| 8    | Franck     | ML       |                                               |                                      |                                    |
+| Week | Assignment | Area     | What worked                                    | Challenges                           | Improvements                       |
+|------|------------|----------|------------------------------------------------|--------------------------------------|------------------------------------|
+| 1    | Jérémy     | Backend  | Proxy configuration completed quickly          | Backend / frontend connection issues | Standardise API endpoints          |
+| 1    | Haitu      | Frontend | UI foundation implemented                      | Framework configuration complexity   | Define routing early               |
+| 1    | Franck     | ML       | Model inference successful                     | Large dataset memory usage           | Optimise data pipeline             |
+|      |            |          |                                                |                                      |                                    |
+| 2    | Jérémy     | Backend  | Card & set data fetched correctly              | Send correct data                    | Normelize cards data               |
+| 2    | Haitu      | Frontend | Forms rendering correctly                      | Learning new UI framework            | Improve component modularity       |
+| 2    | Franck     | ML       | Streaming performance improved                 | HuggingFace integration              | Create unified ML endpoint         |
+|      |            |          |                                                |                                      |                                    |
+| 3    | Jérémy     | Backend  | Multi-license search implemented               | Complex route logic                  | Refactor folder structure          |
+| 3    | Haitu      | Frontend | Page structure completed                       | Connection between back & front      | Improve API mocking                |
+| 3    | Franck     | Docs     | Full figma prototype                           | Learning design tooling              | Work on ML                         |
+|      |            |          |                                                |                                      |                                    |
+| 4    | Jérémy     | Backend  | Data normalization stable                      | Parsing external APIs                | Improve validation using Pydantic  |
+| 4    | Haitu      | Frontend | Camera integration working                     | Learning Ngrok integration           | Move to production API             |
+| 4    | Franck     | ML       | Faster inference & JSON export                 | Multi-service FastAPI sessions       | Help Jérémy on the backend         |
+|      |            |          |                                                |                                      |                                    |
+| 5    | Jérémy     | Backend  | Display magic datas                            | Parsing magic data                   | Display the right data             |
+| 5    | Haitu      | Frontend | Finish camera integration                      | Create / use API requests            | Make tests for login and search    |
+| 5    | Franck     | Backend  | Login is working                               | Manage postgres and redis            | Connect front back and ml for scan |
+|      |            |          |                                                |                                      |                                    |
+| 6    | Jérémy     | Backend  | Display correct data despite license           | Universalise data                    | Think more about need before       |
+| 6    | Haitu      | Frontend | Authentification + backend connection          | Use and parse routes                 | Improve CSS                        |
+| 6    | Franck     | ML       | Connection between back and front              | Create 2 fastAPI logics              | Deploy app                         |
+|      |            |          |                                                |                                      |                                    |
+| 7    | Jérémy     | Backend  | Initialisation of schemas & models             | Parse needed outcome data            | Finish implementation              |
+| 7    | Haitu      | Frontend | Integration a user data + update card details  | Update card data                     | Finish implementation              |
+| 7    | Franck     | Devops   | The app is working online                      | Secure the deployment                | Help to finish databse             |
+|      |            |          |                                                |                                      |                                    |
+| 8    | Jérémy     | Backend  | Implementation of user collection database     | Make code scalable                   | Work on non MVP feature            |
+| 8    | Haitu      | Frontend | Changement of language + connection to backend | Manage translation                   | Work on non MVP feature            |
+| 8    | Franck     | Backend  | Team work                                      | Make a working app                   | Work on non MVP feature            |
 
 ## 3 Sprint planning
 > Sprint plan with prioritized tasks, deadlines, and responsibilities for all team members.
@@ -184,9 +184,9 @@ https://github.com/Franck-dev-hub/card_vault
 | 7    | Frontend | 3         | 3            | 100%            |
 | 7    | Devops   | 2         | 2            | 0%              |
 |      |          |           |              |                 |
-| 8    | Backend  |           | 4            |                 |
-| 8    | Frontend |           |              |                 |
-| 8    | ML       |           |              |                 |
+| 8    | Backend  | 4         | 4            | 100%            |
+| 8    | Frontend | 0         | 0            | 100%            |
+| 8    | ML       | 0         | 0            | 100%            |
 
 ## 6 Testing evidence and results
 ### Backend
@@ -226,6 +226,9 @@ https://github.com/Franck-dev-hub/card_vault
 | POST /api/delete_account        | 200 OK  | User deleted successfully            |
 | POST /api/delete_account        | 401 NOK | Invalid credentials                  |
 | POST /api/delete_account        | 404 NOK | User email not found                 |
+|                                 |         |                                      |
+| POST /api/vault                 | 200 OK  | Get user collection data             |
+| POST /api/vault                 | 404 NOK | Card not found in database           |
 
 ### Frontend
 | Component      | Result     |

@@ -1,0 +1,10 @@
+### [CONFIGURATION]
+@route = /logout
+
+### [LOGOUT] Get logout section
+# @name getLogout
+GET {{api_url}}{{route}}
+
+### [LOGOUT] Post logout form
+# @name postLogout
+POST {{api_url}}{{route}}

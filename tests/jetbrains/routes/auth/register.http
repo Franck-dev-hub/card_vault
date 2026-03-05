@@ -1,0 +1,16 @@
+### [CONFIGURATION]
+@route = /register
+
+### [REGISTER] Get register
+# @name getRegister
+GET {{api_url}}{{route}}
+
+### [REGISTER] Post register form
+# @name postRegister
+POST {{api_url}}{{route}}
+
+{
+  "username": "toto",
+  "email" : "toto@gmail.com",
+  "password": "secret_password"
+}

@@ -237,6 +237,12 @@ https://github.com/Franck-dev-hub/card_vault
 | ThemeToggle    | 3/3 passed |
 | ProtectedRoute | 2/2 passed |
 | FooterNav      | 6/6 passed |
+| Login          | 4/4 passed |
+| CardDetails    | 7/7 passed |
+| useResponsive  | 3/3 passed |
+| AuthContext    | 3/3 passed |
+| NotFound       | 2/2 passed |
+| useApi         | 3/3 passed |
 
 ### Machine learning
 #### Model performance
@@ -258,7 +264,7 @@ https://github.com/Franck-dev-hub/card_vault
 ## 7 Production environment
 ### Backend
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
-![JWT](https://img.shields.io/badge/JWT-black?logo=json-web-tokens&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?logo=sqlalchemy&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009485.svg?logo=fastapi&logoColor=white)  
 ![Pytest](https://img.shields.io/badge/Pytest-fff?logo=pytest&logoColor=000)
 ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?logo=Pydantic&logoColor=white)
@@ -276,23 +282,27 @@ https://github.com/Franck-dev-hub/card_vault
 ### Machine learning
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)  
 ![NumPy](https://img.shields.io/badge/NumPy-4DABCF?logo=numpy&logoColor=fff)
-![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=fff)
-![Matplotlib](https://custom-icon-badges.demolab.com/badge/Matplotlib-71D291?logo=matplotlib&logoColor=fff)  
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=fff)
 ![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white)
-![Scikit-learn](https://img.shields.io/badge/-scikit--learn-%23F7931E?logo=scikit-learn&logoColor=white)
 ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=000)
+![Transformers](https://img.shields.io/badge/Transformers-FF6F00?logo=huggingface&logoColor=fff)
+![Pillow](https://img.shields.io/badge/Pillow-8CAAE6?logo=python&logoColor=white)
 
 ### Database
-![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
 ![Postgres](https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white)
+![pgAdmin](https://img.shields.io/badge/pgAdmin-316192?logo=postgresql&logoColor=white)  
+![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
+![RedisInsight](https://img.shields.io/badge/RedisInsight-DC382D?logo=redis&logoColor=white)
 
 ### DevOps
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
 ![Docker Compose](https://img.shields.io/badge/Docker-Compose-gray?logo=docker&logoColor=fff&labelColor=2496ED)  
 ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff)
 ![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)  
-![Proxy](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)  
-![Railway](https://img.shields.io/badge/Railway-0b0d0e?logo=railway&logoColor=white)
-![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)
+![Proxy](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)
+![Certbot](https://img.shields.io/badge/SSL-Certbot-003A8F?logo=letsencrypt&logoColor=white)  
 
+### Tested on
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff)
+![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)
+![Apple Silicon](https://img.shields.io/badge/macOS-M1-black?logo=apple&logoColor=white)

@@ -59,7 +59,7 @@ The platform offers advanced filtering, cross-game organization, and an integrat
 
 ### Database
 ![Postgres](https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white)
-![pgAdmin](https://img.shields.io/badge/pgAdmin-316192?logo=postgresql&logoColor=white)
+![pgAdmin](https://img.shields.io/badge/pgAdmin-316192?logo=postgresql&logoColor=white)  
 ![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
 ![RedisInsight](https://img.shields.io/badge/RedisInsight-DC382D?logo=redis&logoColor=white)
 
@@ -68,8 +68,15 @@ The platform offers advanced filtering, cross-game organization, and an integrat
 ![Docker Compose](https://img.shields.io/badge/Docker-Compose-gray?logo=docker&logoColor=fff&labelColor=2496ED)  
 ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff)
 ![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)  
-![Proxy](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)  
+![Proxy](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)
+![Certbot](https://img.shields.io/badge/SSL-Certbot-003A8F?logo=letsencrypt&logoColor=white)  
 ![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)
+
+### Tested on
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff)
+![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)
+![Apple Silicon](https://img.shields.io/badge/macOS-M1-black?logo=apple&logoColor=white)
 
 ## Project structure
 | Folder      | Description            |

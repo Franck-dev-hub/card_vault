@@ -52,6 +52,8 @@ services:
       - "5540:5540"
     networks:
       - app_network
+    depends_on:
+      - redis
 
   backend:
     build: ./backend
@@ -83,6 +85,8 @@ services:
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}
       PYTHONUNBUFFERED: 1
     depends_on:
+      backend:
+        condition: service_healthy
       postgres:
         condition: service_healthy
       redis:
@@ -131,7 +135,6 @@ services:
     depends_on:
       - frontend
       - backend
-      - ml_service
     networks:
       - app_network
 

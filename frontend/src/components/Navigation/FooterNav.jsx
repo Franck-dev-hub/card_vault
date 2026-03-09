@@ -43,18 +43,18 @@ export const FooterNav = () => {
               {/* Neumorphic button: inset shadow when active (pressed look),
                   outer shadow when inactive (raised look). */}
               <div className={`
-                w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-300
+                w-[58px] h-[58px] rounded-[12px] flex items-center justify-center
                 ${isDark
                   ? isActive
-                    ? 'bg-[#1a1b1e] shadow-[inset_4px_4px_8px_#0d0d0f,inset_-4px_-4px_8px_#27292d] text-blue-500'
-                    : 'bg-[#1a1b1e] shadow-[6px_6px_12px_#0d0d0f,-6px_-6px_12px_#27292d] text-gray-500'
+                    ? 'bg-[#667EEA] shadow-none text-[#18181B]'
+                    : 'bg-[#18181B] shadow-[inset_1px_1px_2px_#ffffff40,1px_1px_1px_#000000] text-gray-500'
                   : isActive
-                    ? 'bg-[#f0f2f5] shadow-[inset_4px_4px_8px_#cbced1,inset_-4px_-4px_8px_#ffffff] text-purple-400'
-                    : 'bg-[#f0f2f5] shadow-[6px_6px_12px_#cbced1,-6px_-6px_12px_#ffffff] text-gray-600'
+                    ? 'bg-[#E0E8FF] shadow-none text-[#000000]'
+                    : 'bg-[#F5F5F5] shadow-[inset_1px_1px_2px_#E0E0E040,1px_1px_1px_#00000040] text-gray-600'
                 }
               `}>
                 <Icon
-                  size={40}
+                  size={29}
                   className="transition-transform duration-200 active:scale-90"
                   strokeWidth={isActive ? 2.5 : 2}
                 />

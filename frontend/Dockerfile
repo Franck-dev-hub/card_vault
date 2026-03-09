@@ -25,10 +25,11 @@ WORKDIR /app
 # Install serve to serve the build files
 RUN npm install -g serve
 
+# Copy onlycompiled static files
+COPY --from=build /app/dist ./dist
+
 # Expose port
 EXPOSE 3000
 
 # Run the application
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package.json ./package.json
-CMD ["npm", "start"]
+CMD ["serve", "-s", "dist", "-l", "3000"]

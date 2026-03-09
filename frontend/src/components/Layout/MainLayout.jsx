@@ -169,7 +169,7 @@ export const MainLayout = ({ children }) => {
                 <img
                   src="/image/logo_card_vault.webp"
                   alt="Logo"
-                  className="h-16 w-16"
+                  className="h-12 w-12"
                 />
                 <div style={{ marginLeft: "5px" }}>
                   <a className="flex flex-col items-start leading-none font-sans font-bold italic uppercase tracking-tighter cursor-pointer text-white leading-none">

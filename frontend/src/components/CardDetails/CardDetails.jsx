@@ -58,11 +58,12 @@ export default function CardDetails({ card, onClose, onOwnershipChange }) {
         onOwnershipChange(cardId, isOwned);
       }
 
-      // Only persist to backend when adding (+1), not when removing.
-      // A DELETE/PATCH endpoint will be needed later for removals.
-      if (delta > 0) {
-        addToCollection(cardId, variant.toLowerCase(), delta).catch((err) => {
-          console.error('Failed to add to collection:', err);
+      // actualDelta is 0 when the count is already at 0 and minus is clicked
+      // (Math.max prevents going below 0), so no API call is made in that case.
+      const actualDelta = updated[variant] - prev[variant];
+      if (actualDelta !== 0) {
+        addToCollection(cardId, variant.toLowerCase(), actualDelta).catch((err) => {
+          console.error('Failed to update collection:', err);
         });
       }
 

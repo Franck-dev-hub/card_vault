@@ -1,13 +1,10 @@
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: postgres_card-vault
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -20,12 +17,9 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin_card-vault
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-    ports:
-      - "5050:80"
     networks:
       - app_network
     depends_on:
@@ -33,7 +27,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis_card-vault
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
@@ -47,15 +40,13 @@ services:
 
   redisinsight:
     image: redis/redisinsight:latest
-    container_name: redis_insight_card-vault
-    ports:
-      - "5540:5540"
     networks:
       - app_network
+    depends_on:
+      - redis
 
   backend:
     build: ./backend
-    container_name: backend_card-vault
     environment:
       DB_HOST: ${DB_HOST:-postgres}
       DB_USER: ${DB_USER:-postgres}
@@ -69,15 +60,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    volumes:
-      - ./backend:/app
     networks:
       - app_network
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   ml_service:
     build: ./ml_service
-    container_name: ml_service_card-vault
     environment:
       REDIS_URL: redis://redis:6379/0
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}
@@ -88,7 +76,6 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - ./ml_service:/app
       - ./ml_service/models:/app/models
       - ./data_cache:/app/data_cache
     networks:
@@ -97,19 +84,14 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: frontend_card-vault
     environment:
       - REACT_APP_API_URL=${REACT_APP_API_URL}
       - REACT_APP_ML_API_URL=${REACT_APP_ML_API_URL}
     depends_on:
       - backend
       - ml_service
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     networks:
       - app_network
-    command: npm start
 
   certbot:
     image: certbot/certbot
@@ -120,7 +102,6 @@ services:
 
   proxy:
     build: ./proxy
-    container_name: nginx_proxy_card-vault
     ports:
       - "80:80"
       - "443:443"
@@ -131,7 +112,6 @@ services:
     depends_on:
       - frontend
       - backend
-      - ml_service
     networks:
       - app_network
 

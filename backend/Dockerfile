@@ -1,20 +1,26 @@
 # Select distro
 FROM python:3.13-slim
 
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
 # Select working directory
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update
-RUN apt-get install -y gcc
-RUN apt-get install -y postgresql-client
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    gcc \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy python requirements
-COPY requirements.txt .
+# Copy uv file
+COPY pyproject.toml uv.lock ./
 
 # Install python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv sync --frozen --no-dev
+
+# Use uv venv
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy project files
 COPY . .

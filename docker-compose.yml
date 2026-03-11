@@ -47,6 +47,7 @@ services:
 
   backend:
     build: ./backend
+    platform: ${PLATFORM:-}
     environment:
       DB_HOST: ${DB_HOST:-postgres}
       DB_USER: ${DB_USER:-postgres}
@@ -66,6 +67,7 @@ services:
 
   ml_service:
     build: ./ml_service
+    platform: ${PLATFORM:-}
     environment:
       REDIS_URL: redis://redis:6379/0
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-app_db}

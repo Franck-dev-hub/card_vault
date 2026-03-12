@@ -47,6 +47,6 @@ help:
 	@echo "  make prod       -> Build project in prod mode"
 	@echo "  make build-prod -> Re-build project in prod mode"
 	@echo ""
-	@echo "  make rebuild    -> Re build a specific service"
+	@echo "  make rebuild service=<service>   -> Re build a specific service"
 	@echo "  make stop       -> Down services"
 	@echo "  make clean      -> Clean services"

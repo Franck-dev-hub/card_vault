@@ -1,38 +1,52 @@
 # Variables
-COMPOSE_DEV = docker compose --env-file .env.dev
-COMPOSE_PROD = docker compose --env-file .env
+DC_DEV = docker compose --env-file .env.dev
+DC_PROD = docker compose --env-file .env
+DCD = docker compose down
 
 .PHONY: dev build-dev prod build-prod stop help
 
 # Development mode
 dev:
-	$(COMPOSE_DEV) up -d
+	$(DC_DEV) up -d
 
 # Re-build in dev mode
 build-dev:
-	$(COMPOSE_DEV) down -v
-	docker builder prune -f
-	$(COMPOSE_DEV) up --build -d
+	$(DCD) -v
+	docker builder prune
+	$(DC_DEV) up --build -d
 
 # Production mode
 prod:
-	$(COMPOSE_PROD) up -d
+	$(DC_PROD) up -d
 
 # Re-build in prod mode
 build-prod:
-	$(COMPOSE_PROD) down -v
-	docker builder prune -f
-	$(COMPOSE_PROD) up --build -d
+	$(DCD) -v
+	docker builder prune
+	$(DC_PROD) up --build -d
+
+# Rebuild a spécific docker server
+rebuild:
+	$(DC_DEV) up --build --no-deps -d $(service)
 
 # Down services
 stop:
-	docker compose down
+	$(DCD)
+
+# Clean Docker
+clean:
+	$(DCD) -v
+	docker builder prune
 
 # Help
 help:
 	@echo "Commands allowed :"
-	@echo "  make dev -> Build project in dev mode"
-	@echo "  make build-dev -> Re-build project in dev mode"
-	@echo "  make prod -> Build project in prod mode"
+	@echo "  make dev        -> Build project in dev mode"
+	@echo "  make build-dev  -> Re-build project in dev mode"
+	@echo ""
+	@echo "  make prod       -> Build project in prod mode"
 	@echo "  make build-prod -> Re-build project in prod mode"
-	@echo "  make stop -> Down services"
+	@echo ""
+	@echo "  make rebuild service=<service>   -> Re build a specific service"
+	@echo "  make stop       -> Down services"
+	@echo "  make clean      -> Clean services"

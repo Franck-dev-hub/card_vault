@@ -1,4 +1,10 @@
+:root {
+  --land-primary-color: #667EEA;
+  --land-secondary-color: #9066EA;
+}
+
 .hero {
+  cursor: default;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,7 +36,7 @@
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #667EEA, #9066EA);
+  background: linear-gradient(135deg, var(--land-primary-color), var(--land-secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -53,7 +59,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #667EEA;
+  background-color: var(--land-primary-color);
   color: #fff;
   padding: 14px 28px;
   border-radius: 50px;
@@ -113,8 +119,7 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  border-color: #667EEA;
+  border-color: var(--land-primary-color);
 }
 
 .cardHeader {
@@ -129,7 +134,7 @@
 }
 
 .icon {
-  color: #667EEA;
+  color: var(--land-primary-color);
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -176,14 +181,16 @@
   font-size: 2rem;
   font-weight: 800;
   text-align: center;
-  margin: 40px 0 20px;
+  margin: 40px 0 40px;
   color: var(--text-color);
   letter-spacing: -0.5px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .h2Title::before,
@@ -192,7 +199,6 @@
   height: 1px;
   flex-grow: 1;
   background: rgba(102, 126, 234, 0.3);
-  max-width: 100px;
 }
 
 .devContainer {
@@ -216,14 +222,14 @@
 }
 
 .devCard:hover {
-  border-color: #667EEA;
+  border-color: var(--land-primary-color);
 }
 
 .devPhoto {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 3px solid #667EEA;
+  border: 3px solid var(--land-primary-color);
   object-fit: cover;
 }
 
@@ -233,7 +239,7 @@
 }
 
 .devRole {
-  color: #667EEA;
+  color: var(--land-primary-color);
   font-weight: 600;
   font-size: 0.85rem;
   margin: 0;
@@ -248,7 +254,7 @@
 }
 
 .devLinks a {
-  color: white;
+  color: #FFF;
   opacity: 0.7;
   transition: all 0.3s ease;
   width: 40px;
@@ -263,8 +269,8 @@
 .devLinks a:hover {
   opacity: 1;
   transform: scale(1.1);
-  background: rgba(102, 126, 234, 0.2);
-  color: #667EEA;
+  background: #667EEA80;
+  color: var(--land-primary-color);
 }
 
 @media (min-width: 768px) {

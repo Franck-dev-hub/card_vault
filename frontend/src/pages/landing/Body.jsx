@@ -125,7 +125,7 @@ const Body = () => {
               />
               <div className={styles.devInfo}>
                 <h4>Franck S.</h4>
-                <p className={styles.devRole}>Lead dev / Infra / DevOps / ML</p>
+                <p className={styles.devRole}>Lead dev / Infra / DevOps / Machine Learning</p>
                 <div className={styles.devLinks}>
                   <a href="https://github.com/Franck-dev-hub" target="_blank" rel="noreferrer">
                     <Github size={24} />

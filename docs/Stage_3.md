@@ -56,7 +56,7 @@
 ## 2 Design System Architecture
 
 <p align="center">
-  <img src="/docs/Diagram_architecture.jpg" width="1200" />
+  <img src="/docs/assets/Diagram_architecture.jpg" width="1200" />
 </p>
 
 ## 3 Components Classes and Database Design
@@ -83,7 +83,7 @@
 #### 3.1.2 Back-end Classes in Python and FastAPI
 
 <p align="center">
-  <img src="/docs/backend_class.jpg" width="1200" />
+  <img src="/docs/assets/backend_class.jpg" width="1200" />
 </p>
 
 ### 3.2 Relational Database

@@ -33,3 +33,4 @@ certbot/
 .env
 .env.dev
 .env.private
+*:Zone.Identifier

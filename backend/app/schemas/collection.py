@@ -2,6 +2,13 @@ from datetime import datetime
 from uuid import UUID
 from pydantic import BaseModel
 
+class CardInfo(BaseModel):
+    card_id: str
+    variant: str
+
+    class Config:
+        from_attributes = True
+
 class CollectionCreate(BaseModel):
     user_id: UUID
     card_id: str
@@ -10,10 +17,9 @@ class CollectionCreate(BaseModel):
 
 class CollectionRead(BaseModel):
     id: UUID
-    user_id: UUID
-    card_id: str
     quantity: int
     updated_at: datetime
+    card: CardInfo
 
     class Config:
         from_attributes = True

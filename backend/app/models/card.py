@@ -10,7 +10,7 @@ class Card(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     card_id = Column(String, unique=True, index=True, nullable=False)
-    variant = Column(String, nullable=False)
+    variant = Column(String, index=True, nullable=False)
     #condition = Column(String, nullable=False)
     added_at = Column( DateTime, default=datetime.now, nullable=False)
 

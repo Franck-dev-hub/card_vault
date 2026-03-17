@@ -40,16 +40,17 @@ class CollectionService:
         )
 
         if existing:
-            existing.quantity += quantity
+            new_quantity = existing.quantity + quantity
 
-            if existing.quantity > 0:
-                existing.updated_at = datetime.now()
+            if new_quantity < 0:
+                raise ValueError("Operation would result in negative quantity")
 
-            elif existing.quantity == 0:
+            existing.quantity = new_quantity
+
+            if existing.quantity == 0:
                 self.db.delete(existing)
-
             else:
-                raise ValueError("Quantity cannot be negative")
+                existing.updated_at = datetime.now()
 
         else:
             if quantity > 0:
@@ -69,3 +70,11 @@ class CollectionService:
             self.db.refresh(existing)
 
         return existing
+
+    def get_user_collection(self, user_id: UUID):
+        return (
+            self.db.query(Collection)
+            .join(Card, Collection.card_id == Card.id)
+            .filter(Collection.user_id == user_id)
+            .all()
+        )

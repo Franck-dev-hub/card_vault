@@ -1,5 +1,5 @@
-import { useTheme } from '../../contexts/ThemeContext';
-import './About.css';
+import { useTheme } from "../../contexts/ThemeContext";
+import "./About.css";
 
 /**
  * Confidentiality — Privacy Policy page for CardVault.
@@ -16,7 +16,7 @@ export const Confidentiality = () => {
   const { isDark } = useTheme();
 
   return (
-    <div className={`about-page ${isDark ? 'dark' : 'light'}`}>
+    <div className={`about-page ${isDark ? "dark" : "light"}`}>
       <div className="about-container about-subpage">
         <div className="about-content">
           {/* The h1 is intentionally commented out in the source;

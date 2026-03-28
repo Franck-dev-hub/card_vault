@@ -1,5 +1,5 @@
-import { useTheme } from '../../contexts/ThemeContext';
-import './About.css';
+import { useTheme } from "../../contexts/ThemeContext";
+import "./About.css";
 
 /**
  * Contacts — contact information page for CardVault.
@@ -14,7 +14,7 @@ export const Contacts = () => {
   const { isDark } = useTheme();
 
   return (
-    <div className={`about-page ${isDark ? 'dark' : 'light'}`}>
+    <div className={`about-page ${isDark ? "dark" : "light"}`}>
       <div className="about-container about-subpage">
         <div className="about-content">
           <h1>Contact Us</h1>

@@ -1,0 +1,16 @@
+.footer {
+  background: var(--bg);
+  width: 100%;
+  padding: 20px 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.1);
+  color: var(--text-color);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}

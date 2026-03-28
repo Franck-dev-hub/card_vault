@@ -1,8 +1,8 @@
 // src/pages/About/FAQ.jsx
-import { useTheme } from '../../contexts/ThemeContext';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import './About.css';
+import { useTheme } from "../../contexts/ThemeContext";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import "./About.css";
 
 /**
  * FAQ — Frequently Asked Questions page for CardVault.

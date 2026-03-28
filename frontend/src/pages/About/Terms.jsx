@@ -1,5 +1,5 @@
-import { useTheme } from '../../contexts/ThemeContext';
-import './About.css';
+import { useTheme } from "../../contexts/ThemeContext";
+import "./About.css";
 
 /**
  * Terms — displays the Terms and Conditions for CardVault.
@@ -14,7 +14,7 @@ export const Terms = () => {
   const { isDark } = useTheme();
 
   return (
-    <div className={`about-page ${isDark ? 'dark' : 'light'}`}>
+    <div className={`about-page ${isDark ? "dark" : "light"}`}>
       <div className="about-container about-subpage">
         <div className="about-content">
           <h1>Terms and Conditions</h1>

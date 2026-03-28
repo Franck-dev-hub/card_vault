@@ -1,7 +1,7 @@
 // src/pages/About/AboutLayout.jsx
-import { Outlet } from 'react-router-dom';
-import { useTheme } from '../../contexts/ThemeContext';
-import './About.css';
+import { Outlet } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
+import "./About.css";
 
 /**
  * AboutLayout — shared shell for every route nested under /about/*.
@@ -18,7 +18,7 @@ export const AboutLayout = () => {
   const { isDark } = useTheme();
 
   return (
-    <div className={`about-page ${isDark ? 'dark' : 'light'}`}>
+    <div className={`about-page ${isDark ? "dark" : "light"}`}>
       {/* Child route content is injected here by React Router */}
       <Outlet />
     </div>

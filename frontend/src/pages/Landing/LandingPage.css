@@ -1,0 +1,300 @@
+.hero {
+  background: var(--bg);
+  cursor: default;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 120px 24px 60px;
+  text-align: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.landingLogoImg {
+  width: 144px;
+  height: auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.registerGroup {
+  display: flex;
+  justify-content: center;
+}
+
+.registerBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.registerBtn:hover {
+  transform: translateY(-2px);
+  background-color: #5063b7;
+}
+
+.registerText {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.registerBtn:hover svg {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+}
+
+.featureSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--primary-color);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.icon {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+.aboutSection {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.projectCard {
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 32px;
+  border-radius: 24px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.aboutHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.projectCard p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.h2Title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 40px 0 40px;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.h2Title::before,
+.h2Title::after {
+  content: "";
+  height: 1px;
+  flex-grow: 1;
+  background: rgba(102, 126, 234, 0.3);
+}
+
+.devContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.devCard {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.devCard:hover {
+  border-color: var(--primary-color);
+}
+
+.devPhoto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  object-fit: cover;
+}
+
+.devInfo h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.devRole {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.devLinks {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.devLinks a {
+  color: #FFF;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.devLinks a:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: #667EEA80;
+  color: var(--primary-color);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 4.5rem;
+  }
+
+  .description {
+    font-size: 1.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 3rem;
+  }
+
+  .devContainer {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .wideCard {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .wideCard .cardHeader {
+    justify-content: center;
+  }
+}

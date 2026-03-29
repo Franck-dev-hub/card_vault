@@ -8,7 +8,7 @@
     font-family: 'Verdana', sans-serif;
 }
 
-.create-account-form {
+.register-form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -20,7 +20,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.create-account-title {
+.register-title {
     font-size: 28px;
     font-weight: 700;
     margin: 0 0 8px 0;
@@ -34,7 +34,7 @@
     align-items: center;
 }
 
-.create-account-terms {
+.register-terms {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -42,12 +42,19 @@
     color: #71717b;
 }
 
-.create-account-terms input[type="checkbox"] {
+.register-terms a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.register-terms input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
 
-.create-account-register {
+.register-button {
     height: 52px;
     background: var(--primary-color);
     border: none;
@@ -59,23 +66,23 @@
     transition: opacity 0.2s;
 }
 
-.create-account-register:hover {
+.register-button:hover {
     opacity: 0.9;
 }
 
-.create-account-login {
+.register-login {
     text-align: center;
     font-size: 14px;
     color: #71717b;
 }
 
-.create-account-login a {
+.register-login a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
 }
 
-.create-account-error {
+.register-error {
     color: #dc2626;
     font-size: 0.875rem;
     margin-bottom: 1rem;

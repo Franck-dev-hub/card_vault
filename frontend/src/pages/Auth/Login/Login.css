@@ -1,0 +1,60 @@
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #71717b;
+    justify-content: space-between;
+}
+
+.login-remember a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.login-remember input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.login-remember-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-forgot {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-button {
+    height: 52px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.login-button:hover {
+    opacity: 0.9;
+}
+
+.login-register {
+    text-align: center;
+    font-size: 14px;
+    color: #71717b;
+}
+
+.login-register a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}

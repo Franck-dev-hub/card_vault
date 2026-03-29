@@ -1,12 +1,22 @@
 import Layout from "../../../components/layout/Layout";
-//import { Link } from "react-router-dom";
-//import { Mail, Vault, } from "lucide-react";
+import LoginForm from "./LoginForm";
+import {useLogin} from "./useLogin";
+import "./Login.css";
 
 const Login = () => {
+  const {formData, isLoading, error, handleChange, handleSubmit} = useLogin();
+
   return (
     <Layout>
-      <h1>Bienvenue sur l'Accueil</h1>
-      <p>Ceci est le contenu spécifique à create account.</p>
+      <div className="auth-container">
+        <LoginForm
+          formData={formData}
+          isLoading={isLoading}
+          error={error}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
+      </div>
     </Layout>
   );
 };

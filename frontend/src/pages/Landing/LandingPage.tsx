@@ -1,15 +1,6 @@
+import {Link} from "react-router-dom";
 import Layout from "../../components/layout/Layout";
-import {
-  ChevronRight,
-  Search,
-  Database,
-  Camera,
-  BarChart3,
-  ShieldCheck,
-  Info,
-  Github,
-  Linkedin
-} from "lucide-react";
+import {BarChart3, Camera, ChevronRight, Database, Github, Info, Linkedin, Search, ShieldCheck} from "lucide-react";
 import "./LandingPage.css";
 import logoImg from "../../assets/card_vault_logo.svg";
 
@@ -20,22 +11,22 @@ const LandingPage = () => {
         <div className="content">
 
           {/* --- Hero Section --- */}
-          <img src={logoImg} alt="Card Vault Logo" className="landingLogoImg" />
+          <img src={logoImg} alt="Card Vault Logo" className="landingLogoImg"/>
           <h1 className="title">
-          Your collection,<br />
+            Your collection,<br/>
             <span className="gradientText">your Vault.</span>
           </h1>
 
           <p className="description">
-          Scan, collect and track your TCG cards in one place.
+            Scan, collect and track your TCG cards in one place.
           </p>
 
           <div className="registerGroup">
-            <a href="/create-account" className="registerBtn">
+            <Link to="/create-account" className="registerBtn">
               <span className="registerText">
-              Get started <ChevronRight size={20} />
+              Get started <ChevronRight size={20}/>
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* --- Features Section --- */}
@@ -46,7 +37,7 @@ const LandingPage = () => {
               {/* Search */}
               <div className="card">
                 <div className="cardHeader">
-                  <Search className="icon" />
+                  <Search className="icon"/>
                   <h3>Search</h3>
                 </div>
                 <p>Explore thousands of cards from every set.</p>
@@ -55,7 +46,7 @@ const LandingPage = () => {
               {/* Vault */}
               <div className="card">
                 <div className="cardHeader">
-                  <Database className="icon" />
+                  <Database className="icon"/>
                   <h3>Vault</h3>
                 </div>
                 <p>Your secure personal digital collection.</p>
@@ -64,7 +55,7 @@ const LandingPage = () => {
               {/* Scan */}
               <div className="card">
                 <div className="cardHeader">
-                  <Camera className="icon" />
+                  <Camera className="icon"/>
                   <h3>Scan</h3>
                 </div>
                 <p>Instant card recognition using your camera.</p>
@@ -73,7 +64,7 @@ const LandingPage = () => {
               {/* Statistics */}
               <div className="card">
                 <div className="cardHeader">
-                  <BarChart3 className="icon" />
+                  <BarChart3 className="icon"/>
                   <h3>Statistics</h3>
                 </div>
                 <p>Track your collection value in real-time.</p>
@@ -82,7 +73,7 @@ const LandingPage = () => {
               {/* Licenses */}
               <div className="card wideCard">
                 <div className="cardHeader">
-                  <ShieldCheck className="icon" />
+                  <ShieldCheck className="icon"/>
                   <h3>Licenses</h3>
                 </div>
                 <p>Official data for Pokémon, Magic.</p>
@@ -99,17 +90,17 @@ const LandingPage = () => {
             {/* About project */}
             <div className="projectCard">
               <div className="aboutHeader">
-                <Info className="icon" />
+                <Info className="icon"/>
                 <h3>The Project</h3>
               </div>
               <p>
-              Card Vault was designed to simplify the management of your TCG card collection
-              by bringing multiple licenses together in one place.
+                Card Vault was designed to simplify the management of your TCG card collection
+                by bringing multiple licenses together in one place.
               </p>
               <p>
-              You can integrate all your licenses into a single application, allowing you to
-              easily centralize your entire collection. With the ability to scan your cards
-              using your device’s camera, adding new cards becomes quick and effortless.
+                You can integrate all your licenses into a single application, allowing you to
+                easily centralize your entire collection. With the ability to scan your cards
+                using your device’s camera, adding new cards becomes quick and effortless.
               </p>
             </div>
 
@@ -128,12 +119,12 @@ const LandingPage = () => {
                   <h4>Franck S.</h4>
                   <p className="devRole">Lead dev / Infra / DevOps / Machine Learning</p>
                   <div className="devLinks">
-                    <a href="https://github.com/Franck-dev-hub" target="_blank" rel="noreferrer">
-                      <Github size={24} />
-                    </a>
-                    <a href="https://linkedin.com/in/franck-spadotto" target="_blank" rel="noreferrer">
-                      <Linkedin size={24} />
-                    </a>
+                    <Link to="https://github.com/Franck-dev-hub" target="_blank" rel="noreferrer">
+                      <Github size={24}/>
+                    </Link>
+                    <Link to="https://linkedin.com/in/franck-spadotto" target="_blank" rel="noreferrer">
+                      <Linkedin size={24}/>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -149,12 +140,12 @@ const LandingPage = () => {
                   <h4>Haitu N.</h4>
                   <p className="devRole">Frontend Developer</p>
                   <div className="devLinks">
-                    <a href="https://github.com/N-Haitu31" target="_blank" rel="noreferrer">
-                      <Github size={24} />
-                    </a>
-                    <a href="https://www.linkedin.com/in/haitu-nguyen-76941638b/" target="_blank" rel="noreferrer">
-                      <Linkedin size={24} />
-                    </a>
+                    <Link to="https://github.com/N-Haitu31" target="_blank" rel="noreferrer">
+                      <Github size={24}/>
+                    </Link>
+                    <Link to="https://www.linkedin.com/in/haitu-nguyen-76941638b/" target="_blank" rel="noreferrer">
+                      <Linkedin size={24}/>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -170,12 +161,12 @@ const LandingPage = () => {
                   <h4>Jérémy L.</h4>
                   <p className="devRole">Backend Developer</p>
                   <div className="devLinks">
-                    <a href="https://github.com/JeremyLrs" target="_blank" rel="noreferrer">
-                      <Github size={24} />
-                    </a>
-                    <a href="https://www.linkedin.com/in/jeremylrs" target="_blank" rel="noreferrer">
-                      <Linkedin size={24} />
-                    </a>
+                    <Link to="https://github.com/JeremyLrs" target="_blank" rel="noreferrer">
+                      <Github size={24}/>
+                    </Link>
+                    <Link to="https://www.linkedin.com/in/jeremylrs" target="_blank" rel="noreferrer">
+                      <Linkedin size={24}/>
+                    </Link>
                   </div>
                 </div>
               </div>

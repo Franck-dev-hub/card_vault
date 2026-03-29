@@ -1,4 +1,4 @@
-import React from "react";
+import {Link} from "react-router-dom";
 import "./Header.css";
 import logoImg from "../../assets/card_vault_logo.svg";
 
@@ -7,18 +7,22 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
 
-        <div className="header-logo">
-          <img src={logoImg} alt="Card Vault logo" className="header-logoImg" />
-          <div className="header-logoText">
-            <span className="header-logoCard">CARD</span>
-            <span className="header-logoVault">VAULT</span>
+        {/* Left part */}
+        <Link to="/">
+          <div className="header-logo">
+            <img src={logoImg} alt="Card Vault logo" className="header-logoImg"/>
+            <div className="header-logoText">
+              <span className="header-logoCard">CARD</span>
+              <span className="header-logoVault">VAULT</span>
+            </div>
           </div>
-        </div>
+        </Link>
 
+        {/* Right part */}
         <div className="header-actions">
-          <a href="/login" className="header-loginBtn">
+          <Link to="/login" className="header-loginBtn">
             <span className="header-loginText">Login</span>
-          </a>
+          </Link>
         </div>
 
       </div>

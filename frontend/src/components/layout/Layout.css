@@ -1,0 +1,11 @@
+.main-body {
+    background: var(--bg);
+    cursor: default;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding: 120px 24px 60px;
+    text-align: center;
+}

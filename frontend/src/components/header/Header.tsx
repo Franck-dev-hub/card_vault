@@ -8,7 +8,7 @@ const Header = () => {
       <div className="header-container">
 
         {/* Left part */}
-        <Link to="/">
+        <Link to="/dashboard">
           <div className="header-logo">
             <img src={logoImg} alt="Card Vault logo" className="header-logoImg"/>
             <div className="header-logoText">

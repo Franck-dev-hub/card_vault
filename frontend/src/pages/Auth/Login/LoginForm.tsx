@@ -7,7 +7,7 @@ import React from "react";
 interface LoginFormData {
   email: string;
   password: string;
-  rememberMe: boolean;
+  remember_me: boolean;
 }
 
 interface Props {
@@ -49,12 +49,12 @@ const LoginForm = ({formData, isLoading, error, onChange, onSubmit}: Props) => (
       <div className="login-remember-box">
         <input
           type="checkbox"
-          id="rememberMe"
-          name="rememberMe"
-          checked={formData.rememberMe}
+          id="remember_me"
+          name="remember_me"
+          checked={formData.remember_me}
           onChange={onChange}
         />
-        <label htmlFor="rememberMe">Remember me</label>
+        <label htmlFor="remember_me">Remember me</label>
       </div>
 
       <Link to="/forgot-password" className="login-forgot">

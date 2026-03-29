@@ -43,7 +43,6 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
     />
 
     <PasswordField
-      label="Password"
       id="password"
       name="password"
       value={formData.password}
@@ -52,7 +51,6 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
     />
 
     <PasswordField
-      label="Confirm password"
       id="confirmPassword"
       name="confirmPassword"
       value={formData.confirmPassword}
@@ -77,7 +75,7 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
     </button>
 
     <div className="create-account-login">
-      Already have an account? <Link to="/login">Login here</Link>
+      Already have an account ? <Link to="/login">Login here</Link>
     </div>
   </form>
 );

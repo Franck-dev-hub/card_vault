@@ -1,9 +1,9 @@
 import Layout from "../../../components/layout/Layout";
 import RegistrationForm from "./RegistrationForm";
 import {useRegistration} from "./useRegistration";
-import "./CreateAccount.css";
+import "./Register.css";
 
-const CreateAccount = () => {
+const Register = () => {
   const {formData, isLoading, error, handleChange, handleSubmit} = useRegistration();
 
   return (
@@ -21,4 +21,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default Register;

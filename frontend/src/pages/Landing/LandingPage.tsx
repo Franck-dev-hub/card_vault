@@ -22,7 +22,7 @@ const LandingPage = () => {
           </p>
 
           <div className="registerGroup">
-            <Link to="/create-account" className="registerBtn">
+            <Link to="/register" className="registerBtn">
               <span className="registerText">
               Get started <ChevronRight size={20}/>
               </span>

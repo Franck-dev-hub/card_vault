@@ -14,10 +14,10 @@ interface Props {
 }
 
 const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Props) => (
-  <form className="create-account-form" onSubmit={onSubmit}>
-    <h2 className="create-account-title">Create account</h2>
+  <form className="register-form" onSubmit={onSubmit}>
+    <h2 className="register-title">Create account</h2>
 
-    {error && <p className="create-account-error">{error}</p>}
+    {error && <p className="register-error">{error}</p>}
 
     <InputField
       label="Username"
@@ -58,7 +58,7 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
       required
     />
 
-    <div className="create-account-terms">
+    <div className="register-terms">
       <input
         type="checkbox"
         id="terms"
@@ -70,11 +70,11 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
       <label htmlFor="terms">I agree to the terms</label>
     </div>
 
-    <button type="submit" className="create-account-register" disabled={isLoading}>
+    <button type="submit" className="register-button" disabled={isLoading}>
       {isLoading ? "Creating Account" : "Register"}
     </button>
 
-    <div className="create-account-login">
+    <div className="register-login">
       Already have an account ? <Link to="/login">Login here</Link>
     </div>
   </form>

@@ -1,4 +1,5 @@
 import type {ChangeEvent, ElementType} from "react";
+import "./Fields.css";
 
 interface InputFieldProps {
   label: string;
@@ -13,21 +14,12 @@ interface InputFieldProps {
 }
 
 const InputField = ({
-                      label,
-                      id,
-                      name,
-                      type = "text",
-                      placeholder,
-                      value,
-                      onChange,
-                      icon: Icon,
-                      required = false
+                      id, name, type = "text", placeholder, value, onChange, icon: Icon, required = false
                     }: InputFieldProps) => {
   return (
     <div className="input-group">
-      <label htmlFor={id}>
-        {Icon && <Icon size={18} className="icon"/>} {label}
-      </label>
+      {/* On place l'icône avant l'input dans le DOM */}
+      {Icon && <Icon size={18} className="input-icon"/>}
       <input
         id={id}
         name={name}
@@ -36,6 +28,7 @@ const InputField = ({
         value={value}
         onChange={onChange}
         required={required}
+        className={Icon ? "with-icon" : ""}
       />
     </div>
   );

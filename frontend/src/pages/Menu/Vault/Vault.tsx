@@ -4,11 +4,9 @@ import "./Vault.css";
 const Vault = () => {
   return (
     <Layout>
-      <main>
-        <div>
-          <p>Welcome to the Vault</p>
-        </div>
-      </main>
+      <div>
+        <p>Welcome to the Vault</p>
+      </div>
     </Layout>
   );
 };

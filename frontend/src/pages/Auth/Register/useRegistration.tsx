@@ -1,4 +1,5 @@
 import React, {useState, useCallback} from "react";
+import {useNavigate} from "react-router-dom";
 
 export interface RegisterFormData {
   username: string;
@@ -9,6 +10,7 @@ export interface RegisterFormData {
 }
 
 export const useRegistration = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<RegisterFormData>({
@@ -77,6 +79,8 @@ export const useRegistration = () => {
         const message = HTTP_ERRORS[response.status] ?? data.message ?? "Registration failed.";
         throw new Error(message);
       }
+
+      navigate("/login");
 
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred.");

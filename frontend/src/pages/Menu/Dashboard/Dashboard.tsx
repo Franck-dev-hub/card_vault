@@ -4,11 +4,9 @@ import "./Dashboard.css";
 const Dashboard = () => {
   return (
     <Layout>
-      <main>
-        <div>
-          <p>Welcome to the dashboard</p>
-        </div>
-      </main>
+      <div>
+        <p>Welcome to the dashboard</p>
+      </div>
     </Layout>
   );
 };

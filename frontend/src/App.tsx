@@ -2,11 +2,16 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {AuthProvider} from "./context/AuthContext.tsx";
 import {ProtectedRoute} from "./components/auth/ProtectedRoute.tsx";
 
+// Authentification
 import LandingPage from "./pages/Landing/LandingPage";
 import Register from "./pages/Auth/Register/Register";
 import Login from "./pages/Auth/Login/Login";
+
+// Menu
+import Stats from "./pages/Menu/Stats/Stats";
+
+// Misc
 import Error from "./pages/Errors/NotFound";
-import Dashboard from "./pages/Menu/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -19,7 +24,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
 
           {/* Protected routes */}
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+          <Route path="/stats" element={<ProtectedRoute><Stats/></ProtectedRoute>}/>
 
           {/* Fallback */}
           <Route path="*" element={<Error/>}/>

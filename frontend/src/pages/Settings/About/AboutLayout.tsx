@@ -1,6 +1,6 @@
 // src/pages/About/AboutLayout.jsx
-import { Outlet } from "react-router-dom";
-import { useTheme } from "../../contexts/ThemeContext";
+import {Outlet} from "react-router-dom";
+import {useTheme} from "../../context/ThemeContext";
 import "./About.css";
 
 /**
@@ -15,12 +15,12 @@ import "./About.css";
 export const AboutLayout = () => {
   // The isDark flag drives the CSS class applied to the wrapper div,
   // enabling global theme switching via CSS custom properties defined in About.css.
-  const { isDark } = useTheme();
+  const {isDark} = useTheme();
 
   return (
     <div className={`about-page ${isDark ? "dark" : "light"}`}>
       {/* Child route content is injected here by React Router */}
-      <Outlet />
+      <Outlet/>
     </div>
   );
 };

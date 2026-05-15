@@ -1,4 +1,4 @@
-import { useTheme } from "../../contexts/ThemeContext";
+import {useTheme} from "../../context/ThemeContext";
 import "./About.css";
 
 /**
@@ -12,7 +12,7 @@ import "./About.css";
 export const LegalNotices = () => {
   // Drives the light/dark CSS class applied to the outermost wrapper,
   // ensuring consistent theming across the entire page without prop-drilling.
-  const { isDark } = useTheme();
+  const {isDark} = useTheme();
 
   return (
     <div className={`about-page ${isDark ? "dark" : "light"}`}>
@@ -30,8 +30,8 @@ export const LegalNotices = () => {
               trading card game collections.
             </p>
             <p>
-              <strong>Publisher:</strong> CardVault<br />
-              <strong>Location:</strong> Toulouse, France<br />
+              <strong>Publisher:</strong> CardVault<br/>
+              <strong>Location:</strong> Toulouse, France<br/>
               <strong>Email:</strong> contact@cardvault.com
             </p>
           </section>
@@ -44,9 +44,9 @@ export const LegalNotices = () => {
             {/* Placeholder values — must be replaced with the actual hosting provider's details
                 before going to production to satisfy LCEN Article 6 requirements. */}
             <p>
-              <strong>Host Name:</strong> [Your Hosting Provider]<br />
-              <strong>Address:</strong> [Host Address]<br />
-              <strong>Phone:</strong> [Host Phone Number]<br />
+              <strong>Host Name:</strong> [Your Hosting Provider]<br/>
+              <strong>Address:</strong> [Host Address]<br/>
+              <strong>Phone:</strong> [Host Phone Number]<br/>
               <strong>Website:</strong> [Host Website]
             </p>
           </section>
@@ -54,7 +54,7 @@ export const LegalNotices = () => {
           <section className="terms-section">
             <h2>3. Publication Director</h2>
             <p>
-              <strong>Director of Publication:</strong> CardVault Team<br />
+              <strong>Director of Publication:</strong> CardVault Team<br/>
               <strong>Contact:</strong> contact@cardvault.com
             </p>
           </section>
@@ -192,7 +192,7 @@ export const LegalNotices = () => {
               For any questions regarding these Legal Notices, please contact us:
             </p>
             <p>
-              <strong>Email:</strong> contact@cardvault.com<br />
+              <strong>Email:</strong> contact@cardvault.com<br/>
               <strong>Location:</strong> Toulouse, France
             </p>
           </section>

@@ -1,4 +1,4 @@
-import { useTheme } from "../../contexts/ThemeContext";
+import {useTheme} from "../../context/ThemeContext";
 import "./About.css";
 
 /**
@@ -11,7 +11,7 @@ import "./About.css";
 export const Contacts = () => {
   // Drives the light/dark CSS class on the wrapper so the eventual
   // contact form and text inherit the correct theme tokens.
-  const { isDark } = useTheme();
+  const {isDark} = useTheme();
 
   return (
     <div className={`about-page ${isDark ? "dark" : "light"}`}>

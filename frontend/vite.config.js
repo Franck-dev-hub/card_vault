@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
+import {defineConfig} from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -13,7 +13,26 @@ export default defineConfig({
       clientPort: 80,
     },
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: "spa-fallback",
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          const url = req.url ?? "/";
+          if (
+            !url.startsWith("/@") &&
+                        !url.startsWith("/api") &&
+                        !url.includes(".")
+          ) {
+            req.url = "/index.html";
+          }
+          next();
+        });
+      },
+    },
+  ],
   test: {
     globals: true,
     environment: "jsdom",

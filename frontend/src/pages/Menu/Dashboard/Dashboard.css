@@ -1,146 +1,332 @@
-.container {
-  padding: 2rem;
-  height: 100%;
-  transition: background 0.3s ease; /* Transition smooth entre light/dark */
-  overflow: hidden
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Mode LIGHT - gradient bleu-violet */
-.container.light {
-  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
-  background-attachment: fixed;
+/* ── Hero ── */
+.dashboard-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-radius: 20px;
+    gap: 16px;
 }
 
-/* Mode DARK - gradient sombre */
-.container.dark {
-  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
-  background-attachment: fixed;
+.dashboard-hero.light {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.header {
-  margin-bottom: 0;
+.dashboard-hero.dark {
+    background: #1e2028;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-.title {
-  font-size: 2rem;
-  margin: 0;
-  font-weight: 600;
-  /* Couleur du titre adapté au mode */
-  text-align: center;
+.dashboard-hero-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-/* Titre en mode light */
-.light .title {
-  color: #1f2937;
+.dashboard-avatar-lg {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
-/* Titre en mode dark */
-.dark .title {
-  color: #f9fafb;
+.dashboard-avatar-lg.light {
+    background: #ede9fe;
+    color: #667EEA;
+    border: 3px solid #667EEA;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666666;
+.dashboard-avatar-lg.dark {
+    background: #2d2f3d;
+    color: #667EEA;
+    border: 3px solid #667EEA;
 }
 
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #e74c3c;
-  background-color: #fdecea;
-  padding: 2rem;
-  text-align: center;
+.dashboard-hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* --- Profil et Stats --- */
-.profileCard {
-  background: white;
-  border-radius: 15px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+.dashboard-hero-name {
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.avatarPlaceholder {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 2px solid #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
+.dashboard-hero-email {
+    font-size: 13px;
+    opacity: 0.5;
 }
 
-.username {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
+.dashboard-hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
 }
 
-.statsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
+.dashboard-hero-badge.light {
+    background: #ede9fe;
+    color: #667EEA;
 }
 
-.statBox {
-  background: white;
-  border-radius: 15px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+.dashboard-hero-badge.dark {
+    background: #2d2f3d;
+    color: #667EEA;
 }
 
-.statLabel { display: block; font-size: 1.2rem; color: #444; }
-.statValue { display: block; font-size: 1.4rem; font-weight: bold; color: #666; }
-
-/* --- LE SCROLL HORIZONTAL --- */
-.sectionHeader h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  font-weight: 500;
+/* ── Stats grid ── */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 }
 
-.scrollWrapper {
-  display: flex;
-  overflow-x: auto; /* Active le scroll horizontal */
-  gap: 10px;
-  padding-bottom: 15px; /* Espace pour la barre de scroll */
-  scrollbar-width: none; /* Cache la barre sur Firefox */
+@media (min-width: 769px) {
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-.scrollWrapper::-webkit-scrollbar {
-  display: none; /* Cache la barre sur Chrome/Safari */
+.dashboard-stat-card {
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.cardItem {
-  flex: 0 0 auto; /* Empêche les cartes de rétrécir */
-  width: 80px;    /* Ajuste selon la taille voulue */
+.dashboard-stat-card.light {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.cardImage {
-  width: 100%;
-  border-radius: 5px;
-  display: block;
+.dashboard-stat-card.dark {
+    background: #1e2028;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Adaptations Dark Mode --- */
-.dark .profileCard, .dark .statBox {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  color: white;
+.dashboard-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
 }
-.dark .statLabel, .dark .statValue { color: #e2e8f0; }
+
+.dashboard-stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dashboard-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #667EEA;
+    line-height: 1;
+}
+
+.dashboard-stat-label {
+    font-size: 12px;
+    opacity: 0.5;
+    font-weight: 500;
+}
+
+/* ── Section card ── */
+.dashboard-section-card {
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dashboard-section-card.light {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-section-card.dark {
+    background: #1e2028;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.dashboard-see-all {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #667EEA;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+}
+
+.dashboard-see-all:hover {
+    opacity: 0.7;
+}
+
+/* ── Cards scroll ── */
+.dashboard-cards-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.dashboard-cards-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.dashboard-card-item {
+    flex: 0 0 auto;
+    width: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card-item:hover {
+    transform: translateY(-4px);
+}
+
+.dashboard-card-img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+@media (min-width: 769px) {
+    .dashboard-card-item {
+        width: 96px;
+    }
+}
+
+/* ── Loading / Empty ── */
+.dashboard-loading {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.5;
+    margin: 0;
+    padding: 16px 0;
+}
+
+.dashboard-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+}
+
+.dashboard-empty p {
+    font-size: 14px;
+    opacity: 0.5;
+    margin: 0;
+}
+
+.dashboard-cta {
+    background: #667EEA;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.dashboard-cta:hover {
+    opacity: 0.9;
+}
+
+/* ── License breakdown ── */
+.dashboard-license-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dashboard-license-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboard-license-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-license-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dashboard-license-count {
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.dashboard-license-track {
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.dashboard-license-track.light {
+    background: #f3f4f6;
+}
+
+.dashboard-license-track.dark {
+    background: #2d2f3d;
+}
+
+.dashboard-license-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}

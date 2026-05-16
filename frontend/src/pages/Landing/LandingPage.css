@@ -1,14 +1,24 @@
+/* Hero wrapper */
+.hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px 60px;
+}
+
+/* Content container — centré et limité en largeur */
 .content {
     width: 100%;
-    max-width: 800px;
+    max-width: 860px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    text-align: center;
 }
 
 .landingLogoImg {
-    width: 144px;
+    width: 120px;
     height: auto;
 }
 
@@ -69,12 +79,13 @@
     transition: transform 0.2s ease;
 }
 
+/* Features section */
 .featureSection {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 32px;
 }
 
 .sectionTitle {
@@ -84,8 +95,8 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
     width: 100%;
 }
 
@@ -94,11 +105,11 @@
     flex-direction: column;
     gap: 12px;
     padding: 24px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     border: 1px solid rgba(102, 126, 234, 0.2);
     text-align: left;
-    transition: transform 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 .card:hover {
@@ -113,65 +124,48 @@
 
 .cardHeader h3 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .icon {
     color: var(--primary-color);
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     flex-shrink: 0;
 }
 
 .card p {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     opacity: 0.7;
     line-height: 1.5;
 }
 
-.aboutSection {
-    width: 100%;
-    max-width: 1100px;
+/* Wide card spans full width */
+.wideCard {
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-}
-
-.projectCard {
-    width: 100%;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 32px;
-    border-radius: 24px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
-}
-
-.aboutHeader {
-    display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    text-align: center;
 }
 
-.projectCard p {
-    margin-bottom: 16px;
-    line-height: 1.6;
-    opacity: 0.8;
+.wideCard .cardHeader {
+    justify-content: center;
 }
 
+/* Section titles with decorative lines */
 .h2Title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 800;
     text-align: center;
-    margin: 40px 0 40px;
+    margin: 24px 0;
     color: var(--text-color);
-    letter-spacing: -0.5px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     width: 100%;
     white-space: nowrap;
 }
@@ -184,24 +178,55 @@
     background: rgba(102, 126, 234, 0.3);
 }
 
+/* About section */
+.aboutSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.projectCard {
+    width: 100%;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.aboutHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.projectCard p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    opacity: 0.8;
+    font-size: 0.95rem;
+}
+
+/* Dev cards */
 .devContainer {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     width: 100%;
 }
 
 .devCard {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 32px;
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     border: 1px solid rgba(102, 126, 234, 0.1);
-    transition: transform 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 .devCard:hover {
@@ -209,15 +234,23 @@
 }
 
 .devPhoto {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     border: 3px solid var(--primary-color);
     object-fit: cover;
 }
 
+.devInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+}
+
 .devInfo h4 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0;
 }
 
@@ -231,8 +264,7 @@
 .devLinks {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    width: 100%;
+    gap: 12px;
     margin-top: 8px;
 }
 
@@ -240,9 +272,9 @@
     color: #FFF;
     opacity: 0.7;
     transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.05);
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -256,17 +288,30 @@
     color: var(--primary-color);
 }
 
-@media (min-width: 768px) {
+/* ===== RESPONSIVE ===== */
+
+/* Tablet / Desktop */
+@media (min-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 769px) {
     .title {
-        font-size: 4.5rem;
+        font-size: 4rem;
     }
 
     .description {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
-    .sectionTitle {
-        font-size: 3rem;
+    .h2Title {
+        font-size: 2.2rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .devContainer {
@@ -274,15 +319,11 @@
         align-items: stretch;
     }
 
-    .wideCard {
-        grid-column: 1 / -1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    .devCard {
+        flex: 1;
     }
 
-    .wideCard .cardHeader {
-        justify-content: center;
+    .content {
+        max-width: 1200px;
     }
 }

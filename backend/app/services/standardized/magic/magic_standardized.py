@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 
-# ---------- build card data ---------- #
+
+# ---------- Build card data ---------- #
 
 def _build_card_id(api_id: str) -> str:
     return f"magic-{api_id}"
@@ -25,6 +26,7 @@ def _extract_variant(data_card: Dict[str, Any]) -> str | None:
         return "nonfoil"
     return None
 
+
 def _extract_price(data_card: Dict[str, Any]) -> Dict[str, str]:
     prices = data_card.get("prices")
 
@@ -38,6 +40,7 @@ def _extract_price(data_card: Dict[str, Any]) -> Dict[str, str]:
             eur_prices[key] = value
     return eur_prices
 
+
 def standardized(raw_data: dict, extension: str = None, data_card: str = None):
     if data_card:
         return standardized_data_card(raw_data)
@@ -47,7 +50,7 @@ def standardized(raw_data: dict, extension: str = None, data_card: str = None):
         return standardized_data_extensions(raw_data)
 
 
-# ---------- build standardized data ---------- #
+# ---------- Build standardized data ---------- #
 
 
 def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
@@ -67,7 +70,7 @@ def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def standardized_data_cards(data: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """standardise les cartes Magic"""
+    """Standardize a list of Magic cards."""
     if "data" not in data or not isinstance(data["data"], list):
         return []
     standardized = []
@@ -78,17 +81,18 @@ def standardized_data_cards(data: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def standardized_data_extension(extension: Dict[str, Any]) -> Dict[str, Any]:
-    """Normalise une extension Magic"""
+    """Standardize a single Magic extension."""
     return {
-            "license": "Magic",
-            "extension_id": extension.get("id"),
-            "extension_name": extension.get("name"),
-            "extension_total_card": extension.get("card_count"),
-            "extension_icon": extension.get("icon_svg_uri"),
-        }
+        "license": "Magic",
+        "extension_id": extension.get("id"),
+        "extension_name": extension.get("name"),
+        "extension_total_card": extension.get("card_count"),
+        "extension_logo": extension.get("icon_svg_uri"),
+    }
+
 
 def standardized_data_extensions(data: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Normalise une liste d'extension Magic"""
+    """Standardize a list of Magic extensions — includes icon SVG as extension_logo."""
     if "data" not in data or not isinstance(data["data"], list):
         return []
     standardized = []
@@ -97,6 +101,7 @@ def standardized_data_extensions(data: Dict[str, Any]) -> List[Dict[str, Any]]:
             "license": "Magic",
             "extension_id": extension.get("code"),
             "extension_name": extension.get("name"),
-            "extension_total_card": extension.get("card_count")
+            "extension_total_card": extension.get("card_count"),
+            "extension_logo": extension.get("icon_svg_uri"),  # SVG icon from Scryfall
         })
     return standardized

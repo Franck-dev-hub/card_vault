@@ -67,7 +67,9 @@ const RegistrationForm = ({formData, isLoading, error, onChange, onSubmit}: Prop
         onChange={onChange}
         required
       />
-      <label htmlFor="terms">I agree to the terms</label>
+      <label htmlFor="terms">
+        I agree to the <Link to="/about/terms">terms</Link>
+      </label>
     </div>
 
     <button type="submit" className="register-button" disabled={isLoading}>

@@ -1,0 +1,143 @@
+/* Desktop only — hidden on mobile */
+.desktop-nav {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .desktop-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        bottom: 0;
+        width: 220px;
+        z-index: 40;
+        padding: 24px 12px 16px;
+        transition: width 0.25s ease;
+        overflow: hidden;
+    }
+
+    .desktop-nav.collapsed {
+        width: 64px;
+    }
+
+    .desktop-nav.light {
+        background: #f9fafb;
+        border-right: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .desktop-nav.dark {
+        background: #0f1117;
+        border-right: 1px solid rgba(255, 255, 255, 0.04);
+    }
+}
+
+/* Nav items container */
+.desktop-nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+/* Nav item */
+.desktop-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Collapsed — center icon */
+.desktop-nav.collapsed .desktop-nav-item {
+    justify-content: center;
+    padding: 12px 0;
+    gap: 0;
+}
+
+.desktop-nav-icon {
+    flex-shrink: 0;
+}
+
+/* Light inactive */
+.desktop-nav-item.light {
+    color: #6b7280;
+}
+
+.desktop-nav-item.light:hover {
+    background: #ede9fe;
+    color: #667EEA;
+}
+
+/* Dark inactive */
+.desktop-nav-item.dark {
+    color: #6b7280;
+}
+
+.desktop-nav-item.dark:hover {
+    background: #1e2028;
+    color: #667EEA;
+}
+
+/* Active */
+.desktop-nav-item.active.light {
+    background: #ede9fe;
+    color: #667EEA;
+}
+
+.desktop-nav-item.active.dark {
+    background: #667EEA;
+    color: #ffffff;
+}
+
+/* Collapse toggle button */
+.desktop-nav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    width: 100%;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.desktop-nav.collapsed .desktop-nav-toggle {
+    justify-content: center;
+    padding: 10px 0;
+    gap: 0;
+}
+
+.desktop-nav-toggle.light {
+    background: transparent;
+    color: #6b7280;
+}
+
+.desktop-nav-toggle.light:hover {
+    background: #ede9fe;
+    color: #667EEA;
+}
+
+.desktop-nav-toggle.dark {
+    background: transparent;
+    color: #6b7280;
+}
+
+.desktop-nav-toggle.dark:hover {
+    background: #1e2028;
+    color: #667EEA;
+}

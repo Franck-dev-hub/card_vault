@@ -1,4 +1,4 @@
-import Layout from "../../../components/layout/Layout";
+import PublicLayout from "../../../components/layout/PublicLayout";
 import LoginForm from "./LoginForm";
 import {useLogin} from "./useLogin";
 import "./Login.css";
@@ -7,8 +7,8 @@ const Login = () => {
   const {formData, isLoading, error, handleChange, handleSubmit} = useLogin();
 
   return (
-    <Layout>
-      <div className="auth-container">
+    <PublicLayout>
+      <div className="login-container">
         <LoginForm
           formData={formData}
           isLoading={isLoading}
@@ -17,7 +17,7 @@ const Login = () => {
           onSubmit={handleSubmit}
         />
       </div>
-    </Layout>
+    </PublicLayout>
   );
 };
 

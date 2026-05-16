@@ -1,0 +1,133 @@
+/* Overlay */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+/* Panel */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 280px;
+    z-index: 100;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar-open {
+    transform: translateX(0);
+}
+
+/* Themes */
+.sidebar.light {
+    background: #ffffff;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.dark {
+    background: #111318;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Back button */
+.sidebar-back {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    text-align: left;
+    width: fit-content;
+}
+
+.sidebar.light .sidebar-back {
+    color: #111318;
+}
+
+.sidebar.dark .sidebar-back {
+    color: #ffffff;
+}
+
+/* Nav */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Items */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar.light .sidebar-item {
+    background: #f4f4f5;
+    color: #111318;
+}
+
+.sidebar.dark .sidebar-item {
+    background: #1e2028;
+    color: #f4f4f5;
+}
+
+.sidebar.light .sidebar-item:hover {
+    background: #667EEA;
+    color: #ffffff;
+}
+
+.sidebar.dark .sidebar-item:hover {
+    background: #667EEA;
+    color: #ffffff;
+}
+
+/* Ko-fi */
+.sidebar-item.sidebar-kofi {
+    background: #00d4aa !important;
+    color: #111318 !important;
+}
+
+.sidebar-item.sidebar-kofi:hover {
+    opacity: 0.85;
+}
+
+/* Discord */
+.sidebar-item.sidebar-discord {
+    background: #7c4dff !important;
+    color: #ffffff !important;
+}
+
+.sidebar-item.sidebar-discord:hover {
+    opacity: 0.85;
+}
+
+/* Logout */
+.sidebar-item.sidebar-logout {
+    background: #ff6b8a !important;
+    color: #ffffff !important;
+}
+
+.sidebar-item.sidebar-logout:hover {
+    opacity: 0.85;
+}

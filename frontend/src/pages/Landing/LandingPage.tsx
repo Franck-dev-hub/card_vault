@@ -1,12 +1,12 @@
 import {Link} from "react-router-dom";
-import Layout from "../../components/layout/Layout";
+import PublicLayout from "../../components/layout/PublicLayout";
 import {BarChart3, Camera, ChevronRight, Database, Github, Info, Linkedin, Search, ShieldCheck} from "lucide-react";
 import "./LandingPage.css";
 import logoImg from "../../assets/card_vault_logo.svg";
 
 const LandingPage = () => {
   return (
-    <Layout>
+    <PublicLayout>
       <main className="hero">
         <div className="content">
 
@@ -175,7 +175,7 @@ const LandingPage = () => {
         </div>
       </main>
 
-    </Layout>
+    </PublicLayout>
   );
 };
 

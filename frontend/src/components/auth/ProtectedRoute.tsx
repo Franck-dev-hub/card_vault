@@ -5,11 +5,11 @@ export const ProtectedRoute = ({children}: { children: React.ReactNode }) => {
   const {user, isLoading} = useAuth();
 
   if (isLoading) {
-    return <div>Chargement...</div>; // Ou un spinner
+    return <div>Loading...</div>;
   }
 
   if (!user) {
-    return <Navigate replace to="/"/>;
+    return <Navigate replace to="/login"/>;
   }
 
   return <>{children}</>;

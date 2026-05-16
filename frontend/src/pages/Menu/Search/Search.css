@@ -1,0 +1,165 @@
+.search-page {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .search-page {
+        max-width: 1200px;
+    }
+}
+
+.search-block {
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 14px 14px 0 0;
+    width: 100%;
+    text-align: left;
+    transition: background 0.2s ease;
+}
+
+.search-row.light {
+    background: #ffffff;
+    color: #111318;
+}
+
+.search-row.dark {
+    background: #1e2028;
+    color: #f4f4f5;
+}
+
+.search-row.light:hover {
+    background: #f5f3ff;
+}
+
+.search-row.dark:hover {
+    background: #252836;
+}
+
+.search-row-label {
+    font-weight: 600;
+}
+
+.search-filter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 12px 12px;
+    border-radius: 0 0 14px 14px;
+}
+
+.search-filter-body.light {
+    background: #ffffff;
+}
+
+.search-filter-body.dark {
+    background: #1e2028;
+}
+
+.search-select-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 0;
+    gap: 8px;
+}
+
+.search-select-row.light {
+    background: #f9fafb;
+    color: #374151;
+}
+
+.search-select-row.dark {
+    background: #252836;
+    color: #d1d5db;
+}
+
+.search-select {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #667EEA;
+    cursor: pointer;
+    outline: none;
+    text-align: end;
+    min-width: 0;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+}
+
+.search-select.dark option {
+    background: #1e2028;
+    color: #f4f4f5;
+}
+
+.search-select.light option {
+    background: #ffffff;
+    color: #111318;
+}
+
+.search-coming-soon {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.5;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.search-loading {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.6;
+    padding: 24px 0;
+    margin: 0;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+@media (min-width: 769px) {
+    .search-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+.search-card {
+    position: relative;
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.search-card-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}

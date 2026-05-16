@@ -1,257 +1,132 @@
-/* --- Global Background & Reset --- */
-:global(body) {
-  margin: 0;
-  min-height: 100vh;
+.vault-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100%;
-  padding: 1.5rem 1rem 0 1rem;
-  box-sizing: border-box;
+/* Filter tabs */
+.vault-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.container.light {
-  background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%) fixed;
+.vault-filter-btn {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.container.dark {
-  background: linear-gradient(135deg, #1e293b 0%, #312e81 100%) fixed;
+.vault-filter-btn.light {
+    background: #f3f4f6;
+    color: #6b7280;
 }
 
-/* --- Vue Flexible (Supprime l'espace vide) --- */
-.viewContainer {
-  display: flex;
-  flex-direction: column;
-  flex: 1; 
-  width: 100%;
-  animation: fadeIn 0.3s ease-in;
+.vault-filter-btn.dark {
+    background: #2d2f3d;
+    color: #9ca3af;
 }
 
-/* --- Header Navigation --- */
-.headerTitle {
-  background: white;
-  padding: 18px;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  font-weight: 700;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  min-height: 60px;
+.vault-filter-btn.active {
+    background: #667EEA;
+    color: #ffffff;
 }
 
-.backIcon {
-  position: absolute;
-  left: 20px;
-  cursor: pointer;
+/* Card count */
+.vault-count {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
 }
 
-.sortButton {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 15px 20px;
-  background: white;
-  border: none;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+.vault-count.light {
+    color: #6b7280;
 }
 
-/* --- Menu Principal --- */
-.menuList {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.vault-count.dark {
+    color: #9ca3af;
 }
 
-.menuButton {
-  width: 100%;
-  padding: 25px 20px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 18px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
+/* Cards grid */
+.vault-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
-/* --- Licenses (Design Image 2) --- */
-.scrollList {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 1rem;
+@media (min-width: 480px) {
+    .vault-cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-.licenseCard {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  cursor: pointer;
+@media (min-width: 769px) {
+    .vault-cards-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
 }
 
-.logoWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 10px 0;
+/* Card item */
+.vault-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
 }
 
-.licenseLogo {
-  max-width: 80%;
-  max-height: 120px;
-  object-fit: contain;
+.vault-card:hover {
+    transform: translateY(-3px);
 }
 
-.countBox {
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.vault-card.not-owned {
+    opacity: 0.25;
+    filter: grayscale(100%);
 }
 
-.countNumber {
-  font-size: 2rem;
-  font-weight: 400; /* Plus fin comme sur l'image */
-  color: #64748b; 
-  line-height: 1;
+.vault-card-img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
 }
 
-.countLabel {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #1e293b;
-  margin-top: 5px;
+/* Quantity badge */
+.vault-card-qty {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: #667EEA;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 2px 6px;
+    line-height: 1.4;
 }
 
-/* --- Extensions --- */
-.extensionCard {
-  background: white;
-  border-radius: 15px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+/* Loading / Empty */
+.vault-loading {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.5;
+    margin: 0;
+    padding: 40px 0;
 }
 
-/* --- Stats & Grille de Cartes --- */
-.statsHeaderRow {
-  display: flex;
-  gap: 12px;
-  background: white;
-  padding: 15px;
-  border-radius: 16px;
-  margin-bottom: 15px;
+.vault-empty {
+    text-align: center;
+    padding: 40px 16px;
+    opacity: 0.5;
 }
 
-.statBox { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-.statTitle { font-weight: 800; font-size: 0.85rem; }
-.statValues { font-size: 0.8rem; font-weight: 700; color: #64748b; }
-
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 1rem;
-}
-
-.cardContainer {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  aspect-ratio: 2/3;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.cardImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.ownedBadge {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 36px;
-  height: 36px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #10b981;
-  z-index: 2;
-  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* --- Barres de Progression --- */
-.progressBarContainer {
-  width: 100%;
-  height: 6px;
-  background: #e2e8f0;
-  border-radius: 10px;
-  margin: 5px 0;
-  overflow: hidden;
-}
-
-.progressBar {
-  height: 100%;
-  background: #6366f1;
-  border-radius: 10px;
-}
-
-/* --- Dark Mode --- */
-.dark .menuButton, .dark .headerTitle, .dark .sortButton, 
-.dark .statsHeaderRow, .dark .licenseCard, .dark .extensionCard {
-  background-color: #1e293b;
-  color: white;
-}
-
-.dark .countBox { background: #0f172a; border-color: #334155; }
-.dark .countNumber { color: #94a3b8; }
-.dark .countLabel { color: #f8fafc; }
-.dark .statValues { color: #94a3b8; }
-.dark .progressBarContainer { background: #334155; }
-
-/* --- Animations & Media --- */
-@keyframes badgePop {
-  from { transform: translate(-50%, -50%) scale(0); }
-  to { transform: translate(-50%, -50%) scale(1); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-  .container.light, .container.dark {
-    background-attachment: scroll;
-    background-size: cover;
-  }
+.vault-empty p {
+    margin: 0;
+    font-size: 14px;
 }

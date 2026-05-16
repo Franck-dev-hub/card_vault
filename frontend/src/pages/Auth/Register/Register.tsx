@@ -1,4 +1,4 @@
-import Layout from "../../../components/layout/Layout";
+import PublicLayout from "../../../components/layout/PublicLayout";
 import RegistrationForm from "./RegistrationForm";
 import {useRegistration} from "./useRegistration";
 import "./Register.css";
@@ -7,8 +7,8 @@ const Register = () => {
   const {formData, isLoading, error, handleChange, handleSubmit} = useRegistration();
 
   return (
-    <Layout>
-      <div className="auth-container">
+    <PublicLayout>
+      <div className="register-container">
         <RegistrationForm
           formData={formData}
           isLoading={isLoading}
@@ -17,7 +17,7 @@ const Register = () => {
           onSubmit={handleSubmit}
         />
       </div>
-    </Layout>
+    </PublicLayout>
   );
 };
 

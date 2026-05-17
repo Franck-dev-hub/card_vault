@@ -25,9 +25,13 @@ build-prod:
 	docker builder prune
 	$(DC_PROD) up --build -d
 
-# Rebuild a spécific docker server
-rebuild:
+# Rebuild a specific dev docker server
+rebuild-dev:
 	$(DC_DEV) up --build --no-deps -d $(service)
+
+# Rebuild a specific prod docker server
+rebuild-prod:
+	$(DC_PROD) up --build --no-deps -d $(service)
 
 # Down services
 stop:
@@ -47,6 +51,7 @@ help:
 	@echo "  make prod       -> Build project in prod mode"
 	@echo "  make build-prod -> Re-build project in prod mode"
 	@echo ""
-	@echo "  make rebuild service=<service>   -> Re build a specific service"
+	@echo "  make rebuild-dev service=<service>  -> Re build a specific dev service"
+	@echo "  make rebuild-prod service=<service> -> Re build a specific prod service"
 	@echo "  make stop       -> Down services"
 	@echo "  make clean      -> Clean services"

@@ -2,6 +2,7 @@
 DC_DEV = docker compose --env-file .env.dev
 DC_PROD = docker compose --env-file .env
 DCD = docker compose down
+FRONTEND_DIR = frontend
 
 .PHONY: dev build-dev prod build-prod stop help
 
@@ -11,8 +12,9 @@ dev:
 
 # Re-build in dev mode
 build-dev:
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
 	$(DCD) -v
-	docker builder prune
+	docker builder prune -f
 	$(DC_DEV) up --build -d
 
 # Production mode
@@ -21,8 +23,9 @@ prod:
 
 # Re-build in prod mode
 build-prod:
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
 	$(DCD) -v
-	docker builder prune
+	docker builder prune -f
 	$(DC_PROD) up --build -d
 
 # Rebuild a specific dev docker server
@@ -40,7 +43,7 @@ stop:
 # Clean Docker
 clean:
 	$(DCD) -v
-	docker builder prune
+	docker builder prune -f
 
 # Help
 help:

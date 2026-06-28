@@ -87,54 +87,50 @@
 </p>
 
 ### 3.2 Relational Database
+
+#### ERD
 ```mermaid
-    erDiagram
+erDiagram
     User {
         UUID id PK
         String email UK
         String username UK
-        String password_hash
-        Datetime created_at
-        Datetime updated_at
+        String password
+        DateTime created_at
+        DateTime updated_at
     }
 
     Card {
-        UUID id PK 
-        Int api_id UK
-        String licence
-        String illustrator
-        String image_url
-        String name
-        String rarity
+        UUID id PK
+        String card_id UK
         String variant
-        String set_name
-        String condition
-        Int set_id
-        Int card_number
-        Datetime bougth_at
+        String card_image
+        String extension_id
+        String card_number
+        String card_name
+        DateTime added_at
     }
 
-    UserCollection {
+    Collection {
         UUID id PK
         UUID user_id FK
-        Int card_id FK
-        Int quantity
-        Datetime updated_at
+        UUID card_id FK
+        String variant
+        Integer quantity
+        DateTime updated_at
     }
 
-    RecognitionLog {
-        UUID id PK
-        UUID user_collection FK
-        String uploaded_image_path
-        String model_predictions
-        Datetime created_at
-        Bool feedback
-    }
+    User ||--o{ Collection : "has"
+    Card ||--o{ Collection : "listed in"
+```
 
-    User ||--o{ UserCollection : "has"
-    UserCollection ||--o{ RecognitionLog : "creates"
-    Card ||--o{ UserCollection : "in"
+#### MLD
+```
+USER(__id__, email, username, password, created_at, updated_at)
 
+CARD(__id__, card_id, variant, card_image, extension_id, card_number, card_name, added_at)
+
+COLLECTION(__id__, #user_id → USER, #card_id → CARD, variant, quantity, updated_at)
 ```
 
 ## 4 Sequence diagram

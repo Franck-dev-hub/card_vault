@@ -3,7 +3,7 @@ import "./About.css";
 /**
  * Confidentiality — Privacy Policy for card-vault.fr.
  *
- * GDPR compliant. Only email is collected.
+ * GDPR compliant. Email and username are collected.
  * Theming is handled by the parent AboutLayout component.
  */
 export const Confidentiality = () => {
@@ -44,11 +44,12 @@ export const Confidentiality = () => {
           </p>
           <ul>
             <li><strong>Email address:</strong> Required to create and identify your account</li>
+            <li><strong>Username:</strong> A display name chosen by you at registration</li>
             <li><strong>Card collection data:</strong> The cards and quantities you voluntarily enter</li>
-            <li><strong>Session data:</strong> Authentication token stored in a cookie to keep you logged in</li>
+            <li><strong>Session data:</strong> An authentication cookie (<code>session_id</code>) stored in your browser to keep you logged in</li>
           </ul>
           <p>
-            We do not collect your name, phone number, address, or any other personal information.
+            We do not collect your full name, phone number, address, date of birth, or any other personal information.
           </p>
         </section>
 
@@ -109,7 +110,6 @@ export const Confidentiality = () => {
             <li><strong>Access:</strong> Request a copy of your personal data</li>
             <li><strong>Rectification:</strong> Correct inaccurate data</li>
             <li><strong>Erasure:</strong> Request deletion of your account and all associated data</li>
-            <li><strong>Portability:</strong> Receive your data in a structured format</li>
             <li><strong>Object:</strong> Object to processing of your data</li>
             <li><strong>Lodge a complaint:</strong> File a complaint with the CNIL (
               <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>)

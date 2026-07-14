@@ -62,9 +62,9 @@ export const Terms = () => {
           <h2>5. Intellectual Property</h2>
           <p>
             The Card Vault service, including its source code, design, and features,
-            is owned by CardVault and protected by copyright law. You are granted a
-            limited, non-exclusive, non-transferable license to use the service for
-            personal, non-commercial purposes.
+            is the work of the CardVault team and protected by copyright law. You are
+            granted a limited, non-exclusive, non-transferable license to use the
+            service for personal, non-commercial purposes.
           </p>
           <p>
             Trading card images and related trademarks belong to their respective

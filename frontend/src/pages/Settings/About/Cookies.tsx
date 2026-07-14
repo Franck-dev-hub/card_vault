@@ -29,7 +29,7 @@ export const Cookies = () => {
           </p>
           <ul>
             <li>
-              <strong>Session cookie (auth_token):</strong> Keeps you logged in while
+              <strong>Session cookie (session_id):</strong> Keeps you logged in while
               you use the application. This cookie is deleted when you log out or when
               your session expires. It does not track your browsing activity.
             </li>

@@ -14,17 +14,23 @@ def fetch_all_cards():
     print("Requesting data from Scryfall")
     try:
         # Get the download URL
-        response = requests.get(BULK_INFO_URL, headers=HEADERS, timeout=TIMEOUT)
+        response = requests.get(
+            BULK_INFO_URL, headers=HEADERS, timeout=TIMEOUT
+        )
         response.raise_for_status()
         bulk_data_info = response.json()
 
         target = next(
-            item for item in bulk_data_info["data"] if item["type"] == "default_cards"
+            item
+            for item in bulk_data_info["data"]
+            if item["type"] == "default_cards"
         )
         download_url = target["download_uri"]
 
         # Download the JSON list
-        file_response = requests.get(download_url, headers=HEADERS, timeout=TIMEOUT)
+        file_response = requests.get(
+            download_url, headers=HEADERS, timeout=TIMEOUT
+        )
         file_response.raise_for_status()
 
         return file_response.json()
@@ -56,13 +62,17 @@ def download_card(card, output_dir):
             image_url = card["image_uris"].get("normal")
         elif "card_faces" in card:
             # For double-faced cards, take the front face
-            image_url = card["card_faces"][0].get("image_uris", {}).get("normal")
+            image_url = (
+                card["card_faces"][0].get("image_uris", {}).get("normal")
+            )
 
         if not image_url:
             return False, "Missing image field"
 
         # Download the image
-        img_response = requests.get(image_url, headers=HEADERS, timeout=TIMEOUT)
+        img_response = requests.get(
+            image_url, headers=HEADERS, timeout=TIMEOUT
+        )
         img_response.raise_for_status()
 
         # Process and Save

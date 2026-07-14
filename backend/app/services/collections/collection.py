@@ -11,15 +11,15 @@ class CollectionService:
         self.db = db
 
     def add_card_to_collection(
-            self,
-            user_id: UUID,
-            external_card_id: str,
-            variant: str,
-            quantity: int = 0,
-            card_image: str | None = None,
-            extension_id: str | None = None,
-            card_number: str | None = None,
-            card_name: str | None = None,
+        self,
+        user_id: UUID,
+        external_card_id: str,
+        variant: str,
+        quantity: int = 0,
+        card_image: str | None = None,
+        extension_id: str | None = None,
+        card_number: str | None = None,
+        card_name: str | None = None,
     ):
         # Find existing card or create it
         card_obj = (
@@ -53,11 +53,7 @@ class CollectionService:
         # Find existing collection entry for this user/card/variant
         existing = (
             self.db.query(Collection)
-            .filter_by(
-                user_id=user_id,
-                card_id=card_obj.id,
-                variant=variant
-            )
+            .filter_by(user_id=user_id, card_id=card_obj.id, variant=variant)
             .first()
         )
 
@@ -78,11 +74,13 @@ class CollectionService:
                     user_id=user_id,
                     card_id=card_obj.id,
                     variant=variant,
-                    quantity=quantity
+                    quantity=quantity,
                 )
                 self.db.add(existing)
             else:
-                raise ValueError("Cannot remove a card that is not in collection")
+                raise ValueError(
+                    "Cannot remove a card that is not in collection"
+                )
 
         self.db.commit()
 
@@ -95,7 +93,7 @@ class CollectionService:
         return existing
 
     def get_total_cards(self, user_id: UUID) -> int:
-        """Return total number of cards owned by the user."""
+        # Return total number of cards owned by the user
         return (
             self.db.query(func.sum(Collection.quantity))
             .filter(Collection.user_id == user_id)
@@ -103,9 +101,11 @@ class CollectionService:
         ) or 0
 
     def get_total_by_license(self, user_id: UUID) -> dict:
-        """Return total card count grouped by license."""
+        # Return total card count grouped by license
         entries = (
-            self.db.query(Card.card_id, func.sum(Collection.quantity).label("total"))
+            self.db.query(
+                Card.card_id, func.sum(Collection.quantity).label("total")
+            )
             .join(Collection, Collection.card_id == Card.id)
             .filter(Collection.user_id == user_id)
             .group_by(Card.card_id)
@@ -119,8 +119,10 @@ class CollectionService:
 
         return counts
 
-    def get_card_quantities(self, user_id: UUID, external_card_id: str) -> dict:
-        """Return owned quantities per variant for a specific card."""
+    def get_card_quantities(
+        self, user_id: UUID, external_card_id: str
+    ) -> dict:
+        # Return owned quantities per variant for a specific card
         card_obj = (
             self.db.query(Card)
             .filter(Card.card_id == external_card_id)
@@ -145,7 +147,7 @@ class CollectionService:
         return quantities
 
     def get_owned_by_extension(self, user_id: UUID, extension_id: str) -> dict:
-        """Return list of owned card_ids for a given extension."""
+        # Return list of owned card_ids for a given extension
         prefix = f"%-{extension_id}-%"
 
         owned_cards = (
@@ -154,7 +156,7 @@ class CollectionService:
             .filter(
                 Collection.user_id == user_id,
                 Collection.quantity > 0,
-                Card.card_id.like(prefix)
+                Card.card_id.like(prefix),
             )
             .distinct()
             .all()
@@ -168,7 +170,7 @@ class CollectionService:
         }
 
     def get_stats(self, user_id: UUID) -> dict:
-        """Return comprehensive collection statistics for the user."""
+        # Return comprehensive collection statistics for the user
 
         # Total cards owned
         total_cards = self.get_total_cards(user_id)
@@ -178,7 +180,10 @@ class CollectionService:
 
         # Cards grouped by variant
         variant_entries = (
-            self.db.query(Collection.variant, func.sum(Collection.quantity).label("total"))
+            self.db.query(
+                Collection.variant,
+                func.sum(Collection.quantity).label("total"),
+            )
             .filter(Collection.user_id == user_id)
             .group_by(Collection.variant)
             .all()
@@ -221,7 +226,7 @@ class CollectionService:
         }
 
     def get_all_owned_cards(self, user_id: UUID) -> list:
-        """Return all cards owned by the user with their quantities."""
+        # Return all cards owned by the user with their quantities
         entries = (
             self.db.query(Collection, Card)
             .join(Card, Card.id == Collection.card_id)
@@ -240,7 +245,7 @@ class CollectionService:
 
             license_name = card.card_id.split("-")[0]
 
-            # Fallback for Pokémon cards without stored extension_id/card_number
+            # Fallback for Pokémon cards
             if license_name == "pokemon" and not card.extension_id:
                 parts = card.card_id.split("-")
                 fallback_card_number = parts[-1]
@@ -249,20 +254,22 @@ class CollectionService:
                 fallback_card_number = ""
                 fallback_extension_id = ""
 
-            results.append({
-                "card_id": card.card_id,
-                "card_name": card.card_name or "",
-                "card_number": card.card_number or fallback_card_number,
-                "extension_id": card.extension_id or fallback_extension_id,
-                "license": license_name,
-                "card_image": card.card_image or "",
-                "quantity": collection.quantity,
-            })
+            results.append(
+                {
+                    "card_id": card.card_id,
+                    "card_name": card.card_name or "",
+                    "card_number": card.card_number or fallback_card_number,
+                    "extension_id": card.extension_id or fallback_extension_id,
+                    "license": license_name,
+                    "card_image": card.card_image or "",
+                    "quantity": collection.quantity,
+                }
+            )
 
         return results
 
     def get_recent_cards(self, user_id: UUID, limit: int = 10) -> list:
-        """Return the most recently added/updated cards in the user's collection."""
+        # Return the most recent cards in the user's collection
         entries = (
             self.db.query(Collection, Card)
             .join(Card, Card.id == Collection.card_id)
@@ -283,7 +290,7 @@ class CollectionService:
             card_id = card.card_id
             license_name = card_id.split("-")[0]
 
-            # Fallback for Pokémon cards without stored extension_id/card_number
+            # Fallback for Pokémon cards
             if license_name == "pokemon" and not card.extension_id:
                 parts = card_id.split("-")
                 fallback_card_number = parts[-1]
@@ -292,14 +299,16 @@ class CollectionService:
                 fallback_card_number = ""
                 fallback_extension_id = ""
 
-            results.append({
-                "card_id": card_id,
-                "card_name": card.card_name or "",
-                "card_number": card.card_number or fallback_card_number,
-                "extension_id": card.extension_id or fallback_extension_id,
-                "license": license_name,
-                "card_image": card.card_image or "",
-                "updated_at": collection.updated_at.isoformat(),
-            })
+            results.append(
+                {
+                    "card_id": card_id,
+                    "card_name": card.card_name or "",
+                    "card_number": card.card_number or fallback_card_number,
+                    "extension_id": card.extension_id or fallback_extension_id,
+                    "license": license_name,
+                    "card_image": card.card_image or "",
+                    "updated_at": collection.updated_at.isoformat(),
+                }
+            )
 
         return results

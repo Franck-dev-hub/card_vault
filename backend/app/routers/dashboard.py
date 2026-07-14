@@ -9,6 +9,7 @@ async def get_dashboard():
         "title": "Dashboard",
     }
 
+
 # Routes debug
 # for route in router.routes:
 #     print(f"{route.path} - {route.methods}")

@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.services.database.postgres.postgres import engine, Base
 from dotenv import load_dotenv
 
 # Routers
@@ -15,6 +14,7 @@ from app.routers.auth import logout
 from app.routers.auth import register
 from app.routers.auth import delete_account
 from app.routers.auth import me
+from app.services.database.postgres.postgres import engine, Base
 
 # Load environment variables from .env file
 load_dotenv()
@@ -31,10 +31,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from app.services.database.postgres.postgres import engine, Base
-from app.models.user import User
-from app.models.card import Card
-from app.models.collections import Collection
 
 # Create tables in the database
 try:

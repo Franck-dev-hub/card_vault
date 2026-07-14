@@ -25,6 +25,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+            export DOCKER_CONFIG=/tmp/docker-deploy
+            mkdir -p $DOCKER_CONFIG && echo '{}' > $DOCKER_CONFIG/config.json
             cd ~/Server/card_vault
+            git remote set-url origin https://github.com/Franck-dev-hub/card_vault.git
             git pull origin main
             docker compose up --build -d

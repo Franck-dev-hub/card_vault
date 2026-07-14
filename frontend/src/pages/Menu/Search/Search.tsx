@@ -114,7 +114,7 @@ const Search = () => {
   useEffect(() => {
     if (!selectedLicense || !selectedExtension) return;
     fetchCards(selectedLicense, selectedExtension);
-  }, [selectedExtension]);
+  }, [selectedExtension, selectedLicense]);
 
   const handleCardClick = (card: Card) => {
     const extensionId = extractExtensionId(card.extension_id);

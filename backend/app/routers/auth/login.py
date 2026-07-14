@@ -19,9 +19,15 @@ async def get_login():
 
 
 @router.post("/login")
-async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)):
+async def post_login(
+    credentials: UserLogin, db: Session = Depends(get_postgres)
+):
     # Get user by email
-    user = db.query(user_model.User).filter(user_model.User.email == credentials.email).first()
+    user = (
+        db.query(user_model.User)
+        .filter(user_model.User.email == credentials.email)
+        .first()
+    )
 
     if not user or not verify_password(credentials.password, user.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
@@ -43,10 +49,7 @@ async def post_login(credentials: UserLogin, db: Session = Depends(get_postgres)
     # Build response
     response = JSONResponse(
         status_code=status_code,
-        content={
-            "message": message,
-            "user_id": str(user.id)
-        }
+        content={"message": message, "user_id": str(user.id)},
     )
 
     # Set secure cookie with session token

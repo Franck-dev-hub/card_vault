@@ -1,12 +1,12 @@
 import requests
 from PIL import Image
 from io import BytesIO
-from pathlib import Path
 
 # Pokémon Configuration
 API_URL = "https://api.tcgdex.net/v2/fr/cards"
 TIMEOUT = 60
 HEADERS = {"User-Agent": "CardVaultScrap/1.0"}
+
 
 def fetch_all_cards():
     # Fetch the list of all cards
@@ -18,6 +18,7 @@ def fetch_all_cards():
     except requests.RequestException as e:
         print(f"Error fetching list: {e}")
         return []
+
 
 def download_card(card, output_dir):
     # Download and save a single card
@@ -39,7 +40,9 @@ def download_card(card, output_dir):
         image_url = card["image"] + "/low.webp"
 
         # Download and Save
-        img_response = requests.get(image_url, headers=HEADERS, timeout=TIMEOUT)
+        img_response = requests.get(
+            image_url, headers=HEADERS, timeout=TIMEOUT
+        )
         img_response.raise_for_status()
 
         # Process and save the image to disk

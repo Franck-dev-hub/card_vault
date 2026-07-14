@@ -8,15 +8,12 @@ from app.services.cookies import session as session_manager
 sm_instance = session_manager.SessionManager()
 
 
-def get_current_user(
-        request: Request,
-        db: Session = Depends(get_postgres)
-):
+def get_current_user(request: Request, db: Session = Depends(get_postgres)):
 
     # Get session id
     session_id = request.cookies.get("session_id")
     if not session_id:
-        raise HTTPException(status_code=401, detail="Not authenticated" )
+        raise HTTPException(status_code=401, detail="Not authenticated")
 
     # Get session data
     session = sm_instance.read_session(session_id)

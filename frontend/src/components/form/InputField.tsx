@@ -14,8 +14,8 @@ interface InputFieldProps {
 }
 
 const InputField = ({
-                      id, name, type = "text", placeholder, value, onChange, icon: Icon, required = false
-                    }: InputFieldProps) => {
+  id, name, type = "text", placeholder, value, onChange, icon: Icon, required = false
+}: InputFieldProps) => {
   return (
     <div className="input-group">
       {/* On place l'icône avant l'input dans le DOM */}

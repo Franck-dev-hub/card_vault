@@ -11,8 +11,8 @@ router = APIRouter(prefix="", tags=["vault"])
 
 @router.get("/vault")
 async def get_vault(
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return total card count for the current user."""
     service = CollectionService(db)
@@ -22,8 +22,8 @@ async def get_vault(
 
 @router.get("/vault/licenses")
 async def get_vault_licenses(
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return card count grouped by license."""
     service = CollectionService(db)
@@ -32,8 +32,8 @@ async def get_vault_licenses(
 
 @router.get("/vault/stats")
 async def get_vault_stats(
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return full collection statistics for the current user."""
     service = CollectionService(db)
@@ -42,8 +42,8 @@ async def get_vault_stats(
 
 @router.get("/vault/recent")
 async def get_vault_recent(
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return the 10 most recently added cards."""
     service = CollectionService(db)
@@ -52,8 +52,8 @@ async def get_vault_recent(
 
 @router.get("/vault/cards")
 async def get_vault_cards(
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return all cards owned by the user."""
     service = CollectionService(db)
@@ -61,9 +61,9 @@ async def get_vault_cards(
 
 
 async def get_vault_extension(
-        extension_id: str,
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    extension_id: str,
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return owned card IDs and count for a given extension."""
     service = CollectionService(db)
@@ -72,9 +72,9 @@ async def get_vault_extension(
 
 @router.get("/vault/{card_id:path}")
 async def get_vault_card(
-        card_id: str,
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    card_id: str,
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Return owned quantities per variant for a specific card."""
     service = CollectionService(db)
@@ -83,9 +83,9 @@ async def get_vault_card(
 
 @router.post("/vault")
 async def post_vault(
-        collection_data: CollectionCreate,
-        db: Session = Depends(get_postgres),
-        user: user_model.User = Depends(get_current_user)
+    collection_data: CollectionCreate,
+    db: Session = Depends(get_postgres),
+    user: user_model.User = Depends(get_current_user),
 ):
     """Add or update a card in the user's collection."""
     service = CollectionService(db)
@@ -103,7 +103,7 @@ async def post_vault(
     if not entry and collection_data.quantity > 0:
         raise HTTPException(
             status_code=404,
-            detail=f"Card '{collection_data.card_id}' not found in database."
+            detail=f"Card '{collection_data.card_id}' not found in database.",
         )
 
     return {"message": "Success"}

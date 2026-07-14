@@ -1,4 +1,7 @@
-import json, os, secrets, uuid
+import json
+import os
+import secrets
+import uuid
 from datetime import datetime
 import app.services.database.redis.redis as redis_client
 
@@ -25,10 +28,12 @@ class SessionManager:
             "session_id": session_id,
             "token": token,
             "created_at": created_at.isoformat(),
-            "updated_at": created_at.isoformat()
+            "updated_at": created_at.isoformat(),
         }
 
-        self.redis_cache.create_redis(session_id, json.dumps(session_data), self.session_timeout)
+        self.redis_cache.create_redis(
+            session_id, json.dumps(session_data), self.session_timeout
+        )
         return {"session_id": session_id, "token": token}
 
     # Read session data for a user
@@ -48,7 +53,9 @@ class SessionManager:
 
         # Get current data and re-store with new expiration
         session_data = self.redis_cache.read_redis(session_id)
-        self.redis_cache.update_redis(session_id, session_data, self.session_timeout)
+        self.redis_cache.update_redis(
+            session_id, session_data, self.session_timeout
+        )
         return True
 
     # Delete session data

@@ -2,12 +2,13 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.models.model import search_card
 import base64
-import traceback
 
 router = APIRouter(tags=["predict"])
 
+
 class PredictRequest(BaseModel):
     image: str
+
 
 @router.post("/predict")
 async def post_prediction(body: PredictRequest):

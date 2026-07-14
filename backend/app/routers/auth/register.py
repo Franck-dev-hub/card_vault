@@ -24,21 +24,27 @@ async def get_register():
 
 
 @router.post("/register")
-async def post_register(user_data: UserCreate, db: Session = Depends(get_postgres)):
+async def post_register(
+    user_data: UserCreate, db: Session = Depends(get_postgres)
+):
     # Check if user already exists
-    db_username = db.query(user_model.User).filter(user_model.User.username == user_data.username).first()
-    db_user_email = db.query(user_model.User).filter(user_model.User.email == user_data.email).first()
+    db_username = (
+        db.query(user_model.User)
+        .filter(user_model.User.username == user_data.username)
+        .first()
+    )
+    db_user_email = (
+        db.query(user_model.User)
+        .filter(user_model.User.email == user_data.email)
+        .first()
+    )
     if db_username:
         raise HTTPException(
-            status_code=409,
-            detail="Username already registered"
+            status_code=409, detail="Username already registered"
         )
 
     if db_user_email:
-        raise HTTPException(
-            status_code=409,
-            detail="Email already registered"
-        )
+        raise HTTPException(status_code=409, detail="Email already registered")
 
     # Hash the password
     hashed_password = hash_password(user_data.password)
@@ -49,7 +55,7 @@ async def post_register(user_data: UserCreate, db: Session = Depends(get_postgre
         email=user_data.email,
         password=hashed_password,
         created_at=datetime.now(),
-        updated_at=datetime.now()
+        updated_at=datetime.now(),
     )
 
     # Save to Postgres
@@ -62,7 +68,7 @@ async def post_register(user_data: UserCreate, db: Session = Depends(get_postgre
         status_code=201,
         content={
             "message": "User created successfully",
-            "user_id": str(new_user.id)
-        }
+            "user_id": str(new_user.id),
+        },
     )
     return response

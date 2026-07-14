@@ -1,28 +1,29 @@
-import os, redis
+import os
+import redis
 from typing import Any
-from fastapi import HTTPException
 
 
 class RedisCache:
     def __init__(self):
         # Choose localhost or redis
-        redis_host = os.environ.get("REDIS_HOST") if os.path.exists("/.dockerenv") else "redis"
+        # redis_host = (
+        #     os.environ.get("REDIS_HOST")
+        #     if os.path.exists("/.dockerenv")
+        #     else "redis"
+        # )
         redis_port = os.environ.get("REDIS_PORT", "6379")
 
         # Create the database URL
         redis_url = f"redis://redis:{redis_port}/0"
 
-        self.redis_client = redis.from_url(
-            redis_url,
-            decode_responses=True
-        )
+        self.redis_client = redis.from_url(redis_url, decode_responses=True)
 
     # Store data in Redis
     def create_redis(
-            self,
-            key: str,
-            value: Any,
-            expiration_time: int = int(os.environ.get("REDIS_EXPIRATION", 3600))
+        self,
+        key: str,
+        value: Any,
+        expiration_time: int = int(os.environ.get("REDIS_EXPIRATION", 3600)),
     ) -> None:
         try:
             self.redis_client.set(key, value, expiration_time)
@@ -37,7 +38,9 @@ class RedisCache:
             raise RuntimeError(f"Failed to retrieve key '{key}' in Redis. {e}")
 
     # Refresh data in Redis
-    def update_redis(self, key: str, value: Any, expiration_time: int = None) -> None:
+    def update_redis(
+        self, key: str, value: Any, expiration_time: int = None
+    ) -> None:
         if expiration_time is None:
             expiration_time = int(os.environ.get("REDIS_EXPIRATION", 3600))
         try:

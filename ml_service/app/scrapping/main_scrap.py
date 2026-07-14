@@ -1,15 +1,16 @@
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pokemon_scrap as pokemon_manager
-import magic_scrap as magic_manager
+# import magic_scrap as magic_manager
 
 OUTPUT_DIR = Path("images")
 OUTPUT_DIR.mkdir(exist_ok=True)
 MAX_WORKERS = 5
 MANAGERS = [
     pokemon_manager,
-    #magic_manager
+    # magic_manager
 ]
+
 
 def main():
     tasks = []
@@ -30,7 +31,9 @@ def main():
         print("No cards found or API error.")
         return
 
-    breakdown = ", ".join([f"{name}: {count}" for name, count in stats.items()])
+    breakdown = ", ".join(
+        [f"{name}: {count}" for name, count in stats.items()]
+    )
     print(f"Total cards: {total_tasks} ({breakdown})\n")
 
     success_count = 0
@@ -41,7 +44,10 @@ def main():
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         # Submit tasks to thread pool
         futures = {
-            executor.submit(download_func, card_data, OUTPUT_DIR): (card_data, i)
+            executor.submit(download_func, card_data, OUTPUT_DIR): (
+                card_data,
+                i,
+            )
             for i, (card_data, download_func) in enumerate(tasks)
         }
 
@@ -64,16 +70,20 @@ def main():
             # Display progression
             progress = success_count + error_count
             percentage = (progress / total_tasks) * 100
-            print(f"Progression: {progress}/{total_tasks} ({percentage:.1f}%)", end='\r')
+            print(
+                f"Progression: {progress}/{total_tasks}({percentage:.1f}%)",
+                end="\r",
+            )
 
     # Result summary
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print(f"Total processed => {total_tasks}")
     print(f" - Success ------> {success_count}")
     print(f" - Downloaded ---> {success_count - skipped_count}")
     print(f" - Skipped ------> {skipped_count}")
     print(f" - Errors -------> {error_count}")
-    print("="*50)
+    print("=" * 50)
+
 
 if __name__ == "__main__":
     main()

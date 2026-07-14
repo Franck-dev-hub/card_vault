@@ -18,6 +18,7 @@ const Sidebar = ({isOpen, onClose}: SidebarProps) => {
     try {
       await fetch("/api/logout", {method: "POST", credentials: "include"});
     } catch {
+      // network error ignored, logout proceeds
     }
     logout();
     onClose();

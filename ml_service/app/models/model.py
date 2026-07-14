@@ -1,4 +1,8 @@
-import io, os, faiss, requests, torch
+import io
+import os
+import faiss
+import requests
+import torch
 import numpy as np
 from pathlib import Path
 from PIL import Image
@@ -24,6 +28,7 @@ processor = AutoImageProcessor.from_pretrained(MODEL_NAME, use_fast=True)
 model = AutoModel.from_pretrained(MODEL_NAME).to(device)
 model.eval()
 
+
 def build_index():
     try:
         print("Research index on HF")
@@ -31,13 +36,13 @@ def build_index():
             repo_id=HF_DATASET_ID,
             filename="cards_index.faiss",
             repo_type="dataset",
-            local_dir=str(DATA_DIR)
+            local_dir=str(DATA_DIR),
         )
         hf_hub_download(
             repo_id=HF_DATASET_ID,
             filename="cards_metadata.npy",
             repo_type="dataset",
-            local_dir=str(DATA_DIR)
+            local_dir=str(DATA_DIR),
         )
         print("Index loaded from HF")
         return
@@ -60,7 +65,9 @@ def build_index():
 
             with torch.no_grad():
                 outputs = model(**inputs)
-                embeddings = outputs.last_hidden_state[:, 0, :].float().cpu().numpy()
+                embeddings = (
+                    outputs.last_hidden_state[:, 0, :].float().cpu().numpy()
+                )
 
             embeddings = np.ascontiguousarray(embeddings.astype("float32"))
             faiss.normalize_L2(embeddings)
@@ -71,7 +78,7 @@ def build_index():
                 metadata.append({"name": name, "id": id_card})
 
             processed_count += len(images)
-            print(f"Indexed cards : {processed_count}", end='\r')
+            print(f"Indexed cards : {processed_count}", end="\r")
 
         except Exception as e:
             print(f"\nBatch error : {e}")
@@ -86,10 +93,13 @@ def build_index():
     faiss.write_index(index, str(INDEX_FILE))
     np.save(str(NAMES_FILE), np.array(metadata, dtype=object))
 
+
 def search_card(image_bytes: bytes):
     try:
         # If index doesn't exist, we build it
-        if not os.path.exists(str(INDEX_FILE)) or not os.path.exists(str(NAMES_FILE)):
+        if not os.path.exists(str(INDEX_FILE)) or not os.path.exists(
+            str(NAMES_FILE)
+        ):
             build_index()
 
         # Load index and names
@@ -120,7 +130,7 @@ def search_card(image_bytes: bytes):
         for i in range(3):
             idx = indices[0][i]
             if idx == -1:
-                print(f"#{i+1} : No match found.")
+                print(f"#{i + 1} : No match found.")
                 continue
             score = scores[0][i]
             card_id = metadata[idx]["id"]
@@ -132,19 +142,25 @@ def search_card(image_bytes: bytes):
                 response.raise_for_status()
                 api_data = response.json()
 
-                results.append({
-                    "score": round(float(score), 4),
-                    "data": api_data
-                    })
+                results.append(
+                    {"score": round(float(score), 4), "data": api_data}
+                )
 
             except requests.exceptions.RequestException as e:
                 print(f"API error for ID {card_id}: {e}")
-                results.append({"score": float(score), "card_id": card_id, "error": "API Unreachable"})
+                results.append(
+                    {
+                        "score": float(score),
+                        "card_id": card_id,
+                        "error": "API Unreachable",
+                    }
+                )
 
         return results
 
     except Exception as e:
         print(f"Search error: {type(e).__name__}: {e}")
         import traceback
+
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

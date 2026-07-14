@@ -34,13 +34,19 @@ export const LegalNotices = () => {
 
         <section className="terms-section">
           <h2>2. Website Hosting</h2>
-          {/* Placeholder — replace with actual hosting provider details
-              before going to production (required by LCEN Article 6). */}
           <p>
-            <strong>Host Name:</strong> [Your Hosting Provider]<br/>
-            <strong>Address:</strong> [Host Address]<br/>
-            <strong>Phone:</strong> [Host Phone Number]<br/>
-            <strong>Website:</strong> [Host Website]
+            This website is self-hosted on a private server located in France.
+            The domain name card-vault.fr is registered with:
+          </p>
+          <p>
+            <strong>OVH SAS</strong><br/>
+            2 rue Kellermann<br/>
+            59100 Roubaix, France<br/>
+            Phone: +33 9 72 10 10 07<br/>
+            Website:{" "}
+            <a href="https://www.ovhcloud.com" target="_blank" rel="noopener noreferrer">
+              www.ovhcloud.com
+            </a>
           </p>
         </section>
 

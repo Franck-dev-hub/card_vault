@@ -9,7 +9,7 @@ def create_app() -> FastAPI:
         description="Card Vault Model API",
         version="1.0.0",
         docs_url="/api/v1/docs",
-        redoc_url=None
+        redoc_url=None,
     )
 
     # CORS Configuration
@@ -25,5 +25,6 @@ def create_app() -> FastAPI:
     app.include_router(predict_router, prefix="/ml/api/v1")
 
     return app
+
 
 app = create_app()

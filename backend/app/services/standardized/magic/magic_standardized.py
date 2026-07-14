@@ -3,6 +3,7 @@ from typing import List, Dict, Any
 
 # ---------- Build card data ---------- #
 
+
 def _build_card_id(api_id: str) -> str:
     return f"magic-{api_id}"
 
@@ -92,16 +93,20 @@ def standardized_data_extension(extension: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def standardized_data_extensions(data: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Standardize a list of Magic extensions — includes icon SVG as extension_logo."""
+    # Standardise a list of Magic extensions
     if "data" not in data or not isinstance(data["data"], list):
         return []
     standardized = []
     for extension in data["data"]:
-        standardized.append({
-            "license": "Magic",
-            "extension_id": extension.get("code"),
-            "extension_name": extension.get("name"),
-            "extension_total_card": extension.get("card_count"),
-            "extension_logo": extension.get("icon_svg_uri"),  # SVG icon from Scryfall
-        })
+        standardized.append(
+            {
+                "license": "Magic",
+                "extension_id": extension.get("code"),
+                "extension_name": extension.get("name"),
+                "extension_total_card": extension.get("card_count"),
+                "extension_logo": extension.get(
+                    "icon_svg_uri"
+                ),  # SVG icon from Scryfall
+            }
+        )
     return standardized

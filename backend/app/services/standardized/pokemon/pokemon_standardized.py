@@ -1,16 +1,14 @@
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 
 def standardized(
-    data: Any,
-    extension: str | None = None,
-    card: str | None = None
+    data: Any, extension: str | None = None, card: str | None = None
 ) -> Any:
 
     if card:
         return [standardized_data_card(data)]
 
-    if extension :
+    if extension:
         if isinstance(data, dict) and "cards" in data:
             return [standardized_data_cards(c) for c in data["cards"]]
         return [standardized_data_cards(data)]
@@ -51,6 +49,7 @@ def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
         "variant": [v for v, status in variants.items() if status],
     }
 
+
 def standardized_data_cards(cards: Dict[str, Any]) -> Dict[str, Any]:
     """Standardized data, for all cards display"""
     return {
@@ -62,13 +61,14 @@ def standardized_data_cards(cards: Dict[str, Any]) -> Dict[str, Any]:
         "card_image": cards.get("image"),
     }
 
+
 def standardized_data_extension(extension: Dict[str, Any]) -> Dict[str, Any]:
     """Standardized data, for all displayed extensions"""
     return {
-            "license": "Pokemon",
-            "extension_id": extension.get("id"),
-            "extension_name": extension.get("name"),
-            "extension_logo": extension.get("logo"),
-            "extension_symbol": extension.get("symbol"),
-            "extension_total_card": extension.get("cardCount", {}).get("official"),
-        }
+        "license": "Pokemon",
+        "extension_id": extension.get("id"),
+        "extension_name": extension.get("name"),
+        "extension_logo": extension.get("logo"),
+        "extension_symbol": extension.get("symbol"),
+        "extension_total_card": extension.get("cardCount", {}).get("official"),
+    }

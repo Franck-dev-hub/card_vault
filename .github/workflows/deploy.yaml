@@ -24,6 +24,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd Server/card-vault
+            export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+            cd ~/Server/card_vault
             git pull origin main
             docker compose up --build -d

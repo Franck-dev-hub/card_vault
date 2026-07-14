@@ -46,8 +46,6 @@ The platform offers advanced filtering, cross-game organization, and an integrat
 ![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)
 ![Jest](https://img.shields.io/badge/Jest-C21325?logo=jest&logoColor=fff)  
 ![CSS](https://img.shields.io/badge/CSS-639?logo=css&logoColor=fff)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)
-![DaisyUI](https://img.shields.io/badge/DaisyUI-5A0EF8?logo=daisyui&logoColor=fff)
 
 ### Machine learning
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)  

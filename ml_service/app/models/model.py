@@ -65,7 +65,9 @@ def build_index():
 
             with torch.no_grad():
                 outputs = model(**inputs)
-                embeddings = outputs.last_hidden_state[:, 0, :].float().cpu().numpy()
+                embeddings = (
+                    outputs.last_hidden_state[:, 0, :].float().cpu().numpy()
+                )
 
             embeddings = np.ascontiguousarray(embeddings.astype("float32"))
             faiss.normalize_L2(embeddings)
@@ -95,7 +97,9 @@ def build_index():
 def search_card(image_bytes: bytes):
     try:
         # If index doesn't exist, we build it
-        if not os.path.exists(str(INDEX_FILE)) or not os.path.exists(str(NAMES_FILE)):
+        if not os.path.exists(str(INDEX_FILE)) or not os.path.exists(
+            str(NAMES_FILE)
+        ):
             build_index()
 
         # Load index and names
@@ -138,7 +142,9 @@ def search_card(image_bytes: bytes):
                 response.raise_for_status()
                 api_data = response.json()
 
-                results.append({"score": round(float(score), 4), "data": api_data})
+                results.append(
+                    {"score": round(float(score), 4), "data": api_data}
+                )
 
             except requests.exceptions.RequestException as e:
                 print(f"API error for ID {card_id}: {e}")

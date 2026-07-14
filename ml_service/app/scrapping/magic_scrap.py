@@ -2,13 +2,12 @@ import requests
 from PIL import Image
 from io import BytesIO
 import re
-from pathlib import Path
-import time
 
 # Scryfall Configuration
 BULK_INFO_URL = "https://api.scryfall.com/bulk-data"
 TIMEOUT = 60
 HEADERS = {"User-Agent": "CardVaultScrap/1.0"}
+
 
 def fetch_all_cards():
     # Fetch the list of all cards
@@ -19,7 +18,9 @@ def fetch_all_cards():
         response.raise_for_status()
         bulk_data_info = response.json()
 
-        target = next(item for item in bulk_data_info["data"] if item["type"] == "default_cards")
+        target = next(
+            item for item in bulk_data_info["data"] if item["type"] == "default_cards"
+        )
         download_url = target["download_uri"]
 
         # Download the JSON list
@@ -32,6 +33,7 @@ def fetch_all_cards():
         print(f"Error fetching bulk data: {e}")
         return []
 
+
 def download_card(card, output_dir):
     # Download and save a single card
     try:
@@ -39,7 +41,7 @@ def download_card(card, output_dir):
         set_code = card.get("set", "unknown").upper()
         collector_num = str(card.get("collector_number", "0"))
         # Sanitize collector number
-        safe_num = re.sub(r'[^\w\-_\. ]', '_', collector_num)
+        safe_num = re.sub(r"[^\w\-_\. ]", "_", collector_num)
 
         file_name = f"magic-{set_code}-{safe_num}.webp"
         file_path = output_dir / file_name
@@ -66,7 +68,8 @@ def download_card(card, output_dir):
         # Process and Save
         img = Image.open(BytesIO(img_response.content))
 
-        # Convert to RGB if necessary (removes transparency/alpha channel)
+        # Convert to RGB if necessary
+        # Removes transparency/alpha channel
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
 

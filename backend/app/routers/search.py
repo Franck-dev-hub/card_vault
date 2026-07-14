@@ -20,6 +20,7 @@ service_map = {
     "magic": magic_service,
 }
 
+
 @router.get("/search")
 async def get_licenses():
     return license_data
@@ -37,21 +38,27 @@ async def search(
 
     # Validate license
     if license_key not in license_data:
-        raise HTTPException( status_code=400, detail=f"Unknown license: {license}")
+        raise HTTPException(
+            status_code=400, detail=f"Unknown license: {license}"
+        )
 
     # Get service name from license.json
     service_name = license_data[license_key].get("id")
     service = service_map.get(service_name)
 
     if not service:
-        raise HTTPException(status_code=500, detail=f"Service not configured for license: {license}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Service not configured for license: {license}",
+        )
 
     # Fetch + standardise
     try:
-
         result = await service.fetch_and_standardized(extension, card)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Internal error: {str(e)}"
+        )
 
     # Handle empty result
     if not result:

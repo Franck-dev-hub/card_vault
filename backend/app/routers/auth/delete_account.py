@@ -19,41 +19,39 @@ async def get_delete_account():
 
 @router.delete("/delete_account")
 async def delete_account(
-        credentials: UserDelete,
-        current_user: user_model.User = Depends(get_current_user),
-        db: Session = Depends(get_postgres)
+    credentials: UserDelete,
+    current_user: user_model.User = Depends(get_current_user),
+    db: Session = Depends(get_postgres),
 ):
 
     # Check user email
     if current_user.email != credentials.email:
         raise HTTPException(
-            status_code=403,
-            detail="You can only delete your own account"
+            status_code=403, detail="You can only delete your own account"
         )
 
     # Check user password
     if not verify_password(credentials.password, current_user.password):
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid credentials"
-        )
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     # Delete account
     try:
         user_id_str = str(current_user.id)
         db.delete(current_user)
         db.commit()
-    except Exception as e:
+    except Exception:
         db.rollback()
-        raise HTTPException(status_code=500, detail="Database error during deletion")
+        raise HTTPException(
+            status_code=500, detail="Database error during deletion"
+        )
 
     # Build json response
     response = JSONResponse(
         status_code=200,
         content={
             "message": "User deleted successfully",
-            "user_id": user_id_str
-        }
+            "user_id": user_id_str,
+        },
     )
 
     # Delete cookie session

@@ -11,5 +11,5 @@ async def get_me(user: user_model.User = Depends(get_current_user)):
     return {
         "user_id": str(user.id),
         "username": user.username,
-        "email": user.email
+        "email": user.email,
     }

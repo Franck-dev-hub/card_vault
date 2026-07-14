@@ -49,7 +49,7 @@ release:
 # Delete local branches whose remote is gone
 prune:
 	git fetch --prune
-	git branch -vv | grep ': gone]' | awk '{print $$1}' | xargs -r git branch -d
+	git branch --format '%(refname:short) %(upstream:track)' | awk '$$2 == "[gone]" {print $$1}' | xargs -r git branch -d
 
 # Clean Docker
 clean:

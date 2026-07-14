@@ -31,7 +31,9 @@ def main():
         print("No cards found or API error.")
         return
 
-    breakdown = ", ".join([f"{name}: {count}" for name, count in stats.items()])
+    breakdown = ", ".join(
+        [f"{name}: {count}" for name, count in stats.items()]
+    )
     print(f"Total cards: {total_tasks} ({breakdown})\n")
 
     success_count = 0
@@ -42,7 +44,10 @@ def main():
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         # Submit tasks to thread pool
         futures = {
-            executor.submit(download_func, card_data, OUTPUT_DIR): (card_data, i)
+            executor.submit(download_func, card_data, OUTPUT_DIR): (
+                card_data,
+                i,
+            )
             for i, (card_data, download_func) in enumerate(tasks)
         }
 
@@ -65,7 +70,10 @@ def main():
             # Display progression
             progress = success_count + error_count
             percentage = (progress / total_tasks) * 100
-            print(f"Progression: {progress}/{total_tasks}({percentage:.1f}%)", end="\r")
+            print(
+                f"Progression: {progress}/{total_tasks}({percentage:.1f}%)",
+                end="\r",
+            )
 
     # Result summary
     print("\n" + "=" * 50)

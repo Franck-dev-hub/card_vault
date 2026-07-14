@@ -40,7 +40,9 @@ def download_card(card, output_dir):
         image_url = card["image"] + "/low.webp"
 
         # Download and Save
-        img_response = requests.get(image_url, headers=HEADERS, timeout=TIMEOUT)
+        img_response = requests.get(
+            image_url, headers=HEADERS, timeout=TIMEOUT
+        )
         img_response.raise_for_status()
 
         # Process and save the image to disk

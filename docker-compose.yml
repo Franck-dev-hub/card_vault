@@ -50,7 +50,7 @@ services:
       - redis
 
   backend:
-    build: ./backend
+    image: ghcr.io/franck-dev-hub/card_vault/backend:${GITHUB_REF_NAME:-main}
     platform: ${PLATFORM:-}
     environment:
       DB_HOST: ${DB_HOST:-postgres}
@@ -69,7 +69,7 @@ services:
       - app_network
 
   ml_service:
-    build: ./ml_service
+    image: ghcr.io/franck-dev-hub/card_vault/ml-service:${GITHUB_REF_NAME:-main}
     platform: ${PLATFORM:-}
     environment:
       REDIS_URL: redis://redis:6379/0
@@ -87,7 +87,7 @@ services:
       - app_network
 
   frontend:
-    build: ./frontend
+    image: ghcr.io/franck-dev-hub/card_vault/frontend:${GITHUB_REF_NAME:-main}
     environment:
       - REACT_APP_API_URL=${REACT_APP_API_URL}
       - REACT_APP_ML_API_URL=${REACT_APP_ML_API_URL}
@@ -105,7 +105,7 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   proxy:
-    build: ./proxy
+    image: ghcr.io/franck-dev-hub/card_vault/proxy:${GITHUB_REF_NAME:-main}
     ports:
       - "80:80"
       - "443:443"

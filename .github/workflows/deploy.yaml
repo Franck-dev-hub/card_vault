@@ -1,9 +1,11 @@
 name: Deployment
 
 on:
-  push:
-    branches:
-      - prod
+  workflow_run:
+    workflows:
+      - "Build and Push to GHCR"
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -12,6 +14,7 @@ permissions:
 
 jobs:
   deployment:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'prod' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     environment: prod
     concurrency: prod
@@ -22,14 +25,15 @@ jobs:
         id: deployment
         with:
           script: |
+            const ref = context.payload.workflow_run ? context.payload.workflow_run.head_sha : context.sha;
             const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: context.ref,
+              ref: ref,
               environment: 'production',
               auto_merge: false,
               required_contexts: [],
-              description: `Deploying from ${context.ref} (${context.sha})`,
+              description: `Deploying from ${ref}`,
               transient_environment: false
             });
             core.setOutput('deployment_id', deployment.data.id);

@@ -56,8 +56,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # Docker meta pour frontend
       - name: Docker meta for frontend
@@ -81,8 +79,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # Docker meta pour ml_service
       - name: Docker meta for ml_service
@@ -106,8 +102,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-ml.outputs.tags }}
           labels: ${{ steps.meta-ml.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # Docker meta pour proxy
       - name: Docker meta for proxy
@@ -131,8 +125,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-proxy.outputs.tags }}
           labels: ${{ steps.meta-proxy.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # Créer un deployment GitHub pour traçabilité
       - name: Create GitHub Deployment

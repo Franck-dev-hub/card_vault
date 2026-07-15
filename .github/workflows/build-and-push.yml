@@ -3,15 +3,15 @@ name: Build and Push to GHCR
 on:
   push:
     branches:
-      - main
+      - prod
       - preprod
     tags:
       - "v*"
   pull_request:
     branches:
-      - main
+      - prod
 
-# Permissions pour pousser vers GHCR et créer des deployments
+# Allow GHCR push
 permissions:
   contents: read
   packages: write
@@ -21,12 +21,12 @@ jobs:
   build-and-push:
     name: Build and Push Docker Images to GHCR
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Configurer Docker pour utiliser GHCR
+      # Docker config for GHCR
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -34,7 +34,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Extraire metadata (tags, labels) pour Docker
+      # Extract metadata (tags, labels) for Docker
       - name: Docker meta for backend
         id: meta-backend
         uses: docker/metadata-action@v5
@@ -48,7 +48,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Builder et pousser l'image backend
+      # Build & push backed image
       - name: Build and push backend
         uses: docker/build-push-action@v5
         with:
@@ -57,7 +57,7 @@ jobs:
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
 
-      # Docker meta pour frontend
+      # Docker meta for frontend
       - name: Docker meta for frontend
         id: meta-frontend
         uses: docker/metadata-action@v5
@@ -71,7 +71,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Builder et pousser l'image frontend
+      # Build & push frontend image
       - name: Build and push frontend
         uses: docker/build-push-action@v5
         with:
@@ -80,7 +80,7 @@ jobs:
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
 
-      # Docker meta pour ml_service
+      # Docker meta for ml_service
       - name: Docker meta for ml_service
         id: meta-ml
         uses: docker/metadata-action@v5
@@ -94,7 +94,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Builder et pousser l'image ml_service
+      # Build & push ml_service image
       - name: Build and push ml_service
         uses: docker/build-push-action@v5
         with:
@@ -103,7 +103,7 @@ jobs:
           tags: ${{ steps.meta-ml.outputs.tags }}
           labels: ${{ steps.meta-ml.outputs.labels }}
 
-      # Docker meta pour proxy
+      # Docker meta for proxy
       - name: Docker meta for proxy
         id: meta-proxy
         uses: docker/metadata-action@v5
@@ -117,7 +117,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Builder et pousser l'image proxy
+      # Build & push proxy image
       - name: Build and push proxy
         uses: docker/build-push-action@v5
         with:
@@ -126,7 +126,7 @@ jobs:
           tags: ${{ steps.meta-proxy.outputs.tags }}
           labels: ${{ steps.meta-proxy.outputs.labels }}
 
-      # Créer un deployment GitHub pour traçabilité
+      # Create deployment on GitHub for tracability
       - name: Create GitHub Deployment
         if: github.event_name != 'pull_request'
         uses: actions/github-script@v7
@@ -142,7 +142,7 @@ jobs:
               description: `Built and pushed images to GHCR: backend, frontend, ml-service, proxy (${{ github.sha }})`,
               transient_environment: false
             });
-            
+
             // Mettre à jour le statut en success
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,

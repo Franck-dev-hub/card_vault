@@ -3,72 +3,122 @@
 # Variables
 DC_DEV = docker compose -f docker-compose.yml -f docker-compose.dev.yml --env-file .env.dev
 DC_PROD = docker compose -f docker-compose.yml --env-file .env
+DC_PREPROD = docker compose -f docker-compose.yml -f docker-compose.preprod.yml --env-file .env
 DCD = docker compose down
 FRONTEND_DIR = frontend
+BACKEND_DIR = backend
+ML_DIR = ml_service
 
-.PHONY: dev build-dev prod build-prod stop release prune help
+# Environments list for dynamic rule generation
+ENVS := dev prod preprod
 
-# Development mode
-dev:
+.PHONY: stop clean release prune help
+
+# === ENVIRONMENTS ===
+
+# UP: Start environment
+dev/up: 
 	$(DC_DEV) up -d
 
-# Re-build in dev mode
-build-dev:
+prod/up: 
+	$(DC_PROD) up -d
+
+preprod/up: 
+	$(DC_PREPROD) pull
+	$(DC_PREPROD) up -d
+
+# BUILD ALL: Rebuild all containers in environment
+dev/build: 
 	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
 	$(DCD) -v
 	docker builder prune -f
 	$(DC_DEV) up --build -d
 
-# Production mode
-prod:
-	$(DC_PROD) up -d
-
-# Re-build in prod mode
-build-prod:
+prod/build: 
 	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
 	$(DCD) -v
 	docker builder prune -f
 	$(DC_PROD) up --build -d
 
-# Rebuild a specific dev docker server
-rebuild-dev:
-	$(DC_DEV) up --build --no-deps -d $(service)
+preprod/build: 
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
+	$(DCD) -v
+	docker builder prune -f
+	$(DC_PREPROD) up --build -d
 
-# Rebuild a specific prod docker server
-rebuild-prod:
-	$(DC_PROD) up --build --no-deps -d $(service)
+# BUILD SERVICE: Rebuild specific service (works for ANY service in that env)
+dev/build/%:
+	$(DC_DEV) up --build --no-deps -d $*
 
-# Down services
+prod/build/%:
+	$(DC_PROD) up --build --no-deps -d $*
+
+preprod/build/%:
+	$(DC_PREPROD) up --build --no-deps -d $*
+
+# PULL: Pull preprod images from GHCR
+preprod/pull:
+	$(DC_PREPROD) pull
+
+# === LINTING ===
+
+lint/front:
+	cd $(FRONTEND_DIR) && npm run lint && npx tsc --noEmit
+
+lint/back:
+	cd $(BACKEND_DIR) && uv run flake8 . && uv run ruff check .
+
+lint/ml:
+	cd $(ML_DIR) && uv run flake8 . && uv run ruff check .
+
+lint: lint/front lint/back lint/ml
+
+# === MAINTENANCE ===
+
 stop:
 	$(DCD)
 
-# Create PR develop → main
-release:
-	gh pr create --base main --head develop --title "release: develop → main" --fill
-
-# Delete local branches whose remote is gone
-prune:
-	git fetch --prune
-	git branch --format '%(refname:short) %(upstream:track)' | awk '$$2 == "[gone]" {print $$1}' | xargs -r git branch -d
-
-# Clean Docker
 clean:
 	$(DCD) -v
 	docker builder prune -f
 
-# Help
+release:
+	gh pr create --base main --head develop --title "release: develop -> main" --fill
+
+prune:
+	git fetch --prune
+	git branch --format '%(refname:short) %(upstream:track)' | awk '$$2 == "[gone]" {print $$1}' | xargs -r git branch -d
+
+# === HELP ===
 help:
-	@echo "Commands allowed :"
-	@echo "  make dev        -> Build project in dev mode"
-	@echo "  make build-dev  -> Re-build project in dev mode"
+	@echo "----- ENVIRONMENTS -----------------------"
+	@echo "  ----- develop -----"
+	@echo "  dev/up              -> Start dev environment"
+	@echo "  dev/build           -> Rebuild ALL dev containers"
+	@echo "  dev/build/{service} -> Rebuild a container in dev"
 	@echo ""
-	@echo "  make prod       -> Build project in prod mode"
-	@echo "  make build-prod -> Re-build project in prod mode"
+	@echo "  ----- prod -----"
+	@echo "  prod/up              -> Start prod environment"
+	@echo "  prod/build           -> Rebuild ALL prod containers"
+	@echo "  prod/build/{service} -> Rebuild a container in prod"
 	@echo ""
-	@echo "  make rebuild-dev service=<service>  -> Re build a specific dev service"
-	@echo "  make rebuild-prod service=<service> -> Re build a specific prod service"
-	@echo "  make stop       -> Down services"
-	@echo "  make clean      -> Clean services"
+	@echo "  ----- preprod -----"
+	@echo "  preprod/up              -> Start preprod with GHCR (port 8080/8443)"
+	@echo "  preprod/pull            -> Pull preprod images from GHCR"
+	@echo "  preprod/build           -> Rebuild ALL preprod containers"
+	@echo "  preprod/build/{service} -> Rebuild a container in preprod"
 	@echo ""
-	@echo "  make release    -> Create PR from develop to main"
-	@echo "  make prune      -> Delete local branches merged on GitHub"
+	@echo "----- LINTING ---------------------------"
+	@echo ""
+	@echo "  lint       -> Run all linters"
+	@echo "  lint/front -> ESLint + TypeScript (frontend)"
+	@echo "  lint/back  -> flake8 + ruff (backend)"
+	@echo "  lint/ml    -> flake8 + ruff (ml_service)"
+	@echo ""
+	@echo "----- MAINTENANCE -----------------------"
+	@echo ""
+	@echo "  stop    -> Stop all containers"
+	@echo "  clean   -> Remove containers + volumes + build cache"
+	@echo "  release -> Create PR develop → main"
+	@echo "  prune   -> Delete merged local branches"
+	@echo ""

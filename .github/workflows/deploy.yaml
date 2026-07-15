@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     branches:
-      - main
+      - prod
   workflow_dispatch:
 
 permissions:
@@ -51,7 +51,7 @@ jobs:
             export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
             cd ~/Server/card_vault
             git remote set-url origin https://github.com/Franck-dev-hub/card_vault.git
-            git pull origin main
+            git pull origin prod
             
             # Log in to GHCR
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin

@@ -1,0 +1,8 @@
+# Pre-production override for local testing with GHCR images
+# Usage: docker compose -f docker-compose.yml -f docker-compose.preprod.yml up -d
+
+services:
+  proxy:
+    ports:
+      - "8080:80"
+      - "8443:443"

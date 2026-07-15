@@ -83,7 +83,7 @@ clean:
 	docker builder prune -f
 
 release:
-	gh pr create --base main --head develop --title "release: develop -> main" --fill
+	gh pr create --base prod --head develop --title "release: develop -> prod" --fill
 
 prune:
 	git fetch --prune
@@ -119,6 +119,6 @@ help:
 	@echo ""
 	@echo "  stop    -> Stop all containers"
 	@echo "  clean   -> Remove containers + volumes + build cache"
-	@echo "  release -> Create PR develop → main"
+	@echo "  release -> Create PR develop → prod"
 	@echo "  prune   -> Delete merged local branches"
 	@echo ""

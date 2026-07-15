@@ -32,5 +32,6 @@ certbot/
 # Project
 .env
 .env.dev
+.env.preprod
 .env.private
 *:Zone.Identifier

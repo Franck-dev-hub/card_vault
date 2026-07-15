@@ -3,7 +3,7 @@
 # Variables
 DC_DEV = docker compose -f docker-compose.yml -f docker-compose.dev.yml --env-file .env.dev
 DC_PROD = docker compose -f docker-compose.yml --env-file .env
-DC_PREPROD = docker compose -f docker-compose.yml -f docker-compose.preprod.yml --env-file .env
+DC_PREPROD = docker compose -f docker-compose.yml -f docker-compose.preprod.yml --env-file .env.preprod
 DCD = docker compose down
 FRONTEND_DIR = frontend
 BACKEND_DIR = backend

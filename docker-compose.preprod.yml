@@ -2,7 +2,15 @@
 # Usage: docker compose -f docker-compose.yml -f docker-compose.preprod.yml up -d
 
 services:
+  pgadmin:
+    environment:
+      - DOMAIN_NAME=pgadmin.card-vault.preprod
+  redisinsight:
+    environment:
+      - DOMAIN_NAME=redisinsight.card-vault.preprod
   proxy:
+    environment:
+      - DOMAIN_NAME=card-vault.preprod
     volumes:
       - ./proxy/default.preprod.conf:/etc/nginx/conf.d/default.conf:ro
     ports:

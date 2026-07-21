@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    allowedHosts: ["frontend", "localhost", "card-vault.fr"],
+    allowedHosts: ["frontend", "localhost", "card-vault.fr", "card-vault.test"],
     hmr: {
       clientPort: 80,
     },

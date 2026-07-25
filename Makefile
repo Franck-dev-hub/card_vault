@@ -12,7 +12,7 @@ ML_DIR = ml_service
 # Environments list for dynamic rule generation
 ENVS := dev prod preprod
 
-.PHONY: stop clean release prune help sec/front sec lint lint/front lint/back lint/ml ci
+.PHONY: stop clean release prune help lint lint/front lint/back lint/ml sec sec/front sec/back sec/ml ci
 
 # === ENVIRONMENTS ===
 
@@ -78,12 +78,18 @@ lint: lint/front lint/back lint/ml
 sec/front:
 	cd $(FRONTEND_DIR) && pnpm run audit
 
-sec: sec/front
+sec/back:
+	cd $(BACKEND_DIR) && uv run bandit -r . --exclude ./.venv
+
+sec/ml:
+	cd $(ML_DIR) && uv run bandit -r . --exclude ./.venv
+
+sec: sec/front sec/back sec/ml
 
 # === CI ===
 
 # Run the exact same checks as .github/workflows/ci.yaml, locally
-ci: lint
+ci: lint sec
 
 # === MAINTENANCE ===
 
@@ -127,14 +133,16 @@ help:
 	@echo "  lint/back  -> flake8 + ruff + mypy (backend)"
 	@echo "  lint/ml    -> flake8 + ruff + mypy (ml_service)"
 	@echo ""
-	@echo "----- CI ---------------------------------"
-	@echo ""
-	@echo "  ci -> Run the same checks as CI locally"
-	@echo ""
-	@echo "----- SECURITY --------------------------"
+	@echo "----- SECURITY ---------------------------"
 	@echo ""
 	@echo "  sec       -> Run all security checks"
 	@echo "  sec/front -> pnpm audit (frontend)"
+	@echo "  sec/back  -> bandit (backend)"
+	@echo "  sec/ml    -> bandit (ml_service)"
+	@echo ""
+	@echo "----- CI ---------------------------------"
+	@echo ""
+	@echo "  ci -> Run the same checks as CI locally"
 	@echo ""
 	@echo "----- MAINTENANCE -----------------------"
 	@echo ""

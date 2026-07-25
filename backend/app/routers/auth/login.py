@@ -42,9 +42,10 @@ async def post_login(
         raise HTTPException(status_code=500, detail="Error creating session")
 
     if getattr(credentials, "remember_me", False):
-        max_age = os.environ.get("SESSION_COOKIE_TIME_LONG")
+        max_age_env = os.environ.get("SESSION_COOKIE_TIME_LONG")
     else:
-        max_age = os.environ.get("SESSION_COOKIE_TIME_DEFAULT")
+        max_age_env = os.environ.get("SESSION_COOKIE_TIME_DEFAULT")
+    max_age = int(max_age_env) if max_age_env is not None else None
 
     # Build response
     response = JSONResponse(

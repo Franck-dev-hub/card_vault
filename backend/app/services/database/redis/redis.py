@@ -39,7 +39,7 @@ class RedisCache:
 
     # Refresh data in Redis
     def update_redis(
-        self, key: str, value: Any, expiration_time: int = None
+        self, key: str, value: Any, expiration_time: int | None = None
     ) -> None:
         if expiration_time is None:
             expiration_time = int(os.environ.get("REDIS_EXPIRATION", 3600))

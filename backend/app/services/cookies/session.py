@@ -12,19 +12,18 @@ class SessionManager:
         self.session_timeout = int(os.environ.get("REDIS_EXPIRATION", 3600))
 
     # Create a new session for a user
-    def create_session(self, user_id: int):
+    def create_session(self, user_id: uuid.UUID):
         # Init data
-        user_id = int(user_id)
         session_id = str(uuid.uuid4())
         token = secrets.token_urlsafe(32)
         created_at = datetime.now()
 
-        if self.read_session(user_id):
+        if self.read_session(str(user_id)):
             raise RuntimeError(f"User with id {user_id} already logged in")
 
         # Merge cookie data
         session_data = {
-            "user_id": user_id,
+            "user_id": str(user_id),
             "session_id": session_id,
             "token": token,
             "created_at": created_at.isoformat(),

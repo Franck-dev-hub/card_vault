@@ -5,40 +5,66 @@ on:
   pull_request:
 
 jobs:
-  backend:
-    name: Backend – flake8, ruff & mypy
+  # Backend
+  backend-checks:
+    name: Backend – ${{ matrix.theme }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
+    strategy:
+      matrix:
+        include:
+          - theme: Linter
+            command: flake8 . && uv run ruff check .
+          - theme: TypeCheck
+            command: mypy .
+          - theme: Security
+            command: bandit -r . --exclude ./.venv
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync
-      - run: uv run flake8 .
-      - run: uv run ruff check .
-      - run: uv run mypy .
+      - run: uv run ${{ matrix.command }}
 
-  ml-service:
-    name: ML Service – flake8, ruff & mypy
+  # Machine learning
+  ml-checks:
+    name: ML Service – ${{ matrix.theme }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ml_service
+    strategy:
+      matrix:
+        include:
+          - theme: Linter
+            command: flake8 . && uv run ruff check .
+          - theme: TypeCheck
+            command: mypy .
+          - theme: Security
+            command: bandit -r . --exclude ./.venv
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync
-      - run: uv run flake8 .
-      - run: uv run ruff check .
-      - run: uv run mypy .
+      - run: uv run ${{ matrix.command }}
 
-  frontend:
-    name: Frontend – ESLint & tsc
+  # Frontend
+  frontend-checks:
+    name: Frontend – ${{ matrix.theme }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
+    strategy:
+      matrix:
+        include:
+          - theme: Linter (ESLint)
+            command: pnpm run lint
+          - theme: TypeCheck (TypeScript)
+            command: npx tsc --noEmit
+          - theme: Security
+            command: pnpm run audit
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -50,24 +76,4 @@ jobs:
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
-      - run: npx tsc --noEmit
-
-  frontend-security:
-    name: Frontend – pnpm audit
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          package_json_file: frontend/package.json
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run audit
+      - run: ${{ matrix.command }}

@@ -68,8 +68,26 @@ const Scan = () => {
   };
 
   useEffect(() => {
-    startCamera();
-    return () => stopCamera();
+    let isMounted = true;
+    (async () => {
+      if (isMounted) setError(null);
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {facingMode: "environment"},
+        });
+        if (isMounted && videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play();
+          setCameraActive(true);
+        }
+      } catch {
+        if (isMounted) setError("Impossible d'accéder à la caméra. Vérifiez les permissions.");
+      }
+    })();
+    return () => {
+      isMounted = false;
+      stopCamera();
+    };
   }, []);
 
   // Capture frame and send to ML

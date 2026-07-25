@@ -36,7 +36,25 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    checkAuth();
+    let isMounted = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/me", {credentials: "include"});
+        if (isMounted) {
+          if (res.ok) {
+            const data = await res.json();
+            setUser(data);
+          } else {
+            setUser(null);
+          }
+        }
+      } catch {
+        if (isMounted) setUser(null);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    })();
+    return () => { isMounted = false; };
   }, []);
 
   const logout = () => {

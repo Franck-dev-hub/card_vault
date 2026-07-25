@@ -1,7 +1,7 @@
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import pokemon_scrap as pokemon_manager
-# import magic_scrap as magic_manager
+from . import pokemon_scrap as pokemon_manager
+# from . import magic_scrap as magic_manager
 
 OUTPUT_DIR = Path("images")
 OUTPUT_DIR.mkdir(exist_ok=True)

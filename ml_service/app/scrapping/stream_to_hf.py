@@ -1,8 +1,8 @@
 import requests
 import os
-import pokemon_scrap as pokemon_manager
+from . import pokemon_scrap as pokemon_manager
 
-# import magic_scrap as magic_manager
+# from . import magic_scrap as magic_manager
 from datasets import Dataset, Features, Image, Value
 from huggingface_hub import login
 

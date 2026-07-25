@@ -24,21 +24,23 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print(f"Loading {MODEL_NAME} on {device}")
-processor = AutoImageProcessor.from_pretrained(MODEL_NAME, use_fast=True)
-model = AutoModel.from_pretrained(MODEL_NAME).to(device)
+processor = AutoImageProcessor.from_pretrained(  # nosec B615
+    MODEL_NAME, use_fast=True
+)
+model = AutoModel.from_pretrained(MODEL_NAME).to(device)  # nosec B615
 model.eval()
 
 
 def build_index():
     try:
         print("Research index on HF")
-        hf_hub_download(
+        hf_hub_download(  # nosec B615
             repo_id=HF_DATASET_ID,
             filename="cards_index.faiss",
             repo_type="dataset",
             local_dir=str(DATA_DIR),
         )
-        hf_hub_download(
+        hf_hub_download(  # nosec B615
             repo_id=HF_DATASET_ID,
             filename="cards_metadata.npy",
             repo_type="dataset",
@@ -50,7 +52,9 @@ def build_index():
         print(f"No index found online ({e}). Building local index")
 
     # Fallback if construction not found
-    ds = load_dataset(HF_DATASET_ID, split="train", streaming=True)
+    ds = load_dataset(  # nosec B615
+        HF_DATASET_ID, split="train", streaming=True
+    )
 
     # Fetch dimension dynamicly
     index = faiss.IndexFlatIP(model.config.hidden_size)

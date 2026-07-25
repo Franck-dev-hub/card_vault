@@ -12,6 +12,7 @@ dependencies = [
     "flake8>=7.3.0",
     "httpx>=0.28.1",
     "jwt>=1.4.0",
+    "mypy>=2.3.0",
     "passlib>=1.7.4",
     "psycopg2-binary>=2.9.11",
     "python-multipart>=0.0.22",
@@ -25,3 +26,7 @@ dependencies = [
 
 [tool.ruff]
 line-length = 79
+
+[tool.mypy]
+explicit_package_bases = true
+mypy_path = "."

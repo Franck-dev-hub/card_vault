@@ -12,7 +12,7 @@ ML_DIR = ml_service
 # Environments list for dynamic rule generation
 ENVS := dev prod preprod
 
-.PHONY: stop clean release prune help
+.PHONY: stop clean release prune help sec/front sec
 
 # === ENVIRONMENTS ===
 
@@ -29,19 +29,19 @@ preprod/up:
 
 # BUILD ALL: Rebuild all containers in environment
 dev/build: 
-	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/pnpm-lock.yaml
 	$(DCD) -v
 	docker builder prune -f
 	$(DC_DEV) up --build -d
 
 prod/build: 
-	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/pnpm-lock.yaml
 	$(DCD) -v
 	docker builder prune -f
 	$(DC_PROD) up --build -d
 
 preprod/build: 
-	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/package-lock.json
+	rm -rf $(FRONTEND_DIR)/node_modules $(FRONTEND_DIR)/pnpm-lock.yaml
 	$(DCD) -v
 	docker builder prune -f
 	$(DC_PREPROD) up --build -d
@@ -63,7 +63,7 @@ preprod/pull:
 # === LINTING ===
 
 lint/front:
-	cd $(FRONTEND_DIR) && npm run lint && npx tsc --noEmit
+	cd $(FRONTEND_DIR) && pnpm run lint && npx tsc --noEmit
 
 lint/back:
 	cd $(BACKEND_DIR) && uv run flake8 . && uv run ruff check .
@@ -72,6 +72,13 @@ lint/ml:
 	cd $(ML_DIR) && uv run flake8 . && uv run ruff check .
 
 lint: lint/front lint/back lint/ml
+
+# === SECURITY ===
+
+sec/front:
+	cd $(FRONTEND_DIR) && pnpm run audit
+
+sec: sec/front
 
 # === MAINTENANCE ===
 
@@ -114,6 +121,11 @@ help:
 	@echo "  lint/front -> ESLint + TypeScript (frontend)"
 	@echo "  lint/back  -> flake8 + ruff (backend)"
 	@echo "  lint/ml    -> flake8 + ruff (ml_service)"
+	@echo ""
+	@echo "----- SECURITY --------------------------"
+	@echo ""
+	@echo "  sec       -> Run all security checks"
+	@echo "  sec/front -> pnpm audit (frontend)"
 	@echo ""
 	@echo "----- MAINTENANCE -----------------------"
 	@echo ""

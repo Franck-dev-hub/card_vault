@@ -76,44 +76,44 @@ const Search = () => {
       .catch(console.error);
   }, []);
 
-  const fetchExtensions = async (license: string) => {
-    setLoading(true);
-    try {
-      const r = await fetch(`/api/search/${license}`, {credentials: "include"});
-      const data = await r.json();
-      setSelectedExtension(null);
-      setCards([]);
-      // Pokémon API returns oldest first — reverse to show newest first
-      // Magic API already returns newest first
-      setExtensions(license === "pokemon" ? [...data].reverse() : data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchCards = async (license: string, extension: string) => {
-    setLoading(true);
-    try {
-      const r = await fetch(`/api/search/${license}/${extension}`, {credentials: "include"});
-      const data = await r.json();
-      setCards(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!selectedLicense) return;
-    fetchExtensions(selectedLicense);
+    let isMounted = true;
+    (async () => {
+      if (isMounted) setLoading(true);
+      try {
+        const r = await fetch(`/api/search/${selectedLicense}`, {credentials: "include"});
+        const data = await r.json();
+        if (isMounted) {
+          setSelectedExtension(null);
+          setCards([]);
+          setExtensions(selectedLicense === "pokemon" ? [...data].reverse() : data);
+        }
+      } catch (err) {
+        if (isMounted) console.error(err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    })();
+    return () => { isMounted = false; };
   }, [selectedLicense]);
 
   useEffect(() => {
     if (!selectedLicense || !selectedExtension) return;
-    fetchCards(selectedLicense, selectedExtension);
+    let isMounted = true;
+    (async () => {
+      if (isMounted) setLoading(true);
+      try {
+        const r = await fetch(`/api/search/${selectedLicense}/${selectedExtension}`, {credentials: "include"});
+        const data = await r.json();
+        if (isMounted) setCards(data);
+      } catch (err) {
+        if (isMounted) console.error(err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    })();
+    return () => { isMounted = false; };
   }, [selectedExtension, selectedLicense]);
 
   const handleCardClick = (card: Card) => {

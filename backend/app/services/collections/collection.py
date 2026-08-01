@@ -57,6 +57,8 @@ class CollectionService:
             .first()
         )
 
+        deleted = False
+
         if existing:
             existing.quantity += quantity
 
@@ -65,6 +67,7 @@ class CollectionService:
             elif existing.quantity == 0:
                 # Remove entry when quantity reaches zero
                 self.db.delete(existing)
+                deleted = True
             else:
                 raise ValueError("Quantity cannot be negative")
 
@@ -84,11 +87,8 @@ class CollectionService:
 
         self.db.commit()
 
-        try:
-            if existing:
-                self.db.refresh(existing)
-        except Exception:
-            pass
+        if existing and not deleted:
+            self.db.refresh(existing)
 
         return existing
 

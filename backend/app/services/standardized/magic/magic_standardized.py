@@ -42,7 +42,11 @@ def _extract_price(data_card: Dict[str, Any]) -> Dict[str, str]:
     return eur_prices
 
 
-def standardized(raw_data: dict, extension: str = None, data_card: str = None):
+def standardized(
+    raw_data: dict,
+    extension: str | None = None,
+    data_card: str | None = None,
+):
     if data_card:
         return standardized_data_card(raw_data)
     elif extension:
@@ -57,7 +61,7 @@ def standardized(raw_data: dict, extension: str = None, data_card: str = None):
 def standardized_data_card(card: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "license": "Magic",
-        "card_id": _build_card_id(card.get("id")),
+        "card_id": _build_card_id(str(card.get("id"))),
         "card_number": card.get("collector_number"),
         "card_name": card.get("name"),
         "extension_name": card.get("set_name"),

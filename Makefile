@@ -12,7 +12,7 @@ ML_DIR = ml_service
 # Environments list for dynamic rule generation
 ENVS := dev prod preprod
 
-.PHONY: stop clean release prune help sec/front sec
+.PHONY: stop clean release prune help lint lint/front lint/back lint/ml sec sec/front sec/back sec/ml ci
 
 # === ENVIRONMENTS ===
 
@@ -66,10 +66,10 @@ lint/front:
 	cd $(FRONTEND_DIR) && pnpm run lint && npx tsc --noEmit
 
 lint/back:
-	cd $(BACKEND_DIR) && uv run flake8 . && uv run ruff check .
+	cd $(BACKEND_DIR) && uv run flake8 . && uv run ruff check . && uv run mypy .
 
 lint/ml:
-	cd $(ML_DIR) && uv run flake8 . && uv run ruff check .
+	cd $(ML_DIR) && uv run flake8 . && uv run ruff check . && uv run mypy .
 
 lint: lint/front lint/back lint/ml
 
@@ -78,7 +78,18 @@ lint: lint/front lint/back lint/ml
 sec/front:
 	cd $(FRONTEND_DIR) && pnpm run audit
 
-sec: sec/front
+sec/back:
+	cd $(BACKEND_DIR) && uv run bandit -r . --exclude ./.venv
+
+sec/ml:
+	cd $(ML_DIR) && uv run bandit -r . --exclude ./.venv
+
+sec: sec/front sec/back sec/ml
+
+# === CI ===
+
+# Run the exact same checks as .github/workflows/ci.yaml, locally
+ci: lint sec
 
 # === MAINTENANCE ===
 
@@ -119,13 +130,19 @@ help:
 	@echo ""
 	@echo "  lint       -> Run all linters"
 	@echo "  lint/front -> ESLint + TypeScript (frontend)"
-	@echo "  lint/back  -> flake8 + ruff (backend)"
-	@echo "  lint/ml    -> flake8 + ruff (ml_service)"
+	@echo "  lint/back  -> flake8 + ruff + mypy (backend)"
+	@echo "  lint/ml    -> flake8 + ruff + mypy (ml_service)"
 	@echo ""
-	@echo "----- SECURITY --------------------------"
+	@echo "----- SECURITY ---------------------------"
 	@echo ""
 	@echo "  sec       -> Run all security checks"
 	@echo "  sec/front -> pnpm audit (frontend)"
+	@echo "  sec/back  -> bandit (backend)"
+	@echo "  sec/ml    -> bandit (ml_service)"
+	@echo ""
+	@echo "----- CI ---------------------------------"
+	@echo ""
+	@echo "  ci -> Run the same checks as CI locally"
 	@echo ""
 	@echo "----- MAINTENANCE -----------------------"
 	@echo ""

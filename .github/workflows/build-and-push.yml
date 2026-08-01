@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build-and-push:
-    name: Build and Push Docker Images to GHCR
+    name: Build, Scan and Push Docker Images to GHCR
     runs-on: ubuntu-latest
 
     steps:
@@ -48,14 +48,35 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Build & push backed image
-      - name: Build and push backend
+      # Build backend image locally for scanning
+      - name: Build backend image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-backend.outputs.tags }}
-          labels: ${{ steps.meta-backend.outputs.labels }}
+          push: false
+          load: true
+          tags: ghcr.io/${{ github.repository }}/backend:${{ github.sha }}
+
+      # Scan backend image before pushing
+      - name: Scan backend image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/backend:${{ github.sha }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+
+      # Push backend image (blocking scan already passed)
+      - name: Push backend image
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta-backend.outputs.tags }}
+        run: |
+          for tag in $TAGS; do
+            docker tag ghcr.io/${{ github.repository }}/backend:${{ github.sha }} "$tag"
+            docker push "$tag"
+          done
 
       # Docker meta for frontend
       - name: Docker meta for frontend
@@ -71,14 +92,35 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Build & push frontend image
-      - name: Build and push frontend
+      # Build frontend image locally for scanning
+      - name: Build frontend image
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-frontend.outputs.tags }}
-          labels: ${{ steps.meta-frontend.outputs.labels }}
+          push: false
+          load: true
+          tags: ghcr.io/${{ github.repository }}/frontend:${{ github.sha }}
+
+      # Scan frontend image before pushing
+      - name: Scan frontend image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/frontend:${{ github.sha }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+
+      # Push frontend image (blocking scan already passed)
+      - name: Push frontend image
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta-frontend.outputs.tags }}
+        run: |
+          for tag in $TAGS; do
+            docker tag ghcr.io/${{ github.repository }}/frontend:${{ github.sha }} "$tag"
+            docker push "$tag"
+          done
 
       # Docker meta for ml_service
       - name: Docker meta for ml_service
@@ -94,14 +136,35 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Build & push ml_service image
-      - name: Build and push ml_service
+      # Build ml_service image locally for scanning
+      - name: Build ml_service image
         uses: docker/build-push-action@v5
         with:
           context: ./ml_service
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-ml.outputs.tags }}
-          labels: ${{ steps.meta-ml.outputs.labels }}
+          push: false
+          load: true
+          tags: ghcr.io/${{ github.repository }}/ml-service:${{ github.sha }}
+
+      # Scan ml_service image before pushing
+      - name: Scan ml_service image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/ml-service:${{ github.sha }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+
+      # Push ml_service image (blocking scan already passed)
+      - name: Push ml_service image
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta-ml.outputs.tags }}
+        run: |
+          for tag in $TAGS; do
+            docker tag ghcr.io/${{ github.repository }}/ml-service:${{ github.sha }} "$tag"
+            docker push "$tag"
+          done
 
       # Docker meta for proxy
       - name: Docker meta for proxy
@@ -117,14 +180,35 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=preprod,enable=${{ github.ref == 'refs/heads/preprod' }}
 
-      # Build & push proxy image
-      - name: Build and push proxy
+      # Build proxy image locally for scanning
+      - name: Build proxy image
         uses: docker/build-push-action@v5
         with:
           context: ./proxy
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-proxy.outputs.tags }}
-          labels: ${{ steps.meta-proxy.outputs.labels }}
+          push: false
+          load: true
+          tags: ghcr.io/${{ github.repository }}/proxy:${{ github.sha }}
+
+      # Scan proxy image before pushing
+      - name: Scan proxy image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/proxy:${{ github.sha }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+
+      # Push proxy image (blocking scan already passed)
+      - name: Push proxy image
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta-proxy.outputs.tags }}
+        run: |
+          for tag in $TAGS; do
+            docker tag ghcr.io/${{ github.repository }}/proxy:${{ github.sha }} "$tag"
+            docker push "$tag"
+          done
 
       # Create deployment on GitHub for tracability
       - name: Create GitHub Deployment
@@ -139,7 +223,7 @@ jobs:
               environment: 'production',
               auto_merge: false,
               required_contexts: [],
-              description: `Built and pushed images to GHCR: backend, frontend, ml-service, proxy (${{ github.sha }})`,
+              description: `Built, scanned and pushed images to GHCR: backend, frontend, ml-service, proxy (${{ github.sha }})`,
               transient_environment: false
             });
 
@@ -151,5 +235,5 @@ jobs:
               state: 'success',
               environment: 'production',
               environment_url: 'https://card-vault.franck-dev-hub.com',
-              description: 'Images built and pushed to GHCR successfully'
+              description: 'Images built, scanned and pushed to GHCR successfully'
             });
